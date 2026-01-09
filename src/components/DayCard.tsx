@@ -10,12 +10,12 @@ interface DayCardProps {
 }
 
 const DayCard = ({ day, onClick, index, isSelected }: DayCardProps) => {
-  // Gentle spring for smooth shared element transitions
+  // Snappy spring for fast shared element transitions
   const layoutTransition = {
     type: "spring" as const,
-    stiffness: 350,
-    damping: 30,
-    mass: 1,
+    stiffness: 500,
+    damping: 35,
+    mass: 0.8,
   };
 
   return (
