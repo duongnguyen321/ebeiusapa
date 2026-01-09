@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
-import { Power, Gift, Heart } from 'lucide-react';
-import { useState } from 'react';
+import { Heart } from 'lucide-react';
+import { useState, useRef } from 'react';
 import type { DaySchedule } from '@/data/itinerary';
 import type { ActiveTimelineState } from '@/hooks/useActiveTimeline';
 import DayCard from './DayCard';
@@ -9,6 +9,7 @@ import EmergencyPanel from './EmergencyPanel';
 import { ScratchCard } from './ScratchCard';
 import { LetterCard, SecretLetter } from './SecretLetter';
 import { loveLetters } from '@/data/letters';
+import BottomNavbar from './BottomNavbar';
 
 interface TimelineViewProps {
 	itinerary: DaySchedule[];
@@ -28,49 +29,32 @@ const TimelineView = ({
 	const [showScratchCard, setShowScratchCard] = useState(false);
 	const [selectedLetter, setSelectedLetter] = useState<number | null>(null);
 	const [showLetters, setShowLetters] = useState(false);
+	const [showEmergency, setShowEmergency] = useState(false);
+	const containerRef = useRef<HTMLDivElement>(null);
 
 	return (
 		<motion.div
 			key='timeline'
-			className='min-h-screen p-6 md:p-12 relative z-10'
+			ref={containerRef}
+			className='min-h-screen p-6 pb-24 md:p-12 md:pb-28 relative z-10'
 			initial={{ opacity: 0, scale: 1.02 }}
 			animate={{ opacity: 1, scale: 1 }}
 			transition={{ type: 'spring', stiffness: 200, damping: 30, mass: 1 }}
 		>
-			{/* Emergency Panel - Floating Button */}
-			<EmergencyPanel />
+			{/* Emergency Panel */}
+			<EmergencyPanel
+				isOpen={showEmergency}
+				onClose={() => setShowEmergency(false)}
+			/>
 
-			{/* Feature Buttons - Fixed Left */}
-			<div className='fixed left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 flex flex-col gap-3'>
-				<motion.button
-					whileHover={{ scale: 1.1 }}
-					whileTap={{ scale: 0.95 }}
-					onClick={() => setShowScratchCard(true)}
-					className='w-12 h-12 md:w-14 md:h-14 flex items-center justify-center glass-card rounded-full shadow-lg hover:shadow-glow-active transition-all'
-					aria-label='Thẻ cào may mắn'
-				>
-					<Gift className='w-5 h-5 md:w-6 md:h-6 text-amber-400' />
-				</motion.button>
-
-				<motion.button
-					whileHover={{ scale: 1.1 }}
-					whileTap={{ scale: 0.95 }}
-					onClick={() => setShowLetters(!showLetters)}
-					className='w-12 h-12 md:w-14 md:h-14 flex items-center justify-center glass-card rounded-full shadow-lg hover:shadow-glow-active transition-all'
-					aria-label='Thư tình'
-				>
-					<Heart className='w-5 h-5 md:w-6 md:h-6 text-pink-400' />
-				</motion.button>
-			</div>
-
-			{/* Exit Button - Floating Action Button (Bottom Right) */}
-			<button
-				onClick={onReset}
-				className='fixed bottom-8 right-8 z-20 w-14 h-14 flex items-center justify-center glass-panel rounded-full hover:bg-white/20 transition-all hover:scale-110 shadow-2xl'
-				aria-label='Thoát'
-			>
-				<Power className='w-6 h-6 text-white' />
-			</button>
+			{/* Bottom Navigation Bar - Liquid Glass Style */}
+			<BottomNavbar
+				onEmergency={() => setShowEmergency(true)}
+				onScratchCard={() => setShowScratchCard(true)}
+				onLetters={() => setShowLetters(!showLetters)}
+				onExit={onReset}
+				showLettersActive={showLetters}
+			/>
 
 			<div className='max-w-4xl mx-auto'>
 				{/* Header */}

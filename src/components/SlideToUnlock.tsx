@@ -66,7 +66,7 @@ const SlideToUnlock = ({ onUnlock }: SlideToUnlockProps) => {
 
 			<div className='absolute inset-0 flex items-center justify-center text-white/50 text-sm font-medium tracking-wider'>
 				<ChevronRight className='w-5 h-5 mr-2 animate-pulse' />
-				TRƯỢT ĐỂ BẮT ĐẦU HÀNH TRÌNH
+				BẮT ĐẦU HÀNH TRÌNH
 				<ChevronRight className='w-5 h-5 ml-2 animate-pulse' />
 			</div>
 
