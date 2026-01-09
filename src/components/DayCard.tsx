@@ -10,12 +10,12 @@ interface DayCardProps {
 }
 
 const DayCard = ({ day, onClick, index, isSelected }: DayCardProps) => {
-  // Snappy spring for fast shared element transitions
+  // Very fast spring - matches modal speed
   const layoutTransition = {
     type: "spring" as const,
-    stiffness: 500,
+    stiffness: 700,
     damping: 35,
-    mass: 0.8,
+    mass: 0.5,
   };
 
   return (
@@ -54,41 +54,25 @@ const DayCard = ({ day, onClick, index, isSelected }: DayCardProps) => {
         {/* Header */}
         <div className="flex items-start justify-between mb-4">
           <div>
-            <motion.div 
-              layoutId={`day-date-${day.id}`}
-              transition={{ layout: layoutTransition }}
-              className="flex items-center gap-2 text-amber-400 mb-1"
-            >
+            <div className="flex items-center gap-2 text-amber-400 mb-1">
               <Calendar className="w-4 h-4" />
               <span className="text-sm font-medium">Ngày {day.id}</span>
-            </motion.div>
-            <motion.h3 
-              layoutId={`day-title-${day.id}`}
-              transition={{ layout: layoutTransition }}
-              className="font-display text-2xl md:text-3xl text-white"
-            >
+            </div>
+            <h3 className="font-display text-2xl md:text-3xl text-white">
               {day.dateLabel}
-            </motion.h3>
+            </h3>
           </div>
 
-          <motion.div 
-            layoutId={`day-weather-${day.id}`}
-            transition={{ layout: layoutTransition }}
-            className="text-4xl"
-          >
+          <div className="text-4xl">
             {day.weather.icon}
-          </motion.div>
+          </div>
         </div>
 
         {/* Subtitle */}
-        <motion.p 
-          layoutId={`day-subtitle-${day.id}`}
-          transition={{ layout: layoutTransition }}
-          className="text-white/70 font-medium mb-4 flex items-center gap-2"
-        >
+        <p className="text-white/70 font-medium mb-4 flex items-center gap-2">
           {day.isBirthday && <Sparkles className="w-4 h-4 text-amber-400" />}
           {day.title}
-        </motion.p>
+        </p>
 
         {/* Quick info */}
         <div className="flex flex-wrap gap-3 text-sm text-white/50">
