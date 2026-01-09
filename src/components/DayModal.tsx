@@ -24,7 +24,6 @@ const DayModal = ({ day, onClose }: DayModalProps) => {
   const [showBirthdayMessage, setShowBirthdayMessage] = useState(false);
 
   const triggerConfetti = () => {
-    // First burst
     confetti({
       particleCount: 100,
       spread: 70,
@@ -32,7 +31,6 @@ const DayModal = ({ day, onClose }: DayModalProps) => {
       colors: ['#f59e0b', '#fbbf24', '#fcd34d', '#ec4899', '#f472b6'],
     });
 
-    // Side bursts
     setTimeout(() => {
       confetti({
         particleCount: 50,
@@ -54,12 +52,20 @@ const DayModal = ({ day, onClose }: DayModalProps) => {
     setTimeout(() => setShowBirthdayMessage(false), 4000);
   };
 
+  // Gentle spring for smooth shared element transitions
+  const layoutTransition = {
+    type: "spring" as const,
+    stiffness: 350,
+    damping: 30,
+    mass: 1,
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.15 }}
+      transition={{ duration: 0.2 }}
       className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6"
       onClick={onClose}
     >
@@ -68,18 +74,16 @@ const DayModal = ({ day, onClose }: DayModalProps) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        transition={{ duration: 0.15 }}
+        transition={{ duration: 0.2 }}
         className="absolute inset-0 bg-slate-950/90 backdrop-blur-md"
       />
 
-      {/* Modal - simple scale animation instead of layoutId */}
+      {/* Modal with shared element transition - z-[60] to stay above cards */}
       <motion.div
-        initial={{ opacity: 0, scale: 0.95, y: 20 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.98, y: 10 }}
-        transition={{ type: "spring", stiffness: 500, damping: 30 }}
+        layoutId={`day-card-${day.id}`}
+        transition={{ layout: layoutTransition }}
         onClick={(e) => e.stopPropagation()}
-        className="relative rounded-3xl w-full max-w-lg max-h-[90vh] overflow-hidden border border-white/[0.12] shadow-2xl"
+        className="relative rounded-3xl w-full max-w-lg max-h-[90vh] overflow-hidden border border-white/[0.12] shadow-2xl z-[60]"
         style={{ background: "rgba(15, 23, 42, 0.95)", backdropFilter: "blur(40px)" }}
       >
         {/* Birthday gradient */}
@@ -87,26 +91,50 @@ const DayModal = ({ day, onClose }: DayModalProps) => {
           <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 via-pink-500/5 to-purple-500/5" />
         )}
 
-        {/* Scrollable content */}
-        <div className="relative z-10 overflow-y-auto max-h-[90vh] scrollbar-hide">
+        {/* Scrollable content with fade in */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.15, delay: 0.1 }}
+          className="relative z-10 overflow-y-auto max-h-[90vh] scrollbar-hide"
+        >
           {/* Header */}
-          <div className="sticky top-0 z-20 border-0 border-b border-white/10 p-6" style={{ background: "rgba(15, 23, 42, 0.98)", backdropFilter: "blur(40px)" }}>
+          <div 
+            className="sticky top-0 z-20 border-0 border-b border-white/10 p-6" 
+            style={{ background: "rgba(15, 23, 42, 0.98)", backdropFilter: "blur(40px)" }}
+          >
             <div className="flex items-start justify-between">
               <div>
-                <div className="flex items-center gap-2 text-amber-400 mb-1">
+                <motion.div 
+                  layoutId={`day-date-${day.id}`}
+                  transition={{ layout: layoutTransition }}
+                  className="flex items-center gap-2 text-amber-400 mb-1"
+                >
                   <Calendar className="w-4 h-4" />
                   <span className="text-sm font-medium">Ngày {day.id}</span>
-                </div>
-                <h2 className="font-display text-3xl md:text-4xl text-white">
+                </motion.div>
+                <motion.h2 
+                  layoutId={`day-title-${day.id}`}
+                  transition={{ layout: layoutTransition }}
+                  className="font-display text-3xl md:text-4xl text-white"
+                >
                   {day.dateLabel}
-                </h2>
+                </motion.h2>
               </div>
 
               <div className="flex items-center gap-3">
-                <div className="text-4xl">
+                <motion.div 
+                  layoutId={`day-weather-${day.id}`}
+                  transition={{ layout: layoutTransition }}
+                  className="text-4xl"
+                >
                   {day.weather.icon}
-                </div>
+                </motion.div>
                 <motion.button
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.15 }}
                   whileTap={{ scale: 0.9 }}
                   onClick={onClose}
                   className="glass-button p-2 rounded-full"
@@ -116,10 +144,14 @@ const DayModal = ({ day, onClose }: DayModalProps) => {
               </div>
             </div>
 
-            <p className="text-white/70 font-medium mt-2 flex items-center gap-2">
+            <motion.p 
+              layoutId={`day-subtitle-${day.id}`}
+              transition={{ layout: layoutTransition }}
+              className="text-white/70 font-medium mt-2 flex items-center gap-2"
+            >
               {day.isBirthday && <Sparkles className="w-4 h-4 text-amber-400" />}
               {day.title}
-            </p>
+            </motion.p>
           </div>
 
           {/* Content */}
@@ -157,7 +189,7 @@ const DayModal = ({ day, onClose }: DayModalProps) => {
                     type: "spring", 
                     stiffness: 400, 
                     damping: 30,
-                    delay: index * 0.05 
+                    delay: 0.1 + index * 0.05 
                   }}
                   className={`relative pl-6 pb-6 border-l-2 ${
                     item.isHighlight ? 'border-amber-500/50' : 'border-white/10'
@@ -219,18 +251,18 @@ const DayModal = ({ day, onClose }: DayModalProps) => {
               ))}
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Birthday floating button */}
         {day.isBirthday && (
           <motion.button
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
-            transition={{ type: "spring", stiffness: 400, damping: 15, delay: 0.5 }}
+            transition={{ type: "spring", stiffness: 400, damping: 15, delay: 0.3 }}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={triggerConfetti}
-            className="fixed bottom-8 right-8 w-16 h-16 rounded-full bg-gradient-to-br from-pink-500 to-rose-600 shadow-lg shadow-pink-500/30 flex items-center justify-center z-50"
+            className="fixed bottom-8 right-8 w-16 h-16 rounded-full bg-gradient-to-br from-pink-500 to-rose-600 shadow-lg shadow-pink-500/30 flex items-center justify-center z-[70]"
           >
             <motion.div
               animate={{ scale: [1, 1.2, 1] }}
@@ -249,7 +281,7 @@ const DayModal = ({ day, onClose }: DayModalProps) => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.5, y: 50 }}
               transition={{ type: "spring", stiffness: 400, damping: 25 }}
-              className="fixed inset-x-4 bottom-28 mx-auto max-w-sm rounded-3xl p-6 text-center z-50 border border-pink-500/30 shadow-2xl"
+              className="fixed inset-x-4 bottom-28 mx-auto max-w-sm rounded-3xl p-6 text-center z-[80] border border-pink-500/30 shadow-2xl"
               style={{ background: "rgba(15, 23, 42, 0.95)", backdropFilter: "blur(40px)" }}
             >
               <motion.div

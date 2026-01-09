@@ -9,8 +9,17 @@ interface DayCardProps {
 }
 
 const DayCard = ({ day, onClick, index }: DayCardProps) => {
+  // Gentle spring for smooth shared element transitions
+  const layoutTransition = {
+    type: "spring" as const,
+    stiffness: 350,
+    damping: 30,
+    mass: 1,
+  };
+
   return (
     <motion.div
+      layoutId={`day-card-${day.id}`}
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{
@@ -18,6 +27,7 @@ const DayCard = ({ day, onClick, index }: DayCardProps) => {
         stiffness: 400,
         damping: 30,
         delay: index * 0.08,
+        layout: layoutTransition,
       }}
       whileHover={{ y: -6, transition: { type: "spring", stiffness: 400, damping: 25 } }}
       whileTap={{ scale: 0.98 }}
@@ -42,25 +52,41 @@ const DayCard = ({ day, onClick, index }: DayCardProps) => {
         {/* Header */}
         <div className="flex items-start justify-between mb-4">
           <div>
-            <div className="flex items-center gap-2 text-amber-400 mb-1">
+            <motion.div 
+              layoutId={`day-date-${day.id}`}
+              transition={{ layout: layoutTransition }}
+              className="flex items-center gap-2 text-amber-400 mb-1"
+            >
               <Calendar className="w-4 h-4" />
               <span className="text-sm font-medium">Ngày {day.id}</span>
-            </div>
-            <h3 className="font-display text-2xl md:text-3xl text-white">
+            </motion.div>
+            <motion.h3 
+              layoutId={`day-title-${day.id}`}
+              transition={{ layout: layoutTransition }}
+              className="font-display text-2xl md:text-3xl text-white"
+            >
               {day.dateLabel}
-            </h3>
+            </motion.h3>
           </div>
 
-          <div className="text-4xl">
+          <motion.div 
+            layoutId={`day-weather-${day.id}`}
+            transition={{ layout: layoutTransition }}
+            className="text-4xl"
+          >
             {day.weather.icon}
-          </div>
+          </motion.div>
         </div>
 
         {/* Subtitle */}
-        <p className="text-white/70 font-medium mb-4 flex items-center gap-2">
+        <motion.p 
+          layoutId={`day-subtitle-${day.id}`}
+          transition={{ layout: layoutTransition }}
+          className="text-white/70 font-medium mb-4 flex items-center gap-2"
+        >
           {day.isBirthday && <Sparkles className="w-4 h-4 text-amber-400" />}
           {day.title}
-        </p>
+        </motion.p>
 
         {/* Quick info */}
         <div className="flex flex-wrap gap-3 text-sm text-white/50">
