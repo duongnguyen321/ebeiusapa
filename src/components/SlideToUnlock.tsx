@@ -1,102 +1,62 @@
-import { useState, useRef } from "react";
-import { motion, useMotionValue, useTransform, animate } from "framer-motion";
-import { ChevronRight, Sparkles } from "lucide-react";
+import { useRef } from "react";
+import { motion, useMotionValue, useTransform } from "framer-motion";
+import { ChevronRight } from "lucide-react";
 
 interface SlideToUnlockProps {
   onUnlock: () => void;
 }
 
 const SlideToUnlock = ({ onUnlock }: SlideToUnlockProps) => {
-  const [isDragging, setIsDragging] = useState(false);
-  const constraintsRef = useRef<HTMLDivElement>(null);
+  const constraintsRef = useRef(null);
   const x = useMotionValue(0);
-  const trackWidth = 280;
-  const thumbSize = 56;
-  const maxDrag = trackWidth - thumbSize - 8;
+  const UNLOCK_THRESHOLD = 200;
+  const MAX_DRAG = 340;
 
-  const progress = useTransform(x, [0, maxDrag], [0, 1]);
-  const textOpacity = useTransform(x, [0, maxDrag * 0.3], [1, 0]);
-  const bgOpacity = useTransform(x, [0, maxDrag], [0.1, 0.3]);
-  const thumbScale = useTransform(x, [maxDrag * 0.8, maxDrag], [1, 1.1]);
+  // Transform x position to progress bar width
+  const progressWidth = useTransform(x, [0, MAX_DRAG], [56, MAX_DRAG + 56]);
 
-  const handleDragEnd = () => {
-    setIsDragging(false);
-    const currentX = x.get();
-    
-    if (currentX >= maxDrag * 0.9) {
-      animate(x, maxDrag, { type: "spring", stiffness: 400, damping: 30 });
-      setTimeout(onUnlock, 200);
+  const handleDragEnd = (_: any, info: any) => {
+    if (info.offset.x > UNLOCK_THRESHOLD) {
+      onUnlock();
     } else {
-      animate(x, 0, { type: "spring", stiffness: 400, damping: 30 });
+      // Reset to start with spring animation
+      x.set(0);
     }
   };
 
   return (
-    <div className="relative">
-      <motion.div
-        ref={constraintsRef}
-        className="relative glass-panel rounded-full overflow-hidden"
+    <div 
+      ref={constraintsRef}
+      className="relative w-full max-w-md mx-auto h-16 glass-panel rounded-full overflow-hidden"
+    >
+      <div className="absolute inset-0 flex items-center justify-center text-white/40 text-sm font-medium tracking-wider">
+        <ChevronRight className="w-5 h-5 mr-2 animate-pulse" />
+        TRƯỢT ĐỂ BẮT ĐẦU HÀNH TRÌNH
+        <ChevronRight className="w-5 h-5 ml-2 animate-pulse" />
+      </div>
+      
+      {/* Progress bar */}
+      <motion.div 
+        className="absolute left-0 top-0 bottom-0 bg-amber-500/10 pointer-events-none"
         style={{ 
-          width: trackWidth, 
-          height: thumbSize + 8,
+          width: progressWidth,
+          willChange: "width"
         }}
+      />
+      
+      {/* Draggable slider */}
+      <motion.div
+        drag="x"
+        dragConstraints={{ left: 0, right: MAX_DRAG }}
+        dragElastic={0}
+        dragMomentum={false}
+        onDragEnd={handleDragEnd}
+        style={{ x, willChange: "transform" }}
+        className="absolute left-2 top-2 bottom-2 w-12 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full cursor-grab active:cursor-grabbing flex items-center justify-center shadow-lg z-10"
+        whileTap={{ scale: 0.97 }}
+        transition={{ type: "spring", stiffness: 300, damping: 40, mass: 0.8 }}
       >
-        {/* Animated background fill */}
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-r from-amber-500/20 to-amber-400/30"
-          style={{ opacity: bgOpacity, scaleX: progress, transformOrigin: "left" }}
-        />
-
-        {/* Shimmer effect */}
-        <div className="absolute inset-0 overflow-hidden rounded-full">
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"
-            animate={{ x: ["-100%", "100%"] }}
-            transition={{ duration: 2, repeat: Infinity, repeatDelay: 1 }}
-          />
-        </div>
-
-        {/* Text */}
-        <motion.div
-          className="absolute inset-0 flex items-center justify-center pl-14"
-          style={{ opacity: textOpacity }}
-        >
-          <span className="text-sm text-white/60 font-medium tracking-wide flex items-center gap-2">
-            <Sparkles className="w-4 h-4" />
-            Trượt để khám phá
-            <ChevronRight className="w-4 h-4 animate-pulse" />
-          </span>
-        </motion.div>
-
-        {/* Draggable thumb */}
-        <motion.div
-          className="absolute top-1 left-1 cursor-grab active:cursor-grabbing"
-          style={{ x, scale: thumbScale }}
-          drag="x"
-          dragConstraints={{ left: 0, right: maxDrag }}
-          dragElastic={0.1}
-          onDragStart={() => setIsDragging(true)}
-          onDragEnd={handleDragEnd}
-          whileTap={{ scale: 0.95 }}
-        >
-          <div 
-            className={`
-              flex items-center justify-center rounded-full
-              bg-gradient-to-br from-amber-400 to-amber-600
-              shadow-lg shadow-amber-500/30
-              transition-shadow duration-300
-              ${isDragging ? 'shadow-amber-500/50' : ''}
-            `}
-            style={{ width: thumbSize, height: thumbSize }}
-          >
-            <motion.div
-              animate={{ x: [0, 4, 0] }}
-              transition={{ duration: 1, repeat: Infinity }}
-            >
-              <ChevronRight className="w-6 h-6 text-slate-900" />
-            </motion.div>
-          </div>
-        </motion.div>
+        <ChevronRight className="w-6 h-6 text-white" />
       </motion.div>
     </div>
   );

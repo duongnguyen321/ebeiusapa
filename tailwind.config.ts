@@ -14,6 +14,7 @@ export default {
     },
     extend: {
       fontFamily: {
+        playfair: ["Playfair Display", "Georgia", "serif"],
         display: ["Playfair Display", "Georgia", "serif"],
         sans: ["Inter", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
       },

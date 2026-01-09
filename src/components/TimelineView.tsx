@@ -1,89 +1,76 @@
-import { useState, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { MapPin, Heart, CalendarDays } from "lucide-react";
+import { motion } from "framer-motion";
+import { Power } from "lucide-react";
+import type { DaySchedule } from "@/data/itinerary";
 import DayCard from "./DayCard";
-import DayModal from "./DayModal";
-import { itinerary, type DaySchedule } from "@/data/itinerary";
 
-const TimelineView = () => {
-  const [selectedDay, setSelectedDay] = useState<DaySchedule | null>(null);
-  const [animatingDayId, setAnimatingDayId] = useState<number | null>(null);
+interface TimelineViewProps {
+  itinerary: DaySchedule[];
+  expandedDay: number | null;
+  onToggleDay: (dayId: number) => void;
+  onReset: () => void;
+}
 
-  const handleCloseModal = () => {
-    if (selectedDay) {
-      setAnimatingDayId(selectedDay.id);
-      setSelectedDay(null);
-      // Keep z-index elevated during close animation
-      setTimeout(() => setAnimatingDayId(null), 400);
-    }
-  };
-
+const TimelineView = ({ 
+  itinerary, 
+  expandedDay, 
+  onToggleDay,
+  onReset
+}: TimelineViewProps) => {
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.95 }}
+      key="timeline"
+      className="min-h-screen p-6 md:p-12 relative z-10"
+      initial={{ opacity: 0, scale: 1.02 }}
       animate={{ opacity: 1, scale: 1 }}
-      transition={{ type: "spring", stiffness: 300, damping: 30 }}
-      className="min-h-screen py-8 px-4 md:px-6"
+      transition={{ type: "spring", stiffness: 200, damping: 30, mass: 1 }}
     >
-      <div className="max-w-lg mx-auto">
+      {/* Exit Button - Floating Action Button (Bottom Right) */}
+      <button
+        onClick={onReset}
+        className="fixed bottom-8 right-8 z-20 w-14 h-14 flex items-center justify-center glass-panel rounded-full hover:bg-white/20 transition-all hover:scale-110 shadow-2xl"
+        aria-label="Thoát"
+      >
+        <Power className="w-6 h-6 text-white" />
+      </button>
+
+      <div className="max-w-4xl mx-auto">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ type: "spring", stiffness: 400, damping: 30, delay: 0.2 }}
-          className="text-center mb-10"
+          className="text-center mb-8 md:mb-12"
+          initial={{ y: -20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel mb-4">
-            <MapPin className="w-4 h-4 text-amber-400" />
-            <span className="text-sm text-white/70">Sapa, Việt Nam</span>
-          </div>
-
-          <h1 className="font-display text-4xl md:text-5xl mb-2">
-            <span className="text-gradient">THE MISTY</span>
-            <span className="text-white"> DATE</span>
+          <h1 className="text-3xl md:text-4xl lg:text-6xl font-playfair text-white mb-2 md:mb-3">
+            THE MISTY DATE
           </h1>
-
-          <p className="text-white/50 flex items-center justify-center gap-2">
-            <CalendarDays className="w-4 h-4" />
-            <span>15 - 18 Tháng 1, 2026</span>
+          <p className="text-sm md:text-base text-white/60">
+            Hành trình 4 ngày 3 đêm tại Sapa
           </p>
         </motion.div>
-
-        {/* Day Cards */}
-        <div className="space-y-4 relative">
-          {itinerary.map((day, index) => (
-            <DayCard
+        
+        <div className="space-y-4">
+          {itinerary.map((day, idx) => (
+            <motion.div
               key={day.id}
-              day={day}
-              index={index}
-              onClick={() => setSelectedDay(day)}
-              isSelected={selectedDay?.id === day.id || animatingDayId === day.id}
-            />
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ 
+                delay: idx * 0.08,
+                type: "spring",
+                stiffness: 200,
+                damping: 30,
+                mass: 0.8
+              }}
+            >
+              <DayCard
+                day={day}
+                isExpanded={expandedDay === day.id}
+                onToggle={() => onToggleDay(day.id)}
+              />
+            </motion.div>
           ))}
         </div>
-
-        {/* Footer */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.8 }}
-          className="text-center mt-12 pb-8"
-        >
-          <p className="text-white/30 text-sm flex items-center justify-center gap-2">
-            Made with <Heart className="w-4 h-4 text-pink-500 fill-pink-500" /> for you
-          </p>
-        </motion.div>
       </div>
-
-      {/* Modal */}
-      <AnimatePresence>
-        {selectedDay && (
-          <DayModal 
-            day={selectedDay} 
-            onClose={handleCloseModal} 
-          />
-        )}
-      </AnimatePresence>
     </motion.div>
   );
 };

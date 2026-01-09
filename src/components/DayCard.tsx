@@ -1,101 +1,197 @@
 import { motion } from "framer-motion";
-import { Calendar, Thermometer, Shirt, Sparkles } from "lucide-react";
+import { X, Clock, Heart } from "lucide-react";
+import { useEffect } from "react";
 import type { DaySchedule } from "@/data/itinerary";
+import WeatherIcon from "./WeatherIcon";
+import TimelineItem from "./TimelineItem";
+import confetti from "canvas-confetti";
 
 interface DayCardProps {
   day: DaySchedule;
-  onClick: () => void;
-  index: number;
-  isSelected?: boolean;
+  isExpanded: boolean;
+  onToggle: () => void;
 }
 
-const DayCard = ({ day, onClick, index, isSelected }: DayCardProps) => {
-  // Very fast spring - matches modal speed
-  const layoutTransition = {
-    type: "spring" as const,
-    stiffness: 100,
-    damping: 35,
-    mass: 0.5,
-  };
+const DayCard = ({ day, isExpanded, onToggle }: DayCardProps) => {
+  // Auto-trigger confetti when birthday modal opens
+  useEffect(() => {
+    if (isExpanded && day.isBirthday) {
+      const duration = 3000;
+      const animationEnd = Date.now() + duration;
+      const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 9999 };
 
+      const randomInRange = (min: number, max: number) => 
+        Math.random() * (max - min) + min;
+
+      const interval = setInterval(() => {
+        const timeLeft = animationEnd - Date.now();
+
+        if (timeLeft <= 0) {
+          return clearInterval(interval);
+        }
+
+        const particleCount = 50 * (timeLeft / duration);
+
+        confetti({
+          ...defaults,
+          particleCount,
+          origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 }
+        });
+        confetti({
+          ...defaults,
+          particleCount,
+          origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }
+        });
+      }, 250);
+
+      return () => clearInterval(interval);
+    }
+  }, [isExpanded, day.isBirthday]);
+
+  if (isExpanded) {
+    return (
+      <>
+        {/* Backdrop - renders first */}
+        <motion.div
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[90]"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.15 }}
+          onClick={onToggle}
+        />
+        
+        {/* Content - fullscreen on mobile, inset on desktop */}
+        <motion.div
+          layoutId={`day-${day.id}`}
+          className="fixed inset-0 md:inset-8 z-[100] glass-panel md:rounded-3xl overflow-hidden pointer-events-auto"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ 
+            type: "spring", 
+            stiffness: 600, 
+            damping: 20,
+            mass: 0.4
+          }}
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* Close Button - Prominent */}
+          <button
+            onClick={onToggle}
+            className="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center glass-panel rounded-full hover:bg-white/20 transition-colors"
+            aria-label="Đóng"
+          >
+            <X className="w-5 h-5 text-white" />
+          </button>
+
+          <div className="h-full overflow-y-auto p-4 md:p-6 lg:p-8 scrollbar-hide">
+            {/* Header */}
+            <div className="mb-4 md:mb-6 pr-12">
+              <div className="flex items-start justify-between mb-3 md:mb-4">
+                <div>
+                  <motion.div
+                    className="text-4xl md:text-5xl lg:text-6xl font-playfair text-white mb-1 md:mb-2"
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.1 }}
+                  >
+                    Ngày {day.id}
+                  </motion.div>
+                  <motion.h2
+                    className="text-xl md:text-2xl lg:text-3xl font-playfair text-amber-400 mb-1 md:mb-2"
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.15 }}
+                  >
+                    {day.title}
+                  </motion.h2>
+                  <motion.p
+                    className="text-sm md:text-base text-white/60"
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.2 }}
+                  >
+                    {day.dateLabel}
+                  </motion.p>
+                </div>
+                
+                <WeatherIcon 
+                  icon={day.weather.icon} 
+                  className="w-10 h-10 md:w-12 md:h-12 text-amber-400" 
+                />
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-3 text-xs md:text-sm">
+                <div className="glass-panel p-2 md:p-3 rounded-lg md:rounded-xl">
+                  <div className="text-white/50 mb-0.5 md:mb-1">Thời tiết</div>
+                  <div className="text-white">{day.weather.description}</div>
+                </div>
+                <div className="glass-panel p-2 md:p-3 rounded-lg md:rounded-xl">
+                  <div className="text-white/50 mb-0.5 md:mb-1">Nhiệt độ</div>
+                  <div className="text-amber-400">{day.weather.temp}</div>
+                </div>
+                <div className="glass-panel p-2 md:p-3 rounded-lg md:rounded-xl md:col-span-2">
+                  <div className="text-white/50 mb-0.5 md:mb-1">Outfit gợi ý</div>
+                  <div className="text-white">{day.outfit}</div>
+                </div>
+              </div>
+            </div>
+            
+            {/* Timeline */}
+            <div className="space-y-2 md:space-y-3">
+              <h3 className="text-white font-semibold text-base md:text-lg mb-3 md:mb-4 flex items-center gap-2">
+                <Clock className="w-4 h-4 md:w-5 md:h-5 text-amber-400" />
+                Lịch trình
+              </h3>
+              {day.timeline.map((item, idx) => (
+                <TimelineItem key={idx} item={item} />
+              ))}
+            </div>
+          </div>
+        </motion.div>
+      </>
+    );
+  }
+
+  // Collapsed state
   return (
     <motion.div
-      layoutId={`day-card-${day.id}`}
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{
-        type: "spring",
-        stiffness: 400,
-        damping: 30,
-        delay: index * 0.08,
-        layout: layoutTransition,
-      }}
-      whileHover={{ y: -6, transition: { type: "spring", stiffness: 400, damping: 25 } }}
-      whileTap={{ scale: 0.98 }}
-      onClick={onClick}
-      className="glass-panel-hover rounded-3xl p-6 cursor-pointer relative overflow-hidden group"
-      style={{ zIndex: isSelected ? 100 : 1 }}
+      layoutId={`day-${day.id}`}
+      onClick={onToggle}
+      className="glass-panel p-4 md:p-6 rounded-xl md:rounded-2xl cursor-pointer"
+      whileHover={{ y: -3, transition: { duration: 0.3, ease: "easeOut" } }}
+      whileTap={{ scale: 0.99 }}
+      transition={{ type: "spring", stiffness: 250, damping: 35, mass: 1 }}
     >
-      {/* Birthday special glow */}
-      {day.isBirthday && (
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-br from-amber-500/10 via-pink-500/10 to-purple-500/10"
-          animate={{ opacity: [0.3, 0.5, 0.3] }}
-          transition={{ duration: 3, repeat: Infinity }}
+      <div className="flex items-start justify-between mb-2 md:mb-3">
+        <div>
+          <div className="text-3xl md:text-4xl font-playfair text-white mb-1">
+            Ngày {day.id}
+          </div>
+          <h3 className="text-lg md:text-xl font-playfair text-amber-400 mb-0.5 md:mb-1">
+            {day.title}
+          </h3>
+          <p className="text-xs md:text-sm text-white/60">{day.dateLabel}</p>
+        </div>
+        <WeatherIcon 
+          icon={day.weather.icon} 
+          className="w-6 h-6 md:w-8 md:h-8 text-amber-400" 
         />
+      </div>
+      
+      <div className="flex items-center gap-2 text-white/50 text-xs md:text-sm">
+        <span>{day.weather.description}</span>
+        <span>•</span>
+        <span className="text-amber-400/80">{day.weather.temp}</span>
+      </div>
+      
+      {day.isBirthday && (
+        <div className="mt-2 md:mt-3 flex items-center gap-2 text-pink-400 text-xs md:text-sm">
+          <Heart className="w-3 h-3 md:w-4 md:h-4 fill-pink-400" />
+          <span>Ngày đặc biệt</span>
+        </div>
       )}
-
-      {/* Hover shine effect */}
-      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
-      </div>
-
-      <div className="relative z-10">
-        {/* Header */}
-        <div className="flex items-start justify-between mb-4">
-          <div>
-            <div className="flex items-center gap-2 text-amber-400 mb-1">
-              <Calendar className="w-4 h-4" />
-              <span className="text-sm font-medium">Ngày {day.id}</span>
-            </div>
-            <h3 className="font-display text-2xl md:text-3xl text-white">{day.dateLabel}</h3>
-          </div>
-
-          <div className="text-4xl">{day.weather.icon}</div>
-        </div>
-
-        {/* Subtitle */}
-        <p className="text-white/70 font-medium mb-4 flex items-center gap-2">
-          {day.isBirthday && <Sparkles className="w-4 h-4 text-amber-400" />}
-          {day.title}
-        </p>
-
-        {/* Quick info */}
-        <div className="flex flex-wrap gap-3 text-sm text-white/50">
-          <div className="flex items-center gap-1.5">
-            <Thermometer className="w-4 h-4" />
-            <span>{day.weather.temp}</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <Shirt className="w-4 h-4" />
-            <span className="truncate max-w-[180px]">{day.outfit.split(",")[0]}</span>
-          </div>
-        </div>
-
-        {/* Activity preview */}
-        <div className="mt-4 pt-4 border-t border-white/10">
-          <div className="flex items-center justify-between">
-            <span className="text-white/40 text-sm">{day.timeline.length} hoạt động</span>
-            <motion.span
-              className="text-amber-400 text-sm font-medium"
-              animate={{ x: [0, 4, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-            >
-              Xem chi tiết →
-            </motion.span>
-          </div>
-        </div>
-      </div>
     </motion.div>
   );
 };
