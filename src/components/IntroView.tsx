@@ -14,8 +14,8 @@ const IntroView = ({ onUnlock }: IntroViewProps) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0, scale: 0.95 }}
-      transition={{ duration: 0.5 }}
-      className="fixed inset-0 z-50 flex flex-col items-center justify-center px-6 overflow-y-auto py-12"
+      transition={{ duration: 0.3 }}
+      className="fixed inset-0 z-50 flex flex-col items-center justify-center px-6"
     >
       {/* Decorative elements */}
       <motion.div

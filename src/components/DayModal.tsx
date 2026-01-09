@@ -54,11 +54,20 @@ const DayModal = ({ day, onClose }: DayModalProps) => {
     setTimeout(() => setShowBirthdayMessage(false), 4000);
   };
 
+  // Fast spring for snappy iOS-like animations
+  const springConfig = {
+    type: "spring" as const,
+    stiffness: 500,
+    damping: 35,
+    mass: 0.8,
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
+      transition={{ duration: 0.15 }}
       className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6"
       onClick={onClose}
     >
@@ -67,12 +76,15 @@ const DayModal = ({ day, onClose }: DayModalProps) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
+        transition={{ duration: 0.15 }}
         className="absolute inset-0 bg-slate-950/90 backdrop-blur-md"
       />
 
       {/* Modal */}
       <motion.div
         layoutId={`day-card-${day.id}`}
+        layout
+        transition={springConfig}
         onClick={(e) => e.stopPropagation()}
         className="relative rounded-3xl w-full max-w-lg max-h-[90vh] overflow-hidden border border-white/[0.12] shadow-2xl"
         style={{ background: "rgba(15, 23, 42, 0.95)", backdropFilter: "blur(40px)" }}
@@ -90,6 +102,8 @@ const DayModal = ({ day, onClose }: DayModalProps) => {
               <div>
                 <motion.div 
                   layoutId={`day-date-${day.id}`}
+                  layout
+                  transition={springConfig}
                   className="flex items-center gap-2 text-amber-400 mb-1"
                 >
                   <Calendar className="w-4 h-4" />
@@ -97,6 +111,8 @@ const DayModal = ({ day, onClose }: DayModalProps) => {
                 </motion.div>
                 <motion.h2 
                   layoutId={`day-title-${day.id}`}
+                  layout
+                  transition={springConfig}
                   className="font-display text-3xl md:text-4xl text-white"
                 >
                   {day.dateLabel}
@@ -106,6 +122,8 @@ const DayModal = ({ day, onClose }: DayModalProps) => {
               <div className="flex items-center gap-3">
                 <motion.div 
                   layoutId={`day-weather-${day.id}`}
+                  layout
+                  transition={springConfig}
                   className="text-4xl"
                 >
                   {day.weather.icon}
@@ -122,6 +140,8 @@ const DayModal = ({ day, onClose }: DayModalProps) => {
 
             <motion.p 
               layoutId={`day-subtitle-${day.id}`}
+              layout
+              transition={springConfig}
               className="text-white/70 font-medium mt-2 flex items-center gap-2"
             >
               {day.isBirthday && <Sparkles className="w-4 h-4 text-amber-400" />}
