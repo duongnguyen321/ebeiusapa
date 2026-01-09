@@ -1,10 +1,10 @@
 // ==================== TYPES ====================
 
 export interface PhotoTip {
-	angle: string; // Góc chụp
-	pose: string; // Gợi ý dáng
-	time?: string; // Thời điểm ánh sáng đẹp
-	tips?: string; // Tips thêm
+	angle: string;
+	pose: string;
+	time?: string;
+	tips?: string;
 }
 
 export interface TimelineItem {
@@ -15,7 +15,6 @@ export interface TimelineItem {
 	hotline?: string;
 	note?: string;
 	isHighlight?: boolean;
-	cost?: string;
 	distance?: string;
 	transport?: string;
 	photoTips?: PhotoTip;
@@ -39,7 +38,6 @@ export interface DaySchedule {
 	timeline: TimelineItem[];
 	isBirthday?: boolean;
 	warnings?: string[];
-	budgetEstimate?: string;
 }
 
 export interface EmergencyContact {
@@ -64,13 +62,6 @@ export interface TripInfo {
 		returnDeparture: string;
 		returnArrival: string;
 	};
-	budget: {
-		total: string;
-		hotel: string;
-		transport: string;
-		cake: string;
-		remaining: string;
-	};
 	birthday: {
 		date: string;
 		person: string;
@@ -81,30 +72,27 @@ export interface TripInfo {
 
 export const tripInfo: TripInfo = {
 	hotel: {
-		name: 'Sapa House Hotel Halal Certified',
+		name: 'Sapa House Hotel 🏡',
 		address: '03A Thác Bạc, TT. Sapa',
 		phone: '0214 387 1234',
 		checkIn: '14:00 ngày 15/01',
 		checkOut: '12:00 ngày 18/01',
-		includes: ['Ăn sáng hàng ngày', 'Máy sưởi/đệm điện', 'Đặt bánh sinh nhật'],
+		includes: [
+			'Bữa sáng lãng mạn mỗi ngày 🥐',
+			'Phòng ấm áp như lòng anh 🔥',
+			'Đặt bánh kem tình yêu 🎂',
+		],
 	},
 	transport: {
-		company: 'Hà Sơn - Hải Vân',
+		company: 'Hà Sơn - Hải Vân 🚌',
 		departure: 'Hà Nội → Sapa, đến trước 14:00 ngày 15/01',
 		arrival: '~14:00 ngày 15/01',
 		returnDeparture: '14:00-15:00 ngày 18/01',
 		returnArrival: '~20:00 ngày 18/01',
 	},
-	budget: {
-		total: '6-7 triệu VNĐ',
-		hotel: '2 triệu (đã thanh toán)',
-		transport: '1.5 triệu (đã thanh toán)',
-		cake: '250k',
-		remaining: '2.25 - 3.25 triệu',
-	},
 	birthday: {
 		date: '16/01/2026',
-		person: 'Bạn gái',
+		person: 'Người yêu bé bỏng 💕',
 	},
 };
 
@@ -117,84 +105,6 @@ export const emergencyContacts: EmergencyContact[] = [
 	{ name: 'Cấp cứu', phone: '115', icon: '🏥' },
 ];
 
-// ==================== FOOD GUIDE ====================
-
-export const foodGuide = {
-	mustTry: [
-		{
-			name: 'Cốn Sủi Ông Há',
-			description: 'Phở khan nước sốt, dễ tiêu hóa, phù hợp sau say xe',
-			address: '436 Điện Biên Phủ',
-			price: '~50k/bát',
-		},
-		{
-			name: 'Lẩu Cá Tầm',
-			description: 'Đặc sản cao cấp, thịt dai ngọt, xương sụn ăn được',
-			address: 'A Quỳnh (15 Thạch Sơn) hoặc Hotpot Center (71 Xuân Viên)',
-			price: '~600-700k/nồi',
-		},
-		{
-			name: 'Gà nướng tiêu xanh',
-			description: 'Signature dish của Hải Lâm, gà đen bản địa',
-			address: 'Nhà hàng Hải Lâm - 69 Xuân Viên',
-			price: '~300-400k',
-		},
-	],
-	warnings: [
-		"Thắng cố có mùi nồng - chọn 'Thắng cố Kinh hóa' tại A Quỳnh nếu muốn thử",
-		'Tránh cá hấp/luộc nếu không thích mùi tanh',
-		'Gỏi cá hồi tươi, ít tanh - khuyên dùng',
-	],
-};
-
-// ==================== SPA GUIDE ====================
-
-export const spaGuide = {
-	recommended: {
-		name: 'Sapa Green Hotel Spa',
-		address: '02 Hoàng Liên',
-		price: '~250k/người',
-		duration: '20-25 phút (tối đa)',
-		features: [
-			'Bồn gỗ Pơ-mu (giữ nhiệt, thơm)',
-			'Nước thuốc đậm đặc từ 100+ loại thảo dược',
-			'Màu huyết dụ sóng sánh',
-		],
-	},
-	tips: [
-		'Không ngâm quá 25 phút để tránh say thuốc',
-		'Sau khi tắm không cần tráng nước thường',
-		'Tác dụng: Lưu thông khí huyết, giải cảm, làm đẹp da',
-	],
-};
-
-// ==================== SHOPPING GUIDE ====================
-
-export const shoppingGuide = {
-	items: [
-		{
-			name: 'Hạt dẻ rang',
-			price: '~200k/kg (loại ngon)',
-			where: 'Chợ đêm, gánh hàng rong',
-		},
-		{
-			name: 'Thịt trâu gác bếp',
-			price: '~800-900k/kg',
-			where: "Viet's Farm, Siêu thị đặc sản Tây Bắc",
-		},
-		{
-			name: 'Rượu táo mèo',
-			price: '~100-150k/chai',
-			where: 'Siêu thị Xuân Trường',
-		},
-	],
-	tips: [
-		'Mua hạt dẻ nhớ ăn thử trước',
-		'Thịt trâu gác bếp nên mua gói nhỏ 500g (~400-450k)',
-		'Chợ đêm mở Thứ 6-CN, 16h-22h',
-	],
-};
-
 // ==================== ITINERARY ====================
 
 export const itinerary: DaySchedule[] = [
@@ -202,74 +112,71 @@ export const itinerary: DaySchedule[] = [
 		id: 1,
 		date: '2026-01-15',
 		dateLabel: 'Thứ 4, 15/01',
-		title: 'NHẬP CUỘC MỜ SƯƠNG',
-		theme: 'Phục hồi & Thích nghi',
+		title: 'CHẠM NGÕ XỨ MÂY 🌫️',
+		theme: 'Nghỉ ngơi & Yêu thương',
 		goals: [
-			'Ổn định chỗ ở',
-			'Phục hồi sức khỏe sau say xe',
-			'Làm quen khí hậu lạnh',
+			'Đặt chân đến tổ ấm tạm thời của đôi mình 🏡',
+			'Chăm sóc em sau chặng đường dài 💝',
+			'Ngắm Sapa về đêm lung linh bên nhau ✨',
 		],
 		weather: {
 			icon: '🌧️',
-			description: 'Mưa phùn, Sương mù đậm đặc',
+			description: 'Mưa phùn, Sương mù lãng mạn',
 			temp: '11-15°C',
 		},
 		outfit:
-			'Áo khoác gió dày, Ô trong suốt, Boot chống nước. Màu sáng (Đỏ/Trắng kem) để nổi bật trong sương',
-		warnings: [
-			'⚠️ Bạn gái say xe - NGHỈ NGƠI BẮT BUỘC đến 19h',
-			'Uống trà gừng nóng để ấm bụng',
-		],
-		budgetEstimate: '~300-400k (ăn tối + taxi)',
+			'Áo khoác ấm áp, Ô trong suốt (để chụp ảnh mưa thật lãng mạn), Boot xinh xắn 👢',
+		warnings: ['💕 Anh sẽ chăm sóc em thật kỹ sau chuyến xe dài nha!'],
 		timeline: [
 			{
 				time: '14:00',
-				title: 'Đến Sapa, Check-in khách sạn',
-				description: 'Di chuyển bằng taxi từ bến xe về Sapa House Hotel',
+				title: 'Đặt chân đến thiên đường mây ☁️',
+				description:
+					'Anh sẽ đưa em về khách sạn ấm áp, nơi tình yêu mình bắt đầu những ngày ngọt ngào',
 				address: '03A Thác Bạc, TT. Sapa',
-				cost: '~50k (taxi)',
-				note: 'TUYỆT ĐỐI không đi bộ - cần bảo toàn sức khỏe',
+				note: 'Anh sẽ lo hết, em chỉ cần xinh đẹp thôi nha 💕',
 				type: 'transport',
 			},
 			{
 				time: '14:30 - 18:30',
-				title: 'NGHỈ NGƠI - Phục hồi thụ động',
-				description: 'Ngủ để hồi phục tiền đình sau say xe',
-				note: 'Mẹo: Uống trà gừng nóng (xin lễ tân hoặc tự pha)',
+				title: 'Giấc mơ ngọt ngào 💤',
+				description:
+					'Nghỉ ngơi trong vòng tay anh, để cơ thể em được thư giãn hoàn toàn',
+				note: 'Anh sẽ pha trà gừng nóng cho em uống nhé, ấm lắm luôn 🍵',
 				type: 'rest',
 				isHighlight: true,
 			},
 			{
 				time: '18:30 - 20:00',
-				title: '🍜 Ăn tối: Cốn Sủi Ông Há',
+				title: '🍜 Bữa tối đầu tiên bên nhau',
 				description:
-					'Phở khan nước sốt - Món nóng, mềm, dễ tiêu hóa, hoàn hảo sau say xe',
+					'Cốn Sủi đặc sản - Món nóng hổi thơm ngon nhất Sapa, ấm lòng người yêu nhất của anh',
 				address: '436 Điện Biên Phủ, TT. Sapa',
 				hotline: '0856 332 323',
-				cost: '~100k (2 bát) + 70k taxi',
 				type: 'meal',
 				isHighlight: true,
 			},
 			{
 				time: '20:00 - 21:30',
-				title: '📸 Dạo Nhà thờ Đá (Chụp đêm)',
-				description: 'Sương mù + ánh đèn vàng = Khung cảnh điện ảnh mờ ảo',
-				distance: '~200m từ khách sạn',
-				transport: 'Đi bộ nhẹ nhàng',
+				title: '📸 Nhà thờ Đá dưới ánh đèn vàng',
+				description:
+					'Cùng nhau dạo bước trong sương, chụp những bức ảnh đẹp nhất với người đẹp nhất',
+				distance: 'Chỉ cách 200 bước chân thôi, đủ để nắm tay em đi bộ 💑',
+				transport: 'Đi bộ tay trong tay',
 				photoTips: {
-					angle:
-						'Đứng bên hông nhà thờ (phía tay trái), đặt máy thấp sát đất hướng lên',
-					pose: 'Đứng với ô trong suốt, nhìn về phía nhà thờ',
-					time: 'Sau 20h khi đèn sáng đẹp nhất',
-					tips: 'Ô trong suốt là đạo cụ thần thánh cho ảnh mưa/sương',
+					angle: 'Đứng bên hông nhà thờ, camera đặt thấp hướng lên trời',
+					pose: 'Em cầm ô trong suốt, nhìn về phía nhà thờ thật mơ màng',
+					time: 'Sau 20h khi đèn vàng lung linh nhất',
+					tips: 'Ô trong suốt + sương mù = Bức ảnh cổ tích của đôi mình 🥰',
 				},
 				type: 'activity',
 				isHighlight: true,
 			},
 			{
 				time: '22:00',
-				title: 'Về khách sạn nghỉ sớm',
-				description: 'Chuẩn bị sức khỏe cho ngày sinh nhật',
+				title: 'Về tổ ấm nghỉ ngơi 🏠',
+				description:
+					'Chuẩn bị tinh thần cho ngày mai - Ngày đặc biệt nhất của em!',
 				type: 'rest',
 			},
 		],
@@ -279,99 +186,88 @@ export const itinerary: DaySchedule[] = [
 		id: 2,
 		date: '2026-01-16',
 		dateLabel: 'Thứ 5, 16/01',
-		title: 'SINH NHẬT NÀNG THƠ 🎂',
-		theme: 'Thư giãn & Nuông chiều',
+		title: 'HAPPY BIRTHDAY MY LOVE 🎂💕',
+		theme: 'Nuông chiều & Hạnh phúc',
 		goals: [
-			'Ngày đặc biệt - Mọi hoạt động xoay quanh BẠN GÁI',
-			'Spa trị liệu',
-			'Tiệc sinh nhật lãng mạn',
+			'Mọi khoảnh khắc hôm nay đều thuộc về em 👑',
+			'Được spa thư giãn như một nàng công chúa 💆‍♀️',
+			'Tiệc sinh nhật lãng mạn chỉ có đôi ta 🥳',
 		],
 		weather: {
 			icon: '⛅',
-			description: 'Sáng mưa nhẹ, Chiều có thể hửng nắng',
+			description: 'Sáng mưa bay nhẹ, Chiều trời hửng nắng như nụ cười em',
 			temp: '12-17°C',
 		},
-		outfit: 'Váy len Vintage (Trắng/Be) + Áo dạ nâu. Tông màu ấm, thanh lịch',
-		warnings: [
-			'Ngày sinh nhật - Ưu tiên cảm xúc và sự thoải mái',
-			'Nhớ lấy bánh kem đã đặt trước',
-		],
-		budgetEstimate: '~1.5-1.8 triệu (spa + lẩu + đồ tiệc)',
+		outfit:
+			'Váy len Vintage thanh lịch (Trắng/Be), Áo dạ nâu ấm áp - Xinh như công chúa của anh 👸',
+		warnings: ['👑 Hôm nay em là VIP, mọi thứ anh lo hết nha!'],
 		timeline: [
 			{
 				time: '09:00 - 11:00',
-				title: '😴 Ngủ nướng & Ăn sáng muộn',
+				title: '😴 Ngủ nướng thoả thích',
 				description:
-					'Quyền lợi của người có sinh nhật! Ăn sáng tại khách sạn (đã bao gồm)',
-				note: 'Tiết kiệm chi phí bữa trưa',
+					'Ngày sinh nhật được ngủ nướng bao lâu tuỳ thích! Quyền lợi của công chúa mà 👑',
+				note: 'Ăn sáng tại giường cũng được nha, anh đi lấy cho em',
 				type: 'rest',
 			},
 			{
 				time: '11:00 - 13:00',
-				title: '☕ Le Gecko Café',
+				title: '☕ Le Gecko Café - Như Paris giữa núi rừng',
 				description:
-					'Café phong cách Pháp, không gian ấm cúng, view hồ Sapa mờ sương',
-				address: '02 Ngũ Chỉ Sơn (Khu hồ trung tâm)',
+					'Ngồi trong kính nhìn ra hồ mờ sương, nhâm nhi Cacao nóng với người yêu',
+				address: '02 Ngũ Chỉ Sơn (View hồ Sapa)',
 				hotline: '0214 387 1224',
-				cost: '~150k',
-				distance: '~500m từ khách sạn',
-				transport: 'Đi bộ hoặc taxi (~40k)',
 				photoTips: {
-					angle: 'Ngồi trong nhà kính nhìn ra hồ',
-					pose: 'Cầm ly Cacao nóng, nhìn ra cửa sổ',
-					tips: 'Gọi Café trứng hoặc Cacao - Đồ uống signature',
+					angle: 'Ngồi trong nhà kính nhìn ra hồ, ánh sáng tự nhiên tràn vào',
+					pose: 'Cầm ly Cacao nóng, nhìn ra cửa sổ thật mơ màng',
+					tips: 'Café trứng nóng hổi là must-try nha em!',
 				},
 				type: 'meal',
 				isHighlight: true,
 			},
 			{
 				time: '13:00 - 14:30',
-				title: '🛍️ Mua đồ sinh nhật',
-				description: 'Ghé siêu thị mua rượu vang, nến, snack + Lấy bánh kem',
-				address:
-					'Siêu thị Xuân Trường: 46 Ngũ Chỉ Sơn | Bánh: Tiệm chị Híp - 14 Thác Bạc',
-				hotline: '0974 511 568 (Tiệm bánh)',
-				cost: 'Bánh 250k + Đồ siêu thị ~200k',
+				title: '🎁 Chuẩn bị điều bí mật...',
+				description: 'Anh có một chút việc nhỏ, em chờ anh một xíu nha 💕',
+				note: 'Hint: Có gì đó ngọt ngào đang chờ em...',
 				type: 'shopping',
 			},
 			{
 				time: '14:30 - 17:00',
-				title: '💆 Tắm lá thuốc Dao Đỏ - Sapa Green Spa',
+				title: '💆‍♀️ Tắm lá thuốc Dao Đỏ - Nuông chiều làn da',
 				description:
-					'Trải nghiệm MUST-DO! Bồn gỗ Pơ-mu, nước thuốc đậm đặc 100+ loại thảo dược',
-				address: '02 Hoàng Liên',
+					'Trải nghiệm tắm lá thuốc 100+ loại thảo dược, thư giãn như spa hoàng gia',
+				address: 'Sapa Green Spa - 02 Hoàng Liên',
 				hotline: '0214 387 2222',
-				cost: '~500k (2 người)',
-				transport: 'Taxi khứ hồi ~70k',
 				warnings: [
-					'Chỉ ngâm tối đa 20-25 phút để tránh say thuốc',
-					'Sau khi tắm KHÔNG cần tráng nước thường',
+					'💝 Ngâm 20-25 phút thôi nha, để da em đẹp mà không bị say thuốc',
+					'Sau khi tắm không cần tráng nước để thuốc thấm vào da em luôn 🌿',
 				],
-				note: 'Tác dụng: Phục hồi cơ bắp, an thần, lưu thông khí huyết, làm đẹp da',
+				note: 'Làn da sẽ mịn màng, thơm như hoa rừng 🌸',
 				type: 'spa',
 				isHighlight: true,
 			},
 			{
 				time: '17:30 - 20:00',
-				title: '🍲 Tiệc sinh nhật: Lẩu Cá Tầm - Nhà hàng A Quỳnh',
+				title: '🍲 Tiệc sinh nhật lãng mạn',
 				description:
-					'Cá Tầm Sapa cao cấp, thịt dai ngọt, xương sụn giòn ăn được cả!',
-				address: '15 Thạch Sơn, TT. Sapa',
+					'Lẩu Cá Tầm cao cấp, ngọt thơm như tình yêu của đôi mình, trong không gian ấm áp chỉ có hai ta',
+				address: 'A Quỳnh Restaurant - 15 Thạch Sơn',
 				hotline: '0214 387 1666',
-				cost: '~700-800k (lẩu + đồ uống)',
 				photoTips: {
-					angle: 'Góc từ trên xuống (flat-lay) với nồi lẩu bốc khói',
-					pose: 'Hai người gắp đồ cùng lúc, cười tự nhiên',
-					tips: 'Không gian gỗ ấm cúng - Chụp cả khung cảnh nhà hàng',
+					angle: 'Góc từ trên xuống với nồi lẩu bốc khói ấm áp',
+					pose: 'Hai đứa mình gắp đồ cho nhau, cười thật hạnh phúc',
+					tips: 'Không gian gỗ ấm cúng lung linh ánh nến 🕯️',
 				},
 				type: 'meal',
 				isHighlight: true,
 			},
 			{
 				time: '20:30+',
-				title: '🎂 TIỆC SINH NHẬT TẠI PHÒNG',
-				description: 'Cắt bánh, uống rượu vang, không gian riêng tư lãng mạn',
-				note: 'Thắp nến, mở nhạc nhẹ, tận hưởng khoảnh khắc đặc biệt',
+				title: '🎂 TIỆC SINH NHẬT RIÊNG TƯ',
+				description:
+					'Bánh kem, nến lung linh, rượu vang, và chỉ có em với anh... 💕',
+				note: 'Happy Birthday to the love of my life! 🎉💕',
 				type: 'activity',
 				isHighlight: true,
 			},
@@ -382,101 +278,99 @@ export const itinerary: DaySchedule[] = [
 		id: 3,
 		date: '2026-01-17',
 		dateLabel: 'Thứ 6, 17/01',
-		title: 'BÙNG NỔ THỊ GIÁC ☀️',
-		theme: 'Khám phá & Chụp ảnh',
+		title: 'KHÁM PHÁ THIÊN ĐƯỜNG 🏔️☀️',
+		theme: 'Phiêu lưu & Kỷ niệm',
 		goals: [
-			'Tận dụng thời tiết đẹp - Ngày quan trọng nhất để tham quan',
-			'Chinh phục Hàm Rồng + Cát Cát',
-			'Khám phá Chợ đêm',
+			'Chạm đến những đỉnh mây cùng nhau ☁️',
+			'Thu thập hàng trăm bức ảnh đẹp của đôi mình 📸',
+			'Đêm chợ sáng đèn, tay trong tay dạo phố 🌙',
 		],
 		weather: {
 			icon: '☀️',
-			description: 'Nắng đẹp, Có thể có biển mây sáng sớm',
+			description: 'Nắng đẹp rực rỡ, như nụ cười em mỗi sáng',
 			temp: '11-18°C',
 		},
 		outfit:
-			'Đồ năng động, màu sáng (Trắng/Đỏ/Vàng) để nổi bật trên nền xanh núi rừng. Giày thể thao êm chân',
+			'Đồ năng động màu sáng (Trắng/Đỏ/Vàng) - Nổi bật giữa núi xanh như ngôi sao của anh ⭐',
 		warnings: [
-			'⚠️ CÁT CÁT: TUYỆT ĐỐI KHÔNG đi bộ ngược lên dốc - Thuê xe ôm!',
-			'Chợ đêm chỉ mở Thứ 6-CN, 16h-22h',
+			'👟 Mang giày thể thao êm ái nha em, để anh dắt em đi khắp nơi!',
+			'🚗 Yên tâm, đường nào xa anh có xe đưa đón em ấm áp',
 		],
-		budgetEstimate: '~800k-1 triệu (vé + ăn + xe)',
 		timeline: [
 			{
 				time: '08:00 - 09:00',
-				title: 'Ăn sáng nhanh, Lên đồ đẹp',
-				description: 'Trang điểm, chọn outfit sáng màu để chụp ảnh',
-				note: 'Tone: Trắng, Đỏ, Vàng - nổi bật trên nền xanh',
+				title: 'Ăn sáng & Lên đồ xinh ✨',
+				description:
+					'Trang điểm thật xinh, chọn outfit sáng màu để toả sáng như nàng công chúa núi rừng',
+				note: 'Tone: Trắng/Đỏ/Vàng - Nổi bật trên nền xanh biếc',
 				type: 'rest',
 			},
 			{
 				time: '09:00 - 11:30',
-				title: '🏔️ Leo núi Hàm Rồng',
+				title: '🏔️ Chinh phục Núi Hàm Rồng',
 				description:
-					'Vườn Lan → Vườn 12 con giáp → SÂN MÂY (điểm cao nhất, view toàn cảnh)',
-				distance: 'Cổng ngay sau Nhà thờ Đá - đi bộ 5 phút từ khách sạn',
-				cost: '140k (vé 2 người: 70k/người)',
+					'Cùng nhau lên đỉnh mây, ngắm toàn cảnh Sapa từ Sân Mây huyền thoại',
+				distance: 'Chỉ cách 5 phút đi bộ từ khách sạn',
 				photoTips: {
-					angle: 'Tại Sân Mây: Đứng rìa sân, hướng về thung lũng',
-					pose: 'Dang tay, tóc bay, nhìn về phía mây',
-					time: '9-10h sáng - nắng xiên đẹp, sương tan bớt',
-					tips: 'Đi chậm, nghỉ nhiều chặng. Nếu mệt chỉ cần lên Vườn Lan là đã có ảnh đẹp',
+					angle:
+						'Tại Sân Mây: Đứng rìa view thung lũng, camera góc thấp lấy cả trời mây',
+					pose: 'Em dang tay, tóc bay trong gió, nụ cười rạng rỡ',
+					time: '9-10h sáng - Nắng xiên đẹp nhất, sương tan tạo màu hoàng kim',
+					tips: 'Vườn Lan → Vườn 12 con giáp → SÂN MÂY. Đi chậm thôi, để anh chụp em ở mọi góc đẹp 📸',
 				},
-				warnings: ['Leo có bậc thang nhưng dốc - đi chậm, nghỉ nhiều'],
+				warnings: [
+					'💪 Có nhiều bậc thang nhưng đừng lo, anh dắt em đi từng bước!',
+				],
 				type: 'activity',
 				isHighlight: true,
 			},
 			{
 				time: '11:30 - 13:00',
-				title: '🍗 Trưa: Gà nướng tiêu xanh - Nhà hàng Hải Lâm',
+				title: '🍗 Gà nướng tiêu xanh - Món ngon huyền thoại',
 				description:
-					'Món Signature! Gà đen bản địa, da giòn, sốt tiêu xanh thơm nồng cay nhẹ',
-				address: '69 Xuân Viên, TT. Sapa',
+					'Gà đen bản địa thơm lừng, da giòn tan, sốt tiêu xanh cay nhẹ kích thích vị giác',
+				address: 'Nhà hàng Hải Lâm - 69 Xuân Viên',
 				hotline: '0934 246 696',
-				cost: '~300-400k',
 				photoTips: {
-					angle: 'Góc nghiêng 45° với đĩa gà bốc khói',
-					pose: 'Cầm đùi gà, cắn một miếng',
-					tips: 'Nhà hàng có view đẹp - chụp cả không gian',
+					angle: 'Góc nghiêng 45° với đĩa gà bốc khói thơm phức',
+					pose: 'Em cắn một miếng, mắt lấp lánh hạnh phúc',
+					tips: 'Nhà hàng có view đẹp, chụp cả không gian núi rừng xa xa 🏔️',
 				},
 				type: 'meal',
 				isHighlight: true,
 			},
 			{
 				time: '13:00 - 14:30',
-				title: 'Về khách sạn nghỉ trưa',
-				description: 'Nạp năng lượng cho chiều',
+				title: 'Nghỉ trưa ngọt ngào 💤',
+				description: 'Về khách sạn thư giãn, nạp năng lượng cho buổi chiều',
 				type: 'rest',
 			},
 			{
 				time: '14:30 - 17:30',
-				title: '🌾 Khám phá Bản Cát Cát',
-				description: 'ĐI XUỐNG dốc → Vườn hoa → Guồng nước → Thác Tiên Sa',
-				distance: '~2km từ khách sạn',
-				cost: '~300k (vé 150k/người) + taxi đi ~70k + xe ôm về ~100k',
+				title: '🌾 Bản Cát Cát - Cổ tích giữa đời thường',
+				description:
+					'Đi xuống thung lũng, qua những vườn hoa, guồng nước cổ kính, thác Tiên Sa huyền bí',
+				distance: 'Anh gọi xe đưa em đến cổng nha',
 				transport:
-					'Taxi xuống cổng → Đi bộ XUỐNG dốc → Xe ôm CHỞ NGƯỢC LÊN (QUAN TRỌNG!)',
+					'Xe đưa đón → Đi bộ XUỐNG dốc (nhẹ nhàng) → Xe chở về (không cần leo ngược!)',
 				photoTips: {
-					angle:
-						'Tại Cầu Si: Đứng giữa cầu, chụp từ trên bờ cao xuống (high-angle)',
-					pose: 'Bạn nữ quay lưng nhìn ra suối/núi, vuốt tóc nhẹ hoặc cầm vạt váy xòe',
-					tips: "Thuê trang phục H'mông/Dao tại cổng (~50k) để chụp ảnh",
+					angle: 'Tại Cầu Si: Anh đứng trên bờ cao chụp xuống em đứng giữa cầu',
+					pose: 'Quay lưng nhìn suối, vuốt tóc nhẹ hoặc xoè vạt váy như cô gái mộng mơ',
+					tips: "Thuê váy H'mông xinh xắn tại cổng để chụp ảnh cổ tích nha em! 👗",
 				},
 				warnings: [
-					'⚠️ KHÔNG ĐI BỘ NGƯỢC LÊN - Dốc rất đứng >1km',
-					'Cuối bản có xe ôm đợi sẵn - 40-50k/người',
+					'💕 Anh sẽ thuê xe đón em ở cuối bản, không cần leo ngược lên đâu nha!',
 				],
 				type: 'activity',
 				isHighlight: true,
 			},
 			{
 				time: '18:00 - 22:00',
-				title: '🌙 Chợ đêm Sapa & Ẩm thực đường phố',
+				title: '🌙 Chợ đêm Sapa - Đêm phố sáng đèn',
 				description:
-					'Đồ nướng Sapa: Xiên thịt lợn cuốn cải mèo, trứng nướng, cơm lam, khoai nướng',
+					'Dạo phố ăn vặt, xiên nướng thơm lừng, hạt dẻ nóng hổi, tay trong tay dưới ánh đèn lung linh',
 				address: 'Khu Chợ Mới / Sân Quần',
-				cost: '~300k (ăn no 2 người)',
-				note: 'Mua hạt dẻ nướng nóng hổi làm quà (nhớ ăn thử trước!)',
+				note: 'Mình cùng chọn quà nhỏ xinh mang về làm kỷ niệm nha 🎁',
 				type: 'meal',
 				isHighlight: true,
 			},
@@ -487,75 +381,70 @@ export const itinerary: DaySchedule[] = [
 		id: 4,
 		date: '2026-01-18',
 		dateLabel: 'Thứ 7, 18/01',
-		title: 'TẠM BIỆT SAPA 💕',
-		theme: 'Thư thái & Chia tay',
+		title: 'HẸN GẶP LẠI NHÉ, SAPA 💕',
+		theme: 'Lưu luyến & Hẹn ước',
 		goals: [
-			'Café view núi tuyệt đẹp',
-			'Mua quà cuối cùng',
-			'Về Hà Nội an toàn',
+			'Ngắm Sapa lần cuối từ view triệu đô ☕',
+			'Hứa hẹn sẽ quay lại với nhiều kỷ niệm hơn 💑',
+			'Mang theo trọn vẹn tình yêu trở về 💝',
 		],
 		weather: {
 			icon: '🌤️',
-			description: 'Trời quang, Có thể có mây luồn thung lũng',
+			description: 'Trời quang đãng, mây luồn thung lũng như lời chào tạm biệt',
 			temp: '10-16°C',
 		},
-		outfit: 'Thoải mái, ấm áp, dễ di chuyển',
-		warnings: [
-			'⚠️ 14:00-15:00 PHẢI lên xe về Hà Nội',
-			'Checkout 12:00 - gửi hành lý tại lễ tân',
-		],
-		budgetEstimate: '~400-500k (café + ăn trưa + quà)',
+		outfit: 'Thoải mái, ấm áp, đủ xinh để anh ngắm em suốt đường về 💕',
+		warnings: ['⏰ 14:00-15:00 mình cùng lên xe về nha em!'],
 		timeline: [
 			{
 				time: '08:00 - 10:00',
-				title: 'Ăn sáng & Thu dọn hành lý',
-				description: 'Ăn sáng tại khách sạn, đóng gói đồ đạc',
+				title: 'Ăn sáng & Thu dọn hành lý 🧳',
+				description:
+					'Ăn sáng thong thả, đóng gói đồ đạc và... đóng gói cả kỷ niệm mang về',
 				type: 'rest',
 			},
 			{
 				time: '10:00 - 12:00',
-				title: '☕ Café Viettrekking - View triệu đô',
+				title: '☕ Viettrekking Café - View triệu đô',
 				description:
-					'View thẳng dãy Hoàng Liên Sơn và thung lũng Mường Hoa. Nơi nói lời tạm biệt Sapa hoàn hảo!',
+					'Ngắm toàn cảnh dãy Hoàng Liên Sơn và thung lũng mây, nơi nói lời tạm biệt Sapa hoàn hảo nhất',
 				address: '33 Hoàng Liên, TT. Sapa',
-				cost: '~150k + taxi ~50k',
-				transport: 'Taxi từ khách sạn',
+				transport: 'Anh gọi xe đưa em đến nha',
 				photoTips: {
-					angle: 'Ngồi góc ban công, hướng về thung lũng',
-					pose: 'Cầm ly café, nhìn ra mây núi, profile shot',
-					time: 'Sáng sớm có mây luồn đẹp',
-					tips: 'Quán cuối đường Hoàng Liên - view đẹp nhất Sapa',
+					angle: 'Ngồi góc ban công, hướng về thung lũng mây bồng bềnh',
+					pose: 'Profile shot - Cầm ly café, nhìn xa xăm về núi non',
+					time: 'Sáng sớm có mây luồn đẹp nhất',
+					tips: 'View đẹp nhất Sapa để nói lời tạm biệt 🏔️💕',
 				},
 				type: 'meal',
 				isHighlight: true,
 			},
 			{
 				time: '12:00',
-				title: '📦 CHECKOUT khách sạn',
-				description: 'Trả phòng, gửi hành lý tại lễ tân',
+				title: '📦 Tạm biệt tổ ấm nhỏ',
+				description: 'Trả phòng, gửi hành lý, giữ lại mãi những kỷ niệm đẹp',
 				address: 'Sapa House Hotel - 03A Thác Bạc',
 				type: 'transport',
 			},
 			{
 				time: '12:00 - 13:30',
-				title: '🍜 Ăn trưa nhẹ: Phở gà Quyên',
-				description: 'Nổi tiếng với gà ta ngon, nước dùng đậm đà',
-				address: 'Đường Tuệ Tĩnh/Phạm Xuân Huân',
-				cost: '~120-140k (2 người)',
+				title: '🍜 Phở gà - Bữa ăn cuối ấm lòng',
+				description: 'Phở gà ngon nức tiếng, ấm áp cho đường về dài',
+				address: 'Đường Tuệ Tĩnh',
 				type: 'meal',
 			},
 			{
 				time: '13:30 - 14:00',
-				title: 'Di chuyển ra văn phòng xe',
-				description: 'Lấy hành lý tại khách sạn → Ra văn phòng Hà Sơn Hải Vân',
-				transport: 'Taxi ~40k',
+				title: 'Di chuyển ra bến xe 🚌',
+				description: 'Lấy hành lý, ra xe để về với thành phố',
 				type: 'transport',
 			},
 			{
 				time: '14:00 - 15:00',
-				title: '🚌 LÊN XE VỀ HÀ NỘI',
-				description: 'Kết thúc hành trình. Hẹn gặp lại, Sapa yêu thương!',
-				note: 'Dự kiến đến Hà Nội ~20:00',
+				title: '🚌 Tạm biệt Sapa, Hẹn gặp lại! 💕',
+				description:
+					'Về Hà Nội thôi, nhưng Sapa sẽ mãi trong trái tim đôi mình. Hẹn gặp lại nha xứ mây!',
+				note: 'Dự kiến đến Hà Nội ~20:00 - Anh đưa em về nhà an toàn nha 🏠💕',
 				type: 'transport',
 				isHighlight: true,
 			},

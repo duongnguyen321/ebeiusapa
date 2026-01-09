@@ -4,7 +4,6 @@ import {
 	Phone,
 	MapPin,
 	Info,
-	DollarSign,
 	Navigation,
 	Camera,
 	ChevronDown,
@@ -14,7 +13,7 @@ import {
 	Bed,
 	Sparkles,
 	ShoppingBag,
-	AlertTriangle,
+	Heart,
 } from 'lucide-react';
 import type { TimelineItem as TimelineItemType } from '@/data/itinerary';
 
@@ -59,21 +58,13 @@ const TimelineItem = ({ item }: TimelineItemProps) => {
 						<p className='text-amber-400/80 text-sm mb-2'>{item.description}</p>
 					)}
 
-					{/* Cost & Distance Row */}
-					{(item.cost || item.distance) && (
+					{/* Distance Row */}
+					{item.distance && (
 						<div className='flex flex-wrap gap-3 mb-2 text-sm'>
-							{item.cost && (
-								<div className='flex items-center gap-1.5 text-emerald-400'>
-									<DollarSign className='w-3.5 h-3.5' />
-									<span>{item.cost}</span>
-								</div>
-							)}
-							{item.distance && (
-								<div className='flex items-center gap-1.5 text-blue-400'>
-									<Navigation className='w-3.5 h-3.5' />
-									<span>{item.distance}</span>
-								</div>
-							)}
+							<div className='flex items-center gap-1.5 text-pink-400'>
+								<Navigation className='w-3.5 h-3.5' />
+								<span>{item.distance}</span>
+							</div>
 						</div>
 					)}
 
@@ -104,15 +95,15 @@ const TimelineItem = ({ item }: TimelineItemProps) => {
 						</a>
 					)}
 
-					{/* Warnings */}
+					{/* Lưu ý yêu thương */}
 					{item.warnings && item.warnings.length > 0 && (
 						<div className='mt-2 space-y-1'>
 							{item.warnings.map((warning, idx) => (
 								<div
 									key={idx}
-									className='flex items-start gap-2 text-orange-400 text-sm bg-orange-500/10 px-2 py-1 rounded'
+									className='flex items-start gap-2 text-pink-400 text-sm bg-pink-500/10 px-2 py-1.5 rounded-lg'
 								>
-									<AlertTriangle className='w-4 h-4 mt-0.5 flex-shrink-0' />
+									<Heart className='w-4 h-4 mt-0.5 flex-shrink-0 fill-pink-400' />
 									<span>{warning}</span>
 								</div>
 							))}
@@ -202,8 +193,8 @@ const TimelineItem = ({ item }: TimelineItemProps) => {
 
 					{/* Highlight Badge */}
 					{item.isHighlight && (
-						<div className='mt-2 inline-block px-2 py-0.5 bg-amber-500/10 border border-amber-500/20 rounded text-amber-400 text-xs'>
-							⭐ Highlight
+						<div className='mt-2 inline-block px-2 py-0.5 bg-pink-500/10 border border-pink-500/20 rounded text-pink-400 text-xs'>
+							💕 Đặc biệt
 						</div>
 					)}
 				</div>

@@ -125,39 +125,6 @@ const TripHeader = () => {
 									</div>
 								</div>
 							</div>
-
-							{/* Budget Info */}
-							<div className='glass-panel p-4 rounded-xl'>
-								<div className='flex items-center gap-2 text-emerald-400 text-sm font-medium mb-3'>
-									<DollarSign className='w-4 h-4' />
-									Ngân sách
-								</div>
-								<div className='space-y-1 text-sm'>
-									<div className='flex justify-between text-white/80'>
-										<span>Tổng:</span>
-										<span className='text-white font-medium'>
-											{tripInfo.budget.total}
-										</span>
-									</div>
-									<div className='flex justify-between text-white/60'>
-										<span>Khách sạn:</span>
-										<span>{tripInfo.budget.hotel}</span>
-									</div>
-									<div className='flex justify-between text-white/60'>
-										<span>Xe:</span>
-										<span>{tripInfo.budget.transport}</span>
-									</div>
-									<div className='flex justify-between text-white/60'>
-										<span>Bánh:</span>
-										<span>{tripInfo.budget.cake}</span>
-									</div>
-									<div className='flex justify-between text-emerald-400 font-medium pt-1 border-t border-white/10 mt-1'>
-										<span>Còn lại:</span>
-										<span>{tripInfo.budget.remaining}</span>
-									</div>
-								</div>
-							</div>
-
 							{/* Birthday Info */}
 							<div className='glass-panel p-4 rounded-xl bg-gradient-to-br from-pink-500/10 to-purple-500/10 border border-pink-500/20'>
 								<div className='flex items-center gap-2 text-pink-400 text-sm font-medium mb-3'>
