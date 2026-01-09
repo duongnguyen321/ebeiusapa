@@ -1,12 +1,27 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import { AnimatePresence } from "framer-motion";
+import NoiseOverlay from "@/components/NoiseOverlay";
+import MistBackground from "@/components/MistBackground";
+import IntroView from "@/components/IntroView";
+import TimelineView from "@/components/TimelineView";
 
 const Index = () => {
+  const [isUnlocked, setIsUnlocked] = useState(false);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen overflow-x-hidden relative">
+      {/* Background layers */}
+      <MistBackground />
+      <NoiseOverlay />
+
+      {/* Main content */}
+      <AnimatePresence mode="wait">
+        {!isUnlocked ? (
+          <IntroView key="intro" onUnlock={() => setIsUnlocked(true)} />
+        ) : (
+          <TimelineView key="timeline" />
+        )}
+      </AnimatePresence>
     </div>
   );
 };
