@@ -66,7 +66,8 @@
   }
 
   .glass-panel {
-    @apply bg-white/[0.08] backdrop-blur-2xl border border-white/[0.12] shadow-2xl;
+    @apply backdrop-blur-3xl border border-white/[0.12] shadow-2xl;
+    background: rgba(15, 23, 42, 0.85);
   }
 
   .glass-panel-hover {
@@ -74,12 +75,14 @@
   }
 
   .glass-panel-hover:hover {
-    @apply bg-white/[0.12] border-white/[0.18];
+    background: rgba(15, 23, 42, 0.9);
+    @apply border-white/[0.18];
   }
 
   .glass-button {
-    @apply bg-white/[0.1] backdrop-blur-xl border border-white/[0.15] 
+    @apply backdrop-blur-2xl border border-white/[0.15] 
            hover:bg-white/[0.18] active:scale-95 transition-all duration-200;
+    background: rgba(15, 23, 42, 0.8);
   }
 
   .text-gradient {
