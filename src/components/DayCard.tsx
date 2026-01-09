@@ -13,7 +13,7 @@ const DayCard = ({ day, onClick, index, isSelected }: DayCardProps) => {
   // Very fast spring - matches modal speed
   const layoutTransition = {
     type: "spring" as const,
-    stiffness: 700,
+    stiffness: 100,
     damping: 35,
     mass: 0.5,
   };
@@ -58,14 +58,10 @@ const DayCard = ({ day, onClick, index, isSelected }: DayCardProps) => {
               <Calendar className="w-4 h-4" />
               <span className="text-sm font-medium">Ngày {day.id}</span>
             </div>
-            <h3 className="font-display text-2xl md:text-3xl text-white">
-              {day.dateLabel}
-            </h3>
+            <h3 className="font-display text-2xl md:text-3xl text-white">{day.dateLabel}</h3>
           </div>
 
-          <div className="text-4xl">
-            {day.weather.icon}
-          </div>
+          <div className="text-4xl">{day.weather.icon}</div>
         </div>
 
         {/* Subtitle */}
@@ -89,10 +85,8 @@ const DayCard = ({ day, onClick, index, isSelected }: DayCardProps) => {
         {/* Activity preview */}
         <div className="mt-4 pt-4 border-t border-white/10">
           <div className="flex items-center justify-between">
-            <span className="text-white/40 text-sm">
-              {day.timeline.length} hoạt động
-            </span>
-            <motion.span 
+            <span className="text-white/40 text-sm">{day.timeline.length} hoạt động</span>
+            <motion.span
               className="text-amber-400 text-sm font-medium"
               animate={{ x: [0, 4, 0] }}
               transition={{ duration: 1.5, repeat: Infinity }}
