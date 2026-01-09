@@ -9,22 +9,17 @@ interface DayCardProps {
 }
 
 const DayCard = ({ day, onClick, index }: DayCardProps) => {
-  // Fast spring for snappy iOS-like animations
-  const springConfig = {
-    type: "spring" as const,
-    stiffness: 500,
-    damping: 35,
-    mass: 0.8,
-  };
-
   return (
     <motion.div
-      layoutId={`day-card-${day.id}`}
-      layout
-      initial={{ opacity: 0, y: 50 }}
+      initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={springConfig}
-      whileHover={{ y: -8, transition: springConfig }}
+      transition={{
+        type: "spring",
+        stiffness: 400,
+        damping: 30,
+        delay: index * 0.08,
+      }}
+      whileHover={{ y: -6, transition: { type: "spring", stiffness: 400, damping: 25 } }}
       whileTap={{ scale: 0.98 }}
       onClick={onClick}
       className="glass-panel-hover rounded-3xl p-6 cursor-pointer relative overflow-hidden group"
@@ -47,45 +42,25 @@ const DayCard = ({ day, onClick, index }: DayCardProps) => {
         {/* Header */}
         <div className="flex items-start justify-between mb-4">
           <div>
-            <motion.div 
-              layoutId={`day-date-${day.id}`}
-              layout
-              transition={springConfig}
-              className="flex items-center gap-2 text-amber-400 mb-1"
-            >
+            <div className="flex items-center gap-2 text-amber-400 mb-1">
               <Calendar className="w-4 h-4" />
               <span className="text-sm font-medium">Ngày {day.id}</span>
-            </motion.div>
-            <motion.h3 
-              layoutId={`day-title-${day.id}`}
-              layout
-              transition={springConfig}
-              className="font-display text-2xl md:text-3xl text-white"
-            >
+            </div>
+            <h3 className="font-display text-2xl md:text-3xl text-white">
               {day.dateLabel}
-            </motion.h3>
+            </h3>
           </div>
 
-          <motion.div 
-            layoutId={`day-weather-${day.id}`}
-            layout
-            transition={springConfig}
-            className="text-4xl"
-          >
+          <div className="text-4xl">
             {day.weather.icon}
-          </motion.div>
+          </div>
         </div>
 
         {/* Subtitle */}
-        <motion.p 
-          layoutId={`day-subtitle-${day.id}`}
-          layout
-          transition={springConfig}
-          className="text-white/70 font-medium mb-4 flex items-center gap-2"
-        >
+        <p className="text-white/70 font-medium mb-4 flex items-center gap-2">
           {day.isBirthday && <Sparkles className="w-4 h-4 text-amber-400" />}
           {day.title}
-        </motion.p>
+        </p>
 
         {/* Quick info */}
         <div className="flex flex-wrap gap-3 text-sm text-white/50">
@@ -107,7 +82,7 @@ const DayCard = ({ day, onClick, index }: DayCardProps) => {
             </span>
             <motion.span 
               className="text-amber-400 text-sm font-medium"
-              animate={{ x: [0, 5, 0] }}
+              animate={{ x: [0, 4, 0] }}
               transition={{ duration: 1.5, repeat: Infinity }}
             >
               Xem chi tiết →
