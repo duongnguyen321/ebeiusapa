@@ -9,18 +9,22 @@ interface DayCardProps {
 }
 
 const DayCard = ({ day, onClick, index }: DayCardProps) => {
+  // Fast spring for snappy iOS-like animations
+  const springConfig = {
+    type: "spring" as const,
+    stiffness: 500,
+    damping: 35,
+    mass: 0.8,
+  };
+
   return (
     <motion.div
       layoutId={`day-card-${day.id}`}
+      layout
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{
-        type: "spring",
-        stiffness: 400,
-        damping: 30,
-        delay: index * 0.1,
-      }}
-      whileHover={{ y: -8, transition: { type: "spring", stiffness: 400, damping: 25 } }}
+      transition={springConfig}
+      whileHover={{ y: -8, transition: springConfig }}
       whileTap={{ scale: 0.98 }}
       onClick={onClick}
       className="glass-panel-hover rounded-3xl p-6 cursor-pointer relative overflow-hidden group"
@@ -45,6 +49,8 @@ const DayCard = ({ day, onClick, index }: DayCardProps) => {
           <div>
             <motion.div 
               layoutId={`day-date-${day.id}`}
+              layout
+              transition={springConfig}
               className="flex items-center gap-2 text-amber-400 mb-1"
             >
               <Calendar className="w-4 h-4" />
@@ -52,6 +58,8 @@ const DayCard = ({ day, onClick, index }: DayCardProps) => {
             </motion.div>
             <motion.h3 
               layoutId={`day-title-${day.id}`}
+              layout
+              transition={springConfig}
               className="font-display text-2xl md:text-3xl text-white"
             >
               {day.dateLabel}
@@ -60,6 +68,8 @@ const DayCard = ({ day, onClick, index }: DayCardProps) => {
 
           <motion.div 
             layoutId={`day-weather-${day.id}`}
+            layout
+            transition={springConfig}
             className="text-4xl"
           >
             {day.weather.icon}
@@ -69,6 +79,8 @@ const DayCard = ({ day, onClick, index }: DayCardProps) => {
         {/* Subtitle */}
         <motion.p 
           layoutId={`day-subtitle-${day.id}`}
+          layout
+          transition={springConfig}
           className="text-white/70 font-medium mb-4 flex items-center gap-2"
         >
           {day.isBirthday && <Sparkles className="w-4 h-4 text-amber-400" />}
