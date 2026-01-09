@@ -4,7 +4,6 @@ import {
 	ChevronDown,
 	Hotel,
 	Bus,
-	DollarSign,
 	Cake,
 	MapPin,
 	Phone,

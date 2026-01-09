@@ -205,15 +205,6 @@ const DayCard = ({ day, isExpanded, onToggle }: DayCardProps) => {
 									</div>
 									<div className='text-white'>{day.outfit}</div>
 								</div>
-								{day.budgetEstimate && (
-									<div className='glass-panel p-2 md:p-3 rounded-lg md:rounded-xl'>
-										<div className='text-white/50 mb-0.5 md:mb-1 flex items-center gap-1'>
-											<DollarSign className='w-3 h-3' />
-											Ngân sách ước tính
-										</div>
-										<div className='text-emerald-400'>{day.budgetEstimate}</div>
-									</div>
-								)}
 							</div>
 						</div>
 
@@ -271,12 +262,6 @@ const DayCard = ({ day, isExpanded, onToggle }: DayCardProps) => {
 				<span>{day.weather.description}</span>
 				<span>•</span>
 				<span className='text-amber-400/80'>{day.weather.temp}</span>
-				{day.budgetEstimate && (
-					<>
-						<span>•</span>
-						<span className='text-emerald-400/80'>{day.budgetEstimate}</span>
-					</>
-				)}
 			</div>
 
 			{day.isBirthday && (
