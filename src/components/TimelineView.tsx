@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MapPin, Heart, CalendarDays } from "lucide-react";
 import DayCard from "./DayCard";
@@ -7,6 +7,16 @@ import { itinerary, type DaySchedule } from "@/data/itinerary";
 
 const TimelineView = () => {
   const [selectedDay, setSelectedDay] = useState<DaySchedule | null>(null);
+  const [animatingDayId, setAnimatingDayId] = useState<number | null>(null);
+
+  const handleCloseModal = () => {
+    if (selectedDay) {
+      setAnimatingDayId(selectedDay.id);
+      setSelectedDay(null);
+      // Keep z-index elevated during close animation
+      setTimeout(() => setAnimatingDayId(null), 400);
+    }
+  };
 
   return (
     <motion.div
@@ -47,7 +57,7 @@ const TimelineView = () => {
               day={day}
               index={index}
               onClick={() => setSelectedDay(day)}
-              isSelected={selectedDay?.id === day.id}
+              isSelected={selectedDay?.id === day.id || animatingDayId === day.id}
             />
           ))}
         </div>
@@ -70,7 +80,7 @@ const TimelineView = () => {
         {selectedDay && (
           <DayModal 
             day={selectedDay} 
-            onClose={() => setSelectedDay(null)} 
+            onClose={handleCloseModal} 
           />
         )}
       </AnimatePresence>
