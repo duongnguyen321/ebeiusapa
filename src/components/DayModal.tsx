@@ -67,14 +67,15 @@ const DayModal = ({ day, onClose }: DayModalProps) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="absolute inset-0 bg-slate-900/80 backdrop-blur-sm"
+        className="absolute inset-0 bg-slate-950/90 backdrop-blur-md"
       />
 
       {/* Modal */}
       <motion.div
         layoutId={`day-card-${day.id}`}
         onClick={(e) => e.stopPropagation()}
-        className="relative glass-panel rounded-3xl w-full max-w-lg max-h-[90vh] overflow-hidden"
+        className="relative rounded-3xl w-full max-w-lg max-h-[90vh] overflow-hidden border border-white/[0.12] shadow-2xl"
+        style={{ background: "rgba(15, 23, 42, 0.95)", backdropFilter: "blur(40px)" }}
       >
         {/* Birthday gradient */}
         {day.isBirthday && (
@@ -84,7 +85,7 @@ const DayModal = ({ day, onClose }: DayModalProps) => {
         {/* Scrollable content */}
         <div className="relative z-10 overflow-y-auto max-h-[90vh] scrollbar-hide">
           {/* Header */}
-          <div className="sticky top-0 z-20 glass-panel border-0 border-b border-white/10 p-6">
+          <div className="sticky top-0 z-20 border-0 border-b border-white/10 p-6" style={{ background: "rgba(15, 23, 42, 0.98)", backdropFilter: "blur(40px)" }}>
             <div className="flex items-start justify-between">
               <div>
                 <motion.div 
@@ -255,7 +256,8 @@ const DayModal = ({ day, onClose }: DayModalProps) => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.5, y: 50 }}
               transition={{ type: "spring", stiffness: 400, damping: 25 }}
-              className="fixed inset-x-4 bottom-28 mx-auto max-w-sm glass-panel rounded-3xl p-6 text-center z-50 border-pink-500/30"
+              className="fixed inset-x-4 bottom-28 mx-auto max-w-sm rounded-3xl p-6 text-center z-50 border border-pink-500/30 shadow-2xl"
+              style={{ background: "rgba(15, 23, 42, 0.95)", backdropFilter: "blur(40px)" }}
             >
               <motion.div
                 animate={{ rotate: [0, -10, 10, -10, 0] }}
