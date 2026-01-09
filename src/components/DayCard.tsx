@@ -6,9 +6,10 @@ interface DayCardProps {
   day: DaySchedule;
   onClick: () => void;
   index: number;
+  isSelected?: boolean;
 }
 
-const DayCard = ({ day, onClick, index }: DayCardProps) => {
+const DayCard = ({ day, onClick, index, isSelected }: DayCardProps) => {
   // Gentle spring for smooth shared element transitions
   const layoutTransition = {
     type: "spring" as const,
@@ -33,6 +34,7 @@ const DayCard = ({ day, onClick, index }: DayCardProps) => {
       whileTap={{ scale: 0.98 }}
       onClick={onClick}
       className="glass-panel-hover rounded-3xl p-6 cursor-pointer relative overflow-hidden group"
+      style={{ zIndex: isSelected ? 100 : 1 }}
     >
       {/* Birthday special glow */}
       {day.isBirthday && (
