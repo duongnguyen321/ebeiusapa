@@ -40,13 +40,14 @@ const TimelineView = () => {
         </motion.div>
 
         {/* Day Cards */}
-        <div className="space-y-4">
+        <div className="space-y-4 relative">
           {itinerary.map((day, index) => (
             <DayCard
               key={day.id}
               day={day}
               index={index}
               onClick={() => setSelectedDay(day)}
+              isSelected={selectedDay?.id === day.id}
             />
           ))}
         </div>
