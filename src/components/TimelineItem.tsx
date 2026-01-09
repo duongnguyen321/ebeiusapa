@@ -19,6 +19,8 @@ import type { TimelineItem as TimelineItemType } from '@/data/itinerary';
 
 interface TimelineItemProps {
 	item: TimelineItemType;
+	isActive?: boolean;
+	isUpcoming?: boolean;
 }
 
 const typeIcons: Record<string, React.ReactNode> = {
@@ -30,12 +32,20 @@ const typeIcons: Record<string, React.ReactNode> = {
 	shopping: <ShoppingBag className='w-4 h-4' />,
 };
 
-const TimelineItem = ({ item }: TimelineItemProps) => {
+const TimelineItem = ({
+	item,
+	isActive = false,
+	isUpcoming = false,
+}: TimelineItemProps) => {
 	const [showPhotoTips, setShowPhotoTips] = useState(false);
 
 	return (
 		<motion.div
-			className='glass-panel p-4 rounded-xl'
+			className={`
+        glass-panel p-4 rounded-xl transition-all duration-300
+        ${isActive ? 'timeline-active' : ''}
+        ${isUpcoming ? 'timeline-upcoming' : ''}
+      `}
 			initial={{ x: -20, opacity: 0 }}
 			animate={{ x: 0, opacity: 1 }}
 			transition={{ type: 'spring', stiffness: 300, damping: 25 }}
@@ -43,10 +53,41 @@ const TimelineItem = ({ item }: TimelineItemProps) => {
 			<div className='flex gap-4'>
 				{/* Time Badge */}
 				<div className='flex-shrink-0'>
-					<div className='bg-amber-500/20 text-amber-400 px-3 py-1 rounded-lg text-sm font-medium flex items-center gap-1.5'>
+					<div
+						className={`
+            px-3 py-1 rounded-lg text-sm font-medium flex items-center gap-1.5
+            ${
+							isActive
+								? 'bg-pink-500/30 text-pink-300 border border-pink-500/50'
+								: isUpcoming
+								? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/30'
+								: 'bg-amber-500/20 text-amber-400'
+						}
+          `}
+					>
 						{item.type && typeIcons[item.type]}
 						{item.time}
 					</div>
+
+					{/* Status Badge */}
+					{isActive && (
+						<motion.div
+							initial={{ opacity: 0, y: -10 }}
+							animate={{ opacity: 1, y: 0 }}
+							className='mt-2 text-center'
+						>
+							<span className='badge-active text-[10px]'>Đang diễn ra</span>
+						</motion.div>
+					)}
+					{isUpcoming && !isActive && (
+						<motion.div
+							initial={{ opacity: 0, y: -10 }}
+							animate={{ opacity: 1, y: 0 }}
+							className='mt-2 text-center'
+						>
+							<span className='badge-upcoming text-[10px]'>Sắp tới</span>
+						</motion.div>
+					)}
 				</div>
 
 				<div className='flex-1 min-w-0'>

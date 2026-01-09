@@ -1,0 +1,470 @@
+/* ============================================
+   LIQUID GLASS DESIGN SYSTEM
+   Based on Apple iOS 26 Liquid Glass Style
+   ============================================ */
+
+/* ============================================
+   CSS Variables - Design Tokens
+   ============================================ */
+:root {
+	/* Glass Colors */
+	--glass-bg: rgba(255, 255, 255, 0.08);
+	--glass-bg-hover: rgba(255, 255, 255, 0.12);
+	--glass-bg-active: rgba(255, 255, 255, 0.15);
+	--glass-border: rgba(255, 255, 255, 0.12);
+	--glass-border-light: rgba(255, 255, 255, 0.18);
+
+	/* Theme Colors */
+	--color-primary: #ff6b9d;
+	--color-primary-light: #ff8fb3;
+	--color-secondary: #a855f7;
+	--color-accent: #22d3ee;
+	--color-bg-dark: #0f0f23;
+	--color-bg-card: #1a1a2e;
+	--color-text: #f8fafc;
+	--color-text-muted: rgba(248, 250, 252, 0.7);
+	--color-text-subtle: rgba(248, 250, 252, 0.5);
+
+	/* Blur Values */
+	--blur-sm: 8px;
+	--blur-md: 12px;
+	--blur-lg: 16px;
+	--blur-xl: 24px;
+
+	/* Shadows */
+	--shadow-glass: 0 4px 30px rgba(0, 0, 0, 0.1);
+	--shadow-glass-lg: 0 8px 32px rgba(0, 0, 0, 0.15);
+	--shadow-neumorphic-inset: inset 2px 2px 5px rgba(0, 0, 0, 0.2),
+		inset -2px -2px 5px rgba(255, 255, 255, 0.05);
+	--shadow-neumorphic: 3px 3px 6px rgba(0, 0, 0, 0.3),
+		-2px -2px 5px rgba(255, 255, 255, 0.05);
+	--shadow-glow: 0 0 20px rgba(255, 107, 157, 0.3);
+	--shadow-glow-active: 0 0 30px rgba(255, 107, 157, 0.5),
+		0 0 60px rgba(255, 107, 157, 0.2);
+
+	/* Animation Timings */
+	--timing-fast: 0.2s;
+	--timing-normal: 0.3s;
+	--timing-slow: 0.5s;
+	--timing-liquid: 0.6s;
+	--easing-liquid: cubic-bezier(0.25, 0.1, 0.25, 1);
+	--easing-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* ============================================
+   SVG Filters for Liquid Effects
+   ============================================ */
+.liquid-filters {
+	position: absolute;
+	width: 0;
+	height: 0;
+	pointer-events: none;
+}
+
+/* ============================================
+   Base Glass Component
+   ============================================ */
+.glass {
+	background: var(--glass-bg);
+	backdrop-filter: blur(var(--blur-md)) saturate(180%);
+	-webkit-backdrop-filter: blur(var(--blur-md)) saturate(180%);
+	border: 1px solid var(--glass-border);
+	border-radius: 16px;
+	box-shadow: var(--shadow-glass);
+	transition: all var(--timing-normal) var(--easing-liquid);
+}
+
+.glass:hover {
+	background: var(--glass-bg-hover);
+	border-color: var(--glass-border-light);
+}
+
+.glass-thick {
+	background: rgba(255, 255, 255, 0.12);
+	backdrop-filter: blur(var(--blur-xl)) saturate(200%);
+	-webkit-backdrop-filter: blur(var(--blur-xl)) saturate(200%);
+}
+
+.glass-thin {
+	background: rgba(255, 255, 255, 0.05);
+	backdrop-filter: blur(var(--blur-sm));
+	-webkit-backdrop-filter: blur(var(--blur-sm));
+}
+
+/* ============================================
+   Glass Card Variants
+   ============================================ */
+.glass-card {
+	background: linear-gradient(
+		135deg,
+		rgba(255, 255, 255, 0.1) 0%,
+		rgba(255, 255, 255, 0.05) 100%
+	);
+	backdrop-filter: blur(var(--blur-lg)) saturate(180%);
+	-webkit-backdrop-filter: blur(var(--blur-lg)) saturate(180%);
+	border: 1px solid var(--glass-border);
+	border-radius: 20px;
+	box-shadow: var(--shadow-glass), var(--shadow-neumorphic-inset);
+	position: relative;
+	overflow: hidden;
+}
+
+/* Specular highlight */
+.glass-card::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 1px;
+	background: linear-gradient(
+		90deg,
+		transparent,
+		rgba(255, 255, 255, 0.3),
+		transparent
+	);
+}
+
+/* ============================================
+   Glass Button
+   ============================================ */
+.glass-button {
+	background: rgba(255, 255, 255, 0.15);
+	backdrop-filter: blur(var(--blur-sm));
+	-webkit-backdrop-filter: blur(var(--blur-sm));
+	border: 1px solid var(--glass-border-light);
+	border-radius: 999px;
+	padding: 12px 24px;
+	color: var(--color-text);
+	font-weight: 500;
+	cursor: pointer;
+	box-shadow: var(--shadow-neumorphic);
+	transition: all var(--timing-fast) var(--easing-liquid);
+	position: relative;
+	overflow: hidden;
+}
+
+.glass-button::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background: radial-gradient(
+		circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+		rgba(255, 255, 255, 0.2) 0%,
+		transparent 50%
+	);
+	opacity: 0;
+	transition: opacity var(--timing-fast);
+}
+
+.glass-button:hover::after {
+	opacity: 1;
+}
+
+.glass-button:active {
+	transform: scale(0.98);
+	box-shadow: var(--shadow-neumorphic-inset);
+}
+
+.glass-button-primary {
+	background: linear-gradient(
+		135deg,
+		var(--color-primary) 0%,
+		var(--color-secondary) 100%
+	);
+	border: none;
+	box-shadow: var(--shadow-glow), var(--shadow-neumorphic);
+}
+
+.glass-button-primary:hover {
+	box-shadow: var(--shadow-glow-active), var(--shadow-neumorphic);
+}
+
+/* ============================================
+   Active Timeline Glow
+   ============================================ */
+.timeline-active {
+	border-color: var(--color-primary);
+	box-shadow: var(--shadow-glow-active);
+	animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+	0%,
+	100% {
+		box-shadow: 0 0 20px rgba(255, 107, 157, 0.3),
+			0 0 40px rgba(255, 107, 157, 0.1);
+	}
+	50% {
+		box-shadow: 0 0 30px rgba(255, 107, 157, 0.5),
+			0 0 60px rgba(255, 107, 157, 0.2);
+	}
+}
+
+.timeline-upcoming {
+	border-color: var(--color-accent);
+	box-shadow: 0 0 15px rgba(34, 211, 238, 0.2);
+}
+
+/* ============================================
+   Slide to Unlock
+   ============================================ */
+.slide-track {
+	background: linear-gradient(
+		135deg,
+		rgba(255, 255, 255, 0.12) 0%,
+		rgba(0, 0, 0, 0.05) 100%
+	);
+	backdrop-filter: blur(var(--blur-md));
+	-webkit-backdrop-filter: blur(var(--blur-md));
+	border-radius: 999px;
+	box-shadow: var(--shadow-neumorphic-inset);
+	position: relative;
+	overflow: hidden;
+}
+
+.slide-thumb {
+	background: linear-gradient(
+		135deg,
+		var(--color-primary) 0%,
+		var(--color-primary-light) 100%
+	);
+	border-radius: 50%;
+	box-shadow: var(--shadow-glow), var(--shadow-neumorphic);
+	transition: transform var(--timing-liquid) var(--easing-liquid);
+}
+
+/* ============================================
+   Modal / Sheet Animations
+   ============================================ */
+@keyframes slide-up {
+	from {
+		transform: translateY(100%);
+		opacity: 0.5;
+	}
+	to {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+@keyframes morph-in {
+	from {
+		opacity: 0;
+		transform: scale(0.95);
+		filter: blur(5px);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1);
+		filter: blur(0);
+	}
+}
+
+@keyframes dissolve-in {
+	from {
+		opacity: 0;
+		filter: blur(8px);
+	}
+	to {
+		opacity: 1;
+		filter: blur(0);
+	}
+}
+
+@keyframes ripple-in {
+	from {
+		opacity: 0;
+		transform: translateX(50px) scale(0.9);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0) scale(1);
+	}
+}
+
+.animate-slide-up {
+	animation: slide-up var(--timing-liquid) var(--easing-liquid);
+}
+
+.animate-morph-in {
+	animation: morph-in var(--timing-slow) var(--easing-liquid);
+}
+
+.animate-dissolve-in {
+	animation: dissolve-in var(--timing-normal) ease-out;
+}
+
+.animate-ripple-in {
+	animation: ripple-in var(--timing-normal) var(--easing-liquid);
+}
+
+/* ============================================
+   Locked Content Overlay
+   ============================================ */
+.locked-overlay {
+	position: absolute;
+	inset: 0;
+	background: rgba(0, 0, 0, 0.6);
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: inherit;
+	cursor: pointer;
+	transition: all var(--timing-normal) var(--easing-liquid);
+}
+
+.locked-overlay:hover {
+	background: rgba(0, 0, 0, 0.5);
+}
+
+.locked-overlay:active {
+	transform: scale(0.99);
+}
+
+/* ============================================
+   Reveal Animation
+   ============================================ */
+@keyframes reveal-unlock {
+	0% {
+		clip-path: circle(0% at 50% 50%);
+	}
+	100% {
+		clip-path: circle(150% at 50% 50%);
+	}
+}
+
+.reveal-animation {
+	animation: reveal-unlock 0.8s var(--easing-liquid) forwards;
+}
+
+/* ============================================
+   Scratch Card
+   ============================================ */
+.scratch-card {
+	position: relative;
+	border-radius: 20px;
+	overflow: hidden;
+	box-shadow: var(--shadow-glass-lg);
+}
+
+.scratch-card canvas {
+	position: absolute;
+	inset: 0;
+	cursor: crosshair;
+	touch-action: none;
+}
+
+.scratch-reward {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background: linear-gradient(
+		135deg,
+		var(--color-bg-card) 0%,
+		var(--color-bg-dark) 100%
+	);
+	padding: 32px;
+	text-align: center;
+}
+
+/* ============================================
+   Birthday Celebration
+   ============================================ */
+.birthday-modal {
+	background: linear-gradient(
+		180deg,
+		rgba(255, 107, 157, 0.2) 0%,
+		rgba(168, 85, 247, 0.1) 50%,
+		transparent 100%
+	);
+	backdrop-filter: blur(var(--blur-xl));
+	-webkit-backdrop-filter: blur(var(--blur-xl));
+}
+
+@keyframes float {
+	0%,
+	100% {
+		transform: translateY(0px);
+	}
+	50% {
+		transform: translateY(-10px);
+	}
+}
+
+@keyframes shimmer {
+	0% {
+		background-position: 200% 0;
+	}
+	100% {
+		background-position: -200% 0;
+	}
+}
+
+.float-animation {
+	animation: float 3s ease-in-out infinite;
+}
+
+/* ============================================
+   Badge Styles
+   ============================================ */
+.badge-active {
+	background: linear-gradient(
+		135deg,
+		var(--color-primary) 0%,
+		var(--color-secondary) 100%
+	);
+	color: white;
+	font-size: 0.75rem;
+	font-weight: 600;
+	padding: 4px 10px;
+	border-radius: 999px;
+	box-shadow: var(--shadow-glow);
+	animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.badge-upcoming {
+	background: rgba(34, 211, 238, 0.2);
+	color: var(--color-accent);
+	font-size: 0.75rem;
+	font-weight: 500;
+	padding: 4px 10px;
+	border-radius: 999px;
+	border: 1px solid rgba(34, 211, 238, 0.3);
+}
+
+.badge-locked {
+	background: rgba(255, 255, 255, 0.1);
+	color: var(--color-text-muted);
+	font-size: 0.75rem;
+	padding: 4px 10px;
+	border-radius: 999px;
+}
+
+/* ============================================
+   Accessibility: Reduced Motion
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+	}
+}
+
+/* ============================================
+   Performance Hints
+   ============================================ */
+.will-animate {
+	will-change: transform, opacity, filter;
+}
+
+.gpu-accelerated {
+	transform: translateZ(0);
+	backface-visibility: hidden;
+}

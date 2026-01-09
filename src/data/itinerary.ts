@@ -78,17 +78,17 @@ export const tripInfo: TripInfo = {
 		checkIn: '14:00 ngày 15/01',
 		checkOut: '12:00 ngày 18/01',
 		includes: [
-			'Giường êm để mình ôm nhau ngủ',
-			'Phòng ấm áp cho những lời thủ thỉ',
-			'Không gian riêng tư của chúng mình',
+			'Giường siêu êm - Nơi những giấc mơ đẹp bắt đầu',
+			'Không gian yên tĩnh - Để ta thủ thỉ lời yêu',
+			'Gương lớn toàn thân - Ngắm nhìn nàng thơ của anh',
 		],
 	},
 	transport: {
-		company: 'Hà Sơn - Hải Vân',
-		departure: 'Hà Nội → Sapa, đưa nhau đi trốn',
-		arrival: 'Đến nơi để bắt đầu hành trình yêu thương',
-		returnDeparture: 'Chiều 18/01 mình mới phải về',
-		returnArrival: 'Về đến nhà mình vẫn còn nhau',
+		company: 'Hà Sơn - Hải Vân (Chuyến xe tình yêu)',
+		departure: 'Hà Nội → Sapa: Đưa em đi trốn',
+		arrival: 'Tới nơi để bắt đầu những ngày ngọt ngào',
+		returnDeparture: 'Chiều 18/01 bị bắt về',
+		returnArrival: 'Về nhà để "yêu" tiếp',
 	},
 	birthday: {
 		date: '16/01/2026',
@@ -101,7 +101,7 @@ export const tripInfo: TripInfo = {
 export const emergencyContacts: EmergencyContact[] = [
 	{ name: 'Taxi Xanh Sapa', phone: '0214 363 63 63', icon: '🚕' },
 	{ name: 'Taxi Mai Linh', phone: '0214 376 76 76', icon: '🚖' },
-	{ name: 'Khách sạn Sapa House', phone: '0214 387 1234', icon: 'HOT' },
+	{ name: 'Khách sạn Sapa House', phone: '0214 387 1234', icon: '🏨' },
 ];
 
 // ==================== ITINERARY ====================
@@ -111,12 +111,12 @@ export const itinerary: DaySchedule[] = [
 		id: 1,
 		date: '2026-01-15',
 		dateLabel: 'Thứ 4, 15/01',
-		title: 'Chạm ngõ xứ sương mù 🌫️',
-		theme: 'Ấm áp & Bình yên',
+		title: 'Sương giăng lối nhỏ, mình lạc vào tim nhau 🌫️',
+		theme: 'Ấm áp & Tình tứ',
 		goals: [
-			'Về ngôi nhà tạm thời của đôi mình',
-			'Bù đắp cho em bằng những cái ôm thật chặt',
-			'Cảm nhận cái lạnh Sapa để thấy cần nhau hơn',
+			'Về phòng thả mình xuống giường êm',
+			'Sưởi ấm em bằng những cái ôm thật chặt',
+			'Tận hưởng không gian chỉ có đôi ta',
 		],
 		weather: {
 			icon: '🌧️',
@@ -126,22 +126,22 @@ export const itinerary: DaySchedule[] = [
 		outfit:
 			'Ưu tiên màu Đỏ, Cam đất hoặc Trắng kem để nổi bật trong sương (Tránh màu ghi/xám). Mang theo ô trong suốt.',
 		warnings: [
-			'Về đến nơi anh sẽ chăm sóc em thật kỹ, em chỉ cần nghỉ ngơi thôi',
+			'Về đến nơi anh sẽ chiều chuộng em hết nấc, cứ yên tâm nghỉ ngơi',
 		],
 		timeline: [
 			{
 				time: '14:00',
-				title: 'Về tổ ấm bình yên',
-				description: 'Mình về nhận phòng thôi, bỏ lại mệt mỏi sau cánh cửa nhé',
+				title: 'Về chốn bình yên',
+				description:
+					'Nhận phòng, khép cửa lại, để sương gió ở ngoài, chỉ còn hơi ấm đôi mình.',
 				address: '03A Thác Bạc, TT. Sapa',
-				note: 'Căn phòng này sẽ lưu giữ những khoảnh khắc đầu tiên của chúng mình',
+				note: 'Căn phòng này sẽ lưu giữ những khoảnh khắc ngọt ngào nhất',
 				type: 'transport',
 			},
 			{
 				time: '14:30 - 18:30',
-				title: 'Khoảng trời riêng tư',
-				description:
-					'Không cần đi đâu vội, mình nằm bên nhau nghe tiếng mưa rơi, để anh xoa dịu cơn say xe cho em',
+				title: 'Phút giây thư giãn',
+				description: 'Nghỉ ngơi một chút. Anh sẽ ôm em để em không thấy lạnh.',
 				note: 'Anh sẽ là túi sưởi 37 độ độc quyền cho em',
 				type: 'rest',
 				isHighlight: true,
@@ -158,15 +158,15 @@ export const itinerary: DaySchedule[] = [
 			},
 			{
 				time: '20:00 - 21:30',
-				title: 'Dạo bước dưới ánh đèn vàng',
+				title: 'Dạo bước dưới sương mờ',
 				description:
-					'Nhà thờ Đá lung linh trong sương, khung cảnh như phim tình cảm của riêng đôi mình',
-				distance: '200m quanh quảng trường (Đi bộ nhẹ nhàng)',
-				transport: 'Đi bộ, nếu lạnh thì mình gọi Taxi',
+					'Nhà thờ Đá lung linh, những cơn gió lạnh sẽ là cái cớ hoàn hảo để anh nắm tay em chặt hơn.',
+				distance: '200m (Đi bộ để dễ bề ôm ấp)',
+				transport: 'Đi bộ, lạnh thì ôm anh',
 				photoTips: {
-					angle: 'Góc thấp từ bên hông nhà thờ hướng lên tháp chuông',
-					pose: 'Đứng dưới ô trong suốt, nhìn nhau hoặc nhìn xa xăm',
-					tips: "Giảm độ sáng (-0.3 EV) để sương mù trông dày và 'moody' hơn",
+					angle: 'Góc nào cũng được, miễn là hôn nhau',
+					pose: 'Đứng dưới ô, hôn dưới mưa (như phim Hàn)',
+					tips: 'Giảm sáng để tăng độ... mờ ảo lãng mạn',
 				},
 				type: 'activity',
 				isHighlight: true,
@@ -175,8 +175,8 @@ export const itinerary: DaySchedule[] = [
 				time: '22:00',
 				title: 'Giấc mơ dịu êm',
 				description:
-					'Về phòng ủ ấm trong chăn bông thôi. Đêm Sapa lạnh nhưng trong lòng mình thì ấm',
-				note: 'Ngủ ngon nhé công chúa của anh',
+					'Đêm Sapa lạnh, nhưng có anh ở đây rồi, em sẽ luôn thấy ấm. Ngủ ngon nhé bé yêu.',
+				note: 'Ngủ ngoan, mai mình lại cùng nhau đi chơi',
 				type: 'rest',
 			},
 		],
@@ -186,12 +186,12 @@ export const itinerary: DaySchedule[] = [
 		id: 2,
 		date: '2026-01-16',
 		dateLabel: 'Thứ 5, 16/01',
-		title: 'Ngày của Nàng Thơ 🌹',
-		theme: 'Ngọt ngào & Nuông chiều',
+		title: 'Ngày Của Nàng Thơ 🌹',
+		theme: 'Ngọt ngào & Lãng mạn',
 		goals: [
-			'Là ngày em được cưng chiều nhất (dù ngày nào anh cũng chiều)',
-			'Spa thư giãn để em xinh càng thêm xinh',
-			'Tiệc sinh nhật lung linh ánh nến',
+			'Cưng chiều công chúa của anh',
+			'Tắm lá thuốc cho thơm tho để anh... hít hà',
+			'Sinh nhật thổi nến và ước nguyện',
 		],
 		weather: {
 			icon: '⛅',
@@ -200,14 +200,14 @@ export const itinerary: DaySchedule[] = [
 		},
 		outfit:
 			'Trang phục ấm áp, thoải mái. Mang theo váy xinh để thay cho bữa tiệc tối (Khoác thêm áo ấm bên ngoài).',
-		warnings: ['Chuẩn bị tinh thần để nhận thật nhiều yêu thương nhé!'],
+		warnings: ['Chuẩn bị tinh thần để nhận quà bất ngờ nhé!'],
 		timeline: [
 			{
 				time: '09:00 - 11:00',
-				title: 'Bình minh muộn màng',
+				title: 'Bình minh ngọt ngào',
 				description:
-					'Cứ ngủ nướng thoả thích trong vòng tay anh. Hôm nay em là nữ hoàng, không ai được đánh thức',
-				note: 'Dậy lúc nào mình ăn lúc đó, anh đợi được',
+					'Ngủ nướng trong vòng tay anh. Dậy lúc nào ăn lúc đó. Anh đã sẵn sàng phục vụ bữa sáng (hoặc bữa trưa) cho em.',
+				note: 'Nạp đầy năng lượng tình yêu nhé',
 				type: 'rest',
 			},
 			{
@@ -235,14 +235,14 @@ export const itinerary: DaySchedule[] = [
 			},
 			{
 				time: '14:30 - 17:00',
-				title: 'Thư giãn nhan sắc',
+				title: 'Thư giãn cùng thảo dược',
 				description:
-					'Tắm lá thuốc Dao Đỏ tại Sapa Green Spa, bồn gỗ Pơ-mu chuẩn vị',
+					'Tắm lá thuốc Dao Đỏ, ngâm mình cho da dẻ hồng hào, nhìn là muốn yêu.',
 				address: '02 Hoàng Liên',
 				hotline: '0214 387 2222',
 				warnings: [
-					'Chỉ ngâm tối đa 20-25 phút để tránh say thuốc',
-					'Không cần tráng lại nước sau khi tắm',
+					'Ngâm vừa thôi kẻo say thuốc (hoặc say anh)',
+					'Da em mịn thế này ai chịu nổi',
 				],
 				type: 'spa',
 				isHighlight: true,
@@ -264,10 +264,10 @@ export const itinerary: DaySchedule[] = [
 			},
 			{
 				time: '20:30+',
-				title: 'SINH NHẬT NGỌT NGÀO 🎂',
+				title: 'HAPPY BIRTHDAY BABE 🎂',
 				description:
-					'Bánh kem, hoa và quà. Chúc mừng sinh nhật người thương của anh ❤️',
-				note: 'Cảm ơn em đã đến bên đời anh. Đêm nay bình yên và hạnh phúc nhé',
+					'Thổi nến xong rồi mình cùng trao nhau nụ hôn ngọt ngào. Quà của em đây, mở ra đi!',
+				note: 'Đêm nay hãy cùng nhau thức thật khuya nhé! Yêu em!',
 				type: 'activity',
 				isHighlight: true,
 			},
@@ -278,12 +278,12 @@ export const itinerary: DaySchedule[] = [
 		id: 3,
 		date: '2026-01-17',
 		dateLabel: 'Thứ 6, 17/01',
-		title: 'Cùng nhau đi trốn ❤️',
-		theme: 'Đồng hành & Ghi dấu',
+		title: 'Cùng nhau chạm đỉnh mây trời ❤️',
+		theme: 'Đồng hành & Gắn kết',
 		goals: [
-			'Nắm tay nhau lên đỉnh núi cao',
-			'Lưu giữ thanh xuân của chúng mình qua từng bức ảnh',
-			'Hòa mình vào phiên chợ tình náo nhiệt',
+			'Nắm tay nhau lên đỉnh (Hàm Rồng)',
+			'Lưu giữ những khoảnh khắc vui vẻ',
+			'Hòa mình vào chợ tình (để thấy đôi mình là tâm điểm)',
 		],
 		weather: {
 			icon: '☀️',
@@ -334,9 +334,9 @@ export const itinerary: DaySchedule[] = [
 			},
 			{
 				time: '13:00 - 14:30',
-				title: 'Nạp năng lượng yêu thương',
+				title: 'Nghỉ ngơi nạp năng lượng',
 				description:
-					'Về phòng nghỉ ngơi chút cho lại sức. Nằm bên nhau xem lại ảnh hồi sáng',
+					'Về phòng nghỉ sức. Tranh thủ lưu giữ vài tấm ảnh đẹp của hai đứa.',
 				type: 'rest',
 			},
 			{
@@ -375,12 +375,12 @@ export const itinerary: DaySchedule[] = [
 		id: 4,
 		date: '2026-01-18',
 		dateLabel: 'Thứ 7, 18/01',
-		title: 'Hẹn ước mùa mây 💕',
-		theme: 'Lưu luyến & Hy vọng',
+		title: 'Tạm biệt Sapa thơ mộng 💕',
+		theme: 'Lưu luyến & Hẹn ngày tái ngộ',
 		goals: [
-			'Ngắm lại Sapa lần cuối và khắc ghi vào tim',
-			'Gói ghém những kỷ niệm ngọt ngào mang về',
-			'Hẹn ngày trở lại khi tình mình càng lớn hơn',
+			'Ngắm lại Sapa lần cuối',
+			'Gói ghém kỷ niệm (và quà cáp)',
+			'Hẹn ngày trở lại khám phá tiếp',
 		],
 		weather: {
 			icon: '🌤️',
@@ -415,9 +415,9 @@ export const itinerary: DaySchedule[] = [
 			},
 			{
 				time: '12:00',
-				title: 'Tạm biệt chốn kỷ niệm',
+				title: 'Tạm biệt căn phòng nhỏ',
 				description:
-					'Trả phòng thôi. Cảm ơn Sapa đã cho mình những ngày thật đẹp',
+					'Trả phòng thôi. Cảm ơn nơi này đã lưu giữ kỷ niệm đẹp của chúng mình.',
 				address: 'Sapa House Hotel',
 				type: 'transport',
 			},
@@ -436,10 +436,10 @@ export const itinerary: DaySchedule[] = [
 			},
 			{
 				time: '14:00 - 15:00',
-				title: 'Trở về bên nhau',
+				title: 'Trở về tổ ấm',
 				description:
-					'Trên xe em cứ dựa vào vai anh ngủ nhé. Về đến nhà mình vẫn có nhau mà',
-				note: 'Yêu em nhiều hơn cả những ngày qua! Cảm ơn em vì chuyến đi tuyệt vời',
+					'Lên xe về thôi. Tranh thủ ngủ lấy sức, tối về Hà Nội mình lại yêu thương tiếp.',
+				note: 'Yêu em! Cảm ơn em vì đã để anh chăm sóc suốt mấy ngày qua.',
 				type: 'transport',
 				isHighlight: true,
 			},
