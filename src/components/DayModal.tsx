@@ -52,12 +52,12 @@ const DayModal = ({ day, onClose }: DayModalProps) => {
     setTimeout(() => setShowBirthdayMessage(false), 4000);
   };
 
-  // Snappy spring for fast shared element transitions
+  // Very fast spring - matches open speed
   const layoutTransition = {
     type: "spring" as const,
-    stiffness: 500,
+    stiffness: 700,
     damping: 35,
-    mass: 0.8,
+    mass: 0.5,
   };
 
   return (
@@ -106,35 +106,23 @@ const DayModal = ({ day, onClose }: DayModalProps) => {
           >
             <div className="flex items-start justify-between">
               <div>
-                <motion.div 
-                  layoutId={`day-date-${day.id}`}
-                  transition={{ layout: layoutTransition }}
-                  className="flex items-center gap-2 text-amber-400 mb-1"
-                >
+                <div className="flex items-center gap-2 text-amber-400 mb-1">
                   <Calendar className="w-4 h-4" />
                   <span className="text-sm font-medium">Ngày {day.id}</span>
-                </motion.div>
-                <motion.h2 
-                  layoutId={`day-title-${day.id}`}
-                  transition={{ layout: layoutTransition }}
-                  className="font-display text-3xl md:text-4xl text-white"
-                >
+                </div>
+                <h2 className="font-display text-3xl md:text-4xl text-white">
                   {day.dateLabel}
-                </motion.h2>
+                </h2>
               </div>
 
               <div className="flex items-center gap-3">
-                <motion.div 
-                  layoutId={`day-weather-${day.id}`}
-                  transition={{ layout: layoutTransition }}
-                  className="text-4xl"
-                >
+                <div className="text-4xl">
                   {day.weather.icon}
-                </motion.div>
+                </div>
                 <motion.button
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.15 }}
+                  transition={{ delay: 0.1 }}
                   whileTap={{ scale: 0.9 }}
                   onClick={onClose}
                   className="glass-button p-2 rounded-full"
@@ -144,14 +132,10 @@ const DayModal = ({ day, onClose }: DayModalProps) => {
               </div>
             </div>
 
-            <motion.p 
-              layoutId={`day-subtitle-${day.id}`}
-              transition={{ layout: layoutTransition }}
-              className="text-white/70 font-medium mt-2 flex items-center gap-2"
-            >
+            <p className="text-white/70 font-medium mt-2 flex items-center gap-2">
               {day.isBirthday && <Sparkles className="w-4 h-4 text-amber-400" />}
               {day.title}
-            </motion.p>
+            </p>
           </div>
 
           {/* Content */}
