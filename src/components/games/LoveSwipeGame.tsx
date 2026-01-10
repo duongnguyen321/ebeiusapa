@@ -1,5 +1,11 @@
-import { useState, useCallback, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useCallback, useRef } from 'react';
+import {
+	motion,
+	AnimatePresence,
+	useMotionValue,
+	useTransform,
+	PanInfo,
+} from 'framer-motion';
 import { X, Heart, XCircle, Repeat, Users } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import {
@@ -26,60 +32,97 @@ export function LoveSwipeGame({ onClose }: LoveSwipeGameProps) {
 	);
 	const [phase, setPhase] = useState<GamePhase>('player1');
 	const [matches, setMatches] = useState<SwipeCard[]>([]);
+	const [isAnimating, setIsAnimating] = useState(false);
+	const [flyX, setFlyX] = useState(0);
+
+	// Swipe motion values for drag
+	const x = useMotionValue(0);
+	const rotate = useTransform(x, [-200, 200], [-15, 15]);
+	const likeOpacity = useTransform(x, [0, 100], [0, 1]);
+	const nopeOpacity = useTransform(x, [-100, 0], [1, 0]);
 
 	const currentCard =
 		phase === 'player1' || phase === 'player2' ? cards[currentIndex] : null;
+	const showControls = phase === 'player1' || phase === 'player2';
 
 	const handleSwipe = useCallback(
 		(direction: 'left' | 'right') => {
-			if (!currentCard) return;
+			if (!currentCard || isAnimating) return;
+
+			setIsAnimating(true);
+
+			// Animate card flying away
+			setFlyX(direction === 'right' ? 400 : -400);
+			x.set(0);
 
 			const isYes = direction === 'right';
 
-			if (phase === 'player1') {
-				setPlayer1Choices((prev) => ({ ...prev, [currentCard.id]: isYes }));
-			} else if (phase === 'player2') {
-				// For player 2, we need to calculate matches at the last card
-				const newPlayer2Choices = {
-					...player2Choices,
-					[currentCard.id]: isYes,
-				};
-				setPlayer2Choices(newPlayer2Choices);
+			// After animation, update state
+			setTimeout(() => {
+				setFlyX(0);
+				setIsAnimating(false);
+
+				if (phase === 'player1') {
+					setPlayer1Choices((prev) => ({ ...prev, [currentCard.id]: isYes }));
+				} else if (phase === 'player2') {
+					const newPlayer2Choices = {
+						...player2Choices,
+						[currentCard.id]: isYes,
+					};
+					setPlayer2Choices(newPlayer2Choices);
+
+					if (currentIndex + 1 >= cards.length) {
+						const matchedCards = cards.filter((card) => {
+							const p1Yes = player1Choices[card.id];
+							const p2Yes = newPlayer2Choices[card.id];
+							return p1Yes && p2Yes;
+						});
+
+						setMatches(matchedCards);
+						setPhase('results');
+
+						if (matchedCards.length > 0) {
+							confetti({
+								particleCount: 100 * matchedCards.length,
+								spread: 70,
+								origin: { y: 0.6 },
+								colors: ['#ff6b9d', '#a855f7', '#22d3ee', '#fbbf24'],
+							});
+						}
+						return;
+					}
+				}
 
 				if (currentIndex + 1 >= cards.length) {
-					// Calculate matches with all choices including current
-					const matchedCards = cards.filter((card) => {
-						const p1Yes = player1Choices[card.id];
-						const p2Yes = newPlayer2Choices[card.id];
-						return p1Yes && p2Yes;
-					});
-
-					setMatches(matchedCards);
-					setPhase('results');
-
-					if (matchedCards.length > 0) {
-						confetti({
-							particleCount: 100 * matchedCards.length,
-							spread: 70,
-							origin: { y: 0.6 },
-							colors: ['#ff6b9d', '#a855f7', '#22d3ee', '#fbbf24'],
-						});
+					if (phase === 'player1') {
+						setPhase('handoff');
+						setCurrentIndex(0);
 					}
-					return;
+				} else {
+					setCurrentIndex((prev) => prev + 1);
 				}
-			}
-
-			if (currentIndex + 1 >= cards.length) {
-				if (phase === 'player1') {
-					setPhase('handoff');
-					setCurrentIndex(0);
-				}
-			} else {
-				setCurrentIndex((prev) => prev + 1);
-			}
+			}, 250);
 		},
-		[cards, currentCard, currentIndex, phase, player1Choices, player2Choices]
+		[
+			cards,
+			currentCard,
+			currentIndex,
+			phase,
+			player1Choices,
+			player2Choices,
+			x,
+			isAnimating,
+		]
 	);
+
+	const handleDragEnd = (_: any, info: PanInfo) => {
+		if (isAnimating) return;
+		if (info.offset.x > 100 || info.velocity.x > 500) {
+			handleSwipe('right');
+		} else if (info.offset.x < -100 || info.velocity.x < -500) {
+			handleSwipe('left');
+		}
+	};
 
 	const handleHandoffComplete = () => {
 		setPhase('player2');
@@ -92,9 +135,6 @@ export function LoveSwipeGame({ onClose }: LoveSwipeGameProps) {
 		setMatches([]);
 		setPhase('player1');
 	};
-
-	// Render controls conditionally but always return same structure
-	const showControls = phase === 'player1' || phase === 'player2';
 
 	return (
 		<motion.div
@@ -243,15 +283,39 @@ export function LoveSwipeGame({ onClose }: LoveSwipeGameProps) {
 							key={`swipe-${phase}-${currentIndex}`}
 							className='relative w-full max-w-sm'
 							initial={{ opacity: 0, scale: 0.9 }}
-							animate={{ opacity: 1, scale: 1 }}
-							exit={{ opacity: 0, scale: 0.9, x: 100 }}
+							animate={{ opacity: 1, scale: 1, x: flyX }}
+							transition={{ type: 'spring', damping: 20, stiffness: 200 }}
 						>
 							{/* Card stack illusion */}
 							<div className='absolute inset-4 rounded-3xl glass-card opacity-30' />
 							<div className='absolute inset-2 rounded-3xl glass-card opacity-50' />
 
-							{/* Active card */}
-							<div className='relative aspect-[3/4] rounded-3xl glass-card overflow-hidden'>
+							{/* Swipeable card */}
+							<motion.div
+								drag={!isAnimating ? 'x' : false}
+								dragConstraints={{ left: 0, right: 0 }}
+								dragElastic={0.5}
+								onDragEnd={handleDragEnd}
+								style={{
+									x: isAnimating ? 0 : x,
+									rotate: isAnimating ? 0 : rotate,
+								}}
+								className='relative aspect-[3/4] rounded-3xl glass-card overflow-hidden cursor-grab active:cursor-grabbing'
+							>
+								{/* Swipe indicators */}
+								<motion.div
+									className='absolute inset-0 flex items-center justify-center bg-green-500/30 rounded-3xl pointer-events-none'
+									style={{ opacity: isAnimating ? 0 : likeOpacity }}
+								>
+									<Heart className='w-20 h-20 text-green-400' />
+								</motion.div>
+								<motion.div
+									className='absolute inset-0 flex items-center justify-center bg-red-500/30 rounded-3xl pointer-events-none'
+									style={{ opacity: isAnimating ? 0 : nopeOpacity }}
+								>
+									<XCircle className='w-20 h-20 text-red-400' />
+								</motion.div>
+
 								{/* Heat indicator */}
 								<div
 									className='absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-bold z-10'
@@ -270,7 +334,14 @@ export function LoveSwipeGame({ onClose }: LoveSwipeGameProps) {
 										{currentCard.content}
 									</p>
 								</div>
-							</div>
+
+								{/* Swipe hint */}
+								<div className='absolute bottom-4 left-0 right-0 text-center'>
+									<p className='text-white/40 text-xs'>
+										← Không | Quẹt để chọn | Đồng ý →
+									</p>
+								</div>
+							</motion.div>
 						</motion.div>
 					)}
 				</AnimatePresence>
@@ -284,7 +355,8 @@ export function LoveSwipeGame({ onClose }: LoveSwipeGameProps) {
 							whileHover={{ scale: 1.1 }}
 							whileTap={{ scale: 0.9 }}
 							onClick={() => handleSwipe('left')}
-							className='p-5 rounded-full bg-gradient-to-br from-red-500 to-rose-600 text-white shadow-lg'
+							disabled={isAnimating}
+							className='p-5 rounded-full bg-gradient-to-br from-red-500 to-rose-600 text-white shadow-lg disabled:opacity-50'
 						>
 							<XCircle className='w-8 h-8' />
 						</motion.button>
@@ -293,15 +365,14 @@ export function LoveSwipeGame({ onClose }: LoveSwipeGameProps) {
 							whileHover={{ scale: 1.1 }}
 							whileTap={{ scale: 0.9 }}
 							onClick={() => handleSwipe('right')}
-							className='p-5 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 text-white shadow-lg'
+							disabled={isAnimating}
+							className='p-5 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 text-white shadow-lg disabled:opacity-50'
 						>
 							<Heart className='w-8 h-8' />
 						</motion.button>
 					</div>
 					<p className='text-center text-white/40 text-sm mt-4'>
-						{phase === 'player1'
-							? '❌ Bỏ qua | ❤️ Thích'
-							: '❌ Không | ❤️ Đồng ý'}
+						❌ Không | ❤️ Đồng ý
 					</p>
 				</div>
 			)}

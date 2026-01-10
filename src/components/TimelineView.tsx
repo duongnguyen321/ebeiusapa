@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Heart } from 'lucide-react';
+import { Heart, Gift } from 'lucide-react';
 import { useState, useRef } from 'react';
 import type { DaySchedule } from '@/data/itinerary';
 import type { ActiveTimelineState } from '@/hooks/useActiveTimeline';
@@ -10,6 +10,7 @@ import { ScratchCard } from './ScratchCard';
 import { LetterCard, SecretLetter } from './SecretLetter';
 import { loveLetters } from '@/data/letters';
 import BottomNavbar from './BottomNavbar';
+import BottomSheet from './BottomSheet';
 import GamesModal from './GamesModal';
 import { MistWhispersGame, HighlandDiceGame, LoveSwipeGame } from './games';
 
@@ -151,136 +152,40 @@ const TimelineView = ({
 			</div>
 
 			{/* Love Letters Bottom Sheet Modal */}
-			{showLetters && (
-				<motion.div
-					initial={{ opacity: 0 }}
-					animate={{ opacity: 1 }}
-					exit={{ opacity: 0 }}
-					className='fixed inset-0 z-50 flex items-end md:items-center justify-center bg-black/60 backdrop-blur-sm'
-					onClick={() => setShowLetters(false)}
-				>
-					<motion.div
-						initial={{ y: '100%', opacity: 0 }}
-						animate={{ y: 0, opacity: 1 }}
-						exit={{ y: '100%', opacity: 0 }}
-						transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-						onClick={(e) => e.stopPropagation()}
-						className='w-full md:max-w-lg md:mx-4'
-					>
-						<div className='glass-card rounded-t-3xl md:rounded-2xl overflow-hidden'>
-							{/* Handle bar for mobile */}
-							<div className='flex justify-center pt-3 pb-1 md:hidden'>
-								<div className='w-10 h-1 bg-white/30 rounded-full' />
-							</div>
-
-							{/* Header */}
-							<div className='p-4 pb-2 flex items-center justify-between border-b border-white/10'>
-								<h3 className='text-lg font-display text-white flex items-center gap-2'>
-									<Heart className='w-5 h-5 text-pink-400 fill-pink-400' />
-									Thư bí mật mỗi ngày
-								</h3>
-								<button
-									onClick={() => setShowLetters(false)}
-									className='p-2 rounded-full glass-button text-white/60 hover:text-white'
-									aria-label='Đóng'
-								>
-									<svg
-										className='w-5 h-5'
-										fill='none'
-										viewBox='0 0 24 24'
-										stroke='currentColor'
-									>
-										<path
-											strokeLinecap='round'
-											strokeLinejoin='round'
-											strokeWidth={2}
-											d='M6 18L18 6M6 6l12 12'
-										/>
-									</svg>
-								</button>
-							</div>
-
-							{/* Letter cards - horizontal scroll on mobile, grid on desktop */}
-							<div className='p-4 max-h-[60vh] overflow-y-auto'>
-								<div className='flex md:grid md:grid-cols-2 gap-3 overflow-x-auto pb-2 md:overflow-x-visible snap-x snap-mandatory'>
-									{loveLetters.map((_, index) => (
-										<div
-											key={index}
-											className='flex-shrink-0 w-[75vw] md:w-full snap-center'
-										>
-											<LetterCard
-												letterIndex={index}
-												onClick={() => {
-													setSelectedLetter(index);
-													setShowLetters(false);
-												}}
-											/>
-										</div>
-									))}
-								</div>
-							</div>
+			<BottomSheet
+				isOpen={showLetters}
+				onClose={() => setShowLetters(false)}
+				title='Thư bí mật mỗi ngày'
+				icon={<Heart className='w-5 h-5 text-pink-400 fill-pink-400' />}
+				maxWidth='md:max-w-lg'
+			>
+				<div className='flex md:grid md:grid-cols-2 gap-3 overflow-x-auto pb-2 md:overflow-x-visible snap-x snap-mandatory'>
+					{loveLetters.map((_, index) => (
+						<div
+							key={index}
+							className='flex-shrink-0 w-[75vw] md:w-full snap-center'
+						>
+							<LetterCard
+								letterIndex={index}
+								onClick={() => {
+									setSelectedLetter(index);
+									setShowLetters(false);
+								}}
+							/>
 						</div>
-					</motion.div>
-				</motion.div>
-			)}
+					))}
+				</div>
+			</BottomSheet>
 
 			{/* Scratch Card Modal */}
-			{showScratchCard && (
-				<motion.div
-					initial={{ opacity: 0 }}
-					animate={{ opacity: 1 }}
-					exit={{ opacity: 0 }}
-					className='fixed inset-0 z-50 flex items-end md:items-center justify-center bg-black/60 backdrop-blur-sm'
-					onClick={() => setShowScratchCard(false)}
-				>
-					<motion.div
-						initial={{ y: '100%', opacity: 0 }}
-						animate={{ y: 0, opacity: 1 }}
-						exit={{ y: '100%', opacity: 0 }}
-						transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-						onClick={(e) => e.stopPropagation()}
-						className='w-full md:max-w-sm md:mx-4'
-					>
-						<div className='glass-card rounded-t-3xl md:rounded-2xl overflow-hidden'>
-							{/* Handle bar for mobile */}
-							<div className='flex justify-center pt-3 pb-1 md:hidden'>
-								<div className='w-10 h-1 bg-white/30 rounded-full' />
-							</div>
-
-							{/* Header */}
-							<div className='p-4 pb-2 flex items-center justify-between border-b border-white/10'>
-								<h3 className='text-lg font-display text-white flex items-center gap-2'>
-									🎁 Thẻ Cào May Mắn
-								</h3>
-								<button
-									onClick={() => setShowScratchCard(false)}
-									className='p-2 rounded-full glass-button text-white/60 hover:text-white'
-									aria-label='Đóng'
-								>
-									<svg
-										className='w-5 h-5'
-										fill='none'
-										viewBox='0 0 24 24'
-										stroke='currentColor'
-									>
-										<path
-											strokeLinecap='round'
-											strokeLinejoin='round'
-											strokeWidth={2}
-											d='M6 18L18 6M6 6l12 12'
-										/>
-									</svg>
-								</button>
-							</div>
-
-							{/* Content */}
-							<div className='p-4'>
-								<ScratchCard onComplete={() => {}} />
-							</div>
-						</div>
-					</motion.div>
-				</motion.div>
-			)}
+			<BottomSheet
+				isOpen={showScratchCard}
+				onClose={() => setShowScratchCard(false)}
+				title='🎁 Thẻ Cào May Mắn'
+				maxWidth='md:max-w-sm'
+			>
+				<ScratchCard onComplete={() => {}} />
+			</BottomSheet>
 
 			{/* Secret Letter Modal */}
 			<SecretLetter

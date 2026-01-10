@@ -1,6 +1,7 @@
-import { motion, AnimatePresence } from 'framer-motion';
-import { X, Gamepad2 } from 'lucide-react';
+import { Gamepad2 } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { games, type GameInfo } from '@/data/games';
+import BottomSheet from './BottomSheet';
 
 interface GamesModalProps {
 	isOpen: boolean;
@@ -10,63 +11,26 @@ interface GamesModalProps {
 
 export function GamesModal({ isOpen, onClose, onSelectGame }: GamesModalProps) {
 	return (
-		<AnimatePresence>
-			{isOpen && (
-				<motion.div
-					initial={{ opacity: 0 }}
-					animate={{ opacity: 1 }}
-					exit={{ opacity: 0 }}
-					className='fixed inset-0 z-50 flex items-end md:items-center justify-center bg-black/60 backdrop-blur-sm'
-					onClick={onClose}
-				>
-					<motion.div
-						initial={{ y: '100%', opacity: 0 }}
-						animate={{ y: 0, opacity: 1 }}
-						exit={{ y: '100%', opacity: 0 }}
-						transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-						onClick={(e) => e.stopPropagation()}
-						className='w-full md:max-w-md md:mx-4'
-					>
-						<div className='glass-card rounded-t-3xl md:rounded-2xl overflow-hidden'>
-							{/* Handle bar for mobile */}
-							<div className='flex justify-center pt-3 pb-1 md:hidden'>
-								<div className='w-10 h-1 bg-white/30 rounded-full' />
-							</div>
-
-							{/* Header */}
-							<div className='p-4 pb-2 flex items-center justify-between border-b border-white/10'>
-								<h3 className='text-lg font-display text-white flex items-center gap-2'>
-									<Gamepad2 className='w-5 h-5 text-purple-400' />
-									Minigames Uống Rượu
-								</h3>
-								<button
-									onClick={onClose}
-									className='p-2 rounded-full glass-button text-white/60 hover:text-white'
-									aria-label='Đóng'
-								>
-									<X className='w-5 h-5' />
-								</button>
-							</div>
-
-							{/* Game list */}
-							<div className='p-4 space-y-3 max-h-[60vh] overflow-y-auto'>
-								{games.map((game, index) => (
-									<GameCard
-										key={game.id}
-										game={game}
-										index={index}
-										onSelect={() => {
-											onSelectGame(game.id);
-											onClose();
-										}}
-									/>
-								))}
-							</div>
-						</div>
-					</motion.div>
-				</motion.div>
-			)}
-		</AnimatePresence>
+		<BottomSheet
+			isOpen={isOpen}
+			onClose={onClose}
+			title='Minigames Uống Rượu'
+			icon={<Gamepad2 className='w-5 h-5 text-purple-400' />}
+		>
+			<div className='space-y-3'>
+				{games.map((game, index) => (
+					<GameCard
+						key={game.id}
+						game={game}
+						index={index}
+						onSelect={() => {
+							onSelectGame(game.id);
+							onClose();
+						}}
+					/>
+				))}
+			</div>
+		</BottomSheet>
 	);
 }
 

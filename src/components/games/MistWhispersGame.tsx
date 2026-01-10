@@ -1,6 +1,12 @@
-import { useState, useCallback, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { X, RefreshCw, Wine } from 'lucide-react';
+import { useState, useCallback } from 'react';
+import {
+	motion,
+	AnimatePresence,
+	useMotionValue,
+	useTransform,
+	PanInfo,
+} from 'framer-motion';
+import { X, Wine, Check } from 'lucide-react';
 import {
 	shuffleCards,
 	allWhisperCards,
@@ -15,20 +21,60 @@ export function MistWhispersGame({ onClose }: MistWhispersGameProps) {
 	const [cards] = useState(() => shuffleCards(allWhisperCards));
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const [isFlipped, setIsFlipped] = useState(false);
+	const [isAnimating, setIsAnimating] = useState(false);
+	const [flyX, setFlyX] = useState(0);
 
 	const currentCard = cards[currentIndex];
 
-	const handleNextCard = useCallback(() => {
-		setIsFlipped(false);
-		setTimeout(() => {
-			setCurrentIndex((prev) => (prev + 1) % cards.length);
-		}, 300);
-	}, [cards.length]);
+	// Swipe motion values
+	const x = useMotionValue(0);
+	const rotate = useTransform(x, [-200, 200], [-15, 15]);
+	const completedOpacity = useTransform(x, [0, 100], [0, 1]);
+	const drinkOpacity = useTransform(x, [-100, 0], [1, 0]);
+
+	const handleNextCard = useCallback(
+		(direction: 'left' | 'right') => {
+			if (isAnimating) return;
+
+			setIsAnimating(true);
+			setFlyX(direction === 'right' ? 400 : -400);
+			x.set(0);
+
+			// After animation, change to next card
+			setTimeout(() => {
+				setFlyX(0);
+				setIsFlipped(false);
+				setIsAnimating(false);
+				setCurrentIndex((prev) => (prev + 1) % cards.length);
+			}, 250);
+		},
+		[cards.length, x, isAnimating]
+	);
 
 	const handleFlip = () => {
-		if (!isFlipped) {
+		if (!isFlipped && !isAnimating) {
 			setIsFlipped(true);
 		}
+	};
+
+	const handleDragEnd = (_: any, info: PanInfo) => {
+		if (!isFlipped || isAnimating) return;
+
+		if (info.offset.x > 100 || info.velocity.x > 500) {
+			// Swipe right = Completed
+			handleNextCard('right');
+		} else if (info.offset.x < -100 || info.velocity.x < -500) {
+			// Swipe left = Drink
+			handleNextCard('left');
+		}
+	};
+
+	const handleComplete = () => {
+		handleNextCard('right');
+	};
+
+	const handleDrink = () => {
+		handleNextCard('left');
 	};
 
 	return (
@@ -67,81 +113,134 @@ export function MistWhispersGame({ onClose }: MistWhispersGameProps) {
 					<motion.div
 						key={currentIndex}
 						initial={{ opacity: 0, scale: 0.8 }}
-						animate={{ opacity: 1, scale: 1 }}
-						exit={{ opacity: 0, scale: 0.8, x: 100 }}
+						animate={{ opacity: 1, scale: 1, x: flyX }}
 						transition={{ type: 'spring', damping: 20, stiffness: 200 }}
-						onClick={handleFlip}
-						className='w-full max-w-sm aspect-[3/4] cursor-pointer'
+						className='w-full max-w-sm aspect-[3/4]'
 						style={{ perspective: '1000px' }}
 					>
+						{/* Swipeable card wrapper */}
 						<motion.div
-							className='relative w-full h-full'
-							style={{ transformStyle: 'preserve-3d' }}
-							animate={{ rotateY: isFlipped ? 180 : 0 }}
-							transition={{ type: 'spring', damping: 20, stiffness: 200 }}
+							drag={isFlipped && !isAnimating ? 'x' : false}
+							dragConstraints={{ left: 0, right: 0 }}
+							dragElastic={0.5}
+							onDragEnd={handleDragEnd}
+							style={{
+								x: isAnimating ? 0 : x,
+								rotate: isAnimating ? 0 : rotate,
+							}}
+							onClick={handleFlip}
+							className='relative w-full h-full cursor-pointer'
 						>
-							{/* Card Front (Back of card - shown when not flipped) */}
-							<div
-								className={`
-									absolute inset-0 rounded-3xl glass-card 
-									${currentCard?.type === 'world' ? 'border-cyan-500/30' : 'border-pink-500/30'}
-									border-2 overflow-hidden flex flex-col items-center justify-center p-6
-								`}
-								style={{ backfaceVisibility: 'hidden' }}
+							{/* Swipe indicators */}
+							{isFlipped && !isAnimating && (
+								<>
+									{/* Right = Complete */}
+									<motion.div
+										className='absolute -right-16 top-1/2 -translate-y-1/2 flex flex-col items-center gap-1 pointer-events-none'
+										style={{ opacity: completedOpacity }}
+									>
+										<div className='p-3 rounded-full bg-green-500'>
+											<Check className='w-6 h-6 text-white' />
+										</div>
+										<span className='text-green-400 text-xs font-medium'>
+											Hoàn thành
+										</span>
+									</motion.div>
+
+									{/* Left = Drink */}
+									<motion.div
+										className='absolute -left-16 top-1/2 -translate-y-1/2 flex flex-col items-center gap-1 pointer-events-none'
+										style={{ opacity: drinkOpacity }}
+									>
+										<div className='p-3 rounded-full bg-amber-500'>
+											<Wine className='w-6 h-6 text-white' />
+										</div>
+										<span className='text-amber-400 text-xs font-medium'>
+											Uống
+										</span>
+									</motion.div>
+								</>
+							)}
+
+							{/* Card flip container */}
+							<motion.div
+								className='relative w-full h-full'
+								style={{ transformStyle: 'preserve-3d' }}
+								animate={{ rotateY: isFlipped ? 180 : 0 }}
+								transition={{ type: 'spring', damping: 20, stiffness: 200 }}
 							>
-								{/* Fog effect */}
-								<div className='absolute inset-0 bg-gradient-to-br from-white/10 to-transparent' />
-
-								{/* Sparkles - use fixed positions */}
-								{Array.from({ length: 20 }, (_, i) => (
-									<div
-										key={i}
-										className='absolute w-1 h-1 bg-white/30 rounded-full animate-pulse'
-										style={{
-											top: `${(i * 17) % 100}%`,
-											left: `${(i * 23) % 100}%`,
-											animationDelay: `${i * 0.1}s`,
-										}}
-									/>
-								))}
-
-								<span className='text-6xl mb-4 relative z-10'>☁️</span>
-								<p className='text-white/70 text-center relative z-10'>
-									Chạm để lật thẻ
-								</p>
-							</div>
-
-							{/* Card Back (Content - shown when flipped) */}
-							<div
-								className={`
-									absolute inset-0 rounded-3xl glass-card 
-									${currentCard?.type === 'world' ? 'border-cyan-500/30' : 'border-pink-500/30'}
-									border-2 overflow-hidden flex flex-col items-center justify-center p-6 text-center
-								`}
-								style={{
-									backfaceVisibility: 'hidden',
-									transform: 'rotateY(180deg)',
-								}}
-							>
-								{/* Type badge */}
+								{/* Card Front (Back of card - shown when not flipped) */}
 								<div
 									className={`
-										absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-medium
-										${
-											currentCard?.type === 'world'
-												? 'bg-cyan-500/20 text-cyan-300'
-												: 'bg-pink-500/20 text-pink-300'
-										}
+										absolute inset-0 rounded-3xl glass-card 
+										${currentCard?.type === 'world' ? 'border-cyan-500/30' : 'border-pink-500/30'}
+										border-2 overflow-hidden flex flex-col items-center justify-center p-6
 									`}
+									style={{ backfaceVisibility: 'hidden' }}
 								>
-									{currentCard?.type === 'world' ? '🌍 Quan sát' : '💕 Cặp đôi'}
+									{/* Fog effect */}
+									<div className='absolute inset-0 bg-gradient-to-br from-white/10 to-transparent' />
+
+									{/* Sparkles */}
+									{Array.from({ length: 20 }, (_, i) => (
+										<div
+											key={i}
+											className='absolute w-1 h-1 bg-white/30 rounded-full animate-pulse'
+											style={{
+												top: `${(i * 17) % 100}%`,
+												left: `${(i * 23) % 100}%`,
+												animationDelay: `${i * 0.1}s`,
+											}}
+										/>
+									))}
+
+									<span className='text-6xl mb-4 relative z-10'>☁️</span>
+									<p className='text-white/70 text-center relative z-10'>
+										Chạm để lật thẻ
+									</p>
 								</div>
 
-								{/* Question */}
-								<p className='text-white text-lg md:text-xl leading-relaxed font-medium'>
-									{currentCard?.question}
-								</p>
-							</div>
+								{/* Card Back (Content - shown when flipped) */}
+								<div
+									className={`
+										absolute inset-0 rounded-3xl glass-card 
+										${currentCard?.type === 'world' ? 'border-cyan-500/30' : 'border-pink-500/30'}
+										border-2 overflow-hidden flex flex-col items-center justify-center p-6 text-center
+									`}
+									style={{
+										backfaceVisibility: 'hidden',
+										transform: 'rotateY(180deg)',
+									}}
+								>
+									{/* Type badge */}
+									<div
+										className={`
+											absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-medium
+											${
+												currentCard?.type === 'world'
+													? 'bg-cyan-500/20 text-cyan-300'
+													: 'bg-pink-500/20 text-pink-300'
+											}
+										`}
+									>
+										{currentCard?.type === 'world'
+											? '🌍 Quan sát'
+											: '💕 Cặp đôi'}
+									</div>
+
+									{/* Question */}
+									<p className='text-white text-lg md:text-xl leading-relaxed font-medium'>
+										{currentCard?.question}
+									</p>
+
+									{/* Swipe hint */}
+									<div className='absolute bottom-4 left-0 right-0 text-center'>
+										<p className='text-white/40 text-xs'>
+											← Uống | Quẹt để chọn | Hoàn thành →
+										</p>
+									</div>
+								</div>
+							</motion.div>
 						</motion.div>
 					</motion.div>
 				</AnimatePresence>
@@ -150,30 +249,32 @@ export function MistWhispersGame({ onClose }: MistWhispersGameProps) {
 			{/* Controls */}
 			<div className='relative z-10 p-4 pb-8'>
 				<div className='max-w-sm mx-auto flex items-center justify-center gap-6'>
-					{/* Drink button */}
+					{/* Left = Drink */}
 					<motion.button
 						whileHover={{ scale: 1.1 }}
 						whileTap={{ scale: 0.9 }}
-						onClick={handleNextCard}
-						className='p-5 rounded-full bg-gradient-to-br from-amber-500 to-orange-600 text-white shadow-lg flex items-center gap-2'
-						aria-label='Uống & Tiếp'
+						onClick={handleDrink}
+						disabled={isAnimating}
+						className='p-5 rounded-full bg-gradient-to-br from-amber-500 to-orange-600 text-white shadow-lg disabled:opacity-50'
+						aria-label='Phạt uống'
 					>
 						<Wine className='w-7 h-7' />
 					</motion.button>
 
-					{/* Skip button */}
+					{/* Right = Completed */}
 					<motion.button
 						whileHover={{ scale: 1.1 }}
 						whileTap={{ scale: 0.9 }}
-						onClick={handleNextCard}
-						className='p-5 rounded-full glass-button text-white/60 hover:text-white'
-						aria-label='Bỏ qua'
+						onClick={handleComplete}
+						disabled={isAnimating}
+						className='p-5 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 text-white shadow-lg disabled:opacity-50'
+						aria-label='Hoàn thành'
 					>
-						<RefreshCw className='w-7 h-7' />
+						<Check className='w-7 h-7' />
 					</motion.button>
 				</div>
 				<p className='text-center text-white/40 text-sm mt-4'>
-					🍷 Uống & Tiếp | 🔄 Bỏ qua
+					🍷 Phạt uống | ✅ Hoàn thành
 				</p>
 			</div>
 		</motion.div>
