@@ -98,7 +98,7 @@ Kế hoạch cuối cùng sẽ lấy Luồng 1 (Lãng mạn) làm nòng cốt ch
 
 Đây là lịch trình chi tiết từng khung giờ, được thiết kế để khớp lệnh hoàn toàn với dự báo thời tiết và tình trạng sức khỏe của bạn gái.
 
-### **GIAI ĐOẠN 1: PHỤC HỒI & THÍCH NGHI (Ngày 15/01 \- Thứ 4 \- Mưa phùn/Sương mù)**
+### **GIAI ĐOẠN 1: PHỤC HỒI & THÍCH NGHI (Ngày 15/01 \- Thứ 5 \- Mưa phùn/Sương mù)**
 
 *Mục tiêu: Ổn định chỗ ở, phục hồi sức khỏe sau say xe, làm quen khí hậu lạnh.*
 
@@ -124,7 +124,7 @@ Kế hoạch cuối cùng sẽ lấy Luồng 1 (Lãng mạn) làm nòng cốt ch
 
 ### ---
 
-**GIAI ĐOẠN 2: SINH NHẬT ĐÁNG NHỚ & TRỊ LIỆU SÂU (Ngày 16/01 \- Thứ 5 \- Mưa/Sương mù)**
+**GIAI ĐOẠN 2: SINH NHẬT ĐÁNG NHỚ & TRỊ LIỆU SÂU (Ngày 16/01 \- Thứ 6 \- Mưa/Sương mù)**
 
 *Mục tiêu: Trọng tâm của chuyến đi. Thư giãn, chăm sóc cơ thể, tiệc lãng mạn.*
 
@@ -157,7 +157,7 @@ Kế hoạch cuối cùng sẽ lấy Luồng 1 (Lãng mạn) làm nòng cốt ch
 
 ### ---
 
-**GIAI ĐOẠN 3: BÙNG NỔ THỊ GIÁC (Ngày 17/01 \- Thứ 6 \- Hửng nắng)**
+**GIAI ĐOẠN 3: BÙNG NỔ THỊ GIÁC (Ngày 17/01 \- Thứ 7 \- Hửng nắng)**
 
 *Mục tiêu: Tận dụng thời tiết đẹp để đi 2 điểm tham quan quan trọng nhất. Chụp ảnh "sống ảo".*
 
@@ -189,7 +189,7 @@ Kế hoạch cuối cùng sẽ lấy Luồng 1 (Lãng mạn) làm nòng cốt ch
 
 ### ---
 
-**GIAI ĐOẠN 4: THƯ THÁI & TẠM BIỆT (Ngày 18/01 \- Thứ 7 \- Hửng nắng)**
+**GIAI ĐOẠN 4: THƯ THÁI & TẠM BIỆT (Ngày 18/01 \- Chủ nhật \- Hửng nắng)**
 
 *Mục tiêu: Mua quà, ngắm núi lần cuối, kết thúc hành trình.*
 

@@ -8,7 +8,8 @@ import {
 
 interface SurpriseState {
 	unlockedLetters: number[];
-	scratchCardUsedDates: string[];
+	scratchCardUsedDates: string[]; // Legacy - keep for backwards compatibility
+	scratchedRewardIds: string[]; // New - track individual reward IDs
 	birthdayCelebrationShown: boolean;
 	secretNotesUnlocked: string[];
 }
@@ -16,10 +17,13 @@ interface SurpriseState {
 interface SurpriseContextType extends SurpriseState {
 	unlockLetter: (index: number) => void;
 	markScratchCardUsed: (date: string) => void;
+	markRewardScratched: (rewardId: string) => void;
 	markBirthdayCelebrationShown: () => void;
 	unlockSecretNote: (id: string) => void;
 	isLetterUnlocked: (index: number) => boolean;
 	canScratchToday: () => boolean;
+	isRewardScratched: (rewardId: string) => boolean;
+	getScratchedRewardIds: () => string[];
 	isSecretNoteUnlocked: (id: string) => boolean;
 	getLetterUnlockTime: (index: number) => Date;
 	canUnlockLetter: (index: number) => boolean;
@@ -49,6 +53,7 @@ function loadState(): SurpriseState {
 	return {
 		unlockedLetters: [],
 		scratchCardUsedDates: [],
+		scratchedRewardIds: [],
 		birthdayCelebrationShown: false,
 		secretNotesUnlocked: [],
 	};
@@ -88,6 +93,15 @@ export function SurpriseProvider({ children }: { children: ReactNode }) {
 		}
 	};
 
+	const markRewardScratched = (rewardId: string) => {
+		if (!state.scratchedRewardIds.includes(rewardId)) {
+			setState((prev) => ({
+				...prev,
+				scratchedRewardIds: [...prev.scratchedRewardIds, rewardId],
+			}));
+		}
+	};
+
 	const markBirthdayCelebrationShown = () => {
 		setState((prev) => ({
 			...prev,
@@ -113,6 +127,14 @@ export function SurpriseProvider({ children }: { children: ReactNode }) {
 		return !state.scratchCardUsedDates.includes(today);
 	};
 
+	const isRewardScratched = (rewardId: string) => {
+		return state.scratchedRewardIds.includes(rewardId);
+	};
+
+	const getScratchedRewardIds = () => {
+		return state.scratchedRewardIds;
+	};
+
 	const isSecretNoteUnlocked = (id: string) => {
 		return state.secretNotesUnlocked.includes(id);
 	};
@@ -130,10 +152,13 @@ export function SurpriseProvider({ children }: { children: ReactNode }) {
 		...state,
 		unlockLetter,
 		markScratchCardUsed,
+		markRewardScratched,
 		markBirthdayCelebrationShown,
 		unlockSecretNote,
 		isLetterUnlocked,
 		canScratchToday,
+		isRewardScratched,
+		getScratchedRewardIds,
 		isSecretNoteUnlocked,
 		getLetterUnlockTime,
 		canUnlockLetter,

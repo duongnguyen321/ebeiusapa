@@ -29,12 +29,12 @@ Hãy thực hiện deep research và lập kế hoạch chi tiết cho chuyến 
 
 ### Dự báo thời tiết
 
-| Ngày  | Thứ   | Thời tiết          |
-| ----- | ----- | ------------------ |
-| 15/01 | Thứ 4 | Mưa phùn, sương mù |
-| 16/01 | Thứ 5 | Mưa phùn, sương mù |
-| 17/01 | Thứ 6 | Hửng nắng          |
-| 18/01 | Thứ 7 | Hửng nắng          |
+| Ngày  | Thứ      | Thời tiết          |
+| ----- | -------- | ------------------ |
+| 15/01 | Thứ 5    | Mưa phùn, sương mù |
+| 16/01 | Thứ 6    | Mưa phùn, sương mù |
+| 17/01 | Thứ 7    | Hửng nắng          |
+| 18/01 | Chủ nhật | Hửng nắng          |
 
 ### Ngân sách
 
@@ -50,7 +50,7 @@ Hãy thực hiện deep research và lập kế hoạch chi tiết cho chuyến 
 
 ## LỊCH TRÌNH ĐÃ XÁC ĐỊNH
 
-### Ngày 1 - 15/01 (Thứ 4)
+### Ngày 1 - 15/01 (Thứ 5)
 
 | Thời gian     | Hoạt động                  |
 | ------------- | -------------------------- |
@@ -60,7 +60,7 @@ Hãy thực hiện deep research và lập kế hoạch chi tiết cho chuyến 
 | Đêm khuya     | Đi nhà thờ đá chụp ảnh đêm |
 | ~23:00        | Về nghỉ sớm                |
 
-### Ngày 2 - 16/01 (Thứ 5) - SINH NHẬT 🎂
+### Ngày 2 - 16/01 (Thứ 6) - SINH NHẬT 🎂
 
 | Thời gian     | Hoạt động                                      |
 | ------------- | ---------------------------------------------- |
@@ -72,7 +72,7 @@ Hãy thực hiện deep research và lập kế hoạch chi tiết cho chuyến 
 | 19:00-20:00   | Đi siêu thị mua đồ tiệc                        |
 | 20:00+        | Tiệc sinh nhật tại phòng                       |
 
-### Ngày 3 - 17/01 (Thứ 6) - NGÀY CHƠI CHÍNH ☀️
+### Ngày 3 - 17/01 (Thứ 7) - NGÀY CHƠI CHÍNH ☀️
 
 | Thời gian   | Hoạt động                          |
 | ----------- | ---------------------------------- |
@@ -82,7 +82,7 @@ Hãy thực hiện deep research và lập kế hoạch chi tiết cho chuyến 
 | 16:00-22:00 | Chợ đêm Sapa (mở Thứ 6-CN)         |
 | 22:00+      | Ăn tối, về khách sạn               |
 
-### Ngày 4 - 18/01 (Thứ 7)
+### Ngày 4 - 18/01 (Chủ nhật)
 
 | Thời gian   | Hoạt động                 |
 | ----------- | ------------------------- |

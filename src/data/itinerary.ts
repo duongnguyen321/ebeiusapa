@@ -110,7 +110,7 @@ export const itinerary: DaySchedule[] = [
 	{
 		id: 1,
 		date: '2026-01-15',
-		dateLabel: 'Thứ 4, 15/01',
+		dateLabel: 'Thứ 5, 15/01',
 		title: 'Sương giăng lối nhỏ, mình lạc vào tim nhau 🌫️',
 		theme: 'Ấm áp & Tình tứ',
 		goals: [
@@ -185,7 +185,7 @@ export const itinerary: DaySchedule[] = [
 	{
 		id: 2,
 		date: '2026-01-16',
-		dateLabel: 'Thứ 5, 16/01',
+		dateLabel: 'Thứ 6, 16/01',
 		title: 'Ngày Của Nàng Thơ 🌹',
 		theme: 'Ngọt ngào & Lãng mạn',
 		goals: [
@@ -206,15 +206,30 @@ export const itinerary: DaySchedule[] = [
 				time: '09:00 - 11:00',
 				title: 'Bình minh ngọt ngào',
 				description:
-					'Ngủ nướng trong vòng tay anh. Dậy lúc nào ăn lúc đó. Anh đã sẵn sàng phục vụ bữa sáng (hoặc bữa trưa) cho em.',
-				note: 'Nạp đầy năng lượng tình yêu nhé',
+					'Ngủ nướng trong vòng tay anh. Dậy lúc nào ăn lúc đó. Nghỉ ngơi để có sức chơi cả ngày sinh nhật.',
+				note: 'Hôm nay là ngày của em, cứ từ từ thôi!',
 				type: 'rest',
 			},
 			{
-				time: '11:00 - 13:00',
-				title: 'Le Gecko Café - Góc Paris tình tứ',
+				time: '11:00 - 12:30',
+				title: 'Brunch sang chảnh - Lẩu cá tầm 🐟',
 				description:
-					'Ngồi ban công ngắm phố, anh ngắm em uống Cacao nóng, khoảnh khắc này muốn ngừng lại mãi',
+					'Thưởng thức Lẩu Cá Tầm hoặc Gỏi Cá Hồi tươi ngon trong không gian gỗ ấm cúng. Bữa brunch đặc biệt cho ngày sinh nhật!',
+				address: 'A Quỳnh Restaurant',
+				hotline: '0214 387 1666',
+				photoTips: {
+					angle: 'Chụp cận cảnh món ăn và nụ cười hạnh phúc',
+					pose: 'Hai đứa mình cụng ly ngọt ngào',
+					tips: 'Ánh sáng buổi trưa rất đẹp',
+				},
+				type: 'meal',
+				isHighlight: true,
+			},
+			{
+				time: '12:30 - 13:30',
+				title: 'Le Gecko Café - Góc Paris tình tứ ☕',
+				description:
+					'Ngồi ban công ngắm phố, anh ngắm em uống Cacao nóng. Nghỉ chân, tiêu hóa trước khi đi bản.',
 				address: '02 Ngũ Chỉ Sơn',
 				hotline: '0214 387 1224',
 				photoTips: {
@@ -226,124 +241,10 @@ export const itinerary: DaySchedule[] = [
 				isHighlight: true,
 			},
 			{
-				time: '13:00 - 14:30',
-				title: 'Một chút bí mật...',
+				time: '13:30 - 16:00',
+				title: 'Lạc bước Cát Cát 🏔️',
 				description:
-					'Anh chạy đi lo chút việc (bí mật của đàn ông), em ngồi nghỉ ngơi đợi điều bất ngờ nhé',
-				note: 'Đừng tò mò nha, bật mí sớm mất vui',
-				type: 'shopping',
-			},
-			{
-				time: '14:30 - 17:00',
-				title: 'Thư giãn cùng thảo dược',
-				description:
-					'Tắm lá thuốc Dao Đỏ, ngâm mình cho da dẻ hồng hào, nhìn là muốn yêu.',
-				address: '02 Hoàng Liên',
-				hotline: '0214 387 2222',
-				warnings: [
-					'Ngâm vừa thôi kẻo say thuốc (hoặc say anh)',
-					'Da em mịn thế này ai chịu nổi',
-				],
-				type: 'spa',
-				isHighlight: true,
-			},
-			{
-				time: '17:30 - 20:00',
-				title: 'Bữa tiệc dưới ánh nến',
-				description:
-					'Lẩu Cá Tầm bên bếp lửa hồng, trong không gian gỗ ấm cúng và lãng mạn',
-				address: 'A Quỳnh Restaurant',
-				hotline: '0214 387 1666',
-				photoTips: {
-					angle: 'Chụp cận cảnh nụ cười hạnh phúc của em',
-					pose: 'Hai đứa mình cụng ly rượu vang',
-					tips: 'Ánh nến lung linh làm mắt em long lanh hơn cả sao trời',
-				},
-				type: 'meal',
-				isHighlight: true,
-			},
-			{
-				time: '20:30+',
-				title: 'HAPPY BIRTHDAY BABE 🎂',
-				description:
-					'Thổi nến xong rồi mình cùng trao nhau nụ hôn ngọt ngào. Quà của em đây, mở ra đi!',
-				note: 'Đêm nay hãy cùng nhau thức thật khuya nhé! Yêu em!',
-				type: 'activity',
-				isHighlight: true,
-			},
-		],
-		isBirthday: true,
-	},
-	{
-		id: 3,
-		date: '2026-01-17',
-		dateLabel: 'Thứ 6, 17/01',
-		title: 'Cùng nhau chạm đỉnh mây trời ❤️',
-		theme: 'Đồng hành & Gắn kết',
-		goals: [
-			'Nắm tay nhau lên đỉnh (Hàm Rồng)',
-			'Lưu giữ những khoảnh khắc vui vẻ',
-			'Hòa mình vào chợ tình (để thấy đôi mình là tâm điểm)',
-		],
-		weather: {
-			icon: '☀️',
-			description: 'Trời hửng nắng, mây tan. Ánh sáng đẹp nhất chuyến đi.',
-			temp: '11-18°C',
-		},
-		outfit:
-			'Tone màu sáng: Trắng, Đỏ, Vàng để nổi bật trên nền xanh. Giày đế mềm/thể thao để tiện đi bộ.',
-		warnings: ['Đi cẩn thận nha, chỗ nào khó đi cứ bám chặt lấy tay anh'],
-		timeline: [
-			{
-				time: '08:00 - 09:00',
-				title: 'Nắng sớm gọi mời',
-				description:
-					'Dậy sớm đón bình minh, ăn sáng thật ngon để có sức đi chơi cùng anh',
-				note: 'Em cười trong nắng sớm là cảnh đẹp nhất anh từng thấy',
-				type: 'rest',
-			},
-			{
-				time: '09:00 - 11:30',
-				title: 'Chinh phục Hàm Rồng',
-				description:
-					'Vườn Lan, Sân Mây... mỗi bước chân là một kỷ niệm. Lên cao để thấy tình yêu mình bao la',
-				distance: 'Đi bộ từ trung tâm (ngay sau Nhà thờ Đá)',
-				photoTips: {
-					angle: 'Chụp lúc nắng xiên đẹp nhất (9h-10h)',
-					pose: 'Em quay lại nhìn anh, tóc bay trong gió (tại Sân Mây)',
-					tips: 'Chụp nhiều tại Vườn Lan và Sân Mây',
-				},
-				warnings: ['Đi chậm, nghỉ nhiều chặng để chụp ảnh'],
-				type: 'activity',
-				isHighlight: true,
-			},
-			{
-				time: '11:30 - 13:00',
-				title: 'Gà nướng đậm vị tình',
-				description:
-					'Thưởng thức gà nướng tiêu xanh cay nồng, xuýt xoa như những cái nắm tay ấm áp',
-				address: 'Nhà hàng Hải Lâm - 69 Xuân Viên',
-				hotline: '0934 246 696',
-				photoTips: {
-					angle: 'Chụp món ăn (Food porn)',
-					pose: 'Đút cho nhau ăn thật tình cảm',
-					tips: 'Gà nướng tiêu xanh là món signature ở đây',
-				},
-				type: 'meal',
-				isHighlight: true,
-			},
-			{
-				time: '13:00 - 14:30',
-				title: 'Nghỉ ngơi nạp năng lượng',
-				description:
-					'Về phòng nghỉ sức. Tranh thủ lưu giữ vài tấm ảnh đẹp của hai đứa.',
-				type: 'rest',
-			},
-			{
-				time: '14:30 - 17:30',
-				title: 'Lạc bước Cát Cát',
-				description:
-					'Em hóa thân thành cô gái bản, anh làm chàng trai si tình đi theo chụp ảnh',
+					'Em hóa thân thành cô gái bản, anh làm chàng trai si tình đi theo chụp ảnh. Chiều hửng nắng ấm (14-17°C), khung cảnh đẹp nhất!',
 				distance: '2km (Đi Taxi xuống cổng bản)',
 				transport: 'Taxi chiều đi - Xe ôm chiều về (Không đi bộ ngược dốc)',
 				photoTips: {
@@ -359,14 +260,123 @@ export const itinerary: DaySchedule[] = [
 				isHighlight: true,
 			},
 			{
-				time: '18:00 - 22:00',
-				title: 'Phiên chợ tình yêu',
+				time: '16:00 - 17:30',
+				title: 'Thư giãn cùng thảo dược 🌿',
 				description:
-					'Len lỏi trong chợ đêm, mua hạt dẻ nóng hổi bóc cho nhau ăn, mua quà đôi kỷ niệm',
+					'Tắm lá thuốc Dao Đỏ, ngâm mình cho da dẻ hồng hào sau khi leo bản. Thơm tho để anh hít hà.',
+				address: '02 Hoàng Liên',
+				hotline: '0214 387 2222',
+				warnings: [
+					'Ngâm vừa thôi kẻo say thuốc (hoặc say anh)',
+					'Da em mịn thế này ai chịu nổi',
+				],
+				type: 'spa',
+				isHighlight: true,
+			},
+			{
+				time: '17:30 - 19:30',
+				title: 'Chợ phiên săn đồ tiệc 🛒',
+				description:
+					'Len lỏi chợ đêm mua hạt dẻ nóng, quà sinh nhật, và đồ tổ chức tiệc tại phòng. Cùng nhau chọn bánh kem nhé!',
+				address: 'Khu Chợ Mới',
+				note: 'Mua đủ đồ ăn vặt, nến, hoa trang trí cho tiệc đêm nay',
+				type: 'shopping',
+				isHighlight: true,
+			},
+			{
+				time: '20:00+',
+				title: 'HAPPY BIRTHDAY BABE 🎂',
+				description:
+					'Tiệc sinh nhật riêng tư tại phòng. Thổi nến xong rồi mình cùng trao nhau nụ hôn ngọt ngào. Quà của em đây, mở ra đi!',
+				note: 'Đêm nay hãy cùng nhau thức thật khuya nhé! Yêu em!',
+				type: 'activity',
+				isHighlight: true,
+			},
+		],
+		isBirthday: true,
+	},
+	{
+		id: 3,
+		date: '2026-01-17',
+		dateLabel: 'Thứ 7, 17/01',
+		title: 'Cùng nhau chạm đỉnh mây trời ❤️',
+		theme: 'Phục hồi & Đồng hành',
+		goals: [
+			'Dậy muộn sau đêm sinh nhật',
+			'Nắm tay nhau lên đỉnh (Hàm Rồng)',
+			'Hòa mình vào chợ tình (để thấy đôi mình là tâm điểm)',
+		],
+		weather: {
+			icon: '☀️',
+			description: 'Trời hửng nắng, mây tan. Ánh sáng đẹp nhất chuyến đi.',
+			temp: '11-18°C',
+		},
+		outfit:
+			'Tone màu sáng: Trắng, Đỏ, Vàng để nổi bật trên nền xanh. Giày đế mềm/thể thao để tiện đi bộ.',
+		warnings: ['Đi cẩn thận nha, chỗ nào khó đi cứ bám chặt lấy tay anh'],
+		timeline: [
+			{
+				time: '10:00 - 12:00',
+				title: 'Ngủ nướng phục hồi 💤',
+				description:
+					'Sau đêm sinh nhật thức khuya (và có thể hơi say rượu), ngủ thêm chút nha. Anh sẽ ôm em cho đến khi em tỉnh giấc.',
+				note: 'Cơ thể cần nghỉ ngơi sau đêm khuya, không vội đâu em',
+				type: 'rest',
+			},
+			{
+				time: '12:00 - 13:30',
+				title: 'Gà nướng đậm vị tình',
+				description:
+					'Thưởng thức gà nướng tiêu xanh cay nồng sau giấc ngủ dài. Bữa brunch muộn cho đôi ta.',
+				address: 'Nhà hàng Hải Lâm - 69 Xuân Viên',
+				hotline: '0934 246 696',
+				photoTips: {
+					angle: 'Chụp món ăn (Food porn)',
+					pose: 'Đút cho nhau ăn thật tình cảm',
+					tips: 'Gà nướng tiêu xanh là món signature ở đây',
+				},
+				type: 'meal',
+				isHighlight: true,
+			},
+			{
+				time: '14:00 - 17:00',
+				title: 'Chinh phục Hàm Rồng ☀️',
+				description:
+					'Vườn Lan, Sân Mây... mỗi bước chân là một kỷ niệm. Buổi chiều trời ấm nhất (15-18°C), ánh sáng đẹp và không lạnh!',
+				distance: 'Đi bộ từ trung tâm (ngay sau Nhà thờ Đá)',
+				photoTips: {
+					angle: 'Chụp lúc nắng chiều đẹp nhất (15h-16h)',
+					pose: 'Em quay lại nhìn anh, tóc bay trong gió (tại Sân Mây)',
+					tips: 'Chụp nhiều tại Vườn Lan và Sân Mây',
+				},
+				warnings: ['Đi chậm, nghỉ nhiều chặng để chụp ảnh'],
+				type: 'activity',
+				isHighlight: true,
+			},
+			{
+				time: '17:00 - 18:00',
+				title: 'Nghỉ ngơi nạp năng lượng',
+				description:
+					'Về phòng tắm rửa, thay đồ đẹp để đi chợ đêm. Nằm nghỉ chân một chút sau khi leo núi.',
+				type: 'rest',
+			},
+			{
+				time: '18:00 - 21:00',
+				title: 'Phiên chợ tình yêu 🌙',
+				description:
+					'Len lỏi trong chợ đêm, mua hạt dẻ nóng hổi bóc cho nhau ăn, ăn tối tại các quán ở chợ, mua quà đôi kỷ niệm.',
 				address: 'Khu Chợ Mới',
 				note: 'Ở đâu có em, ở đó là nơi vui nhất',
 				type: 'meal',
 				isHighlight: true,
+			},
+			{
+				time: '21:00+',
+				title: 'Đêm cuối Sapa',
+				description:
+					'Về phòng nghỉ sớm để mai còn đủ sức check-out và về nhà. Tối nay ôm em ngủ thật ngon nhé!',
+				note: 'Ngày mai về rồi, tối nay tranh thủ yêu thương thêm chút',
+				type: 'rest',
 			},
 		],
 		isBirthday: false,
@@ -374,7 +384,7 @@ export const itinerary: DaySchedule[] = [
 	{
 		id: 4,
 		date: '2026-01-18',
-		dateLabel: 'Thứ 7, 18/01',
+		dateLabel: 'Chủ nhật, 18/01',
 		title: 'Tạm biệt Sapa thơ mộng 💕',
 		theme: 'Lưu luyến & Hẹn ngày tái ngộ',
 		goals: [

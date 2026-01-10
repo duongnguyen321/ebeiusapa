@@ -3,7 +3,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
 import { Gift, Sparkles } from 'lucide-react';
 import { useSurprise } from '@/contexts/SurpriseContext';
-import { getTodayReward, type DailyReward } from '@/data/rewards';
+import {
+	getNextRewardForDate,
+	getRewardsForDate,
+	type DailyReward,
+} from '@/data/rewards';
 
 interface ScratchCardProps {
 	onComplete?: () => void;
@@ -15,15 +19,26 @@ export function ScratchCard({ onComplete }: ScratchCardProps) {
 	const [isRevealed, setIsRevealed] = useState(false);
 	const [scratchPercent, setScratchPercent] = useState(0);
 	const [reward, setReward] = useState<DailyReward | null>(null);
-	const { canScratchToday, markScratchCardUsed } = useSurprise();
+	const [totalRewardsToday, setTotalRewardsToday] = useState(0);
+	const [remainingRewards, setRemainingRewards] = useState(0);
+	const { getScratchedRewardIds, markRewardScratched, isRewardScratched } =
+		useSurprise();
 	const isDrawing = useRef(false);
 
 	useEffect(() => {
-		const todayReward = getTodayReward();
-		setReward(todayReward);
+		const today = new Date().toISOString().split('T')[0];
+		const scratchedIds = getScratchedRewardIds();
+		const allTodayRewards = getRewardsForDate(today);
+		const nextReward = getNextRewardForDate(today, scratchedIds);
 
-		// If already scratched today, show revealed state
-		if (!canScratchToday()) {
+		setTotalRewardsToday(allTodayRewards.length);
+		setRemainingRewards(
+			allTodayRewards.filter((r) => !scratchedIds.includes(r.id)).length
+		);
+		setReward(nextReward);
+
+		// If no more rewards for today or this reward already scratched
+		if (!nextReward || (nextReward && isRewardScratched(nextReward.id))) {
 			setIsRevealed(true);
 			return;
 		}
@@ -78,7 +93,7 @@ export function ScratchCard({ onComplete }: ScratchCardProps) {
 		resize();
 		window.addEventListener('resize', resize);
 		return () => window.removeEventListener('resize', resize);
-	}, [canScratchToday]);
+	}, [getScratchedRewardIds, isRewardScratched]);
 
 	const scratch = useCallback(
 		(x: number, y: number) => {
@@ -111,9 +126,10 @@ export function ScratchCard({ onComplete }: ScratchCardProps) {
 	);
 
 	const handleReveal = () => {
+		if (!reward) return;
+
 		setIsRevealed(true);
-		const today = new Date().toISOString().split('T')[0];
-		markScratchCardUsed(today);
+		markRewardScratched(reward.id);
 
 		// Confetti celebration
 		confetti({
@@ -147,12 +163,27 @@ export function ScratchCard({ onComplete }: ScratchCardProps) {
 	};
 
 	if (!reward) {
+		// Check if there were rewards today but all claimed
+		if (totalRewardsToday > 0 && remainingRewards === 0) {
+			return (
+				<div className='glass-card p-8 text-center'>
+					<div className='text-5xl mb-4'>🎉</div>
+					<p className='text-white/90 font-medium'>
+						Em đã nhận hết quà hôm nay rồi!
+					</p>
+					<p className='text-sm text-white/50 mt-2'>
+						Hẹn gặp lại em vào ngày mai nhé! 💕
+					</p>
+				</div>
+			);
+		}
+
 		return (
 			<div className='glass-card p-8 text-center'>
 				<Gift className='w-12 h-12 mx-auto mb-4 text-white/50' />
 				<p className='text-white/70'>Không có thẻ cào cho hôm nay</p>
 				<p className='text-sm text-white/50 mt-2'>
-					Thẻ cào chỉ khả dụng trong chuyến đi (15-18/01)
+					Thẻ cào chỉ khả dụng trong chuyến đi (15-17/01)
 				</p>
 			</div>
 		);
@@ -160,6 +191,13 @@ export function ScratchCard({ onComplete }: ScratchCardProps) {
 
 	return (
 		<div className='scratch-card relative w-full aspect-[4/3] max-w-sm mx-auto'>
+			{/* Reward count badge - show when multiple rewards per day */}
+			{totalRewardsToday > 1 && (
+				<div className='absolute -top-2 -right-2 z-10 px-2 py-1 bg-pink-500 rounded-full text-white text-xs font-bold shadow-lg'>
+					{totalRewardsToday - remainingRewards + 1}/{totalRewardsToday}
+				</div>
+			)}
+
 			{/* Reward background */}
 			<div
 				ref={containerRef}
