@@ -1,26 +1,22 @@
-import { useState, useEffect } from 'react';
-import { AnimatePresence } from 'framer-motion';
-import { itinerary, targetDate } from '@/data/itinerary';
-import NoiseBackground from '@/components/NoiseBackground';
-import IntroView from '@/components/IntroView';
-import TimelineView from '@/components/TimelineView';
-import { BirthdayCelebration } from '@/components/BirthdayCelebration';
-import { SurpriseProvider } from '@/contexts/SurpriseContext';
-import { useActiveTimeline } from '@/hooks/useActiveTimeline';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useNotifications } from '@/hooks/useNotifications';
+import { useTrip } from '@/contexts/TripContext';
+import { targetDate } from '@/data/itinerary';
+import IntroView from '@/components/IntroView';
+import { PageTransition } from '@/components/PageTransition';
 
-const IndexContent = () => {
-	const [isUnlocked, setIsUnlocked] = useState(false);
-	const [expandedDay, setExpandedDay] = useState<number | null>(null);
-	const activeTimeline = useActiveTimeline();
+const Index = () => {
+	const navigate = useNavigate();
+	const { isUnlocked, unlockApp } = useTrip();
 	const { scheduleNotifications, permission, isSupported } = useNotifications();
 
-	// Auto-expand active day
+	// Redirect if already unlocked
 	useEffect(() => {
-		if (isUnlocked && activeTimeline.activeDay) {
-			setExpandedDay(activeTimeline.activeDay.id);
+		if (isUnlocked) {
+			navigate('/timeline', { replace: true });
 		}
-	}, [isUnlocked, activeTimeline.activeDay?.id]);
+	}, [isUnlocked, navigate]);
 
 	// Schedule notifications when unlocked
 	useEffect(() => {
@@ -29,47 +25,15 @@ const IndexContent = () => {
 		}
 	}, [isUnlocked, isSupported, permission, scheduleNotifications]);
 
-	const handleToggleDay = (dayId: number) => {
-		setExpandedDay(expandedDay === dayId ? null : dayId);
-	};
-
-	const handleReset = () => {
-		setExpandedDay(null);
-		setIsUnlocked(false);
+	const handleUnlock = () => {
+		unlockApp();
+		// Navigation will happen via effect
 	};
 
 	return (
-		<div className='min-h-screen overflow-x-hidden relative bg-slate-900'>
-			<NoiseBackground />
-
-			<AnimatePresence mode='wait'>
-				{!isUnlocked ? (
-					<IntroView
-						targetDate={targetDate}
-						onUnlock={() => setIsUnlocked(true)}
-					/>
-				) : (
-					<TimelineView
-						itinerary={itinerary}
-						expandedDay={expandedDay}
-						onToggleDay={handleToggleDay}
-						onReset={handleReset}
-						activeTimeline={activeTimeline}
-					/>
-				)}
-			</AnimatePresence>
-
-			{/* Birthday Celebration - triggers on 16/01/2026 */}
-			<BirthdayCelebration />
-		</div>
-	);
-};
-
-const Index = () => {
-	return (
-		<SurpriseProvider>
-			<IndexContent />
-		</SurpriseProvider>
+		<PageTransition variant='fade'>
+			<IntroView targetDate={targetDate} onUnlock={handleUnlock} />
+		</PageTransition>
 	);
 };
 
