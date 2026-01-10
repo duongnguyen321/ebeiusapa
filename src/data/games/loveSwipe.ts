@@ -243,6 +243,34 @@ export function getProgressiveDeck(count: number = 15): SwipeCard[] {
 	];
 }
 
+// Get quick deck (3-4-3 distribution)
+export function getQuickDeck(): SwipeCard[] {
+	return shuffleCards([
+		...shuffleCards(warmCards).slice(0, 3),
+		...shuffleCards(hotCards).slice(0, 4),
+		...shuffleCards(scorchingCards).slice(0, 3),
+	]);
+}
+
+// Get deck by heat level only
+export function getDeckByHeatLevel(
+	level: HeatLevel,
+	count: number = 10
+): SwipeCard[] {
+	const cards =
+		level === 'warm' ? warmCards : level === 'hot' ? hotCards : scorchingCards;
+	return shuffleCards(cards).slice(0, count);
+}
+
+// Get tour deck (10 cards per level, in order)
+export function getTourDeck(): SwipeCard[] {
+	return [
+		...shuffleCards(warmCards).slice(0, 10),
+		...shuffleCards(hotCards).slice(0, 10),
+		...shuffleCards(scorchingCards).slice(0, 10),
+	];
+}
+
 // Heat level colors
 export const heatLevelColors: Record<HeatLevel, string> = {
 	warm: '#22c55e', // Green

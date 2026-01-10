@@ -273,9 +273,6 @@ export function MistWhispersGame({ onClose }: MistWhispersGameProps) {
 						<Check className='w-7 h-7' />
 					</motion.button>
 				</div>
-				<p className='text-center text-white/40 text-sm mt-4'>
-					🍷 Phạt uống | ✅ Hoàn thành
-				</p>
 			</div>
 		</motion.div>
 	);

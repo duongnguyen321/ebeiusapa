@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, RotateCcw, Check, Zap } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { rollDice, type DiceResult } from '@/data/games/highlandDice';
+import { useLockBodyScroll } from '@/hooks/useLockBodyScroll';
 
 interface HighlandDiceGameProps {
 	onClose: () => void;
@@ -13,6 +14,8 @@ export function HighlandDiceGame({ onClose }: HighlandDiceGameProps) {
 	const [isRolling, setIsRolling] = useState(false);
 	const [score, setScore] = useState(0);
 	const [showPrize, setShowPrize] = useState(false);
+
+	useLockBodyScroll();
 
 	const handleRoll = useCallback(() => {
 		if (isRolling) return;
@@ -32,7 +35,7 @@ export function HighlandDiceGame({ onClose }: HighlandDiceGameProps) {
 		const newScore = score + 1;
 		setScore(newScore);
 
-		if (newScore >= 20) {
+		if (newScore >= 10) {
 			// Grand prize!
 			setShowPrize(true);
 			confetti({
@@ -44,6 +47,11 @@ export function HighlandDiceGame({ onClose }: HighlandDiceGameProps) {
 		}
 
 		setResult(null);
+	};
+
+	const handleClosePrize = () => {
+		setShowPrize(false);
+		setScore(0); // Reset for next round
 	};
 
 	const handleSkip = () => {
@@ -70,7 +78,7 @@ export function HighlandDiceGame({ onClose }: HighlandDiceGameProps) {
 					<span className='text-2xl'>🎲</span>
 					<div className='flex items-center gap-2'>
 						<div className='px-3 py-1 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white text-sm font-bold'>
-							{score} / 20
+							{score} / 10
 						</div>
 						<Zap className='w-4 h-4 text-yellow-400' />
 					</div>
@@ -218,7 +226,7 @@ export function HighlandDiceGame({ onClose }: HighlandDiceGameProps) {
 						animate={{ opacity: 1 }}
 						exit={{ opacity: 0 }}
 						className='absolute inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md'
-						onClick={() => setShowPrize(false)}
+						onClick={handleClosePrize}
 					>
 						<motion.div
 							initial={{ scale: 0, rotate: -180 }}
@@ -231,11 +239,12 @@ export function HighlandDiceGame({ onClose }: HighlandDiceGameProps) {
 								PHẦN THƯỞNG LỚN!
 							</h2>
 							<p className='text-white/70 mt-2'>
-								Bạn đã hoàn thành 20 thử thách!
+								Bạn đã hoàn thành 10 thử thách!
 							</p>
 							<p className='text-pink-400 mt-4 text-lg'>
 								🎁 Phần thưởng: Một yêu cầu từ đối phương!
 							</p>
+							<p className='text-white/40 mt-6 text-sm'>Chạm để chơi lại</p>
 						</motion.div>
 					</motion.div>
 				)}

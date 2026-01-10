@@ -6,6 +6,7 @@ import {
 	PanInfo,
 } from 'framer-motion';
 import { X } from 'lucide-react';
+import { useLockBodyScrollWhen } from '@/hooks/useLockBodyScroll';
 
 interface BottomSheetProps {
 	isOpen: boolean;
@@ -32,6 +33,8 @@ export function BottomSheet({
 			onClose();
 		}
 	};
+
+	useLockBodyScrollWhen(isOpen);
 
 	return (
 		<AnimatePresence>
