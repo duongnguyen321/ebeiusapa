@@ -10,6 +10,8 @@ import { ScratchCard } from './ScratchCard';
 import { LetterCard, SecretLetter } from './SecretLetter';
 import { loveLetters } from '@/data/letters';
 import BottomNavbar from './BottomNavbar';
+import GamesModal from './GamesModal';
+import { MistWhispersGame, HighlandDiceGame, LoveSwipeGame } from './games';
 
 interface TimelineViewProps {
 	itinerary: DaySchedule[];
@@ -30,7 +32,19 @@ const TimelineView = ({
 	const [selectedLetter, setSelectedLetter] = useState<number | null>(null);
 	const [showLetters, setShowLetters] = useState(false);
 	const [showEmergency, setShowEmergency] = useState(false);
+	const [showGames, setShowGames] = useState(false);
+	const [activeGame, setActiveGame] = useState<string | null>(null);
 	const containerRef = useRef<HTMLDivElement>(null);
+
+	const handleSelectGame = (gameId: string) => {
+		setActiveGame(gameId);
+		setShowGames(false);
+	};
+
+	const handleCloseGame = () => {
+		setActiveGame(null);
+		setShowGames(true); // Re-open game selection
+	};
 
 	return (
 		<motion.div
@@ -52,8 +66,10 @@ const TimelineView = ({
 				onEmergency={() => setShowEmergency(true)}
 				onScratchCard={() => setShowScratchCard(true)}
 				onLetters={() => setShowLetters(!showLetters)}
+				onGames={() => setShowGames(true)}
 				onExit={onReset}
 				showLettersActive={showLetters}
+				showGamesActive={showGames}
 			/>
 
 			<div className='max-w-4xl mx-auto'>
@@ -245,6 +261,24 @@ const TimelineView = ({
 				isOpen={selectedLetter !== null}
 				onClose={() => setSelectedLetter(null)}
 			/>
+
+			{/* Games Modal */}
+			<GamesModal
+				isOpen={showGames}
+				onClose={() => setShowGames(false)}
+				onSelectGame={handleSelectGame}
+			/>
+
+			{/* Active Game Components */}
+			{activeGame === 'mist-whispers' && (
+				<MistWhispersGame onClose={handleCloseGame} />
+			)}
+			{activeGame === 'highland-dice' && (
+				<HighlandDiceGame onClose={handleCloseGame} />
+			)}
+			{activeGame === 'love-swipe' && (
+				<LoveSwipeGame onClose={handleCloseGame} />
+			)}
 		</motion.div>
 	);
 };

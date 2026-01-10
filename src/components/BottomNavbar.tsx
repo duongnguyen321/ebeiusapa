@@ -1,20 +1,24 @@
 import { motion } from 'framer-motion';
-import { PhoneCall, Gift, Heart, Power } from 'lucide-react';
+import { PhoneCall, Gift, Heart, Power, Gamepad2 } from 'lucide-react';
 
 interface BottomNavbarProps {
 	onEmergency: () => void;
 	onScratchCard: () => void;
 	onLetters: () => void;
+	onGames: () => void;
 	onExit: () => void;
 	showLettersActive?: boolean;
+	showGamesActive?: boolean;
 }
 
 const BottomNavbar = ({
 	onEmergency,
 	onScratchCard,
 	onLetters,
+	onGames,
 	onExit,
 	showLettersActive = false,
+	showGamesActive = false,
 }: BottomNavbarProps) => {
 	const navItems = [
 		{
@@ -32,6 +36,15 @@ const BottomNavbar = ({
 			onClick: onScratchCard,
 			color: 'text-amber-400',
 			hoverBg: 'hover:bg-amber-500/20',
+		},
+		{
+			id: 'games',
+			icon: Gamepad2,
+			label: 'Trò chơi',
+			onClick: onGames,
+			color: 'text-purple-400',
+			hoverBg: 'hover:bg-purple-500/20',
+			isActive: showGamesActive,
 		},
 		{
 			id: 'letters',
