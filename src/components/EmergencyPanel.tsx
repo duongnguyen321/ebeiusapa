@@ -11,61 +11,66 @@ const EmergencyPanel = ({ isOpen, onClose }: EmergencyPanelProps) => {
 	return (
 		<AnimatePresence>
 			{isOpen && (
-				<>
-					{/* Backdrop */}
+				<motion.div
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1 }}
+					exit={{ opacity: 0 }}
+					className='fixed inset-0 z-50 flex items-end md:items-center justify-center bg-black/60 backdrop-blur-sm'
+					onClick={onClose}
+				>
 					<motion.div
-						className='fixed inset-0 bg-black/60 backdrop-blur-sm z-[95]'
-						initial={{ opacity: 0 }}
-						animate={{ opacity: 1 }}
-						exit={{ opacity: 0 }}
-						onClick={onClose}
-					/>
-
-					{/* Content */}
-					<motion.div
-						className='fixed bottom-20 left-4 right-4 md:left-auto md:right-auto md:left-1/2 md:-translate-x-1/2 md:w-80 z-[100] glass-panel rounded-2xl p-4 overflow-hidden'
-						initial={{ y: 100, opacity: 0 }}
+						initial={{ y: '100%', opacity: 0 }}
 						animate={{ y: 0, opacity: 1 }}
-						exit={{ y: 100, opacity: 0 }}
-						transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+						exit={{ y: '100%', opacity: 0 }}
+						transition={{ type: 'spring', damping: 30, stiffness: 300 }}
+						onClick={(e) => e.stopPropagation()}
+						className='w-full md:max-w-sm md:mx-4'
 					>
-						{/* Header */}
-						<div className='flex items-center justify-between mb-4'>
-							<h3 className='text-white font-semibold text-lg flex items-center gap-2'>
-								<PhoneCall className='w-5 h-5 text-red-400' />
-								Liên hệ khẩn cấp
-							</h3>
-							<button
-								onClick={onClose}
-								className='w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors'
-							>
-								<X className='w-4 h-4 text-white/60' />
-							</button>
-						</div>
+						<div className='glass-card rounded-t-3xl md:rounded-2xl overflow-hidden'>
+							{/* Handle bar for mobile */}
+							<div className='flex justify-center pt-3 pb-1 md:hidden'>
+								<div className='w-10 h-1 bg-white/30 rounded-full' />
+							</div>
 
-						{/* Contacts */}
-						<div className='space-y-2'>
-							{emergencyContacts.map((contact, idx) => (
-								<a
-									key={idx}
-									href={`tel:${contact.phone.replace(/\s/g, '')}`}
-									className='flex items-center gap-3 p-3 glass-panel rounded-xl hover:bg-white/10 transition-colors group'
+							{/* Header */}
+							<div className='p-4 pb-2 flex items-center justify-between border-b border-white/10'>
+								<h3 className='text-lg font-display text-white flex items-center gap-2'>
+									<PhoneCall className='w-5 h-5 text-red-400' />
+									Liên hệ khẩn cấp
+								</h3>
+								<button
+									onClick={onClose}
+									className='p-2 rounded-full glass-button text-white/60 hover:text-white'
+									aria-label='Đóng'
 								>
-									<span className='text-2xl'>{contact.icon}</span>
-									<div className='flex-1'>
-										<div className='text-white text-sm font-medium'>
-											{contact.name}
+									<X className='w-5 h-5' />
+								</button>
+							</div>
+
+							{/* Contacts */}
+							<div className='p-4 space-y-2'>
+								{emergencyContacts.map((contact, idx) => (
+									<a
+										key={idx}
+										href={`tel:${contact.phone.replace(/\s/g, '')}`}
+										className='flex items-center gap-3 p-3 glass-panel rounded-xl hover:bg-white/10 transition-colors group'
+									>
+										<span className='text-2xl'>{contact.icon}</span>
+										<div className='flex-1'>
+											<div className='text-white text-sm font-medium'>
+												{contact.name}
+											</div>
+											<div className='text-amber-400 text-sm'>
+												{contact.phone}
+											</div>
 										</div>
-										<div className='text-amber-400 text-sm'>
-											{contact.phone}
-										</div>
-									</div>
-									<Phone className='w-4 h-4 text-white/40 group-hover:text-amber-400 transition-colors' />
-								</a>
-							))}
+										<Phone className='w-4 h-4 text-white/40 group-hover:text-amber-400 transition-colors' />
+									</a>
+								))}
+							</div>
 						</div>
 					</motion.div>
-				</>
+				</motion.div>
 			)}
 		</AnimatePresence>
 	);

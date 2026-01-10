@@ -230,26 +230,53 @@ const TimelineView = ({
 					initial={{ opacity: 0 }}
 					animate={{ opacity: 1 }}
 					exit={{ opacity: 0 }}
-					className='fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm'
+					className='fixed inset-0 z-50 flex items-end md:items-center justify-center bg-black/60 backdrop-blur-sm'
 					onClick={() => setShowScratchCard(false)}
 				>
 					<motion.div
-						initial={{ scale: 0.9, opacity: 0 }}
-						animate={{ scale: 1, opacity: 1 }}
+						initial={{ y: '100%', opacity: 0 }}
+						animate={{ y: 0, opacity: 1 }}
+						exit={{ y: '100%', opacity: 0 }}
+						transition={{ type: 'spring', damping: 30, stiffness: 300 }}
 						onClick={(e) => e.stopPropagation()}
-						className='w-full max-w-sm'
+						className='w-full md:max-w-sm md:mx-4'
 					>
-						<div className='glass-card p-6'>
-							<h3 className='text-xl font-display text-white mb-4 text-center'>
-								🎁 Thẻ Cào May Mắn
-							</h3>
-							<ScratchCard onComplete={() => {}} />
-							<button
-								onClick={() => setShowScratchCard(false)}
-								className='mt-4 w-full glass-button py-3 text-center'
-							>
-								Đóng
-							</button>
+						<div className='glass-card rounded-t-3xl md:rounded-2xl overflow-hidden'>
+							{/* Handle bar for mobile */}
+							<div className='flex justify-center pt-3 pb-1 md:hidden'>
+								<div className='w-10 h-1 bg-white/30 rounded-full' />
+							</div>
+
+							{/* Header */}
+							<div className='p-4 pb-2 flex items-center justify-between border-b border-white/10'>
+								<h3 className='text-lg font-display text-white flex items-center gap-2'>
+									🎁 Thẻ Cào May Mắn
+								</h3>
+								<button
+									onClick={() => setShowScratchCard(false)}
+									className='p-2 rounded-full glass-button text-white/60 hover:text-white'
+									aria-label='Đóng'
+								>
+									<svg
+										className='w-5 h-5'
+										fill='none'
+										viewBox='0 0 24 24'
+										stroke='currentColor'
+									>
+										<path
+											strokeLinecap='round'
+											strokeLinejoin='round'
+											strokeWidth={2}
+											d='M6 18L18 6M6 6l12 12'
+										/>
+									</svg>
+								</button>
+							</div>
+
+							{/* Content */}
+							<div className='p-4'>
+								<ScratchCard onComplete={() => {}} />
+							</div>
 						</div>
 					</motion.div>
 				</motion.div>
