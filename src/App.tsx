@@ -9,27 +9,32 @@ import TimelinePage from '@/pages/TimelinePage';
 import GamePlayPage from '@/pages/GamePlayPage';
 import NotFound from '@/pages/NotFound';
 import LiquidGlassFilters from '@/components/LiquidGlassFilters';
+import { useImagePrefetch } from './hooks/useImagePrefetch';
 
 const queryClient = new QueryClient();
 
-const App = () => (
-	<QueryClientProvider client={queryClient}>
-		<LiquidGlassFilters />
-		<TooltipProvider>
-			<Toaster />
-			<Sonner />
-			<BrowserRouter>
-				<Routes>
-					<Route element={<RootLayout />}>
-						<Route path='/' element={<Index />} />
-						<Route path='/timeline' element={<TimelinePage />} />
-						<Route path='/games/:gameId' element={<GamePlayPage />} />
-						<Route path='*' element={<NotFound />} />
-					</Route>
-				</Routes>
-			</BrowserRouter>
-		</TooltipProvider>
-	</QueryClientProvider>
-);
+const App = () => {
+	useImagePrefetch();
+
+	return (
+		<QueryClientProvider client={queryClient}>
+			<LiquidGlassFilters />
+			<TooltipProvider>
+				<Toaster />
+				<Sonner />
+				<BrowserRouter>
+					<Routes>
+						<Route element={<RootLayout />}>
+							<Route path='/' element={<Index />} />
+							<Route path='/timeline' element={<TimelinePage />} />
+							<Route path='/games/:gameId' element={<GamePlayPage />} />
+							<Route path='*' element={<NotFound />} />
+						</Route>
+					</Routes>
+				</BrowserRouter>
+			</TooltipProvider>
+		</QueryClientProvider>
+	);
+};
 
 export default App;
