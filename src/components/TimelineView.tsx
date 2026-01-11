@@ -68,6 +68,8 @@ const TimelineView = ({
 				onScratchCard={() => setShowScratchCard(true)}
 				onLetters={() => setShowLetters(!showLetters)}
 				onGames={() => setShowGames(true)}
+				onMood={() => {}}
+				onWallet={() => {}}
 				onExit={onReset}
 				showLettersActive={showLetters}
 				showGamesActive={showGames}
