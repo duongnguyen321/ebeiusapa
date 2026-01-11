@@ -282,6 +282,53 @@ export const quizData: QuizData[] = [
 			isUsed: false,
 		},
 	},
+	{
+		id: 'quiz-generic-1',
+		question: 'Món ăn nào anh nấu mà em khen ngon nhất?',
+		image:
+			'/images/easter-eggs/im-cook-beef-steak-when-we-have-a-celebrate-love.jpeg',
+		options: [
+			{ id: 'a', label: 'Trứng ốp', isCorrect: false },
+			{
+				id: 'b',
+				label: 'Beef Steak',
+				isCorrect: true,
+				responseMessage: 'Chuẩn cơm mẹ nấu!',
+			},
+			{ id: 'c', label: 'Mì tôm', isCorrect: false },
+		],
+		reward: {
+			id: 'voucher-cook',
+			title: 'Voucher Đầu Bếp',
+			description: 'Anh sẽ nấu bất cứ món gì em yêu cầu (trong khả năng).',
+			icon: '👨‍🍳',
+			isRedeemed: false,
+			isUsed: false,
+		},
+	},
+	{
+		id: 'quiz-generic-2',
+		question: 'Tật xấu nào của em mà anh thấy đáng yêu nhất?',
+		image: '/images/easter-eggs/embarrassing-photo-wakeup.jpeg',
+		options: [
+			{
+				id: 'a',
+				label: 'Ngủ nướng',
+				isCorrect: true,
+				responseMessage: 'Nhìn lúc ngủ like an angel!',
+			},
+			{ id: 'b', label: 'Hay dỗi', isCorrect: false },
+			{ id: 'c', label: 'Ăn chậm', isCorrect: false },
+		],
+		reward: {
+			id: 'voucher-sleep',
+			title: 'Voucher Ngủ Nướng',
+			description: 'Được phép ngủ nướng thêm 30p vào buổi sáng.',
+			icon: '💤',
+			isRedeemed: false,
+			isUsed: false,
+		},
+	},
 ];
 
 // --- MOOD CHECK-IN ---

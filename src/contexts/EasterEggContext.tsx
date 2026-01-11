@@ -113,9 +113,18 @@ export function EasterEggProvider({ children }: { children: React.ReactNode }) {
 	const [redeemVoucherState, setRedeemVoucherState] =
 		useState<VoucherReward | null>(null);
 
-	const [lastInteractionTime, setLastInteractionTime] = useState(() =>
-		loadFromStorage(STORAGE_KEYS.lastInteraction, Date.now())
-	);
+	const [lastInteractionTime, setLastInteractionTime] = useState(() => {
+		const stored = loadFromStorage(STORAGE_KEYS.lastInteraction, Date.now());
+		const timeSince = Date.now() - stored;
+
+		// If user was offline for a long time (> cooldown),
+		// reset time to give a 10s grace period before spawning
+		// instead of spawning instantly on mount.
+		if (timeSince > SPAWN_COOLDOWN_MS) {
+			return Date.now() - SPAWN_COOLDOWN_MS + 10000;
+		}
+		return stored;
+	});
 	const [unlockedVouchers, setUnlockedVouchers] = useState<VoucherReward[]>(
 		() => loadFromStorage(STORAGE_KEYS.unlockedVouchers, [])
 	);
