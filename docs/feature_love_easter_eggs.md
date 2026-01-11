@@ -1,68 +1,68 @@
 # Feature Documentation: Love Easter Eggs System
 
-## 1. Tổng Quan (Overview)
+## 1. Overview
 
-Hệ thống **Love Easter Eggs** là một tầng tương tác đặc biệt (Hidden Interaction Layer) được xây dựng để tăng cường trải nghiệm cảm xúc và tạo bất ngờ cho người dùng trong suốt chuyến đi.
+The **Love Easter Eggs** system is a **Hidden Interaction Layer** designed to enhance the emotional experience and create surprises for the user throughout the trip.
 
-Hệ thống bao gồm 3 module chính hoạt động phối hợp:
+The system consists of 3 main coordinated modules:
 
-1.  **Easter Egg Hunt (Săn Trứng):** Xuất hiện ngẫu nhiên, chứa Quiz hoặc nội dung vui.
-2.  **Mood Station (Trạm Cảm Xúc):** Nơi người dùng chủ động check-in tâm trạng.
-3.  **Voucher Wallet (Ví Tình Yêu):** Nơi lưu trữ và sử dụng phần thưởng đã sưu tầm được.
+1.  **Easter Egg Hunt:** Appears randomly, containing Quizzes or fun content.
+2.  **Mood Station:** A place for users to proactively check-in their mood.
+3.  **Voucher Wallet:** A place to store and use collected rewards.
 
 ---
 
-## 2. Chi Tiết Chức Năng (Functional Specifications)
+## 2. Functional Specifications
 
-### 2.1. The Easter Egg (Săn Trứng Bất Ngờ)
+### 2.1. The Easter Egg (Surprise Hunt)
 
-- **Mô tả:** Một biểu tượng trôi nổi (quả trứng, hộp quà, hoặc tim) xuất hiện bất ngờ trên màn hình.
-- **Logic Xuất hiện (Spawn Logic):**
-  - **Điều kiện:** Thời gian hiện tại > (Thời gian tương tác cuối + 2 giờ).
-  - **Vị trí:** Random tọa độ `(top, left)` trong vùng khả dụng (trừ Header & BottomNavbar).
-  - **Hiệu ứng:** Fade In + Floating animation (lên xuống nhẹ).
-  - **Time-to-live:** Tự động biến mất sau **1 phút** nếu không được chạm vào.
-- **Nội dung (Random Content):**
-  - **90% - Daily Quiz:** Câu hỏi trắc nghiệm về kỷ niệm/sở thích. Trả lời đúng nhận Voucher. Trả lời sai mất lượt (Cooldown 1 tiếng).
+- **Description:** A floating icon (egg, gift box, or heart) appears unexpectedly on the screen.
+- **Spawn Logic:**
+  - **Condition:** Current Time > (Last Interaction Time + 2 hours).
+  - **Position:** Random coordinates `(top, left)` within the available area (excluding Header & BottomNavbar).
+  - **Effect:** Fade In + Floating animation (gentle up/down).
+  - **Time-to-live:** Automatically disappears after **1 minute** if not touched.
+- **Random Content:**
+  - **90% - Daily Quiz:** Multiple-choice questions about memories/preferences. Correct answer gets a Voucher. Wrong answer loses the turn (1-hour Cooldown).
   - **10% - Memory Capsule / Funny:**
-    - **Memory Capsule:** Ký ức ùa về theo dòng thời gian (Ngày đầu, Công ty, Cát Bà, Tóc đỏ...).
-    - **Funny Moment:** Ảnh dìm hàng vui vẻ.
+    - **Memory Capsule:** Memories flooding back chronologically (First date, Company, Cat Ba, Red hair...).
+    - **Funny Moment:** Humorous "unflattering" photos.
 
-### 2.2. Mood Station (Trạm Cảm Xúc)
+### 2.2. Mood Station
 
-- **Mô tả:** Tính năng luôn hiển thị để người dùng giải tỏa cảm xúc.
-- **Nâng cấp:** Hỗ trợ hiển thị **Album ảnh** (dạng Slide) thay vì chỉ 1 ảnh đơn lẻ.
-- **Truy cập:** Qua nút biểu tượng "Trái Tim" trên thanh Bottom Navigation mới.
-- **Luồng hoạt động:**
-  1.  Chọn cảm xúc từ danh sách (Lạnh, Đói, Nhớ, Dỗi...).
-  2.  Hệ thống hiển thị **Full-screen Overlay** chứa hình ảnh/video kỷ niệm tương ứng kèm lời nhắn dặn dò.
+- **Description:** An always-visible feature for users to relieve their emotions.
+- **Upgrade:** Supports **Photo Album** (Slide/Gallery) display instead of a single image.
+- **Access:** Via the "Heart" icon on the new Bottom Navigation.
+- **Operational Flow:**
+  1.  Select an emotion from the list (Cold, Hungry, Missing, Grumpy...).
+  2.  System displays a **Full-screen Overlay** containing corresponding memory images/videos with a message.
 
-### 2.3. Voucher Wallet (Ví Voucher)
+### 2.3. Voucher Wallet
 
-- **Mô tả:** Kho lưu trữ "chiến lợi phẩm" từ các Quiz.
-- **Truy cập:** Qua nút biểu tượng "Ví/Vé" trên thanh Bottom Navigation mới.
-- **Bảo mật sử dụng (Redeem Security):**
-  - Để sử dụng Voucher, người dùng phải bấm "Dùng" và đưa máy cho Partner.
-  - Partner nhập mật khẩu cứng: **`16012005`**.
-  - Xác thực thành công -> Voucher chuyển trạng thái "Đã Dùng" (User Forever).
+- **Description:** Storage for "trophies" from Quizzes.
+- **Access:** Via the "Wallet/Ticket" icon on the new Bottom Navigation.
+- **Redeem Security:**
+  - To use a Voucher, the user must press "Use" and hand the device to the Partner.
+  - Partner enters the hardcoded password: **`16012005`**.
+  - Successful authentication -> Voucher status changes to "Used" (User Forever).
 
 ---
 
-## 3. Kiến Trúc Kỹ Thuật (System Architecture)
+## 3. System Architecture
 
-### 3.1. Sơ đồ File & Component Map
+### 3.1. File & Component Map
 
-| Vị trí           | Component/File                      | Vai trò & Implement Detail                                                                                 |
-| :--------------- | :---------------------------------- | :--------------------------------------------------------------------------------------------------------- |
-| **Global State** | `src/contexts/EasterEggContext.tsx` | **Core Logic.** Quản lý timer spawn trứng, trạng thái wallet, cooldown, và danh sách quiz đã trả lời.      |
-| **App Root**     | `src/App.tsx`                       | Bọc `EasterEggProvider` ra ngoài Router để state tồn tại toàn cục. Render `EasterEggLayer` ở cấp cao nhất. |
-| **Overlay UI**   | `src/components/EasterEggLayer.tsx` | Render nút Trứng trôi nổi dựa trên state `isEggVisible` và `eggPosition` từ Context.                       |
-| **Navigation**   | `src/components/BottomNavbar.tsx`   | Thêm 2 nút mới: `Mood` (Heart Icon) và `Wallet` (Ticket/Wallet Icon). Callback gọi `onMood` và `onWallet`. |
-| **Page Layout**  | `src/pages/TimelinePage.tsx`        | Quản lý state hiển thị Modal (`showMood`, `showWallet`). Tích hợp `BottomSheet` để hiển thị nội dung.      |
-| **Content UI**   | `src/components/MoodStation.tsx`    | Grid chọn icon cảm xúc & Logic hiển thị overlay ảnh.                                                       |
-| **Content UI**   | `src/components/VoucherWallet.tsx`  | Grid hiển thị danh sách Voucher & Popup nhập Password.                                                     |
+| Location         | Component/File                      | Role & Implementation Details                                                                                        |
+| :--------------- | :---------------------------------- | :------------------------------------------------------------------------------------------------------------------- |
+| **Global State** | `src/contexts/EasterEggContext.tsx` | **Core Logic.** Manages egg spawn timer, wallet state, cooldown, and list of answered quizzes.                       |
+| **App Root**     | `src/App.tsx`                       | Wraps `EasterEggProvider` outside Router for global state. Renders `EasterEggLayer` at the top level.                |
+| **Overlay UI**   | `src/components/EasterEggLayer.tsx` | Renders floating Egg button based on `isEggVisible` state and `eggPosition` from Context.                            |
+| **Navigation**   | `src/components/BottomNavbar.tsx`   | Adds 2 new buttons: `Mood` (Heart Icon) and `Wallet` (Ticket/Wallet Icon). Callbacks invoke `onMood` and `onWallet`. |
+| **Page Layout**  | `src/pages/TimelinePage.tsx`        | Manages Modal display state (`showMood`, `showWallet`). Integrates `BottomSheet` to display content.                 |
+| **Content UI**   | `src/components/MoodStation.tsx`    | Grid for selecting emotion icons & Logic for displaying photo overlay.                                               |
+| **Content UI**   | `src/components/VoucherWallet.tsx`  | Grid displaying Voucher list & Password input Popup.                                                                 |
 
-### 3.2. Luồng Dữ Liệu (Data Flow)
+### 3.2. Data Flow
 
 **1. Spawn Flow:**
 
@@ -88,10 +88,10 @@ graph TD
 
 ---
 
-## 4. Dữ Liệu & Cấu Hình (Data Configuration)
+## 4. Data & Configuration
 
-- **File Config:** `src/data/easterEggs.ts`
-- **Interface chính:**
+- **Config File:** `src/data/easterEggs.ts`
+- **Main Interfaces:**
 
   ```typescript
   interface QuizData {
@@ -114,51 +114,51 @@ graph TD
   ```
 
 - **Assets Path:** `public/images/easter-eggs/`
-  - Tất cả ảnh/video phải được đặt trong thư mục này.
-  - Đường dẫn trong code: `/images/easter-eggs/filename.jpg`.
+  - All images/videos must be placed in this directory.
+  - Path in code: `/images/easter-eggs/filename.jpg`.
 
 ---
 
-## 5. Hướng Dẫn Implement Chi Tiết (Step-by-Step)
+## 5. Implementation Guide (Step-by-Step)
 
-### Bước 1: Setup Context (Brain)
+### Step 1: Setup Context (Brain)
 
-Tạo `EasterEggContext` để giữ nhịp tim cho cả hệ thống. Sử dụng `localStorage` để lưu:
+Create `EasterEggContext` to keep the heartbeat of the system. Use `localStorage` to persist:
 
-- `lastInteraction`: Timestamp lần cuối chơi.
-- `unlockedVouchers`: Mảng ID các voucher đã nhận.
-- `usedVouchers`: Mảng ID các voucher đã dùng.
+- `lastInteraction`: Timestamp of the last interaction.
+- `unlockedVouchers`: Array of IDs of received vouchers.
+- `usedVouchers`: Array of IDs of used vouchers.
 
-### Bước 2: Tạo UI Layer (Face)
+### Step 2: Create UI Layer (Face)
 
-Tạo component `EasterEggLayer` tuyệt đối (`position: fixed`, `z-index: 50`).
+Create `EasterEggLayer` component (`position: fixed`, `z-index: 50`).
 
-- Sử dụng `framer-motion` cho hiệu ứng trôi nổi (floating) và xuất hiện (scale up).
+- Use `framer-motion` for floating animation and appearance effects (scale up).
 
-### Bước 3: Tích hợp Navigation (Hands)
+### Step 3: Integrate Navigation (Hands)
 
-Sửa `BottomNavbar`:
+Update `BottomNavbar`:
 
-- Thêm icon Heart (cho Mood) và Ticket (cho Wallet).
-- Đảm bảo responsive, nếu nhiều nút quá có thể dùng icon nhỏ hơn hoặc thanh trượt ngang.
+- Add Heart icon (for Mood) and Ticket icon (for Wallet).
+- Ensure responsiveness; if there are too many buttons, consider smaller icons or a horizontal scroll bar.
 
-### Bước 4: Xây dựng Content Modals (Body)
+### Step 4: Build Content Modals (Body)
 
-Tận dụng component `BottomSheet` có sẵn:
+Utilize the existing `BottomSheet` component:
 
-- **MoodStation:** Render lưới các icon. Khi click -> Mở Overlay xem ảnh (dùng component `ImageViewer` hoặc tự custom).
-- **VoucherWallet:** Render lưới thẻ bài (Card). Click thẻ -> Mở Dialog nhập pass.
+- **MoodStation:** Render a grid of icons. Click -> Open Overlay to view photos (use `ImageViewer` component or custom implementation).
+- **VoucherWallet:** Render a grid of cards. Click card -> Open Password Input Dialog.
 
 ---
 
-## 6. Checklist Kiểm Thử (QA Checklist)
+## 6. QA Checklist
 
-1.  [ ] **Spawn Logic:** Chỉnh đồng hồ máy tính để tua nhanh 2 tiếng -> Kiểm tra trứng có hiện không.
-2.  [ ] **Timeout:** Để trứng hiện nhưng không bấm -> Sau 1 phút phải tự mất.
+1.  [ ] **Spawn Logic:** Adjust computer clock to fast forward 2 hours -> Check if the egg appears.
+2.  [ ] **Timeout:** Let the egg appear but do not click -> Should automatically disappear after 1 minute.
 3.  [ ] **Quiz Flow:**
-    - Trả lời đúng -> Thấy thông báo nhận quà -> Vào Wallet thấy voucher sáng lên.
-    - Trả lời sai -> Trứng biến mất ngay -> Rung (nếu có haptic) -> Không hiện lại ngay.
+    - Answer Correct -> Notification of reward -> Wallet shows the voucher lit up.
+    - Answer Wrong -> Egg disappears immediately -> Vibration (if haptic available) -> Does not reappear immediately.
 4.  [ ] **Redeem Flow:**
-    - Vào Wallet -> Chọn Voucher -> Nhập sai pass -> Báo lỗi.
-    - Nhập pass `16012005` -> Voucher chuyển màu xám (Used) -> Reload app vẫn giữ trạng thái Used.
-5.  [ ] **Mood Flow:** Chọn icon -> Ra đúng ảnh/video với caption tương ứng.
+    - Enter Wallet -> Select Voucher -> Enter wrong pass -> Show error.
+    - Enter pass `16012005` -> Voucher turns gray (Used) -> Reload app persists Used state.
+5.  [ ] **Mood Flow:** Select icon -> Shows correct images/video with corresponding caption.
