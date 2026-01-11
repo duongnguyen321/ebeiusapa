@@ -55,13 +55,13 @@ const TimelineItem = ({
 				{/* Time Badge */}
 				<div
 					className={`
-            px-2.5 py-1 rounded-lg text-xs md:text-sm font-medium flex items-center gap-1.5
+            px-2.5 py-1 rounded-full text-xs md:text-sm font-medium flex items-center gap-1.5 backdrop-blur-md shadow-sm transition-all
             ${
 							isActive
-								? 'bg-pink-500/30 text-pink-300 border border-pink-500/50'
+								? 'bg-pink-500/10 text-pink-300 border border-pink-500/30 shadow-[0_0_10px_rgba(244,114,182,0.2)]'
 								: isUpcoming
-								? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/30'
-								: 'bg-amber-500/20 text-amber-400'
+								? 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20'
+								: 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
 						}
           `}
 				>
@@ -83,7 +83,7 @@ const TimelineItem = ({
 					<motion.span
 						initial={{ opacity: 0, scale: 0.9 }}
 						animate={{ opacity: 1, scale: 1 }}
-						className='badge-upcoming text-[10px]'
+						className='badge-upcoming text-[10px] backdrop-blur-md shadow-sm'
 					>
 						Sắp tới
 					</motion.span>
@@ -91,7 +91,7 @@ const TimelineItem = ({
 
 				{/* Highlight Badge - inline */}
 				{item.isHighlight && (
-					<span className='px-2 py-0.5 bg-pink-500/10 border border-pink-500/20 rounded text-pink-400 text-[10px]'>
+					<span className='px-2 py-0.5 bg-pink-500/10 border border-pink-500/30 rounded-full text-pink-400 text-[10px] backdrop-blur-md shadow-[0_0_10px_rgba(236,72,153,0.2)]'>
 						💕 Đặc biệt
 					</span>
 				)}
@@ -177,7 +177,7 @@ const TimelineItem = ({
 					<div className='pt-2'>
 						<button
 							onClick={() => setShowPhotoTips(!showPhotoTips)}
-							className='flex items-center gap-1.5 text-pink-400 text-xs glass-panel px-2 py-1 rounded-md hover:bg-pink-500/20 transition-colors'
+							className='flex items-center gap-1.5 text-pink-400 text-xs bg-white/5 border border-white/10 px-3 py-1.5 rounded-full hover:bg-white/10 hover:border-pink-500/30 transition-all backdrop-blur-sm'
 						>
 							<Camera className='w-3 h-3' />
 							<span>Tips chụp ảnh</span>

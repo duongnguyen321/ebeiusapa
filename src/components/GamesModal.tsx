@@ -64,7 +64,7 @@ function GameCard({ game, index, onSelect }: GameCardProps) {
 							{game.name}
 						</h4>
 						<p className='text-white/80 text-sm mt-1'>{game.description}</p>
-						<div className='mt-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-black/20 text-white/70 text-xs'>
+						<div className='mt-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/10 border border-white/10 backdrop-blur-md text-white/90 text-xs shadow-sm'>
 							📍 {game.scenario}
 						</div>
 					</div>

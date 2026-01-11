@@ -58,7 +58,7 @@ const TripHeader = () => {
 					>
 						<div className='mt-3 grid grid-cols-1 md:grid-cols-2 gap-3'>
 							{/* Hotel Info */}
-							<div className='glass-panel p-4 rounded-xl'>
+							<div className='glass-panel p-4 rounded-xl bg-gradient-to-br from-amber-500/5 to-orange-500/5'>
 								<div className='flex items-center gap-2 text-amber-400 text-sm font-medium mb-3'>
 									<Hotel className='w-4 h-4' />
 									Khách sạn
@@ -102,7 +102,7 @@ const TripHeader = () => {
 							</div>
 
 							{/* Transport Info */}
-							<div className='glass-panel p-4 rounded-xl'>
+							<div className='glass-panel p-4 rounded-xl bg-gradient-to-br from-blue-500/5 to-cyan-500/5'>
 								<div className='flex items-center gap-2 text-blue-400 text-sm font-medium mb-3'>
 									<Bus className='w-4 h-4' />
 									Di chuyển
@@ -125,7 +125,7 @@ const TripHeader = () => {
 								</div>
 							</div>
 							{/* Birthday Info */}
-							<div className='glass-panel p-4 rounded-xl bg-gradient-to-br from-pink-500/10 to-purple-500/10 border border-pink-500/20'>
+							<div className='glass-panel p-4 rounded-xl bg-gradient-to-br from-pink-500/10 to-purple-500/10 border-pink-500/20'>
 								<div className='flex items-center gap-2 text-pink-400 text-sm font-medium mb-3'>
 									<Cake className='w-4 h-4' />
 									Sinh nhật

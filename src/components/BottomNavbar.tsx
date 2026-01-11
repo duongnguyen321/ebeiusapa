@@ -1,5 +1,13 @@
 import { motion } from 'framer-motion';
-import { PhoneCall, Gift, Heart, Power, Gamepad2, Smile, Ticket } from 'lucide-react';
+import {
+	PhoneCall,
+	Gift,
+	Heart,
+	Power,
+	Gamepad2,
+	Smile,
+	Ticket,
+} from 'lucide-react';
 
 interface BottomNavbarProps {
 	onEmergency: () => void;
@@ -106,7 +114,9 @@ const BottomNavbar = ({
 						whileTap={{ scale: 0.9 }}
 						onClick={item.onClick}
 						className={`nav-icon-btn flex-shrink-0 ${item.hoverBg} ${
-							item.isActive ? 'ring-2 ring-pink-400/50' : ''
+							item.isActive
+								? 'bg-white/10 border-pink-400/50 shadow-[0_0_15px_rgba(244,114,182,0.4)]'
+								: ''
 						}`}
 						aria-label={item.label}
 					>
