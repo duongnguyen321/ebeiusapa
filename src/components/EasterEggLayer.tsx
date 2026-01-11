@@ -3,12 +3,23 @@ import { useEasterEgg } from '@/contexts/EasterEggContext';
 import { EasterEggQuizModal } from './easter-egg/QuizModal';
 import { EasterEggFunnyModal } from './easter-egg/FunnyModal';
 import { EasterEggMemoryModal } from './easter-egg/MemoryModal';
+import { VoucherRedeemModal } from './VoucherRedeemModal';
 
 const EGG_ICONS = ['🥚', '🎁', '💝'];
 
 export default function EasterEggLayer() {
-	const { isEggVisible, eggPosition, clickEgg, currentContent, showContentModal, closeContentModal, answerQuiz } =
-		useEasterEgg();
+	const {
+		isEggVisible,
+		eggPosition,
+		clickEgg,
+		currentContent,
+		showContentModal,
+		closeContentModal,
+		answerQuiz,
+		redeemVoucherState,
+		closeRedeemModal,
+		redeemVoucher,
+	} = useEasterEgg();
 
 	const randomIcon = EGG_ICONS[Math.floor(Math.random() * EGG_ICONS.length)];
 
@@ -87,6 +98,19 @@ export default function EasterEggLayer() {
 							/>
 						)}
 					</>
+				)}
+			</AnimatePresence>
+
+			{/* Voucher Redeem Modal (Global) */}
+			<AnimatePresence>
+				{redeemVoucherState && (
+					<VoucherRedeemModal
+						voucher={redeemVoucherState}
+						onClose={closeRedeemModal}
+						onRedeem={(password) =>
+							redeemVoucher(redeemVoucherState.id, password)
+						}
+					/>
 				)}
 			</AnimatePresence>
 		</>

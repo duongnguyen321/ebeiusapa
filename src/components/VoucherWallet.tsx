@@ -1,6 +1,5 @@
-import { motion, AnimatePresence } from 'framer-motion';
-import { X, Ticket, Lock, Check, Gift } from 'lucide-react';
-import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Ticket, Check, Gift } from 'lucide-react';
 import { useEasterEgg } from '@/contexts/EasterEggContext';
 import type { VoucherReward } from '@/data/easterEggs';
 
@@ -9,42 +8,11 @@ interface VoucherWalletProps {
 }
 
 export default function VoucherWallet({ onClose }: VoucherWalletProps) {
-	const { unlockedVouchers, usedVoucherIds, redeemVoucher } = useEasterEgg();
-	const [selectedVoucher, setSelectedVoucher] = useState<VoucherReward | null>(
-		null
-	);
-	const [password, setPassword] = useState('');
-	const [error, setError] = useState('');
-	const [success, setSuccess] = useState(false);
+	const { unlockedVouchers, usedVoucherIds, openRedeemModal } = useEasterEgg();
 
 	const handleVoucherClick = (voucher: VoucherReward) => {
 		if (usedVoucherIds.includes(voucher.id)) return;
-		setSelectedVoucher(voucher);
-		setPassword('');
-		setError('');
-		setSuccess(false);
-	};
-
-	const handleRedeem = () => {
-		if (!selectedVoucher) return;
-
-		const isSuccess = redeemVoucher(selectedVoucher.id, password);
-		if (isSuccess) {
-			setSuccess(true);
-			setTimeout(() => {
-				setSelectedVoucher(null);
-				setSuccess(false);
-			}, 2000);
-		} else {
-			setError('Sai mật khẩu rồi! Đưa máy cho anh nhập nhé 😘');
-		}
-	};
-
-	const handleCloseModal = () => {
-		setSelectedVoucher(null);
-		setPassword('');
-		setError('');
-		setSuccess(false);
+		openRedeemModal(voucher);
 	};
 
 	if (unlockedVouchers.length === 0) {
@@ -114,115 +82,6 @@ export default function VoucherWallet({ onClose }: VoucherWalletProps) {
 					);
 				})}
 			</div>
-
-			{/* Password Modal */}
-			<AnimatePresence>
-				{selectedVoucher && (
-					<motion.div
-						initial={{ opacity: 0 }}
-						animate={{ opacity: 1 }}
-						exit={{ opacity: 0 }}
-						className='fixed inset-0 z-[80] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm'
-						onClick={handleCloseModal}
-					>
-						<motion.div
-							initial={{ scale: 0.9, y: 20 }}
-							animate={{ scale: 1, y: 0 }}
-							exit={{ scale: 0.9, y: 20 }}
-							className='bg-slate-800/95 backdrop-blur-xl rounded-3xl p-6 max-w-sm w-full shadow-2xl border border-white/10'
-							onClick={(e) => e.stopPropagation()}
-						>
-							{success ? (
-								<motion.div
-									initial={{ scale: 0.8 }}
-									animate={{ scale: 1 }}
-									className='text-center py-8'
-								>
-									<div className='w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4'>
-										<Check className='w-8 h-8 text-green-400' />
-									</div>
-									<h3 className='text-xl font-bold text-white mb-2'>
-										Đã sử dụng!
-									</h3>
-									<p className='text-white/60'>
-										Hãy thực hiện {selectedVoucher.title} ngay nhé! 💕
-									</p>
-								</motion.div>
-							) : (
-								<>
-									{/* Header */}
-									<div className='flex items-center justify-between mb-6'>
-										<div className='flex items-center gap-2'>
-											<Lock className='w-5 h-5 text-amber-400' />
-											<h3 className='text-lg font-bold text-white'>
-												Xác nhận sử dụng
-											</h3>
-										</div>
-										<button
-											onClick={handleCloseModal}
-											className='p-1 rounded-full hover:bg-white/10 transition-colors'
-										>
-											<X className='w-5 h-5 text-white/60' />
-										</button>
-									</div>
-
-									{/* Voucher Info */}
-									<div className='bg-white/5 rounded-xl p-4 mb-6 text-center'>
-										<span className='text-4xl'>{selectedVoucher.icon}</span>
-										<h4 className='text-white font-bold mt-2'>
-											{selectedVoucher.title}
-										</h4>
-									</div>
-
-									{/* Instructions */}
-									<p className='text-white/60 text-sm text-center mb-4'>
-										Đưa điện thoại cho anh nhập mật khẩu để sử dụng voucher này
-										nhé! 😉
-									</p>
-
-									{/* Password Input */}
-									<input
-										type='password'
-										value={password}
-										onChange={(e) => {
-											setPassword(e.target.value);
-											setError('');
-										}}
-										placeholder='Nhập mật khẩu...'
-										className='w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder:text-white/40 text-center text-lg tracking-widest focus:outline-none focus:border-amber-500/50'
-									/>
-
-									{/* Error */}
-									{error && (
-										<motion.p
-											initial={{ opacity: 0, y: -10 }}
-											animate={{ opacity: 1, y: 0 }}
-											className='text-red-400 text-sm text-center mt-2'
-										>
-											{error}
-										</motion.p>
-									)}
-
-									{/* Submit */}
-									<motion.button
-										whileHover={{ scale: 1.02 }}
-										whileTap={{ scale: 0.98 }}
-										onClick={handleRedeem}
-										disabled={!password}
-										className={`w-full mt-4 py-3 rounded-xl font-bold transition-all ${
-											password
-												? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white'
-												: 'bg-white/10 text-white/40 cursor-not-allowed'
-										}`}
-									>
-										Xác nhận
-									</motion.button>
-								</>
-							)}
-						</motion.div>
-					</motion.div>
-				)}
-			</AnimatePresence>
 		</div>
 	);
 }

@@ -9,7 +9,11 @@ interface QuizModalProps {
 	onAnswer: (quizId: string, isCorrect: boolean) => void;
 }
 
-export function EasterEggQuizModal({ quiz, onClose, onAnswer }: QuizModalProps) {
+export function EasterEggQuizModal({
+	quiz,
+	onClose,
+	onAnswer,
+}: QuizModalProps) {
 	const [selectedOption, setSelectedOption] = useState<string | null>(null);
 	const [showResult, setShowResult] = useState(false);
 
@@ -26,10 +30,9 @@ export function EasterEggQuizModal({ quiz, onClose, onAnswer }: QuizModalProps) 
 
 		setShowResult(true);
 
-		// Delay to show result before closing
-		setTimeout(() => {
-			onAnswer(quiz.id, isCorrect);
-		}, 2000);
+		// Call onAnswer immediately to update state, but modal will stay open
+		// until user clicks Close (because we removed auto-close from context)
+		onAnswer(quiz.id, isCorrect);
 	};
 
 	const selectedOptionData = quiz.options.find((o) => o.id === selectedOption);
@@ -165,11 +168,15 @@ export function EasterEggQuizModal({ quiz, onClose, onAnswer }: QuizModalProps) 
 										{selectedOptionData.responseMessage}
 									</p>
 								)}
-								<p className='text-white/50 text-xs'>
-									Thử lại sau 1 giờ nhé!
-								</p>
+								<p className='text-white/50 text-xs'>Thử lại sau 1 giờ nhé!</p>
 							</div>
 						)}
+						<button
+							onClick={onClose}
+							className='mt-4 w-full py-2 bg-white/10 hover:bg-white/20 rounded-xl font-medium text-white transition-colors'
+						>
+							Đóng
+						</button>
 					</motion.div>
 				) : (
 					<motion.button

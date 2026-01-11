@@ -26,7 +26,7 @@ export function EasterEggMemoryModal({ memory, onClose }: MemoryModalProps) {
 			initial={{ opacity: 0 }}
 			animate={{ opacity: 1 }}
 			exit={{ opacity: 0 }}
-			className='fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md'
+			className='fixed inset-0 z-[60] flex items-center justify-center p-4 bg-white/15 backdrop-blur-md'
 			onClick={onClose}
 		>
 			<motion.div
@@ -56,7 +56,7 @@ export function EasterEggMemoryModal({ memory, onClose }: MemoryModalProps) {
 				</div>
 
 				{/* Image Gallery */}
-				<div className='relative aspect-[4/3] bg-black'>
+				<div className='relative aspect-[4/3] bg-white/15 backdrop-blur-md'>
 					<AnimatePresence mode='wait'>
 						<motion.img
 							key={currentIndex}

@@ -37,6 +37,9 @@ interface EasterEggState {
 	currentContent: EggContent | null;
 	showContentModal: boolean;
 
+	// Voucher Redeem Modal State (Global)
+	redeemVoucherState: VoucherReward | null;
+
 	// Wallet state
 	unlockedVouchers: VoucherReward[];
 	usedVoucherIds: string[];
@@ -53,15 +56,21 @@ interface EasterEggContextType extends EasterEggState {
 	hideEgg: () => void;
 	clickEgg: () => void;
 	closeContentModal: () => void;
+	openRedeemModal: (voucher: VoucherReward) => void;
+	closeRedeemModal: () => void;
 	answerQuiz: (quizId: string, isCorrect: boolean) => void;
 	redeemVoucher: (voucherId: string, password: string) => boolean;
 	resetInteraction: () => void;
 }
 
 // ==================== CONSTANTS ====================
-const SPAWN_COOLDOWN_MS = 2 * 60 * 60 * 1000; // 2 hours
-const EGG_TTL_MS = 60 * 1000; // 1 minute
-const WRONG_ANSWER_COOLDOWN_MS = 60 * 60 * 1000; // 1 hour
+const IS_DEV = import.meta.env.DEV;
+
+// Development vs Production timing
+const SPAWN_COOLDOWN_MS = IS_DEV ? 10 * 1000 : 90 * 1000; // 10s (Dev) vs 1.5mins (Prod)
+const EGG_TTL_MS = IS_DEV ? 20 * 1000 : 60 * 1000; // 20s (Dev) vs 1m (Prod)
+const WRONG_ANSWER_COOLDOWN_MS = IS_DEV ? 30 * 1000 : 120 * 1000; // 30s (Dev) vs 2m (Prod) // Changed to 2m as requested
+
 const QUIZ_CHANCE = 0.9; // 90% quiz, 10% funny/memory
 const REDEEM_PASSWORD = '16012005';
 
@@ -99,6 +108,11 @@ export function EasterEggProvider({ children }: { children: React.ReactNode }) {
 	const [eggPosition, setEggPosition] = useState({ top: 50, left: 50 });
 	const [currentContent, setCurrentContent] = useState<EggContent | null>(null);
 	const [showContentModal, setShowContentModal] = useState(false);
+
+	// Redeem Modal State
+	const [redeemVoucherState, setRedeemVoucherState] =
+		useState<VoucherReward | null>(null);
+
 	const [lastInteractionTime, setLastInteractionTime] = useState(() =>
 		loadFromStorage(STORAGE_KEYS.lastInteraction, Date.now())
 	);
@@ -161,23 +175,13 @@ export function EasterEggProvider({ children }: { children: React.ReactNode }) {
 
 		setEggPosition(generateRandomPosition());
 		setIsEggVisible(true);
-
-		// Auto-hide after TTL
-		const timeout = setTimeout(() => {
-			setIsEggVisible(false);
-		}, EGG_TTL_MS);
-
-		setEggTimeoutId(timeout);
+		// Removed auto-hide TTL
 	}, [isEggVisible, generateRandomPosition]);
 
 	// Hide egg
 	const hideEgg = useCallback(() => {
 		setIsEggVisible(false);
-		if (eggTimeoutId) {
-			clearTimeout(eggTimeoutId);
-			setEggTimeoutId(null);
-		}
-	}, [eggTimeoutId]);
+	}, []);
 
 	// Get today's quiz or random unanswered quiz
 	const getAvailableQuiz = useCallback((): QuizData | null => {
@@ -234,30 +238,38 @@ export function EasterEggProvider({ children }: { children: React.ReactNode }) {
 		setLastInteractionTime(Date.now());
 	}, []);
 
+	// Global Redeem Modal Actions
+	const openRedeemModal = useCallback((voucher: VoucherReward) => {
+		setRedeemVoucherState(voucher);
+	}, []);
+
+	const closeRedeemModal = useCallback(() => {
+		setRedeemVoucherState(null);
+	}, []);
+
 	// Answer quiz
-	const answerQuiz = useCallback(
-		(quizId: string, isCorrect: boolean) => {
-			setAnsweredQuizIds((prev) => [...prev, quizId]);
+	const answerQuiz = useCallback((quizId: string, isCorrect: boolean) => {
+		setAnsweredQuizIds((prev) => [...prev, quizId]);
 
-			if (isCorrect) {
-				// Add reward to wallet
-				const quiz = quizData.find((q) => q.id === quizId);
-				if (quiz?.reward) {
-					setUnlockedVouchers((prev) => {
-						// Don't add duplicate
-						if (prev.some((v) => v.id === quiz.reward.id)) return prev;
-						return [...prev, { ...quiz.reward, isRedeemed: true }];
-					});
-				}
-			} else {
-				// Wrong answer - set cooldown
-				setLastInteractionTime(Date.now() - SPAWN_COOLDOWN_MS + WRONG_ANSWER_COOLDOWN_MS);
+		if (isCorrect) {
+			// Add reward to wallet
+			const quiz = quizData.find((q) => q.id === quizId);
+			if (quiz?.reward) {
+				setUnlockedVouchers((prev) => {
+					// Don't add duplicate
+					if (prev.some((v) => v.id === quiz.reward.id)) return prev;
+					return [...prev, { ...quiz.reward, isRedeemed: true }];
+				});
 			}
+		} else {
+			// Wrong answer - set cooldown
+			setLastInteractionTime(
+				Date.now() - SPAWN_COOLDOWN_MS + WRONG_ANSWER_COOLDOWN_MS
+			);
+		}
 
-			closeContentModal();
-		},
-		[closeContentModal]
-	);
+		// Removed closeContentModal to allow manual closing
+	}, []);
 
 	// Redeem voucher
 	const redeemVoucher = useCallback(
@@ -302,6 +314,7 @@ export function EasterEggProvider({ children }: { children: React.ReactNode }) {
 		eggPosition,
 		currentContent,
 		showContentModal,
+		redeemVoucherState,
 		unlockedVouchers,
 		usedVoucherIds,
 		lastInteractionTime,
@@ -311,6 +324,8 @@ export function EasterEggProvider({ children }: { children: React.ReactNode }) {
 		hideEgg,
 		clickEgg,
 		closeContentModal,
+		openRedeemModal,
+		closeRedeemModal,
 		answerQuiz,
 		redeemVoucher,
 		resetInteraction,
