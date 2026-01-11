@@ -1,14 +1,18 @@
 import { motion } from 'framer-motion';
-import { PhoneCall, Gift, Heart, Power, Gamepad2 } from 'lucide-react';
+import { PhoneCall, Gift, Heart, Power, Gamepad2, Smile, Ticket } from 'lucide-react';
 
 interface BottomNavbarProps {
 	onEmergency: () => void;
 	onScratchCard: () => void;
 	onLetters: () => void;
 	onGames: () => void;
+	onMood: () => void;
+	onWallet: () => void;
 	onExit: () => void;
 	showLettersActive?: boolean;
 	showGamesActive?: boolean;
+	showMoodActive?: boolean;
+	showWalletActive?: boolean;
 }
 
 const BottomNavbar = ({
@@ -16,9 +20,13 @@ const BottomNavbar = ({
 	onScratchCard,
 	onLetters,
 	onGames,
+	onMood,
+	onWallet,
 	onExit,
 	showLettersActive = false,
 	showGamesActive = false,
+	showMoodActive = false,
+	showWalletActive = false,
 }: BottomNavbarProps) => {
 	const navItems = [
 		{
@@ -36,6 +44,24 @@ const BottomNavbar = ({
 			onClick: onScratchCard,
 			color: 'text-amber-400',
 			hoverBg: 'hover:bg-amber-500/20',
+		},
+		{
+			id: 'mood',
+			icon: Smile,
+			label: 'Tâm trạng',
+			onClick: onMood,
+			color: 'text-cyan-400',
+			hoverBg: 'hover:bg-cyan-500/20',
+			isActive: showMoodActive,
+		},
+		{
+			id: 'wallet',
+			icon: Ticket,
+			label: 'Voucher',
+			onClick: onWallet,
+			color: 'text-orange-400',
+			hoverBg: 'hover:bg-orange-500/20',
+			isActive: showWalletActive,
 		},
 		{
 			id: 'games',
@@ -72,14 +98,14 @@ const BottomNavbar = ({
 			transition={{ type: 'spring', damping: 25, stiffness: 200, delay: 0.3 }}
 			className='bottom-navbar-compact'
 		>
-			<div className='bottom-navbar-pill'>
+			<div className='bottom-navbar-pill overflow-x-auto'>
 				{navItems.map((item) => (
 					<motion.button
 						key={item.id}
 						whileHover={{ scale: 1.15 }}
 						whileTap={{ scale: 0.9 }}
 						onClick={item.onClick}
-						className={`nav-icon-btn ${item.hoverBg} ${
+						className={`nav-icon-btn flex-shrink-0 ${item.hoverBg} ${
 							item.isActive ? 'ring-2 ring-pink-400/50' : ''
 						}`}
 						aria-label={item.label}

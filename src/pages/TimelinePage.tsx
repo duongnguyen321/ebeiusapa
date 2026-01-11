@@ -3,6 +3,8 @@ import BottomSheet from '@/components/BottomSheet';
 import DayCard from '@/components/DayCard';
 import EmergencyPanel from '@/components/EmergencyPanel';
 import GamesModal from '@/components/GamesModal';
+import MoodStation from '@/components/MoodStation';
+import VoucherWallet from '@/components/VoucherWallet';
 import { PageTransition } from '@/components/PageTransition';
 import { ScratchCard } from '@/components/ScratchCard';
 import { LetterCard, SecretLetter } from '@/components/SecretLetter';
@@ -12,7 +14,7 @@ import { itinerary } from '@/data/itinerary';
 import { loveLetters } from '@/data/letters';
 import { useActiveTimeline } from '@/hooks/useActiveTimeline';
 import { motion } from 'framer-motion';
-import { Heart } from 'lucide-react';
+import { Heart, Smile, Ticket } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -27,6 +29,8 @@ export default function TimelinePage() {
 	const [showLetters, setShowLetters] = useState(false);
 	const [selectedLetter, setSelectedLetter] = useState<number | null>(null);
 	const [showGames, setShowGames] = useState(false);
+	const [showMood, setShowMood] = useState(false);
+	const [showWallet, setShowWallet] = useState(false);
 
 	const [expandedDay, setExpandedDay] = useState<number | null>(null);
 	const [showEmergency, setShowEmergency] = useState(false);
@@ -36,10 +40,6 @@ export default function TimelinePage() {
 	useEffect(() => {
 		if (location.state?.showGames) {
 			setShowGames(true);
-			// Clear state to prevent reopening on reload/subsequent Navigations if needed
-			// navigate('.', { replace: true, state: {} });
-			// But careful not to trigger re-render cycle issues.
-			// For now leaving it as is, or we can use a ref to track if handled.
 		}
 	}, [location.state]);
 
@@ -86,9 +86,13 @@ export default function TimelinePage() {
 					onScratchCard={() => setShowScratchCard(true)}
 					onLetters={() => setShowLetters(!showLetters)}
 					onGames={() => setShowGames(true)}
+					onMood={() => setShowMood(!showMood)}
+					onWallet={() => setShowWallet(!showWallet)}
 					onExit={() => lockApp()}
 					showLettersActive={showLetters}
 					showGamesActive={showGames}
+					showMoodActive={showMood}
+					showWalletActive={showWallet}
 				/>
 
 				<div className='max-w-4xl mx-auto'>
@@ -193,6 +197,28 @@ export default function TimelinePage() {
 							</div>
 						))}
 					</div>
+				</BottomSheet>
+
+				{/* Mood Station Bottom Sheet */}
+				<BottomSheet
+					isOpen={showMood}
+					onClose={() => setShowMood(false)}
+					title='Mood Station'
+					icon={<Smile className='w-5 h-5 text-cyan-400' />}
+					maxWidth='md:max-w-md'
+				>
+					<MoodStation onClose={() => setShowMood(false)} />
+				</BottomSheet>
+
+				{/* Voucher Wallet Bottom Sheet */}
+				<BottomSheet
+					isOpen={showWallet}
+					onClose={() => setShowWallet(false)}
+					title='Voucher Wallet'
+					icon={<Ticket className='w-5 h-5 text-orange-400' />}
+					maxWidth='md:max-w-md'
+				>
+					<VoucherWallet onClose={() => setShowWallet(false)} />
 				</BottomSheet>
 
 				{/* Scratch Card Modal */}

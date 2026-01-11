@@ -1,7 +1,21 @@
 // Game Data Exports
 export * from './mistWhispers';
 export * from './highlandDice';
-export * from './loveSwipe';
+export {
+	type HeatLevel,
+	type SwipeCard,
+	allSwipeCards,
+	getCardsByHeatLevel,
+	getBalancedDeck,
+	getProgressiveDeck,
+	getQuickDeck,
+	getDeckByHeatLevel,
+	getTourDeck,
+	heatLevelColors,
+	heatLevelLabels,
+	// Rename shuffleCards to avoid conflict with mistWhispers
+	shuffleCards as shuffleSwipeCards,
+} from './loveSwipe';
 
 // Game metadata
 export interface GameInfo {
