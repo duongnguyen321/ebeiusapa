@@ -1,5 +1,12 @@
-import { motion } from 'framer-motion';
-import { X, Gift, Check, XCircle } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+	X,
+	Gift,
+	Check,
+	XCircle,
+	ChevronLeft,
+	ChevronRight,
+} from 'lucide-react';
 import { useState } from 'react';
 import type { QuizData } from '@/data/easterEggs';
 
@@ -16,6 +23,20 @@ export function EasterEggQuizModal({
 }: QuizModalProps) {
 	const [selectedOption, setSelectedOption] = useState<string | null>(null);
 	const [showResult, setShowResult] = useState(false);
+	const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+	const paginate = (newDirection: number) => {
+		if (!quiz.images) return;
+		let newIndex = currentImageIndex + newDirection;
+		if (newIndex < 0) newIndex = quiz.images.length - 1;
+		if (newIndex >= quiz.images.length) newIndex = 0;
+		setCurrentImageIndex(newIndex);
+	};
+
+	const swipeConfidenceThreshold = 10000;
+	const swipePower = (offset: number, velocity: number) => {
+		return Math.abs(offset) * velocity;
+	};
 
 	const handleSelectOption = (optionId: string) => {
 		if (showResult) return;
@@ -67,14 +88,69 @@ export function EasterEggQuizModal({
 					</button>
 				</div>
 
-				{/* Image */}
-				{quiz.image && (
-					<div className='mb-4 rounded-xl overflow-hidden'>
-						<img
-							src={quiz.image}
-							alt='Quiz'
-							className='w-full h-40 object-cover'
-						/>
+				{/* Image Gallery */}
+				{quiz.images && quiz.images.length > 0 && (
+					<div className='mb-4 relative rounded-xl overflow-hidden h-48 group'>
+						<AnimatePresence mode='wait' initial={false}>
+							<motion.img
+								key={currentImageIndex}
+								src={quiz.images[currentImageIndex]}
+								alt={`Quiz image ${currentImageIndex + 1}`}
+								initial={{ opacity: 0, x: 50 }}
+								animate={{ opacity: 1, x: 0 }}
+								exit={{ opacity: 0, x: -50 }}
+								transition={{ duration: 0.3 }}
+								className='w-full h-full object-cover'
+								drag='x'
+								dragConstraints={{ left: 0, right: 0 }}
+								dragElastic={1}
+								onDragEnd={(e, { offset, velocity }) => {
+									const swipe = swipePower(offset.x, velocity.x);
+									if (swipe < -swipeConfidenceThreshold) {
+										paginate(1);
+									} else if (swipe > swipeConfidenceThreshold) {
+										paginate(-1);
+									}
+								}}
+							/>
+						</AnimatePresence>
+
+						{/* Navigation Arrows (Desktop) */}
+						{quiz.images.length > 1 && (
+							<>
+								<button
+									className='absolute left-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-white/20 backdrop-blur-md text-white opacity-0 group-hover:opacity-100 transition-opacity disabled:opacity-0'
+									onClick={() => paginate(-1)}
+								>
+									<ChevronLeft className='w-5 h-5' />
+								</button>
+								<button
+									className='absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-white/20 backdrop-blur-md text-white opacity-0 group-hover:opacity-100 transition-opacity disabled:opacity-0'
+									onClick={() => paginate(1)}
+								>
+									<ChevronRight className='w-5 h-5' />
+								</button>
+
+								{/* Dots Indicator */}
+								<div className='absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5 z-10'>
+									{quiz.images.map((_, idx) => (
+										<div
+											key={idx}
+											className={`w-1.5 h-1.5 rounded-full transition-all shadow-sm ${
+												idx === currentImageIndex
+													? 'bg-white w-3'
+													: 'bg-white/50'
+											}`}
+										/>
+									))}
+								</div>
+							</>
+						)}
+
+						{/* Badge */}
+						<div className='absolute top-2 right-2 bg-black/40 backdrop-blur-md px-2 py-0.5 rounded-full text-[10px] font-medium text-white/90 border border-white/10'>
+							{currentImageIndex + 1}/{quiz.images.length}
+						</div>
 					</div>
 				)}
 

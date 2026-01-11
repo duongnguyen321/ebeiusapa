@@ -1,8 +1,39 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 import path from 'path';
+import fs from 'fs';
 import { componentTagger } from 'lovable-tagger';
 import { VitePWA } from 'vite-plugin-pwa';
+
+// Custom plugin to inject prefetch links
+const injectEasterEggPrefetch = () => {
+	return {
+		name: 'inject-easter-egg-prefetch',
+		transformIndexHtml(html: string) {
+			try {
+				const imagesDir = path.resolve(__dirname, 'public/images/easter-eggs');
+				if (!fs.existsSync(imagesDir)) return html;
+
+				const files = fs.readdirSync(imagesDir);
+				const imageFiles = files.filter((file) =>
+					/\.(png|jpe?g|gif|svg)$/i.test(file)
+				);
+
+				const links = imageFiles
+					.map(
+						(file) =>
+							`<link rel="prefetch" href="/images/easter-eggs/${file}" as="image" />`
+					)
+					.join('\n\t\t');
+
+				return html.replace('</head>', `\t${links}\n</head>`);
+			} catch (error) {
+				console.error('Error injecting prefetch links:', error);
+				return html;
+			}
+		},
+	};
+};
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
@@ -13,6 +44,7 @@ export default defineConfig(({ mode }) => ({
 	plugins: [
 		react(),
 		mode === 'development' && componentTagger(),
+		injectEasterEggPrefetch(),
 		VitePWA({
 			registerType: 'autoUpdate',
 			includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],

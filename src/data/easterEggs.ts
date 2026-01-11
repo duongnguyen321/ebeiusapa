@@ -23,7 +23,7 @@ export interface QuizData {
 	id: string;
 	date?: string;
 	question: string;
-	image?: string;
+	images?: string[];
 	options: QuizOption[];
 	reward: VoucherReward;
 }
@@ -139,6 +139,8 @@ export const memoryCapsules: MemoryCapsuleData[] = [
 			'Chuyến đi xa đầu tiên cùng công ty. Dù đi đông người nhưng trong mắt anh chỉ có em.',
 		images: [
 			'/images/easter-eggs/first-long-trip-with-you-at-Cat-Ba-with-out-company.jpeg',
+			// Added generic beach/trip vibe or filler to ensure multiple images
+			'/images/easter-eggs/first-time-see-you.JPG',
 		],
 	},
 	{
@@ -149,6 +151,8 @@ export const memoryCapsules: MemoryCapsuleData[] = [
 			'Anh sinh nhật 22/11, nhưng mình đón Bi về từ 10/11. Món quà sinh nhật ý nghĩa nhất từ "quỹ chung" của hai ta.',
 		images: [
 			'/images/easter-eggs/first-thing-we-bouth-together-is-a-corgi-dog-name-Bi-and-it-is-best-ever-gift-in-my-birthday.JPG',
+			// Reusing another cute photo to meet requirement
+			'/images/easter-eggs/you-are-take-your-photo-and-sent-to-me-your-cute-photo.jpeg',
 		],
 	},
 	{
@@ -229,11 +233,15 @@ export const memoryCapsules: MemoryCapsuleData[] = [
 
 // --- DAILY QUIZ & VOUCHERS ---
 export const quizData: QuizData[] = [
+	// --- DAY 1: 15/01/2026 (Travel & Beginnings) ---
 	{
 		id: 'quiz-day1',
 		date: '2026-01-15',
 		question: 'Ngày Cá tháng Tư (01/04/2025) có ý nghĩa gì với tụi mình?',
-		image: '/images/easter-eggs/first-time-see-you.JPG',
+		images: [
+			'/images/easter-eggs/first-time-see-you.JPG',
+			'/images/easter-eggs/first-time-flirting-you-on-messenger.jpeg',
+		],
 		options: [
 			{ id: 'a', label: 'Ngày nói dối', isCorrect: false },
 			{
@@ -254,18 +262,76 @@ export const quizData: QuizData[] = [
 		},
 	},
 	{
+		id: 'quiz-day1-2',
+		date: '2026-01-15',
+		question: 'Lần đầu tiên mình đi chơi xa cùng nhau là đi đâu nhỉ?',
+		images: [
+			'/images/easter-eggs/first-long-trip-with-you-at-Cat-Ba-with-out-company.jpeg',
+			'/images/easter-eggs/first-time-hangout-with-you.JPG',
+		],
+		options: [
+			{ id: 'a', label: 'Đà Nẵng', isCorrect: false },
+			{
+				id: 'b',
+				label: 'Cát Bà',
+				isCorrect: true,
+				responseMessage: 'Chuyến đi bão táp nhưng vui ha!',
+			},
+			{ id: 'c', label: 'Hạ Long', isCorrect: false },
+		],
+		reward: {
+			id: 'voucher-photo',
+			title: 'Thợ Chụp Ảnh Riêng',
+			description: 'Anh sẽ chụp cho em 100 tấm ảnh sống ảo cho đến khi ưng ý.',
+			icon: '📸',
+			isRedeemed: false,
+			isUsed: false,
+		},
+	},
+	{
+		id: 'quiz-day1-3',
+		date: '2026-01-15',
+		question: 'Món đồ đôi đầu tiên mình mua cùng nhau là gì?',
+		images: [
+			'/images/easter-eggs/we-bouth-a-new-helmet-look-like-twice-cutes-ducks.JPG',
+			'/images/easter-eggs/it-me-and-we-are-go-to-buy-a-new-glasses-for-me.JPG',
+		],
+		options: [
+			{ id: 'a', label: 'Áo đôi', isCorrect: false },
+			{
+				id: 'b',
+				label: 'Mũ bảo hiểm vịt',
+				isCorrect: true,
+				responseMessage: 'Hai con vịt cute lạc lối!',
+			},
+			{ id: 'c', label: 'Giày đôi', isCorrect: false },
+		],
+		reward: {
+			id: 'voucher-drink',
+			title: 'Trà Sữa Full Topping',
+			description: 'Mời em một cốc trà sữa full topping bất kỳ.',
+			icon: '🧋',
+			isRedeemed: false,
+			isUsed: false,
+		},
+	},
+
+	// --- DAY 2: 16/01/2026 (Nature & Adventure) ---
+	{
 		id: 'quiz-day2',
 		date: '2026-01-16',
 		question: 'Chú chó Bi Corgi là quà sinh nhật của ai tặng ai?',
-		image:
+		images: [
 			'/images/easter-eggs/first-thing-we-bouth-together-is-a-corgi-dog-name-Bi-and-it-is-best-ever-gift-in-my-birthday.JPG',
+			'/images/easter-eggs/you-are-take-your-photo-and-sent-to-me-your-cute-photo.jpeg',
+		],
 		options: [
 			{ id: 'a', label: 'Anh tặng em', isCorrect: false },
 			{
 				id: 'b',
 				label: 'Em bé tặng anh',
 				isCorrect: true,
-				responseMessage: 'Món quà tuyệt vời nhất!',
+				responseMessage: 'Món quà tuyệt vời nhất đời anh!',
 			},
 			{ id: 'c', label: 'Bi tự đến', isCorrect: false },
 		],
@@ -279,10 +345,69 @@ export const quizData: QuizData[] = [
 		},
 	},
 	{
+		id: 'quiz-day2-2',
+		date: '2026-01-16',
+		question: 'Em thích màu tóc nào nhất trong bộ sưu tập của mình?',
+		images: [
+			'/images/easter-eggs/new-hair-color-is-red-very-beautyful.jpeg',
+			'/images/easter-eggs/best-beautyful-ever-photo-with-new-red-hair-colored.jpeg',
+		],
+		options: [
+			{
+				id: 'a',
+				label: 'Màu đỏ rực rỡ',
+				isCorrect: true,
+				responseMessage: 'Màu này tôn da em lắm luôn!',
+			},
+			{ id: 'b', label: 'Màu vàng nổi loạn', isCorrect: false },
+			{ id: 'c', label: 'Màu xanh dương', isCorrect: false },
+		],
+		reward: {
+			id: 'voucher-hair',
+			title: 'Gội Đầu Dưỡng Sinh',
+			description: 'Anh tài trợ một suất gội đầu dưỡng sinh thư giãn.',
+			icon: '💆‍♀️',
+			isRedeemed: false,
+			isUsed: false,
+		},
+	},
+	{
+		id: 'quiz-day2-3',
+		date: '2026-01-16',
+		question: 'Khi đi Cafe Rouge, em đã mặc bộ đồ màu gì?',
+		images: [
+			'/images/easter-eggs/you-are-so-sexy-sweet-in-Rouge-cafe-and-bistro-with-my-dress-im-bouth-to-you.jpeg',
+			'/images/easter-eggs/we-are-going-to-beautyful-cafe-name-rouge-cafe-and-bistro.JPG',
+		],
+		options: [
+			{ id: 'a', label: 'Váy trắng', isCorrect: false },
+			{
+				id: 'b',
+				label: 'Váy xanh ngọc sexy',
+				isCorrect: true,
+				responseMessage: 'Xinh xỉu luôn á!',
+			},
+			{ id: 'c', label: 'Quần Jeans', isCorrect: false },
+		],
+		reward: {
+			id: 'voucher-coffee',
+			title: 'Cafe Sáng',
+			description: 'Anh sẽ dậy sớm pha cafe hoặc mua cafe cho em.',
+			icon: '☕',
+			isRedeemed: false,
+			isUsed: false,
+		},
+	},
+
+	// --- DAY 3: 17/01/2026 (Romance & Memories) ---
+	{
 		id: 'quiz-day3',
 		date: '2026-01-17',
 		question: 'Lần đầu mình hun nhau là ở đâu?',
-		image: '/images/easter-eggs/first-time-at-West-Lake-Flower-Valley.JPG',
+		images: [
+			'/images/easter-eggs/first-time-at-West-Lake-Flower-Valley.JPG',
+			'/images/easter-eggs/we-sleep-all-night-at-West-Lake-Flower-Valley-with-your-first-flowers-i-bouth.JPG',
+		],
 		options: [
 			{
 				id: 'a',
@@ -295,7 +420,7 @@ export const quizData: QuizData[] = [
 				id: 'c',
 				label: 'Thung lũng hoa Hồ Tây',
 				isCorrect: true,
-				responseMessage: 'Em còn không thè lưỡi ra cơ mà!',
+				responseMessage: 'Em còn không thè lưỡi ra cơ mà (lêu lêu)!',
 			},
 		],
 		reward: {
@@ -308,17 +433,76 @@ export const quizData: QuizData[] = [
 		},
 	},
 	{
-		id: 'quiz-generic-1',
+		id: 'quiz-day3-2',
+		date: '2026-01-17',
+		question: 'Quán Pub ruột mà mình hay ngồi thâu đêm suốt sáng tên là gì?',
+		images: [
+			'/images/easter-eggs/fourth-time-go-to-PUKU-cafe-and-eat-pizza-and-im-working-on-my-macbook.JPG',
+			'/images/easter-eggs/third-times-go-to-PUKU-cafe.JPG',
+		],
+		options: [
+			{ id: 'a', label: 'Xofa Cafe', isCorrect: false },
+			{
+				id: 'b',
+				label: 'PUKU Cafe',
+				isCorrect: true,
+				responseMessage: 'Nơi chứa đầy deep talk của tụi mình.',
+			},
+			{ id: 'c', label: 'Aries Rooftop', isCorrect: false },
+		],
+		reward: {
+			id: 'voucher-snack',
+			title: 'Ăn Đêm',
+			description: 'Bất cứ lúc nào đói bụng, anh sẽ đi mua đồ ăn đêm cho.',
+			icon: '🍕',
+			isRedeemed: false,
+			isUsed: false,
+		},
+	},
+	{
+		id: 'quiz-day3-3',
+		date: '2026-01-17',
+		question: 'Ai là người bắt được hoa cưới của bạn Ánh?',
+		images: [
+			'/images/easter-eggs/im-catched-the-wedding-flowers-then-gave-it-to-you.jpeg',
+			'/images/easter-eggs/you-are-bridesmaids-in-my-best-friend-wedding-day.jpeg',
+		],
+		options: [
+			{ id: 'a', label: 'Em bắt được', isCorrect: false },
+			{
+				id: 'b',
+				label: 'Anh bắt được',
+				isCorrect: true,
+				responseMessage: 'Và anh đã trao lại ngay cho em đó!',
+			},
+			{ id: 'c', label: 'Không ai bắt được', isCorrect: false },
+		],
+		reward: {
+			id: 'voucher-kiss',
+			title: '100 Cái Hôn',
+			description: 'Nhận ngay 100 nụ hôn vào bất cứ chỗ nào em muốn.',
+			icon: '💋',
+			isRedeemed: false,
+			isUsed: false,
+		},
+	},
+
+	// --- DAY 4: 18/01/2026 (Future & Love) ---
+	{
+		id: 'quiz-day4',
+		date: '2026-01-18',
 		question: 'Món ăn nào anh nấu mà em khen ngon nhất?',
-		image:
+		images: [
 			'/images/easter-eggs/im-cook-beef-steak-when-we-have-a-celebrate-love.jpeg',
+			'/images/easter-eggs/first-time-im-cooking-for-you-at-your-home-2-and-you-are-not-belive-me-can-do-it.jpeg',
+		],
 		options: [
 			{ id: 'a', label: 'Trứng ốp', isCorrect: false },
 			{
 				id: 'b',
 				label: 'Beef Steak',
 				isCorrect: true,
-				responseMessage: 'Chuẩn cơm mẹ nấu!',
+				responseMessage: 'Chuẩn cơm anh nấu rồi!',
 			},
 			{ id: 'c', label: 'Mì tôm', isCorrect: false },
 		],
@@ -332,15 +516,19 @@ export const quizData: QuizData[] = [
 		},
 	},
 	{
-		id: 'quiz-generic-2',
+		id: 'quiz-day4-2',
+		date: '2026-01-18',
 		question: 'Tật xấu nào của em mà anh thấy đáng yêu nhất?',
-		image: '/images/easter-eggs/embarrassing-photo-wakeup.jpeg',
+		images: [
+			'/images/easter-eggs/embarrassing-photo-wakeup.jpeg',
+			'/images/easter-eggs/embarrassing-photo-bad-face.jpeg',
+		],
 		options: [
 			{
 				id: 'a',
 				label: 'Ngủ nướng',
 				isCorrect: true,
-				responseMessage: 'Nhìn lúc ngủ like an angel!',
+				responseMessage: 'Nhìn lúc ngủ như thiên thần í!',
 			},
 			{ id: 'b', label: 'Hay dỗi', isCorrect: false },
 			{ id: 'c', label: 'Ăn chậm', isCorrect: false },
@@ -350,6 +538,33 @@ export const quizData: QuizData[] = [
 			title: 'Voucher Ngủ Nướng',
 			description: 'Được phép ngủ nướng thêm 30p vào buổi sáng.',
 			icon: '💤',
+			isRedeemed: false,
+			isUsed: false,
+		},
+	},
+	{
+		id: 'quiz-day4-3',
+		date: '2026-01-18',
+		question: 'Sau chuyến đi Sapa này, mình sẽ đi đâu tiếp nhỉ?',
+		images: [
+			'/images/easter-eggs/you-are-showing-to-me-your-beautyful-image-5.jpeg',
+			'/images/easter-eggs/you-are-showing-to-me-your-beautyful-image-4.jpeg',
+		],
+		options: [
+			{ id: 'a', label: 'Đà Lạt', isCorrect: false },
+			{ id: 'b', label: 'Thái Lan', isCorrect: false },
+			{
+				id: 'c',
+				label: 'Bất cứ đâu có anh',
+				isCorrect: true,
+				responseMessage: 'Chỉ cần có nhau, đâu cũng là nhà ❤️',
+			},
+		],
+		reward: {
+			id: 'voucher-trip',
+			title: 'Voucher Du Lịch',
+			description: 'Anh hứa sẽ đưa em đi du lịch ít nhất 1 lần/năm.',
+			icon: '✈️',
 			isRedeemed: false,
 			isUsed: false,
 		},

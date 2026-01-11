@@ -458,7 +458,7 @@ export function LoveSwipeGame({ onClose }: LoveSwipeGameProps) {
 									x: isAnimating ? 0 : x,
 									rotate: isAnimating ? 0 : rotate,
 								}}
-								className='relative aspect-[3/4] rounded-3xl glass-card overflow-hidden cursor-grab active:cursor-grabbing'
+								className='relative rounded-3xl glass-card overflow-hidden cursor-grab active:cursor-grabbing'
 							>
 								{/* Swipe indicators */}
 								<motion.div

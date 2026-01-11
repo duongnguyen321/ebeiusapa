@@ -115,7 +115,7 @@ export function MistWhispersGame({ onClose }: MistWhispersGameProps) {
 						initial={{ opacity: 0, scale: 0.8 }}
 						animate={{ opacity: 1, scale: 1, x: flyX }}
 						transition={{ type: 'spring', damping: 20, stiffness: 200 }}
-						className='w-full max-w-sm aspect-[3/4]'
+						className='w-full max-w-sm'
 						style={{ perspective: '1000px' }}
 					>
 						{/* Swipeable card wrapper */}

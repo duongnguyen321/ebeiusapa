@@ -1,6 +1,6 @@
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, PanInfo } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import type { MemoryCapsuleData } from '@/data/easterEggs';
 
 interface MemoryModalProps {
@@ -10,15 +10,45 @@ interface MemoryModalProps {
 
 export function EasterEggMemoryModal({ memory, onClose }: MemoryModalProps) {
 	const [currentIndex, setCurrentIndex] = useState(0);
+	const [direction, setDirection] = useState(0);
 
-	const goNext = () => {
+	const goNext = useCallback(() => {
+		setDirection(1);
 		setCurrentIndex((prev) => (prev + 1) % memory.images.length);
-	};
+	}, [memory.images.length]);
 
-	const goPrev = () => {
+	const goPrev = useCallback(() => {
+		setDirection(-1);
 		setCurrentIndex(
 			(prev) => (prev - 1 + memory.images.length) % memory.images.length
 		);
+	}, [memory.images.length]);
+
+	const handleDragEnd = (
+		_: MouseEvent | TouchEvent | PointerEvent,
+		info: PanInfo
+	) => {
+		const swipeThreshold = 50;
+		if (info.offset.x < -swipeThreshold) {
+			goNext();
+		} else if (info.offset.x > swipeThreshold) {
+			goPrev();
+		}
+	};
+
+	const slideVariants = {
+		enter: (dir: number) => ({
+			x: dir > 0 ? 300 : -300,
+			opacity: 0,
+		}),
+		center: {
+			x: 0,
+			opacity: 1,
+		},
+		exit: (dir: number) => ({
+			x: dir < 0 ? 300 : -300,
+			opacity: 0,
+		}),
 	};
 
 	return (
@@ -56,16 +86,26 @@ export function EasterEggMemoryModal({ memory, onClose }: MemoryModalProps) {
 				</div>
 
 				{/* Image Gallery */}
-				<div className='relative aspect-[4/3] bg-white/15 backdrop-blur-md'>
-					<AnimatePresence mode='wait'>
+				<div className='relative bg-white/15 backdrop-blur-md overflow-hidden'>
+					<AnimatePresence initial={false} custom={direction} mode='wait'>
 						<motion.img
 							key={currentIndex}
 							src={memory.images[currentIndex]}
 							alt={`Memory ${currentIndex + 1}`}
-							initial={{ opacity: 0, x: 50 }}
-							animate={{ opacity: 1, x: 0 }}
-							exit={{ opacity: 0, x: -50 }}
-							className='w-full h-full object-contain'
+							custom={direction}
+							variants={slideVariants}
+							initial='enter'
+							animate='center'
+							exit='exit'
+							transition={{
+								x: { type: 'spring', stiffness: 300, damping: 30 },
+								opacity: { duration: 0.2 },
+							}}
+							drag='x'
+							dragConstraints={{ left: 0, right: 0 }}
+							dragElastic={0.7}
+							onDragEnd={handleDragEnd}
+							className='w-full h-full object-contain cursor-grab active:cursor-grabbing touch-pan-y'
 						/>
 					</AnimatePresence>
 
@@ -77,7 +117,7 @@ export function EasterEggMemoryModal({ memory, onClose }: MemoryModalProps) {
 									e.stopPropagation();
 									goPrev();
 								}}
-								className='absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center transition-colors'
+								className='absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center transition-colors z-10'
 							>
 								<ChevronLeft className='w-6 h-6 text-white' />
 							</button>
@@ -86,7 +126,7 @@ export function EasterEggMemoryModal({ memory, onClose }: MemoryModalProps) {
 									e.stopPropagation();
 									goNext();
 								}}
-								className='absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center transition-colors'
+								className='absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center transition-colors z-10'
 							>
 								<ChevronRight className='w-6 h-6 text-white' />
 							</button>
@@ -95,18 +135,19 @@ export function EasterEggMemoryModal({ memory, onClose }: MemoryModalProps) {
 
 					{/* Dots indicator */}
 					{memory.images.length > 1 && (
-						<div className='absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2'>
+						<div className='absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 z-10'>
 							{memory.images.map((_, idx) => (
 								<button
 									key={idx}
 									onClick={(e) => {
 										e.stopPropagation();
+										setDirection(idx > currentIndex ? 1 : -1);
 										setCurrentIndex(idx);
 									}}
-									className={`w-2 h-2 rounded-full transition-all ${
+									className={`h-2 rounded-full transition-all ${
 										idx === currentIndex
 											? 'bg-white w-4'
-											: 'bg-white/40 hover:bg-white/60'
+											: 'bg-white/40 hover:bg-white/60 w-2'
 									}`}
 								/>
 							))}

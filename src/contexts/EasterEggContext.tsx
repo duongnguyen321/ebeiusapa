@@ -8,8 +8,6 @@ import React, {
 } from 'react';
 import {
 	quizData,
-	funnyMoments,
-	memoryCapsules,
 	getRandomFunnyMoment,
 	getRandomMemoryCapsule,
 	type QuizData,
@@ -67,11 +65,10 @@ interface EasterEggContextType extends EasterEggState {
 const IS_DEV = import.meta.env.DEV;
 
 // Development vs Production timing
-const SPAWN_COOLDOWN_MS = IS_DEV ? 10 * 1000 : 90 * 1000; // 10s (Dev) vs 1.5mins (Prod)
-const EGG_TTL_MS = IS_DEV ? 20 * 1000 : 60 * 1000; // 20s (Dev) vs 1m (Prod)
-const WRONG_ANSWER_COOLDOWN_MS = IS_DEV ? 30 * 1000 : 120 * 1000; // 30s (Dev) vs 2m (Prod) // Changed to 2m as requested
+const SPAWN_COOLDOWN_MS = IS_DEV ? 5 * 1000 : 90 * 1000; // 5s (Dev) vs 1.5mins (Prod)
+const WRONG_ANSWER_COOLDOWN_MS = IS_DEV ? 10 * 1000 : 120 * 1000; // 10s (Dev) vs 2m (Prod) // Changed to 2m as requested
 
-const QUIZ_CHANCE = 0.9; // 90% quiz, 10% funny/memory
+const QUIZ_CHANCE = 0.5; // 50% quiz, 50% funny/memory
 const REDEEM_PASSWORD = '16012005';
 
 const STORAGE_KEYS = {
@@ -192,27 +189,32 @@ export function EasterEggProvider({ children }: { children: React.ReactNode }) {
 		setIsEggVisible(false);
 	}, []);
 
-	// Get today's quiz or random unanswered quiz
+	// Get today's quiz or random unanswered quiz (past or generic only)
 	const getAvailableQuiz = useCallback((): QuizData | null => {
 		const today = new Date().toISOString().split('T')[0];
 
-		// First try today's quiz
-		const todayQuiz = quizData.find(
-			(q) => q.date === today && !answeredQuizIds.includes(q.id)
-		);
-		if (todayQuiz) return todayQuiz;
+		// 1. Filter out FUTURE quizzes (strict date check)
+		// We only want quizzes where date is undefined (generic) OR date <= today
+		const validQuizzes = quizData.filter((q) => {
+			if (!q.date) return true; // Generic quiz -> OK
+			return q.date <= today; // Past or Today -> OK
+		});
 
-		// Then try any unanswered quiz
-		const unansweredQuizzes = quizData.filter(
+		// 2. Filter out already answered ones
+		const unansweredValidQuizzes = validQuizzes.filter(
 			(q) => !answeredQuizIds.includes(q.id)
 		);
-		if (unansweredQuizzes.length > 0) {
-			return unansweredQuizzes[
-				Math.floor(Math.random() * unansweredQuizzes.length)
-			];
-		}
 
-		return null;
+		if (unansweredValidQuizzes.length === 0) return null;
+
+		// 3. Priority: Today's Quiz
+		const todayQuiz = unansweredValidQuizzes.find((q) => q.date === today);
+		if (todayQuiz) return todayQuiz;
+
+		// 4. Fallback: Any other valid (past/generic) quiz
+		return unansweredValidQuizzes[
+			Math.floor(Math.random() * unansweredValidQuizzes.length)
+		];
 	}, [answeredQuizIds]);
 
 	// Click egg - determine content
