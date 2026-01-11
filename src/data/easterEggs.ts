@@ -71,7 +71,7 @@ export const memoryCapsules: MemoryCapsuleData[] = [
 		title: 'Chương 1: Khởi Đầu',
 		dateLabel: '01/04/2025',
 		description:
-			'Từ tin nhắn đầu tiên ngày Cá tháng Tư, đến lần gặp gỡ đầu tiên. Ai ngờ đâu mình "dính" nhau đến tận bây giờ nhỉ?',
+			'Ngày Cá tháng Tư định mệnh. Từ tin nhắn đầu tiên đến lần gặp gỡ đầu tiên. Ai ngờ đâu mình "dính" nhau đến tận bây giờ nhỉ?',
 		images: [
 			'/images/easter-eggs/first-time-flirting-you-on-messenger.jpeg',
 			'/images/easter-eggs/first-time-see-you.JPG',
@@ -83,7 +83,7 @@ export const memoryCapsules: MemoryCapsuleData[] = [
 		title: 'Chương 1: Tình Yêu Công Sở',
 		dateLabel: 'Tháng 4/2025',
 		description:
-			'Những buổi trưa đi ăn, những cái chạm chân lén lút (foot skinship), và cả những tấm ảnh chụp trộm em ở công ty!',
+			'Hai đứa mình cùng vào làm ngày 01/04, những buổi trưa đi ăn, những tấm ảnh chụp trộm, và những cái chạm chân lén lút. Giờ thì cả hai đều đã tốt nghiệp công ty cũ rồi!',
 		images: [
 			'/images/easter-eggs/go-lunch-with-you-at-company.JPG',
 			'/images/easter-eggs/we-are-foot-skinship-at-our-company.JPG',
@@ -93,41 +93,42 @@ export const memoryCapsules: MemoryCapsuleData[] = [
 		],
 	},
 	{
-		id: 'cap-chapter1-places',
-		title: 'Chương 1: Quán Quen Xuyên Đêm',
-		dateLabel: 'PUKU & Art District',
+		id: 'cap-chapter2-puku',
+		title: 'Chương 2: PUKU & Deep Talk',
+		dateLabel: 'Những đêm không ngủ',
 		description:
-			'PUKU Cafe những đêm deep talk không nhạc, và Art District với những cái ôm nồng nàn đầu tiên. Những nơi nuôi dưỡng tình yêu của mình.',
+			'Quán Pub đầu tiên mình đi cùng nhau. Không nhạc, chỉ có những câu chuyện thâu đêm suốt sáng. Nơi nuôi dưỡng tâm hồn của hai đứa.',
 		images: [
-			'/images/easter-eggs/first-time-go-pub-at-ART-DISTRICT.JPG', // Pub có nhạc
-			'/images/easter-eggs/seccond-time-go-to-pub-ART-DISTRICT-again-and-we-take-a-long-kiss.jpg',
-			'/images/easter-eggs/third-times-go-to-PUKU-cafe.JPG', // Pub deep talk
+			'/images/easter-eggs/third-times-go-to-PUKU-cafe.JPG',
 			'/images/easter-eggs/fourth-time-go-to-PUKU-cafe-and-eat-pizza-and-im-working-on-my-macbook.JPG',
 			'/images/easter-eggs/your-old-poor-iphone-and first-time-hangout-with-you-late-night-at-PUKU-cafe.JPG',
 			'/images/easter-eggs/the-secconds-time-go-to-puku-cafe-again.jpg',
-			'/images/easter-eggs/we-are-pretend-to-be-best-friends at-the-pub.jpeg', // Diễn sâu
+			'/images/easter-eggs/first-time-we-go-to-bar-together-2.jpeg',
+			'/images/easter-eggs/first-time-we-are-go-to-bar-together.jpeg',
 		],
 	},
 	{
-		id: 'cap-chapter2-flower',
-		title: 'Chương 2: Đêm Định Mệnh',
-		dateLabel: 'Thung Lũng Hoa Hồ Tây',
+		id: 'cap-chapter2-artdistrict',
+		title: 'Chương 2: Art District',
+		dateLabel: 'Gần nhà',
 		description:
-			'Lần đầu tặng hoa, lần đầu hun nhau thật sự, và lần đầu... ngủ ôm nhau đến sáng. Một mốc son không thể quên.',
+			'Quán Pub có nhạc chill chill gần nhà. Nơi đánh dấu những nụ hôn công khai đầu tiên của chúng mình.',
+		images: [
+			'/images/easter-eggs/first-time-go-pub-at-ART-DISTRICT.JPG',
+			'/images/easter-eggs/seccond-time-go-to-pub-ART-DISTRICT-again-and-we-take-a-long-kiss.jpg',
+			'/images/easter-eggs/we-are-pretend-to-be-best-friends-at-the-pub.jpeg',
+		],
+	},
+	{
+		id: 'cap-chapter2-firsttime',
+		title: 'Chương 2: Lần Đầu',
+		dateLabel: 'Thung Lũng Hoa',
+		description:
+			'Đêm định mệnh ở Thung Lũng Hoa Hồ Tây. Nụ hôn đầu thực sự, khách sạn, nước mắt và cái ôm dỗ dành của anh. Một ký ức không bao giờ quên.',
 		images: [
 			'/images/easter-eggs/first-time-at-West-Lake-Flower-Valley.JPG',
 			'/images/easter-eggs/first-flowers-i-bouth-to-you-and-you-are-very-love-it-and-we-go-to-West-Lake-Flower-Valley-again.JPG',
 			'/images/easter-eggs/we-sleep-all-night-at-West-Lake-Flower-Valley-with-your-first-flowers-i-bouth.JPG',
-		],
-	},
-	{
-		id: 'cap-chapter2-confess',
-		title: 'Chương 2: Lời Tỏ Tình',
-		dateLabel: '01/06/2025',
-		description:
-			'Nhân dịp tết thiếu nhi, anh tặng em dây chuyền, vòng tay và chính thức nói lời yêu. Em nhớ khoảnh khắc đó chứ?',
-		images: [
-			'/images/easter-eggs/at-day-1-month-6-i-bouth-a-secret-gift-is-necklaces-and-bracelets-and-confess-my-love-to-you.JPG',
 		],
 	},
 	{
@@ -138,19 +139,6 @@ export const memoryCapsules: MemoryCapsuleData[] = [
 			'Chuyến đi xa đầu tiên cùng công ty. Dù đi đông người nhưng trong mắt anh chỉ có em.',
 		images: [
 			'/images/easter-eggs/first-long-trip-with-you-at-Cat-Ba-with-out-company.jpeg',
-			'/images/easter-eggs/it-me-and-we-are-go-to-buy-a-new-glasses-for-me.JPG', // Ké ảnh đi mua kính dịp này
-		],
-	},
-	{
-		id: 'cap-chapter3-hair',
-		title: 'Chương 3: Bộ Sưu Tập Tóc',
-		dateLabel: '2025',
-		description:
-			'Từ tóc vàng tẩy 3 lần, đến tóc đỏ rực rỡ, và bi giờ là xanh. Màu nào em cũng xinh ngất ngây con gà tây!',
-		images: [
-			'/images/easter-eggs/a-cute-photo-when-first-time-i-gave-you-money-to-hair-colored.JPG', // Vàng
-			'/images/easter-eggs/new-hair-color-is-red-very-beautyful.jpeg', // Đỏ
-			'/images/easter-eggs/best-beautyful-ever-photo-with-new-red-hair-colored.jpeg', // Đỏ đẹp nhất
 		],
 	},
 	{
@@ -158,17 +146,43 @@ export const memoryCapsules: MemoryCapsuleData[] = [
 		title: 'Chương 3: Bé Bi Corgi',
 		dateLabel: '10/11/2025',
 		description:
-			'Món quà sinh nhật sớm em tặng anh. Đứa con tinh thần của hai đứa mình.',
+			'Anh sinh nhật 22/11, nhưng mình đón Bi về từ 10/11. Món quà sinh nhật ý nghĩa nhất từ "quỹ chung" của hai ta.',
 		images: [
 			'/images/easter-eggs/first-thing-we-bouth-together-is-a-corgi-dog-name-Bi-and-it-is-best-ever-gift-in-my-birthday.JPG',
 		],
 	},
 	{
+		id: 'cap-chapter3-dating',
+		title: 'Chương 3: Hẹn Hò Giản Đơn',
+		dateLabel: '2025',
+		description:
+			'Những lần đi xem phim, mua sắm cùng nhau. Từ chiếc áo em chọn cho anh, đến cặp mũ bảo hiểm đôi cute lạc lối.',
+		images: [
+			'/images/easter-eggs/first-time-go-to-watching-movie-with-you.JPG',
+			'/images/easter-eggs/your-cloth-you-bouth-to-me-with-your-color-choice.jpeg',
+			'/images/easter-eggs/we-bouth-a-new-helmet-look-like-twice-cutes-ducks.JPG',
+			'/images/easter-eggs/it-me-and-we-are-go-to-buy-a-new-glasses-for-me.JPG',
+		],
+	},
+	{
+		id: 'cap-chapter3-hair',
+		title: 'Chương 3: Bộ Sưu Tập Tóc',
+		dateLabel: 'Sắc Màu',
+		description:
+			'Từ tóc vàng (tẩy 3 lần!), sang đỏ rực rỡ (rồi phai ra hồng), và gần đây là màu xanh dương khi đi ăn cưới. Em cân mọi màu tóc!',
+		images: [
+			'/images/easter-eggs/a-cute-photo-when-first-time-i-gave-you-money-to-hair-colored.JPG',
+			'/images/easter-eggs/embarrassing-photo-first-time-you-are-hair-colored-2.jpeg',
+			'/images/easter-eggs/new-hair-color-is-red-very-beautyful.jpeg',
+			'/images/easter-eggs/best-beautyful-ever-photo-with-new-red-hair-colored.jpeg',
+		],
+	},
+	{
 		id: 'cap-chapter4-food',
-		title: 'Chương 4: Food Tour Tình Yêu',
+		title: 'Chương 4: Food Tour',
 		dateLabel: 'Gần đây',
 		description:
-			'Sushi, Gà rán, hay những bữa cơm anh nấu... Con đường ngắn nhất đến trái tim là đi qua dạ dày mà!',
+			'Sushi, Gà rán, hay những bữa cơm anh nấu. Tình yêu đi qua dạ dày là tình yêu bền vững nhất!',
 		images: [
 			'/images/easter-eggs/a-cute-photo-when-you-and-me-go-to-eat-sushi.jpeg',
 			'/images/easter-eggs/another-cute-photo-when-we-are-eat-sushi.jpeg',
@@ -182,7 +196,7 @@ export const memoryCapsules: MemoryCapsuleData[] = [
 		title: 'Chương 4: Celebrate Love',
 		dateLabel: 'Riêng Tư',
 		description:
-			'Những khoảnh khắc chỉ có đôi ta ở Homestay. Nấu ăn, chill trên giường... (Suỵt, bí mật nhé!)',
+			'Những khoảnh khắc chỉ có đôi ta ở Homestay. Nấu ăn, chill trên giường... bí mật của hai đứa mình.',
 		images: [
 			'/images/easter-eggs/im-cook-beef-steak-when-we-have-a-celebrate-love.jpeg',
 			'/images/easter-eggs/you-are-sexy-in-homestay-bed-when-we-have-a-celebrate-love.jpeg',
@@ -190,14 +204,25 @@ export const memoryCapsules: MemoryCapsuleData[] = [
 		],
 	},
 	{
-		id: 'cap-chapter4-future',
+		id: 'cap-chapter4-wedding',
 		title: 'Chương 4: Tín Hiệu Vũ Trụ',
 		dateLabel: 'Đám cưới bạn Ánh',
 		description:
-			'Em làm phù dâu xinh đẹp, anh bắt được hoa cưới và trao ngay cho em. Vũ trụ đã gửi tín hiệu rồi, phại tính sao đây? 💍',
+			'Em xinh đẹp làm phù dâu. Bạn Ánh ném hoa, anh bắt được và trao ngay cho em. Vũ trụ đã gửi tín hiệu rồi đó nha! 💍',
 		images: [
 			'/images/easter-eggs/you-are-bridesmaids-in-my-best-friend-wedding-day.jpeg',
 			'/images/easter-eggs/im-catched-the-wedding-flowers-then-gave-it-to-you.jpeg',
+		],
+	},
+	{
+		id: 'cap-chapter4-chill',
+		title: 'Chương 4: Chill Time',
+		dateLabel: 'Rouge Cafe',
+		description:
+			'Những buổi hẹn hò cafe nhẹ nhàng, em mặc chiếc váy anh mua, xinh đẹp và dịu dàng.',
+		images: [
+			'/images/easter-eggs/we-are-going-to-beautyful-cafe-name-rouge-cafe-and-bistro.JPG',
+			'/images/easter-eggs/you-are-so-sexy-sweet-in-Rouge-cafe-and-bistro-with-my-dress-im-bouth-to-you.jpeg',
 		],
 	},
 ];
@@ -364,6 +389,17 @@ export const moodData: MoodCheckinData[] = [
 				},
 			},
 			{
+				id: 'waiting',
+				icon: '⏳',
+				label: 'Đang chờ',
+				response: {
+					images: [
+						'/images/easter-eggs/im-taking-a-photo-of-you-cute-when-you-waiting-your-order-water.jpeg',
+					],
+					message: 'Chờ nước thôi mà cũng xinh thế này, bảo sao anh mê!',
+				},
+			},
+			{
 				id: 'happy',
 				icon: '🥰',
 				label: 'Hạnh phúc',
@@ -466,11 +502,6 @@ export const funnyMoments: FunnyMomentData[] = [
 		id: 'funny-young-2',
 		image: '/images/easter-eggs/embarrassing-photo-your-old-young-photo-2.jpeg',
 		comment: 'Ngố tàu chưa kìa!',
-	},
-	{
-		id: 'funny-dimhang',
-		image: '/images/easter-eggs/dim-hang.jpg',
-		comment: 'Dìm hàng time!',
 	},
 ];
 
