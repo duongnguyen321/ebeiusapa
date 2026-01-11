@@ -60,98 +60,159 @@ export default function MoodStation({ onClose }: MoodStationProps) {
 				))}
 			</div>
 
-			{/* Mood Response Overlay */}
+			{/* Mood Response Overlay - Full Page Modal like DayCard */}
 			<AnimatePresence>
 				{selectedMood && (
-					<motion.div
-						initial={{ opacity: 0 }}
-						animate={{ opacity: 1 }}
-						exit={{ opacity: 0 }}
-						className='fixed inset-0 z-[70] bg-black/95 backdrop-blur-md flex flex-col'
-						onClick={handleClose}
-					>
-						{/* Close button */}
-						<button
+					<>
+						{/* Backdrop */}
+						<motion.div
+							key='mood-backdrop'
+							className='fixed inset-0 bg-black/60 backdrop-blur-md z-[90]'
+							initial={{ opacity: 0 }}
+							animate={{ opacity: 1 }}
+							exit={{ opacity: 0 }}
+							transition={{ duration: 0.3 }}
 							onClick={handleClose}
-							className='absolute top-4 right-4 z-10 p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors'
-						>
-							<X className='w-6 h-6 text-white' />
-						</button>
+						/>
 
-						{/* Image */}
-						<div
-							className='flex-1 relative flex items-center justify-center'
+						{/* Modal Content - Liquid Glass Slide Up */}
+						<motion.div
+							key='mood-modal'
+							className='fixed inset-0 md:inset-8 z-[100] overflow-hidden pointer-events-auto md:rounded-3xl'
+							style={{
+								background:
+									'linear-gradient(180deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.08) 100%)',
+								backdropFilter: 'blur(24px) saturate(180%)',
+								WebkitBackdropFilter: 'blur(24px) saturate(180%)',
+								border: '1px solid rgba(255,255,255,0.15)',
+								boxShadow:
+									'0 -8px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.25)',
+							}}
+							initial={{ opacity: 0, y: '100%', scale: 0.95 }}
+							animate={{ opacity: 1, y: 0, scale: 1 }}
+							exit={{ opacity: 0, y: '100%', scale: 0.95 }}
+							transition={{
+								type: 'spring',
+								stiffness: 300,
+								damping: 30,
+								mass: 0.8,
+							}}
 							onClick={(e) => e.stopPropagation()}
 						>
-							<AnimatePresence mode='wait'>
-								<motion.img
-									key={currentImageIndex}
-									src={selectedMood.response.images[currentImageIndex]}
-									alt='Mood response'
-									initial={{ opacity: 0, scale: 0.95 }}
-									animate={{ opacity: 1, scale: 1 }}
-									exit={{ opacity: 0, scale: 0.95 }}
-									className='max-w-full max-h-[70vh] object-contain rounded-lg'
-								/>
-							</AnimatePresence>
+							{/* Specular highlight */}
+							<div
+								className='absolute top-0 left-0 right-0 h-[1px] pointer-events-none z-10'
+								style={{
+									background:
+										'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.5) 20%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0.5) 80%, transparent 100%)',
+								}}
+							/>
 
-							{/* Navigation */}
-							{selectedMood.response.images.length > 1 && (
-								<>
-									<button
-										onClick={(e) => {
-											e.stopPropagation();
-											goPrev();
-										}}
-										className='absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors'
-									>
-										<ChevronLeft className='w-6 h-6 text-white' />
-									</button>
-									<button
-										onClick={(e) => {
-											e.stopPropagation();
-											goNext();
-										}}
-										className='absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors'
-									>
-										<ChevronRight className='w-6 h-6 text-white' />
-									</button>
-								</>
-							)}
-						</div>
-
-						{/* Message */}
-						<div className='p-6 text-center'>
-							<motion.p
-								initial={{ opacity: 0, y: 20 }}
-								animate={{ opacity: 1, y: 0 }}
-								transition={{ delay: 0.2 }}
-								className='text-white text-lg leading-relaxed max-w-md mx-auto'
+							{/* Close Button */}
+							<motion.button
+								onClick={handleClose}
+								className='absolute top-4 right-4 z-20 w-10 h-10 flex items-center justify-center rounded-full transition-all'
+								style={{
+									background:
+										'linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.08) 100%)',
+									backdropFilter: 'blur(12px)',
+									border: '1px solid rgba(255,255,255,0.2)',
+									boxShadow: '0 4px 16px rgba(0,0,0,0.2)',
+								}}
+								whileHover={{
+									scale: 1.1,
+									backgroundColor: 'rgba(255,255,255,0.2)',
+								}}
+								whileTap={{ scale: 0.95 }}
+								aria-label='Đóng'
 							>
-								{selectedMood.response.message}
-							</motion.p>
+								<X className='w-5 h-5 text-white' />
+							</motion.button>
 
-							{/* Dots indicator */}
-							{selectedMood.response.images.length > 1 && (
-								<div className='flex justify-center gap-2 mt-4'>
-									{selectedMood.response.images.map((_, idx) => (
-										<button
-											key={idx}
-											onClick={(e) => {
-												e.stopPropagation();
-												setCurrentImageIndex(idx);
-											}}
-											className={`w-2 h-2 rounded-full transition-all ${
-												idx === currentImageIndex
-													? 'bg-pink-400 w-6'
-													: 'bg-white/30 hover:bg-white/50'
-											}`}
-										/>
-									))}
+							<div className='h-full overflow-y-auto flex flex-col'>
+								{/* Header - Always visible */}
+								<div className='p-4 md:p-6 pr-16'>
+									<motion.div
+										className='flex items-center gap-3 mb-2'
+										initial={{ y: 20, opacity: 0 }}
+										animate={{ y: 0, opacity: 1 }}
+										transition={{ delay: 0.1 }}
+									>
+										<span className='text-4xl'>{selectedMood.icon}</span>
+										<div>
+											<h2 className='text-2xl md:text-3xl font-playfair text-white'>
+												{selectedMood.label}
+											</h2>
+											<p className='text-white/50 text-sm'>Mood Check-in</p>
+										</div>
+									</motion.div>
 								</div>
-							)}
-						</div>
-					</motion.div>
+
+								{/* Image Gallery - Takes most of the space */}
+								<div className='flex-1 relative flex items-center justify-center px-4 pb-4'>
+									<AnimatePresence mode='wait'>
+										<motion.img
+											key={currentImageIndex}
+											src={selectedMood.response.images[currentImageIndex]}
+											alt='Mood response'
+											initial={{ opacity: 0, scale: 0.95 }}
+											animate={{ opacity: 1, scale: 1 }}
+											exit={{ opacity: 0, scale: 0.95 }}
+											transition={{ duration: 0.2 }}
+											className='max-w-full max-h-[50vh] md:max-h-[55vh] object-contain rounded-2xl shadow-2xl'
+										/>
+									</AnimatePresence>
+
+									{/* Navigation arrows */}
+									{selectedMood.response.images.length > 1 && (
+										<>
+											<button
+												onClick={goPrev}
+												className='absolute left-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-black/30 hover:bg-black/50 backdrop-blur-sm rounded-full flex items-center justify-center transition-colors border border-white/10'
+											>
+												<ChevronLeft className='w-6 h-6 text-white' />
+											</button>
+											<button
+												onClick={goNext}
+												className='absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-black/30 hover:bg-black/50 backdrop-blur-sm rounded-full flex items-center justify-center transition-colors border border-white/10'
+											>
+												<ChevronRight className='w-6 h-6 text-white' />
+											</button>
+										</>
+									)}
+								</div>
+
+								{/* Message & Dots - Bottom section */}
+								<div className='p-4 md:p-6 glass-panel mx-4 mb-4 md:mx-6 md:mb-6 rounded-2xl'>
+									<motion.p
+										initial={{ opacity: 0, y: 10 }}
+										animate={{ opacity: 1, y: 0 }}
+										transition={{ delay: 0.2 }}
+										className='text-white text-center text-lg md:text-xl leading-relaxed'
+									>
+										{selectedMood.response.message}
+									</motion.p>
+
+									{/* Dots indicator */}
+									{selectedMood.response.images.length > 1 && (
+										<div className='flex justify-center gap-2 mt-4'>
+											{selectedMood.response.images.map((_, idx) => (
+												<button
+													key={idx}
+													onClick={() => setCurrentImageIndex(idx)}
+													className={`h-2 rounded-full transition-all ${
+														idx === currentImageIndex
+															? 'bg-cyan-400 w-6'
+															: 'bg-white/30 hover:bg-white/50 w-2'
+													}`}
+												/>
+											))}
+										</div>
+									)}
+								</div>
+							</div>
+						</motion.div>
+					</>
 				)}
 			</AnimatePresence>
 		</div>
