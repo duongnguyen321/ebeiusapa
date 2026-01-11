@@ -109,11 +109,11 @@ export function EasterEggFunnyModal({ funny, onClose }: FunnyModalProps) {
 						className='bg-white p-3 pb-24 rounded-sm shadow-2xl transform cursor-grab active:cursor-grabbing touch-pan-y relative'
 					>
 						{/* Image */}
-						<div className='relative overflow-hidden bg-gray-100'>
+						<div className='relative overflow-hidden bg-gray-100 max-h-[50vh]'>
 							<img
 								src={currentMoment.image}
 								alt='Funny moment'
-								className='w-full object-cover select-none pointer-events-none'
+								className='w-full h-full object-contain select-none pointer-events-none'
 							/>
 							{/* Fun sticker overlay */}
 							<motion.div

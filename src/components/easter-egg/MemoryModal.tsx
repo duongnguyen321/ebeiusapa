@@ -86,7 +86,7 @@ export function EasterEggMemoryModal({ memory, onClose }: MemoryModalProps) {
 				</div>
 
 				{/* Image Gallery */}
-				<div className='relative bg-white/15 backdrop-blur-md overflow-hidden'>
+				<div className='relative bg-white/15 backdrop-blur-md overflow-hidden max-h-[50vh]'>
 					<AnimatePresence initial={false} custom={direction} mode='wait'>
 						<motion.img
 							key={currentIndex}
@@ -105,7 +105,7 @@ export function EasterEggMemoryModal({ memory, onClose }: MemoryModalProps) {
 							dragConstraints={{ left: 0, right: 0 }}
 							dragElastic={0.7}
 							onDragEnd={handleDragEnd}
-							className='w-full h-full object-contain cursor-grab active:cursor-grabbing touch-pan-y'
+							className='w-full max-h-[50vh] object-contain cursor-grab active:cursor-grabbing touch-pan-y'
 						/>
 					</AnimatePresence>
 
