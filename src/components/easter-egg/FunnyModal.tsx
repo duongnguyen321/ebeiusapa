@@ -13,7 +13,7 @@ export function EasterEggFunnyModal({ funny, onClose }: FunnyModalProps) {
 			initial={{ opacity: 0 }}
 			animate={{ opacity: 1 }}
 			exit={{ opacity: 0 }}
-			className='fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm'
+			className='fixed inset-0 z-[60] flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm'
 			onClick={onClose}
 		>
 			<motion.div

@@ -103,7 +103,7 @@ export default function MoodStation({ onClose }: MoodStationProps) {
 							{/* Backdrop */}
 							<motion.div
 								key='mood-backdrop'
-								className='fixed inset-0 bg-black/60 backdrop-blur-md z-[200]'
+								className='fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-[200]'
 								initial={{ opacity: 0 }}
 								animate={{ opacity: 1 }}
 								exit={{ opacity: 0 }}
@@ -181,7 +181,11 @@ export default function MoodStation({ onClose }: MoodStationProps) {
 
 									{/* Image Gallery with Swipe */}
 									<div className='flex-1 relative flex items-center justify-center px-4 pb-4 overflow-hidden'>
-										<AnimatePresence initial={false} custom={direction} mode='wait'>
+										<AnimatePresence
+											initial={false}
+											custom={direction}
+											mode='wait'
+										>
 											<motion.img
 												key={currentImageIndex}
 												src={selectedMood.response.images[currentImageIndex]}
@@ -208,13 +212,13 @@ export default function MoodStation({ onClose }: MoodStationProps) {
 											<>
 												<button
 													onClick={goPrev}
-													className='absolute left-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-black/30 hover:bg-black/50 backdrop-blur-sm rounded-full flex items-center justify-center transition-colors border border-white/10'
+													className='absolute left-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center transition-colors border border-white/10'
 												>
 													<ChevronLeft className='w-6 h-6 text-white' />
 												</button>
 												<button
 													onClick={goNext}
-													className='absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-black/30 hover:bg-black/50 backdrop-blur-sm rounded-full flex items-center justify-center transition-colors border border-white/10'
+													className='absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center transition-colors border border-white/10'
 												>
 													<ChevronRight className='w-6 h-6 text-white' />
 												</button>

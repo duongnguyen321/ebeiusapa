@@ -43,14 +43,14 @@ export function EasterEggQuizModal({
 			initial={{ opacity: 0 }}
 			animate={{ opacity: 1 }}
 			exit={{ opacity: 0 }}
-			className='fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm'
+			className='fixed inset-0 z-[60] flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm'
 			onClick={onClose}
 		>
 			<motion.div
 				initial={{ scale: 0.8, y: 50 }}
 				animate={{ scale: 1, y: 0 }}
 				exit={{ scale: 0.8, y: 50 }}
-				className='bg-slate-800/95 backdrop-blur-xl rounded-3xl p-6 max-w-md w-full shadow-2xl border border-white/10'
+				className='bg-white/10 backdrop-blur-xl rounded-3xl p-6 max-w-md w-full shadow-2xl border border-white/10'
 				onClick={(e) => e.stopPropagation()}
 			>
 				{/* Header */}

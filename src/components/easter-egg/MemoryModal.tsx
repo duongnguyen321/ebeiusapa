@@ -26,14 +26,14 @@ export function EasterEggMemoryModal({ memory, onClose }: MemoryModalProps) {
 			initial={{ opacity: 0 }}
 			animate={{ opacity: 1 }}
 			exit={{ opacity: 0 }}
-			className='fixed inset-0 z-[60] flex items-center justify-center p-4 bg-white/15 backdrop-blur-md'
+			className='fixed inset-0 z-[60] flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm'
 			onClick={onClose}
 		>
 			<motion.div
 				initial={{ scale: 0.9, y: 30 }}
 				animate={{ scale: 1, y: 0 }}
 				exit={{ scale: 0.9, y: 30 }}
-				className='bg-gradient-to-b from-slate-800/95 to-slate-900/95 backdrop-blur-xl rounded-3xl max-w-lg w-full overflow-hidden shadow-2xl border border-white/10'
+				className='bg-white/10 backdrop-blur-xl rounded-3xl max-w-lg w-full overflow-hidden shadow-2xl border border-white/10'
 				onClick={(e) => e.stopPropagation()}
 			>
 				{/* Header */}
@@ -77,7 +77,7 @@ export function EasterEggMemoryModal({ memory, onClose }: MemoryModalProps) {
 									e.stopPropagation();
 									goPrev();
 								}}
-								className='absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/50 rounded-full flex items-center justify-center hover:bg-black/70 transition-colors'
+								className='absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center transition-colors'
 							>
 								<ChevronLeft className='w-6 h-6 text-white' />
 							</button>
@@ -86,7 +86,7 @@ export function EasterEggMemoryModal({ memory, onClose }: MemoryModalProps) {
 									e.stopPropagation();
 									goNext();
 								}}
-								className='absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/50 rounded-full flex items-center justify-center hover:bg-black/70 transition-colors'
+								className='absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center transition-colors'
 							>
 								<ChevronRight className='w-6 h-6 text-white' />
 							</button>

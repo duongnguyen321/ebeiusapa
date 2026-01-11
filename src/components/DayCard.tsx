@@ -146,7 +146,7 @@ const DayCard = ({
 						{/* Backdrop */}
 						<motion.div
 							key={`backdrop-${day.id}`}
-							className='fixed inset-0 bg-black/60 backdrop-blur-md z-[90]'
+							className='fixed inset-0 bg-slate-950/60 backdrop-blur-md z-[90]'
 							initial={{ opacity: 0 }}
 							animate={{ opacity: 1 }}
 							exit={{ opacity: 0 }}
