@@ -115,9 +115,9 @@ export function MistWhispersGame({ onClose }: MistWhispersGameProps) {
 						initial={{ opacity: 0, scale: 0.8 }}
 						animate={{ opacity: 1, scale: 1, x: flyX }}
 						transition={{ type: 'spring', damping: 20, stiffness: 200 }}
-						className='w-full max-w-sm'
-						style={{ perspective: '1000px' }}
-					>
+								className='w-full max-w-sm aspect-[3/4]'
+								style={{ perspective: '1000px' }}
+							>
 						{/* Swipeable card wrapper */}
 						<motion.div
 							drag={isFlipped && !isAnimating ? 'x' : false}
@@ -129,7 +129,7 @@ export function MistWhispersGame({ onClose }: MistWhispersGameProps) {
 								rotate: isAnimating ? 0 : rotate,
 							}}
 							onClick={handleFlip}
-							className='relative w-full h-full cursor-pointer'
+							className='relative w-full h-full cursor-pointer aspect-[3/4]'
 						>
 							{/* Swipe indicators */}
 							{isFlipped && !isAnimating && (

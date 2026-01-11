@@ -30,7 +30,7 @@ export function useImagePrefetch() {
 
 			// 4. Quiz Data
 			quizData.forEach((quiz) => {
-				if (quiz.image) images.add(quiz.image);
+				if (quiz.images) quiz.images.forEach((img) => images.add(img));
 			});
 
 			return Array.from(images);
