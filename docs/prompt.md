@@ -26,29 +26,22 @@ Hãy thực hiện deep research và lập kế hoạch chi tiết cho chuyến 
 - **Checkout:** 12:00 ngày 18/01
 - **Dịch vụ:** Có thể đặt bánh sinh nhật
 
-* Popular landmarks
-  Cat Cat Ethnic Village 470 m
+### Thông tin về khoảng cách
 
-Sun World Fansipan Legend 680 m
+Popular landmarks
 
-Quang Truong Square 890 m
+- Cat Cat Ethnic Village 470 m
+- Sun World Fansipan Legend 680 m
+- Quang Truong Square 890 m
+- The Stone Church (Holy Rosary Church) 1.1 km
+- Ham Rong Mountain 1.6 km
 
-The Stone Church (Holy Rosary Church)
-1.1 km Ham Rong Mountain
-
-1.6 km
 Closest landmarks
-Hieu Stone 170 m
 
-Heaven Sapa 360 m
-
-Cat Cat Ethnic Village 470 m
-
-Tiên Sa Waterfall 510 m
-
-Fansipan Legend 680 m
-
--
+- Hieu Stone 170 m
+- Heaven Sapa 360 m
+- Tiên Sa Waterfall 510 m
+- Fansipan Legend 680 m
 
 ### Dự báo thời tiết
 
@@ -64,9 +57,10 @@ Fansipan Legend 680 m
 | Khoản mục                 | Số tiền       |
 | ------------------------- | ------------- |
 | Tổng ngân sách            | 6 triệu VNĐ   |
-| Khách sạn (đã trả)        | 1.742.50 VNĐ |
+| Khách sạn (đã trả)        | 1.742.50 VNĐ  |
 | Xe khứ hồi (đã trả)       | 1.5 triệu     |
-| Bánh sinh nhật            | 250k          |
+| Rượu vang(đã trả)         |               |
+| Bánh sinh nhật(chưa trả)  |               |
 | **Còn lại cho hoạt động** | **2.5 triệu** |
 
 ---
@@ -124,7 +118,7 @@ Fansipan Legend 680 m
 | ---------------------- | ------------------------------- |
 | Bản Cát Cát            | Fansipan, Sunworld (đắt + lạnh) |
 | Núi Hàm Rồng           | Tả Van (xa quá)                 |
-| Nhà thờ đá Sapa        | Điểm check-in nhân tạo giá cao  |
+| Nhà thờ đá Sapa        |                                 |
 | Quảng trường + Hồ Sapa |                                 |
 | Chợ đêm Sapa           |                                 |
 
@@ -222,18 +216,12 @@ Fansipan Legend 680 m
 - Phù hợp thời tiết + hoạt động
 - Đẹp cho ảnh
 
-**F. Quà đặc sản Sapa:**
-
-- Danh sách nên mua
-- Giá tham khảo
-- Mua ở đâu
-
-**G. Bảng chi phí tổng hợp:**
+**F. Bảng chi phí tổng hợp:**
 
 - Chi tiết từng khoản
 - Tổng cộng (phải ≤2.5 triệu)
 
-**H. Plan B khi mưa:**
+**G. Plan B khi mưa:**
 
 - Hoạt động thay thế trong nhà
 
@@ -245,7 +233,7 @@ Fansipan Legend 680 m
 
 1. Giả định thông tin không có trong prompt
 2. Đề xuất đi bộ >1km không có xe backup
-3. Đề xuất Fansipan, Tả Van, điểm check-in nhân tạo
+3. Đề xuất Fansipan, Tả Van, các địa điểm đắt tiền
 4. Đề xuất địa điểm/nhà hàng không còn hoạt động 2026
 5. Bỏ qua thời tiết khi lên lịch
 6. Vượt ngân sách (2.25-2.5 triệu)
@@ -255,18 +243,15 @@ Fansipan Legend 680 m
 
 ### ✅ BẮT BUỘC:
 
-1. Tính khoảng cách từ khách sạn Sapa House (03A Thác Bạc)
+1. Thỏa mãn yêu thích được đi bộ (nhưng đi gần)
 2. Mỗi điểm có gợi ý chụp ảnh (góc, pose, tips)
 3. Mỗi buổi có gợi ý trang phục
-4. Tiệc sinh nhật tối 16/01 tại phòng
-5. Ngâm thuốc chiều 16/01 tại spa chất lượng
-6. Đi cả Hàm Rồng ngày 17/01
-7. Nhà thờ đá: đêm 15/01 + ngày 16/01
 
 ---
 
 ## CHECKLIST TRƯỚC KHI HOÀN THÀNH
 
+- [ ] Thời tiết từng ngày
 - [ ] Lịch trình 4 ngày chi tiết theo giờ
 - [ ] Tổng chi phí ≤2.5 triệu
 - [ ] Nhà hàng với tên, địa chỉ, giá
