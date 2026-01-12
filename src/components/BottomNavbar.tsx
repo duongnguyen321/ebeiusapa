@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -11,10 +12,13 @@ import {
 	BookHeart,
 	Menu,
 	Sparkles,
+	Bell,
+	BellOff,
 } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { BottomNavbarGroup, NavItem } from './BottomNavbarGroup';
 import { handleRestrictedAction } from '@/utils/restriction';
+import { useNotifications } from '@/hooks/useNotifications';
 
 interface BottomNavbarProps {
 	onEmergency: () => void;
@@ -46,6 +50,8 @@ const BottomNavbar = ({
 	const navigate = useNavigate();
 	const location = useLocation();
 	const [activeGroupId, setActiveGroupId] = useState<string | null>(null);
+	const { permission, requestPermission, testNotification } = useNotifications();
+
 
 	// Helper to check if a path is active
 	const isActive = (path: string) => location.pathname.startsWith(path);
@@ -143,6 +149,20 @@ const BottomNavbar = ({
 			onClick: onEmergency,
 			color: 'text-red-400',
 			hoverBg: 'hover:bg-red-500/20',
+		},
+		{
+			id: 'notification',
+			icon: permission === 'granted' ? Bell : BellOff,
+			label: permission === 'granted' ? 'Đã bật TB' : 'Bật TB',
+			onClick: () => {
+				if (permission !== 'granted') {
+					requestPermission();
+				} else {
+					testNotification();
+				}
+			},
+			color: permission === 'granted' ? 'text-green-400' : 'text-white/70',
+			hoverBg: permission === 'granted' ? 'hover:bg-green-500/20' : 'hover:bg-white/10',
 		},
 		{
 			id: 'exit',

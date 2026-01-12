@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import { useRef, useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';

@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { LifeBuoy, Phone, Pill, Banknote, X } from 'lucide-react';
@@ -78,11 +79,10 @@ export function FloatingSOS() {
 											item.action();
 											setIsOpen(false);
 										}}
-										className={`
-											w-full flex items-center gap-3 p-2 rounded-xl
-											hover:bg-white/10 transition-colors
-											${item.color}
-										`}
+										className={cn(
+											"w-full flex items-center gap-3 p-2 rounded-xl hover:bg-white/10 transition-colors",
+											item.color
+										)}
 									>
 										<item.icon className='w-5 h-5' />
 										<span className='font-medium'>{item.label}</span>
@@ -98,17 +98,12 @@ export function FloatingSOS() {
 					whileHover={{ scale: 1.1 }}
 					whileTap={{ scale: 0.9 }}
 					onClick={() => setIsOpen(!isOpen)}
-					className={`
-						w-14 h-14 rounded-full
-						flex items-center justify-center
-						shadow-lg
-						transition-all duration-300
-						${
-							isOpen
-								? 'bg-white/20 backdrop-blur-xl border border-white/20'
-								: 'bg-red-500/80 backdrop-blur-xl border border-red-400/30 shadow-[0_0_20px_rgba(239,68,68,0.4)]'
-						}
-					`}
+					className={cn(
+						"w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-all duration-300",
+						isOpen
+							? 'bg-white/20 backdrop-blur-xl border border-white/20'
+							: 'bg-red-500/80 backdrop-blur-xl border border-red-400/30 shadow-[0_0_20px_rgba(239,68,68,0.4)]'
+					)}
 				>
 					{isOpen ? (
 						<X className='w-6 h-6 text-white' />

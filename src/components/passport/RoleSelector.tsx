@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShieldCheck, Crown, Sparkles } from 'lucide-react';
 import { usePassport, PassportRole } from '@/contexts/PassportContext';
@@ -79,15 +80,14 @@ export function RoleSelector({ onComplete }: RoleSelectorProps) {
 						whileHover={{ scale: 1.03, y: -5 }}
 						whileTap={{ scale: 0.97 }}
 						onClick={() => handleSelectRole(role.id)}
-						className={`
-							relative overflow-hidden p-8 rounded-3xl
-							bg-white/10 backdrop-blur-xl
-							border ${role.borderColor}
-							${role.glowShadow}
-							${role.hoverGlow}
-							transition-all duration-300
-							text-left group
-						`}
+						className={cn(
+							"relative overflow-hidden p-8 rounded-3xl",
+							"bg-white/10 backdrop-blur-xl",
+							`border ${role.borderColor}`,
+							role.glowShadow,
+							role.hoverGlow,
+							"transition-all duration-300 text-left group"
+						)}
 					>
 						{/* Background Gradient */}
 						<div
@@ -101,16 +101,16 @@ export function RoleSelector({ onComplete }: RoleSelectorProps) {
 						<div className='relative z-10'>
 							{/* Icon */}
 							<motion.div
-								className={`
-									w-16 h-16 rounded-2xl
-									bg-white/10 backdrop-blur-md
-									border border-white/20
-									flex items-center justify-center mb-5
-									group-hover:scale-110 transition-transform duration-300
-								`}
+								className={cn(
+									"w-16 h-16 rounded-2xl",
+									"bg-white/10 backdrop-blur-md",
+									"border border-white/20",
+									"flex items-center justify-center mb-5",
+									"group-hover:scale-110 transition-transform duration-300"
+								)}
 							>
 								<role.icon
-									className={`w-8 h-8 ${role.iconColor} ${role.iconGlow}`}
+									className={cn("w-8 h-8", role.iconColor, role.iconGlow)}
 								/>
 							</motion.div>
 

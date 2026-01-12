@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import { Phone } from 'lucide-react';
 import { PhoneCall } from 'lucide-react';
 import { emergencyContacts } from '@/data/itinerary';
@@ -22,7 +23,7 @@ const EmergencyPanel = ({ isOpen, onClose }: EmergencyPanelProps) => {
 					<a
 						key={idx}
 						href={`tel:${contact.phone.replace(/\s/g, '')}`}
-						className='flex items-center gap-3 p-3 glass-panel rounded-xl hover:bg-white/10 transition-colors group bg-gradient-to-r from-red-500/5 to-orange-500/5 border-white/10'
+						className={cn("flex items-center gap-3 p-3 glass-panel rounded-xl hover:bg-white/10 transition-colors group bg-gradient-to-r from-red-500/5 to-orange-500/5 border-white/10")}
 					>
 						<span className='text-2xl'>{contact.icon}</span>
 						<div className='flex-1'>

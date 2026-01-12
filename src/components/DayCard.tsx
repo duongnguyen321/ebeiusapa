@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Clock, Heart, Target, AlertTriangle } from 'lucide-react';
 import { useEffect, useRef } from 'react';
@@ -83,11 +84,11 @@ const DayCard = ({
 			{/* Collapsed Card - Always rendered */}
 			<motion.div
 				onClick={onToggle}
-				className={`
-          glass-panel p-4 md:p-6 rounded-xl md:rounded-2xl cursor-pointer
-          ${isActiveDay ? 'timeline-active' : ''}
-          ${isExpanded ? 'invisible' : ''}
-        `}
+				className={cn(
+					"glass-panel p-4 md:p-6 rounded-xl md:rounded-2xl cursor-pointer",
+					isActiveDay && "timeline-active",
+					isExpanded && "invisible"
+				)}
 				whileHover={
 					!isExpanded
 						? { y: -3, transition: { duration: 0.3, ease: 'easeOut' } }

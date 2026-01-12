@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Heart, X } from 'lucide-react';
@@ -181,23 +182,21 @@ export function LetterCard({ letterIndex, onClick }: LetterCardProps) {
 			whileHover={{ scale: 1.02 }}
 			whileTap={{ scale: 0.98 }}
 			onClick={onClick}
-			className={`
-        w-full p-4 rounded-2xl text-left transition-all duration-300
-        ${
-					isUnlocked
-						? 'glass-card border-pink-500/30'
-						: canUnlock
-						? 'glass-card border-amber-500/30 timeline-upcoming'
-						: 'glass opacity-60'
-				}
-      `}
+			className={cn(
+				"w-full p-4 rounded-2xl text-left transition-all duration-300",
+				isUnlocked
+					? 'glass-card border-pink-500/30'
+					: canUnlock
+					? 'glass-card border-amber-500/30 timeline-upcoming'
+					: 'glass opacity-60'
+			)}
 		>
 			<div className='flex items-center gap-3'>
 				<div
-					className={`
-          p-2 rounded-full
-          ${isUnlocked ? 'bg-pink-500/20' : 'bg-white/10'}
-        `}
+					className={cn(
+						"p-2 rounded-full",
+						isUnlocked ? 'bg-pink-500/20' : 'bg-white/10'
+					)}
 				>
 					{isUnlocked ? (
 						<Heart className='w-5 h-5 text-pink-400 fill-pink-400' />

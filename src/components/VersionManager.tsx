@@ -32,11 +32,24 @@ const VersionManager = () => {
 						}
 					}
 
-					// 2. Clear all caches
+					// 2. Clear caches (Exclude image caches to prevent slow reload)
 					if ('caches' in window) {
 						const cacheNames = await caches.keys();
 						await Promise.all(
-							cacheNames.map((cacheName) => caches.delete(cacheName))
+							cacheNames.map((cacheName) => {
+								// Only delete precache or app-shell, keep images/media
+								// Assuming standard naming or deleting everything NOT explicitly safe?
+								// Safe approach: Delete caches that look like code/precache
+								if (
+									cacheName.includes('precache') || 
+									cacheName.includes('pages') || 
+									cacheName.includes('app-data')
+								) {
+									return caches.delete(cacheName);
+								}
+								// Keep easter-eggs or other image caches
+								return Promise.resolve();
+							})
 						);
 					}
 

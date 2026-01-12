@@ -120,8 +120,8 @@ export function useNotifications() {
 	};
 
 	const testNotification = useCallback(() => {
-		showNotification('Test Notification 💕', {
-			body: 'Thông báo hoạt động bình thường!',
+		showNotification('Sẵn sàng cho hành trình! ✨', {
+			body: 'Thông báo đã được bật. Anh sẽ nhắc em những điều bất ngờ trong chuyến đi nhé! 💕',
 			icon: '/icons/icon-192.png',
 		});
 	}, [state.permission]);

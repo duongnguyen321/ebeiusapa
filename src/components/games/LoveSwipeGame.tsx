@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import { useState, useCallback, useRef } from 'react';
 import {
 	motion,
@@ -27,6 +28,7 @@ import {
 	type HeatLevel,
 } from '@/data/games/loveSwipe';
 import { useLockBodyScroll } from '@/hooks/useLockBodyScroll';
+
 
 type GameMode = 'quick' | 'warm' | 'hot' | 'scorching' | 'tour';
 type GamePhase = 'modeSelect' | 'player1' | 'handoff' | 'player2' | 'results';
@@ -264,15 +266,16 @@ export function LoveSwipeGame({ onClose }: LoveSwipeGameProps) {
 			</div>
 
 			{/* Header */}
-			<div className='relative z-10 flex items-center justify-between p-4'>
-				<div className='flex items-center gap-2'>
-					<span className='text-2xl'>💕</span>
+			<div className={cn('relative z-10 flex items-center justify-between p-4')}>
+				<div className={cn('flex items-center gap-2')}>
+					<span className={cn('text-2xl')}>💕</span>
 					{showControls && (
 						<>
 							<span
-								className={`px-2 py-1 rounded-full text-xs font-bold ${
+								className={cn(
+									"px-2 py-1 rounded-full text-xs font-bold text-white",
 									phase === 'player1' ? 'bg-blue-500' : 'bg-pink-500'
-								} text-white`}
+								)}
 							>
 								{phase === 'player1' ? 'Player 1' : 'Player 2'}
 							</span>
@@ -319,7 +322,10 @@ export function LoveSwipeGame({ onClose }: LoveSwipeGameProps) {
 										whileHover={{ scale: 1.02 }}
 										whileTap={{ scale: 0.98 }}
 										onClick={() => startGame(mode.id)}
-										className={`w-full p-4 rounded-2xl bg-gradient-to-r ${mode.color} text-white flex items-center gap-4`}
+										className={cn(
+											"w-full p-4 rounded-2xl text-white flex items-center gap-4",
+											`bg-gradient-to-r ${mode.color}`
+										)}
 									>
 										<mode.icon className='w-8 h-8' />
 										<div className='text-left'>

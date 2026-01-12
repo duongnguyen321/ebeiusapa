@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, RotateCcw, Check, Zap } from 'lucide-react';
@@ -64,7 +65,7 @@ export function HighlandDiceGame({ onClose }: HighlandDiceGameProps) {
 			animate={{ opacity: 1, y: 0, scale: 1 }}
 			exit={{ opacity: 0, y: '100%', scale: 0.95 }}
 			transition={{ type: 'spring', stiffness: 300, damping: 30, mass: 0.8 }}
-			className='fixed inset-0 z-50 flex flex-col bg-gradient-to-br from-purple-950 via-slate-900 to-pink-950'
+			className={cn('fixed inset-0 z-50 flex flex-col bg-gradient-to-br from-purple-950 via-slate-900 to-pink-950')}
 		>
 			{/* Background orbs */}
 			<div className='absolute inset-0 overflow-hidden pointer-events-none'>

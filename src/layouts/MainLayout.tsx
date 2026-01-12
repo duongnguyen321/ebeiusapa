@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import { useState, useEffect } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { Heart, Smile, Ticket } from 'lucide-react';
@@ -51,9 +52,10 @@ export default function MainLayout() {
 
 	return (
 		<div
-			className={`min-h-screen relative z-10 ${
-				isGamePage ? 'pb-0' : 'pb-24 md:pb-28'
-			}`}
+			className={cn(
+				"min-h-screen relative z-10",
+				isGamePage ? "pb-0" : "pb-24 md:pb-28"
+			)}
 		>
             {/* Page Content */}
 			<Outlet />

@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -40,9 +41,10 @@ const TripHeader = () => {
 					</div>
 				</div>
 				<ChevronDown
-					className={`w-5 h-5 text-white/60 transition-transform ${
+					className={cn(
+						"w-5 h-5 text-white/60 transition-transform",
 						isExpanded ? 'rotate-180' : ''
-					}`}
+					)}
 				/>
 			</button>
 

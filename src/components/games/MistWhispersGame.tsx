@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import { useState, useCallback } from 'react';
 import {
 	motion,
@@ -12,6 +13,7 @@ import {
 	allWhisperCards,
 	type WhisperCard,
 } from '@/data/games/mistWhispers';
+
 
 interface MistWhispersGameProps {
 	onClose: () => void;
@@ -171,21 +173,20 @@ export function MistWhispersGame({ onClose }: MistWhispersGameProps) {
 							>
 								{/* Card Front (Back of card - shown when not flipped) */}
 								<div
-									className={`
-										absolute inset-0 rounded-3xl glass-card 
-										${currentCard?.type === 'world' ? 'border-cyan-500/30' : 'border-pink-500/30'}
-										border-2 overflow-hidden flex flex-col items-center justify-center p-6
-									`}
+									className={cn(
+										"absolute inset-0 rounded-3xl glass-card border-2 overflow-hidden flex flex-col items-center justify-center p-6",
+										currentCard?.type === 'world' ? 'border-cyan-500/30' : 'border-pink-500/30'
+									)}
 									style={{ backfaceVisibility: 'hidden' }}
 								>
 									{/* Fog effect */}
-									<div className='absolute inset-0 bg-gradient-to-br from-white/10 to-transparent' />
+									<div className={cn('absolute inset-0 bg-gradient-to-br from-white/10 to-transparent')} />
 
 									{/* Sparkles */}
 									{Array.from({ length: 20 }, (_, i) => (
 										<div
 											key={i}
-											className='absolute w-1 h-1 bg-white/30 rounded-full animate-pulse'
+											className={cn('absolute w-1 h-1 bg-white/30 rounded-full animate-pulse')}
 											style={{
 												top: `${(i * 17) % 100}%`,
 												left: `${(i * 23) % 100}%`,
@@ -194,19 +195,18 @@ export function MistWhispersGame({ onClose }: MistWhispersGameProps) {
 										/>
 									))}
 
-									<span className='text-6xl mb-4 relative z-10'>☁️</span>
-									<p className='text-white/70 text-center relative z-10'>
+									<span className={cn('text-6xl mb-4 relative z-10')}>☁️</span>
+									<p className={cn('text-white/70 text-center relative z-10')}>
 										Chạm để lật thẻ
 									</p>
 								</div>
 
 								{/* Card Back (Content - shown when flipped) */}
 								<div
-									className={`
-										absolute inset-0 rounded-3xl glass-card 
-										${currentCard?.type === 'world' ? 'border-cyan-500/30' : 'border-pink-500/30'}
-										border-2 overflow-hidden flex flex-col items-center justify-center p-6 text-center
-									`}
+									className={cn(
+										"absolute inset-0 rounded-3xl glass-card border-2 overflow-hidden flex flex-col items-center justify-center p-6 text-center",
+										currentCard?.type === 'world' ? 'border-cyan-500/30' : 'border-pink-500/30'
+									)}
 									style={{
 										backfaceVisibility: 'hidden',
 										transform: 'rotateY(180deg)',
@@ -214,14 +214,12 @@ export function MistWhispersGame({ onClose }: MistWhispersGameProps) {
 								>
 									{/* Type badge */}
 									<div
-										className={`
-											absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-medium
-											${
-												currentCard?.type === 'world'
-													? 'bg-cyan-500/20 text-cyan-300'
-													: 'bg-pink-500/20 text-pink-300'
-											}
-										`}
+										className={cn(
+											"absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-medium",
+											currentCard?.type === 'world'
+												? 'bg-cyan-500/20 text-cyan-300'
+												: 'bg-pink-500/20 text-pink-300'
+										)}
 									>
 										{currentCard?.type === 'world'
 											? '🌍 Quan sát'

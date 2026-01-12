@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import { motion, AnimatePresence, PanInfo } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight, Loader2 } from 'lucide-react';
 import { useState, useCallback, forwardRef } from 'react';
@@ -86,9 +87,10 @@ const ModalImage = forwardRef<
 								// Simple click to zoom logic if needed, but double click is better for library
 								// e.stopPropagation();
 							}}
-							className={`max-w-full max-h-full object-contain cursor-grab active:cursor-grabbing ${
+							className={cn(
+								"max-w-full max-h-full object-contain cursor-grab active:cursor-grabbing transition-opacity duration-300",
 								isLoading ? 'opacity-0' : 'opacity-100'
-							} transition-opacity duration-300`}
+							)}
 							draggable={false}
 						/>
 					</TransformComponent>
@@ -209,11 +211,12 @@ export function EasterEggMemoryModal({ memory, onClose }: MemoryModalProps) {
 										setDirection(idx > currentIndex ? 1 : -1);
 										setCurrentIndex(idx);
 									}}
-									className={`h-2 rounded-full transition-all pointer-events-auto ${
+									className={cn(
+										"h-2 rounded-full transition-all pointer-events-auto",
 										idx === currentIndex
 											? 'bg-white w-4'
 											: 'bg-white/40 hover:bg-white/60 w-2'
-									}`}
+									)}
 								/>
 							))}
 						</div>

@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
 import { X, Lock, Check } from 'lucide-react';
 import { useState, useEffect } from 'react';
@@ -129,11 +130,12 @@ export function VoucherRedeemModal({
 							whileTap={{ scale: 0.98 }}
 							onClick={handleRedeem}
 							disabled={!password}
-							className={`w-full mt-4 py-3 rounded-xl font-bold transition-all ${
+							className={cn(
+								"w-full mt-4 py-3 rounded-xl font-bold transition-all",
 								password
 									? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white'
 									: 'bg-white/10 text-white/40 cursor-not-allowed'
-							}`}
+							)}
 						>
 							Xác nhận
 						</motion.button>

@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -22,7 +23,7 @@ function PassportContent() {
 
 	return (
 		<PageTransition variant='fade'>
-			<div className='min-h-screen relative'>
+			<div className={cn("min-h-screen relative")}>
 				<AnimatePresence mode='wait'>
 					{!showDashboard || !role ? (
 						<motion.div

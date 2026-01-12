@@ -1,7 +1,9 @@
+import { cn } from '@/lib/utils';
 import { Gamepad2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { games, type GameInfo } from '@/data/games';
 import BottomSheet from './BottomSheet';
+
 
 interface GamesModalProps {
 	isOpen: boolean;
@@ -52,7 +54,10 @@ function GameCard({ game, index, onSelect }: GameCardProps) {
 			className='w-full text-left'
 		>
 			<div
-				className={`relative overflow-hidden rounded-2xl bg-gradient-to-br ${game.color} p-4`}
+				className={cn(
+					"relative overflow-hidden rounded-2xl p-4",
+					`bg-gradient-to-br ${game.color}`
+				)}
 			>
 				{/* Glow effect */}
 				<div className='absolute inset-0 bg-white/10 opacity-0 hover:opacity-100 transition-opacity' />

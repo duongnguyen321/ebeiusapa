@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
 	X,
@@ -173,7 +174,8 @@ export function EasterEggQuizModal({
 								whileTap={{ scale: showResult ? 1 : 0.98 }}
 								onClick={() => handleSelectOption(option.id)}
 								disabled={showResult}
-								className={`w-full p-3 rounded-xl text-left transition-all border-2 ${
+								className={cn(
+									"w-full p-3 rounded-xl text-left transition-all border-2",
 									showCorrect
 										? 'bg-green-500/30 border-green-500 text-green-300'
 										: showWrong
@@ -181,19 +183,20 @@ export function EasterEggQuizModal({
 										: isSelected
 										? 'bg-amber-500/20 border-amber-500 text-amber-300'
 										: 'bg-white/5 border-transparent text-white/80 hover:bg-white/10'
-								}`}
+								)}
 							>
 								<div className='flex items-center gap-3'>
 									<span
-										className={`w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold ${
-											showCorrect
-												? 'bg-green-500 text-white'
-												: showWrong
-												? 'bg-red-500 text-white'
-												: isSelected
-												? 'bg-amber-500 text-white'
-												: 'bg-white/20 text-white'
-										}`}
+										className={cn(
+										"w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold",
+										showCorrect
+											? 'bg-green-500 text-white'
+											: showWrong
+											? 'bg-red-500 text-white'
+											: isSelected
+											? 'bg-amber-500 text-white'
+											: 'bg-white/20 text-white'
+									)}
 									>
 										{showCorrect ? (
 											<Check className='w-4 h-4' />
@@ -215,9 +218,10 @@ export function EasterEggQuizModal({
 					<motion.div
 						initial={{ opacity: 0, y: 10 }}
 						animate={{ opacity: 1, y: 0 }}
-						className={`p-4 rounded-xl text-center ${
+						className={cn(
+							"p-4 rounded-xl text-center",
 							isCorrect ? 'bg-green-500/20' : 'bg-red-500/20'
-						}`}
+						)}
 					>
 						{isCorrect ? (
 							<div className='space-y-2'>
@@ -260,11 +264,12 @@ export function EasterEggQuizModal({
 						whileTap={{ scale: 0.98 }}
 						onClick={handleSubmit}
 						disabled={!selectedOption}
-						className={`w-full py-3 rounded-xl font-bold transition-all ${
+						className={cn(
+							"w-full py-3 rounded-xl font-bold transition-all",
 							selectedOption
 								? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white'
 								: 'bg-white/10 text-white/40 cursor-not-allowed'
-						}`}
+						)}
 					>
 						Xác nhận
 					</motion.button>

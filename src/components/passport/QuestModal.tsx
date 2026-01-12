@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { X, Lock, Check, Gift, Copy, Eye, EyeOff } from 'lucide-react';
@@ -111,18 +112,21 @@ export function QuestModal({ quest, onClose }: QuestModalProps) {
 				animate={{ scale: 1, borderRadius: '24px', opacity: 1 }}
 				exit={{ scale: 0.8, borderRadius: '100%', opacity: 0 }}
 				transition={{ type: 'spring', stiffness: 200, damping: 20 }}
-				className={`
-					relative overflow-hidden
-					bg-white/10 backdrop-blur-2xl
-					border ${themeColors.border}
-					${themeColors.glow}
-					max-w-md w-full
-				`}
+				className={cn(
+					"relative overflow-hidden",
+					"bg-white/10 backdrop-blur-2xl",
+					`border ${themeColors.border}`,
+					themeColors.glow,
+					"max-w-md w-full"
+				)}
 				onClick={(e) => e.stopPropagation()}
 			>
 				{/* Background Gradient */}
 				<div
-					className={`absolute inset-0 bg-gradient-to-br ${themeColors.gradient} mix-blend-overlay`}
+					className={cn(
+						"absolute inset-0 bg-gradient-to-br mix-blend-overlay",
+						themeColors.gradient
+					)}
 				/>
 
 				{/* Content */}
@@ -148,7 +152,7 @@ export function QuestModal({ quest, onClose }: QuestModalProps) {
 							<div className='bg-white/5 rounded-xl p-4 mt-4'>
 								<div className='flex items-center gap-3 justify-center mb-2'>
 									<span className='text-2xl'>{currentReward.icon}</span>
-									<h4 className={`font-bold ${themeColors.text}`}>{currentReward.title}</h4>
+									<h4 className={cn("font-bold", themeColors.text)}>{currentReward.title}</h4>
 								</div>
 								<p className='text-white/80 text-sm'>{currentReward.description}</p>
 								<div className='mt-3 pt-3 border-t border-white/10 text-xs text-green-400 font-medium flex items-center justify-center gap-1'>
@@ -185,7 +189,7 @@ export function QuestModal({ quest, onClose }: QuestModalProps) {
 							{/* Header */}
 							<div className='flex items-center justify-between mb-4'>
 								<div className='flex items-center gap-2'>
-									<Lock className={`w-5 h-5 ${themeColors.text}`} />
+									<Lock className={cn("w-5 h-5", themeColors.text)} />
 									<span className='text-sm text-white/60'>{quest.time}</span>
 								</div>
 								<button
@@ -222,10 +226,11 @@ export function QuestModal({ quest, onClose }: QuestModalProps) {
 									</p>
 
 									<div
-										className={`
-											relative p-4 rounded-xl text-center
-											bg-white/10 border ${themeColors.border}
-										`}
+										className={cn(
+											"relative p-4 rounded-xl text-center",
+											"bg-white/10 border",
+											themeColors.border
+										)}
 									>
 										<div className='flex items-center justify-center gap-3'>
 											{showCode ? (
@@ -253,11 +258,11 @@ export function QuestModal({ quest, onClose }: QuestModalProps) {
 										{/* Copy Button */}
 										<button
 											onClick={handleCopyCode}
-											className={`
-												mt-3 flex items-center gap-2 mx-auto px-4 py-2 rounded-lg
-												bg-white/10 hover:bg-white/20 transition-colors
-												text-sm text-white/60
-											`}
+											className={cn(
+												"mt-3 flex items-center gap-2 mx-auto px-4 py-2 rounded-lg",
+												"bg-white/10 hover:bg-white/20 transition-colors",
+												"text-sm text-white/60"
+											)}
 										>
 											<Copy className='w-4 h-4' />
 											{copied ? 'Đã copy!' : 'Copy mã'}
@@ -279,12 +284,12 @@ export function QuestModal({ quest, onClose }: QuestModalProps) {
 											});
 											setTimeout(onClose, 1000);
 										}}
-										className={`
-											w-full py-4 rounded-xl font-bold
-											bg-gradient-to-r ${themeColors.buttonBg}
-											text-white shadow-lg
-											hover:brightness-110 transition-all
-										`}
+										className={cn(
+											"w-full py-4 rounded-xl font-bold",
+											`bg-gradient-to-r ${themeColors.buttonBg}`,
+											"text-white shadow-lg",
+											"hover:brightness-110 transition-all"
+										)}
 									>
 										✅ Đã đọc code cho Em
 									</motion.button>
@@ -304,14 +309,15 @@ export function QuestModal({ quest, onClose }: QuestModalProps) {
 											setError('');
 										}}
 										placeholder='Nhập mã...'
-										className={`
-											w-full bg-white/10 border ${themeColors.border}
-											rounded-xl px-4 py-4 text-white text-center
-											text-2xl tracking-[0.3em] font-bold
-											placeholder:text-white/30 placeholder:text-lg placeholder:tracking-normal
-											focus:outline-none focus:ring-2 focus:ring-white/30
-											uppercase
-										`}
+										className={cn(
+											"w-full bg-white/10 border",
+											themeColors.border,
+											"rounded-xl px-4 py-4 text-white text-center",
+											"text-2xl tracking-[0.3em] font-bold",
+											"placeholder:text-white/30 placeholder:text-lg placeholder:tracking-normal",
+											"focus:outline-none focus:ring-2 focus:ring-white/30",
+											"uppercase"
+										)}
 										autoFocus
 										maxLength={10}
 									/>
@@ -336,14 +342,12 @@ export function QuestModal({ quest, onClose }: QuestModalProps) {
 										whileTap={{ scale: 0.98 }}
 										onClick={handleValidateCode}
 										disabled={!inputCode}
-										className={`
-											w-full py-4 rounded-xl font-bold transition-all
-											${
-												inputCode
-													? `bg-gradient-to-r ${themeColors.buttonBg} text-white shadow-lg hover:brightness-110`
-													: 'bg-white/10 text-white/40 cursor-not-allowed'
-											}
-										`}
+										className={cn(
+											"w-full py-4 rounded-xl font-bold transition-all",
+											inputCode
+												? `bg-gradient-to-r ${themeColors.buttonBg} text-white shadow-lg hover:brightness-110`
+												: "bg-white/10 text-white/40 cursor-not-allowed"
+										)}
 									>
 										Xác nhận
 									</motion.button>

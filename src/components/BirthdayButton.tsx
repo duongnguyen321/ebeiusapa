@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import { motion } from "framer-motion";
 import { Heart } from "lucide-react";
 import confetti from "canvas-confetti";
@@ -36,7 +37,7 @@ const BirthdayButton = () => {
   return (
     <motion.button
       onClick={triggerConfetti}
-      className="mt-6 w-full glass-panel p-4 rounded-2xl flex items-center justify-center gap-3 text-pink-400 hover:bg-pink-500/20 transition-colors"
+      className={cn("mt-6 w-full glass-panel p-4 rounded-2xl flex items-center justify-center gap-3 text-pink-400 hover:bg-pink-500/20 transition-colors")}
       whileTap={{ scale: 0.95 }}
       initial={{ y: 20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}

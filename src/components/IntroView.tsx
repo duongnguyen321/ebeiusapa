@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import { motion } from "framer-motion";
 import { Umbrella } from "lucide-react";
 import Countdown from "./Countdown";
@@ -12,7 +13,7 @@ const IntroView = ({ targetDate, onUnlock }: IntroViewProps) => {
   return (
     <motion.div
       key="intro"
-      className="min-h-screen flex flex-col items-center justify-center p-6 relative z-10"
+      className={cn("min-h-screen flex flex-col items-center justify-center p-6 relative z-10")}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0, scale: 0.95 }}

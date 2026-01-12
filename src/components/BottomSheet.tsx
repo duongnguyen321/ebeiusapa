@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import { ReactNode } from 'react';
 import {
 	motion,
@@ -57,7 +58,7 @@ export function BottomSheet({
 						dragElastic={{ top: 0, bottom: 0.5 }}
 						onDragEnd={handleDragEnd}
 						onClick={(e) => e.stopPropagation()}
-						className={`w-full ${maxWidth} md:mx-4`}
+						className={cn("w-full md:mx-4", maxWidth)}
 					>
 						<div className='glass-card rounded-t-3xl md:rounded-2xl overflow-hidden'>
 							{/* Handle bar for mobile - drag target */}

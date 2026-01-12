@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import { PageTransition } from '@/components/PageTransition';
 import DayCard from '@/components/DayCard';
 import TripHeader from '@/components/TripHeader';

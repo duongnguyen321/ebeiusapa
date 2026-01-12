@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import NoiseBackground from '@/components/NoiseBackground';
 import { BirthdayCelebration } from '@/components/BirthdayCelebration';
 import { SurpriseProvider } from '@/contexts/SurpriseContext';
@@ -11,7 +12,7 @@ export default function RootLayout() {
 		<TripProvider>
 			<SurpriseProvider>
 				<EasterEggProvider>
-					<div className='min-h-screen overflow-x-hidden relative bg-slate-900 text-white'>
+					<div className={cn('min-h-screen overflow-x-hidden relative bg-slate-900 text-white')}>
 						<NoiseBackground />
 
 						{/* Main Content Area with Animated Routes */}

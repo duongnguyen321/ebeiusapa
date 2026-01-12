@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
 import { Ticket, Check, Gift } from 'lucide-react';
 import { useEasterEgg } from '@/contexts/EasterEggContext';
@@ -41,11 +42,12 @@ export default function VoucherWallet({ onClose }: VoucherWalletProps) {
 							whileTap={{ scale: isUsed ? 1 : 0.98 }}
 							onClick={() => handleVoucherClick(voucher)}
 							disabled={isUsed}
-							className={`relative p-4 rounded-2xl text-left transition-all overflow-hidden ${
+							className={cn(
+								"relative p-4 rounded-2xl text-left transition-all overflow-hidden",
 								isUsed
 									? 'bg-white/5 opacity-50'
 									: 'bg-gradient-to-r from-amber-500/20 to-orange-500/20 hover:from-amber-500/30 hover:to-orange-500/30 border border-amber-500/30'
-							}`}
+							)}
 						>
 							{/* Ticket pattern */}
 							<div className='absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 w-4 h-4 bg-slate-900 rounded-full' />
@@ -55,16 +57,12 @@ export default function VoucherWallet({ onClose }: VoucherWalletProps) {
 								<span className='text-3xl'>{voucher.icon}</span>
 								<div className='flex-1'>
 									<h4
-										className={`font-bold ${
-											isUsed ? 'text-white/40' : 'text-white'
-										}`}
+										className={cn("font-bold", isUsed ? 'text-white/40' : 'text-white')}
 									>
 										{voucher.title}
 									</h4>
 									<p
-										className={`text-sm ${
-											isUsed ? 'text-white/20' : 'text-white/60'
-										}`}
+										className={cn("text-sm", isUsed ? 'text-white/20' : 'text-white/60')}
 									>
 										{voucher.description}
 									</p>

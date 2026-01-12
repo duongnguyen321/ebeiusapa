@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect, useMemo } from 'react';
 import {
@@ -100,7 +101,7 @@ export function PassportDashboard({ onBack }: PassportDashboardProps) {
 
 				<div className='text-center flex-1'>
 					<h1 className='text-xl font-bold text-white'>Love Passport</h1>
-					<p className={`text-sm ${themeColors.text}`}>
+					<p className={cn("text-sm", themeColors.text)}>
 						{role === 'anh' ? '🛡️ Guardian Mode' : '👑 Princess Mode'}
 					</p>
 				</div>
@@ -146,12 +147,12 @@ export function PassportDashboard({ onBack }: PassportDashboardProps) {
 					>
 						{/* Day Header */}
 						<div
-							className={`
-								p-4 rounded-2xl mb-3
-								bg-gradient-to-r ${themeColors.gradient}
-								backdrop-blur-xl border ${themeColors.border}
-								${themeColors.glow}
-							`}
+							className={cn(
+								"p-4 rounded-2xl mb-3 backdrop-blur-xl border",
+								`bg-gradient-to-r ${themeColors.gradient}`,
+								themeColors.border,
+								themeColors.glow
+							)}
 						>
 							<div className='flex items-center gap-3'>
 								<span className='text-2xl'>{day.weather.icon}</span>
@@ -176,24 +177,21 @@ export function PassportDashboard({ onBack }: PassportDashboardProps) {
 										animate={{ opacity: 1, x: 0 }}
 										transition={{ delay: dayIndex * 0.1 + questIndex * 0.05 }}
 										onClick={() => setSelectedQuest(quest)}
-										className={`
-											w-full p-4 rounded-xl text-left
-											bg-white/5 backdrop-blur-md
-											border border-white/10
-											hover:bg-white/10 transition-all
-											${status === 'active' ? `animate-pulse ${themeColors.bg}` : ''}
-											${status === 'completed' ? 'opacity-60' : ''}
-										`}
+										className={cn(
+											"w-full p-4 rounded-xl text-left bg-white/5 backdrop-blur-md border border-white/10 hover:bg-white/10 transition-all",
+											status === 'active' && `animate-pulse ${themeColors.bg}`,
+											status === 'completed' && 'opacity-60'
+										)}
 									>
 										<div className='flex items-center gap-3'>
 											{/* Status Icon */}
 											<div
-												className={`
-													w-10 h-10 rounded-xl flex items-center justify-center
-													${status === 'completed' ? 'bg-green-500/20' : ''}
-													${status === 'active' ? themeColors.bg : ''}
-													${status === 'locked' ? 'bg-white/10' : ''}
-												`}
+												className={cn(
+													"w-10 h-10 rounded-xl flex items-center justify-center",
+													status === 'completed' && 'bg-green-500/20',
+													status === 'active' && themeColors.bg,
+													status === 'locked' && 'bg-white/10'
+												)}
 											>
 												{status === 'completed' && (
 													<CheckCircle2 className='w-5 h-5 text-green-400' />
@@ -214,7 +212,7 @@ export function PassportDashboard({ onBack }: PassportDashboardProps) {
 													</span>
 													{status === 'active' && (
 														<span
-															className={`text-xs px-2 py-0.5 rounded-full ${themeColors.bg} ${themeColors.text}`}
+															className={cn("text-xs px-2 py-0.5 rounded-full", themeColors.bg, themeColors.text)}
 														>
 															NOW
 														</span>
@@ -227,11 +225,10 @@ export function PassportDashboard({ onBack }: PassportDashboardProps) {
 
 											{/* Arrow */}
 											<Unlock
-												className={`w-4 h-4 ${
-													status === 'completed'
-														? 'text-green-400'
-														: 'text-white/20'
-												}`}
+												className={cn(
+													"w-4 h-4",
+													status === 'completed' ? 'text-green-400' : 'text-white/20'
+												)}
 											/>
 										</div>
 									</motion.button>

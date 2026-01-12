@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import { motion, AnimatePresence, PanInfo } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight, Loader2 } from 'lucide-react';
 import { useState, useCallback, forwardRef } from 'react';
@@ -80,9 +81,10 @@ const MoodImage = forwardRef<
 							src={src}
 							alt='Mood response'
 							onLoad={() => setIsLoading(false)}
-							className={`max-w-full max-h-full object-contain rounded-2xl shadow-2xl cursor-grab active:cursor-grabbing transition-opacity duration-300 ${
+							className={cn(
+								"max-w-full max-h-full object-contain rounded-2xl shadow-2xl cursor-grab active:cursor-grabbing transition-opacity duration-300",
 								isLoading ? 'opacity-0' : 'opacity-100'
-							}`}
+							)}
 							draggable={false}
 						/>
 					</TransformComponent>
@@ -300,11 +302,12 @@ export default function MoodStation({ onClose }: MoodStationProps) {
 															setDirection(idx > currentImageIndex ? 1 : -1);
 															setCurrentImageIndex(idx);
 														}}
-														className={`h-2 rounded-full transition-all ${
+														className={cn(
+															"h-2 rounded-full transition-all",
 															idx === currentImageIndex
 																? 'bg-cyan-400 w-6'
 																: 'bg-white/30 hover:bg-white/50 w-2'
-														}`}
+														)}
 													/>
 												))}
 											</div>

@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { LucideIcon } from 'lucide-react';
@@ -56,14 +57,18 @@ export const BottomNavbarGroup = ({
 									onClick={() => {
 										item.onClick();
 									}}
-									className={`flex items-center gap-3 p-2 rounded-xl transition-colors w-full text-left ${
-										item.isActive ? 'bg-white/10' : 'hover:bg-white/5'
-									}`}
+									className={cn(
+										"flex items-center gap-3 p-2 rounded-xl transition-colors w-full text-left",
+										item.isActive ? "bg-white/10" : "hover:bg-white/5"
+									)}
 								>
-									<div className={`p-1.5 rounded-lg bg-black/20 ${item.color}`}>
+									<div className={cn("p-1.5 rounded-lg bg-black/20", item.color)}>
 										<item.icon size={18} />
 									</div>
-									<span className={`text-sm font-medium ${item.isActive ? 'text-white' : 'text-slate-300'}`}>
+									<span className={cn(
+										"text-sm font-medium",
+										item.isActive ? "text-white" : "text-slate-300"
+									)}>
 										{item.label}
 									</span>
 								</button>
@@ -77,13 +82,14 @@ export const BottomNavbarGroup = ({
 				whileHover={{ scale: 1.15 }}
 				whileTap={{ scale: 0.9 }}
 				onClick={onToggle}
-				className={`nav-icon-btn flex-shrink-0 ${
+				className={cn(
+					"nav-icon-btn flex-shrink-0",
 					isOpen || hasActiveChild
 						? `bg-white/10 border-pink-400/50 shadow-[0_0_15px_rgba(244,114,182,0.4)] ${activeColor}`
-						: 'text-slate-400 hover:bg-white/10'
-				}`}
+						: "text-slate-400 hover:bg-white/10"
+				)}
 			>
-				<GroupIcon className={`w-5 h-5 ${hasActiveChild ? activeColor : ''}`} />
+				<GroupIcon className={cn("w-5 h-5", hasActiveChild && activeColor)} />
 			</motion.button>
 		</div>
 	);

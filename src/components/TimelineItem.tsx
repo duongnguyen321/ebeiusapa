@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -41,11 +42,11 @@ const TimelineItem = ({
 
 	return (
 		<motion.div
-			className={`
-        glass-panel p-3 md:p-4 rounded-xl transition-all duration-300
-        ${isActive ? 'timeline-active' : ''}
-        ${isUpcoming ? 'timeline-upcoming' : ''}
-      `}
+			className={cn(
+				"glass-panel p-3 md:p-4 rounded-xl transition-all duration-300",
+				isActive && "timeline-active",
+				isUpcoming && "timeline-upcoming"
+			)}
 			initial={{ x: -20, opacity: 0 }}
 			animate={{ x: 0, opacity: 1 }}
 			transition={{ type: 'spring', stiffness: 300, damping: 25 }}
@@ -54,16 +55,14 @@ const TimelineItem = ({
 			<div className='flex flex-wrap items-center gap-2 mb-2'>
 				{/* Time Badge */}
 				<div
-					className={`
-            px-2.5 py-1 rounded-full text-xs md:text-sm font-medium flex items-center gap-1.5 backdrop-blur-md shadow-sm transition-all
-            ${
-							isActive
-								? 'bg-pink-500/10 text-pink-300 border border-pink-500/30 shadow-[0_0_10px_rgba(244,114,182,0.2)]'
-								: isUpcoming
-								? 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20'
-								: 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
-						}
-          `}
+					className={cn(
+						"px-2.5 py-1 rounded-full text-xs md:text-sm font-medium flex items-center gap-1.5 backdrop-blur-md shadow-sm transition-all",
+						isActive
+							? "bg-pink-500/10 text-pink-300 border border-pink-500/30 shadow-[0_0_10px_rgba(244,114,182,0.2)]"
+							: isUpcoming
+							? "bg-cyan-500/10 text-cyan-400 border border-cyan-500/20"
+							: "bg-amber-500/10 text-amber-400 border border-amber-500/20"
+					)}
 				>
 					{item.type && typeIcons[item.type]}
 					{item.time}
@@ -182,9 +181,7 @@ const TimelineItem = ({
 							<Camera className='w-3 h-3' />
 							<span>Tips chụp ảnh</span>
 							<ChevronDown
-								className={`w-3 h-3 transition-transform ${
-									showPhotoTips ? 'rotate-180' : ''
-								}`}
+								className={cn("w-3 h-3 transition-transform", showPhotoTips && "rotate-180")}
 							/>
 						</button>
 

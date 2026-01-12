@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useEasterEgg } from '@/contexts/EasterEggContext';
 import { EasterEggQuizModal } from './easter-egg/QuizModal';
@@ -45,7 +46,7 @@ export default function EasterEggLayer() {
 							},
 						}}
 						onClick={clickEgg}
-						className='fixed z-50 cursor-pointer'
+						className={cn('fixed z-50 cursor-pointer')}
 						style={{
 							top: `${eggPosition.top}%`,
 							left: `${eggPosition.left}%`,

@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import { motion, AnimatePresence, PanInfo } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight, Loader2 } from 'lucide-react';
 import { useState, useCallback, forwardRef } from 'react';
@@ -89,9 +90,10 @@ const FunnyModalImage = forwardRef<
 									src={funny.image}
 									alt='Funny moment'
 									onLoad={() => setIsLoading(false)}
-									className={`max-w-full max-h-full object-contain select-none transition-opacity duration-300 ${
+									className={cn(
+										"max-w-full max-h-full object-contain select-none transition-opacity duration-300",
 										isLoading ? 'opacity-0' : 'opacity-100'
-									}`}
+									)}
 									draggable={false}
 								/>
 								{/* Fun sticker overlay - inside zoom to scale with image */}
