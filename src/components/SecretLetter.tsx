@@ -183,7 +183,7 @@ export function LetterCard({ letterIndex, onClick }: LetterCardProps) {
 			whileTap={{ scale: 0.98 }}
 			onClick={onClick}
 			className={cn(
-				"w-full p-4 rounded-2xl text-left transition-all duration-300",
+				'w-full p-4 rounded-2xl text-left transition-all duration-300',
 				isUnlocked
 					? 'glass-card border-pink-500/30'
 					: canUnlock
@@ -194,7 +194,7 @@ export function LetterCard({ letterIndex, onClick }: LetterCardProps) {
 			<div className='flex items-center gap-3'>
 				<div
 					className={cn(
-						"p-2 rounded-full",
+						'p-2 rounded-full',
 						isUnlocked ? 'bg-pink-500/20' : 'bg-white/10'
 					)}
 				>

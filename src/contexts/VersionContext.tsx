@@ -23,10 +23,12 @@ export function VersionProvider({ children }: { children: React.ReactNode }) {
 	const [localVersion] = useState<string>(__APP_VERSION__);
 	const [remoteVersion, setRemoteVersion] = useState<string | null>(null);
 	const [isUpdateAvailable, setIsUpdateAvailable] = useState(false);
+	const [isUpdating, setIsUpdating] = useState(false);
 	const { showNotification } = useNotifications();
 
 	const checkForUpdate = async () => {
 		if (process.env.NODE_ENV === 'development') return;
+		if (isUpdating) return;
 
 		try {
 			const response = await fetch(`/version.json?t=${Date.now()}`);
@@ -36,12 +38,17 @@ export function VersionProvider({ children }: { children: React.ReactNode }) {
 			const newRemoteVersion = remoteConfig.version;
 			setRemoteVersion(newRemoteVersion);
 
-			console.log(`[Version Check] Local: ${localVersion} | Remote: ${newRemoteVersion}`);
+			console.log(
+				`[Version Check] Local: ${localVersion} | Remote: ${newRemoteVersion}`
+			);
 
 			if (newRemoteVersion && newRemoteVersion !== localVersion) {
 				setIsUpdateAvailable(true);
-				console.log('[Version Manager] New version detected. Clearing cache...');
-				
+				setIsUpdating(true);
+				console.log(
+					'[Version Manager] New version detected. Clearing cache...'
+				);
+
 				toast.info('Phát hiện bản cập nhật mới! Đang tải lại...', {
 					duration: 5000,
 				});
@@ -54,11 +61,12 @@ export function VersionProvider({ children }: { children: React.ReactNode }) {
 
 				// Delay to let toast and notification show and be read
 				// 4 seconds to give user time to see the toast context
-				await new Promise(resolve => setTimeout(resolve, 4000));
+				await new Promise((resolve) => setTimeout(resolve, 4000));
 
 				// 1. Unregister Service Workers
 				if ('serviceWorker' in navigator) {
-					const registrations = await navigator.serviceWorker.getRegistrations();
+					const registrations =
+						await navigator.serviceWorker.getRegistrations();
 					for (const registration of registrations) {
 						await registration.unregister();
 					}
@@ -70,8 +78,8 @@ export function VersionProvider({ children }: { children: React.ReactNode }) {
 					await Promise.all(
 						cacheNames.map((cacheName) => {
 							if (
-								cacheName.includes('precache') || 
-								cacheName.includes('pages') || 
+								cacheName.includes('precache') ||
+								cacheName.includes('pages') ||
 								cacheName.includes('app-data')
 							) {
 								return caches.delete(cacheName);
@@ -103,7 +111,9 @@ export function VersionProvider({ children }: { children: React.ReactNode }) {
 	}, [localVersion]);
 
 	return (
-		<VersionContext.Provider value={{ localVersion, remoteVersion, isUpdateAvailable, checkForUpdate }}>
+		<VersionContext.Provider
+			value={{ localVersion, remoteVersion, isUpdateAvailable, checkForUpdate }}
+		>
 			{children}
 		</VersionContext.Provider>
 	);

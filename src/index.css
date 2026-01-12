@@ -150,6 +150,43 @@
 		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2), inset 0 2px 4px rgba(0, 0, 0, 0.1);
 	}
 
+	/* Liquid Glass Toast - specialized for Sonner to prevent stacking clipping */
+	.glass-toast {
+		background: linear-gradient(
+			135deg,
+			rgba(255, 255, 255, 0.15) 0%,
+			rgba(255, 255, 255, 0.08) 50%,
+			rgba(255, 255, 255, 0.1) 100%
+		);
+		backdrop-filter: blur(16px) saturate(180%);
+		-webkit-backdrop-filter: blur(16px) saturate(180%);
+		border: 1px solid rgba(255, 255, 255, 0.18);
+		box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
+			inset 0 1px 0 rgba(255, 255, 255, 0.2), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+		overflow: visible !important; /* Critical for Sonner stacking */
+		transition: all 0.3s ease;
+	}
+
+	.glass-toast::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 1px;
+		background: linear-gradient(
+			90deg,
+			transparent 0%,
+			rgba(255, 255, 255, 0.4) 20%,
+			rgba(255, 255, 255, 0.5) 50%,
+			rgba(255, 255, 255, 0.4) 80%,
+			transparent 100%
+		);
+		pointer-events: none;
+		/* Ensure highlight follows border radius */
+		border-radius: inherit;
+	}
+
 	.text-gradient {
 		@apply bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 bg-clip-text text-transparent;
 	}
