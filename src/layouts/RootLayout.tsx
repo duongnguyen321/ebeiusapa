@@ -6,6 +6,7 @@ import { TripProvider } from '@/contexts/TripContext';
 import { EasterEggProvider } from '@/contexts/EasterEggContext';
 import { AnimatedOutlet } from '@/components/AnimatedOutlet';
 import EasterEggLayer from '@/components/EasterEggLayer';
+import { NotificationManager } from '@/components/NotificationManager';
 
 export default function RootLayout() {
 	return (
@@ -13,6 +14,7 @@ export default function RootLayout() {
 			<SurpriseProvider>
 				<EasterEggProvider>
 					<div className={cn('min-h-screen overflow-x-hidden relative bg-slate-900 text-white')}>
+						<NotificationManager />
 						<NoiseBackground />
 
 						{/* Main Content Area with Animated Routes */}
