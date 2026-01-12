@@ -5,6 +5,7 @@ import { SurpriseProvider } from '@/contexts/SurpriseContext';
 import { TripProvider } from '@/contexts/TripContext';
 import { EasterEggProvider } from '@/contexts/EasterEggContext';
 import { VersionProvider } from '@/contexts/VersionContext';
+import { BudgetProvider } from '@/contexts/BudgetContext';
 import { AnimatedOutlet } from '@/components/AnimatedOutlet';
 import EasterEggLayer from '@/components/EasterEggLayer';
 import { NotificationManager } from '@/components/NotificationManager';
@@ -15,19 +16,21 @@ export default function RootLayout() {
 			<VersionProvider>
 				<SurpriseProvider>
 					<EasterEggProvider>
-					<div className={cn('min-h-screen overflow-x-hidden relative bg-slate-900 text-white')}>
-						<NotificationManager />
-						<NoiseBackground />
+						<BudgetProvider>
+							<div className={cn('min-h-screen overflow-x-hidden relative bg-slate-900 text-white')}>
+								<NotificationManager />
+								<NoiseBackground />
 
-						{/* Main Content Area with Animated Routes */}
-						<AnimatedOutlet />
+								{/* Main Content Area with Animated Routes */}
+								<AnimatedOutlet />
 
-						{/* Easter Egg Layer - Floating eggs and modals */}
-						<EasterEggLayer />
+								{/* Easter Egg Layer - Floating eggs and modals */}
+								<EasterEggLayer />
 
-						{/* Global Overlay Components */}
-						<BirthdayCelebration />
-					</div>
+								{/* Global Overlay Components */}
+								<BirthdayCelebration />
+							</div>
+						</BudgetProvider>
 					</EasterEggProvider>
 				</SurpriseProvider>
 			</VersionProvider>

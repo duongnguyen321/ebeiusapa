@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils';
 import { useState, useEffect } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { Heart, Smile, Ticket } from 'lucide-react';
+import { Heart, Smile, Ticket, Wallet } from 'lucide-react';
 import BottomNavbar from '@/components/BottomNavbar';
 import BottomSheet from '@/components/BottomSheet';
 import EmergencyPanel from '@/components/EmergencyPanel';
@@ -12,6 +12,7 @@ import { ScratchCard } from '@/components/ScratchCard';
 import { LetterCard, SecretLetter } from '@/components/SecretLetter';
 import { loveLetters } from '@/data/letters';
 import { useTrip } from '@/contexts/TripContext';
+import { BudgetDashboard } from '@/components/budget';
 
 export default function MainLayout() {
 	const navigate = useNavigate();
@@ -25,6 +26,7 @@ export default function MainLayout() {
 	const [showGames, setShowGames] = useState(false);
 	const [showMood, setShowMood] = useState(false);
 	const [showWallet, setShowWallet] = useState(false);
+	const [showBudget, setShowBudget] = useState(false);
 	const [showEmergency, setShowEmergency] = useState(false);
 
 	// Protect route - if not unlocked, redirect to login (index)
@@ -75,11 +77,13 @@ export default function MainLayout() {
 					onGames={() => setShowGames(true)}
 					onMood={() => setShowMood(!showMood)}
 					onWallet={() => setShowWallet(!showWallet)}
+					onBudget={() => setShowBudget(!showBudget)}
 					onExit={() => lockApp()}
 					showLettersActive={showLetters}
 					showGamesActive={showGames}
 					showMoodActive={showMood}
 					showWalletActive={showWallet}
+					showBudgetActive={showBudget}
 				/>
 			)}
 
@@ -129,6 +133,17 @@ export default function MainLayout() {
 				maxWidth='md:max-w-md'
 			>
 				<VoucherWallet onClose={() => setShowWallet(false)} />
+			</BottomSheet>
+
+			{/* Budget Buddy Bottom Sheet */}
+			<BottomSheet
+				isOpen={showBudget}
+				onClose={() => setShowBudget(false)}
+				title='Budget Buddy 💰'
+				icon={<Wallet className='w-5 h-5 text-green-400' />}
+				maxWidth='md:max-w-lg'
+			>
+				<BudgetDashboard onClose={() => setShowBudget(false)} />
 			</BottomSheet>
 
 			{/* Scratch Card Modal */}
