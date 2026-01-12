@@ -58,6 +58,7 @@ interface EasterEggContextType extends EasterEggState {
 	closeRedeemModal: () => void;
 	answerQuiz: (quizId: string, isCorrect: boolean) => void;
 	redeemVoucher: (voucherId: string, password: string) => boolean;
+	unlockVoucher: (voucher: VoucherReward) => void;
 	resetInteraction: () => void;
 }
 
@@ -302,6 +303,14 @@ export function EasterEggProvider({ children }: { children: React.ReactNode }) {
 		setLastInteractionTime(Date.now() - SPAWN_COOLDOWN_MS - 1000);
 	}, []);
 
+	// Unlock voucher manually (e.g. from Passport)
+	const unlockVoucher = useCallback((voucher: VoucherReward) => {
+		setUnlockedVouchers((prev) => {
+			if (prev.some((v) => v.id === voucher.id)) return prev;
+			return [...prev, { ...voucher, isRedeemed: true }]; // Mark as collected/redeemed
+		});
+	}, []);
+
 	// Spawn timer - check every minute
 	useEffect(() => {
 		const checkAndSpawn = () => {
@@ -339,6 +348,7 @@ export function EasterEggProvider({ children }: { children: React.ReactNode }) {
 		closeRedeemModal,
 		answerQuiz,
 		redeemVoucher,
+		unlockVoucher,
 		resetInteraction,
 	};
 

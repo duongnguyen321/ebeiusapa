@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { X, Lock, Check, Gift, Copy, Eye, EyeOff } from 'lucide-react';
 import { usePassport } from '@/contexts/PassportContext';
+import { useEasterEgg } from '@/contexts/EasterEggContext';
 import { type PassportQuest, validateQuestCode } from '@/data/passportQuests';
 import confetti from 'canvas-confetti';
 import MarkdownIt from 'markdown-it';
@@ -18,6 +19,7 @@ interface QuestModalProps {
 export function QuestModal({ quest, onClose }: QuestModalProps) {
 	const { role, theme, isQuestCompleted, completeQuest, unlockStamp } =
 		usePassport();
+	const { unlockVoucher } = useEasterEgg();
 	const [inputCode, setInputCode] = useState('');
 	const [error, setError] = useState('');
 	const [success, setSuccess] = useState(false);
@@ -25,6 +27,9 @@ export function QuestModal({ quest, onClose }: QuestModalProps) {
 	const [copied, setCopied] = useState(false);
 
 	const isCompleted = isQuestCompleted(quest.id);
+
+	// Determine current reward based on role
+	const currentReward = role === 'anh' ? quest.rewardAnh : quest.rewardEm;
 
 	// Theme colors
 	const themeColors = {
@@ -49,6 +54,7 @@ export function QuestModal({ quest, onClose }: QuestModalProps) {
 		if (validateQuestCode(quest.id, inputCode)) {
 			setSuccess(true);
 			completeQuest(quest.id);
+			unlockVoucher(currentReward); // Provide voucher to wallet
 			if (quest.stampId) {
 				unlockStamp(quest.stampId);
 			}
@@ -140,8 +146,15 @@ export function QuestModal({ quest, onClose }: QuestModalProps) {
 								Quest Hoàn Thành! 🎉
 							</h3>
 							<div className='bg-white/5 rounded-xl p-4 mt-4'>
-								<Gift className={`w-8 h-8 ${themeColors.text} mx-auto mb-2`} />
-								<p className='text-white/80'>{quest.reward}</p>
+								<div className='flex items-center gap-3 justify-center mb-2'>
+									<span className='text-2xl'>{currentReward.icon}</span>
+									<h4 className={`font-bold ${themeColors.text}`}>{currentReward.title}</h4>
+								</div>
+								<p className='text-white/80 text-sm'>{currentReward.description}</p>
+								<div className='mt-3 pt-3 border-t border-white/10 text-xs text-green-400 font-medium flex items-center justify-center gap-1'>
+									<Check className='w-3 h-3' />
+									Đã thêm vào Ví Voucher
+								</div>
 							</div>
 						</motion.div>
 					) : isCompleted ? (
@@ -153,7 +166,12 @@ export function QuestModal({ quest, onClose }: QuestModalProps) {
 							<h3 className='text-xl font-bold text-white mb-2'>
 								Đã hoàn thành!
 							</h3>
-							<p className='text-white/60'>{quest.reward}</p>
+							
+							<div className='flex items-center gap-3 justify-center mt-4 mb-2'>
+								<span className='text-2xl'>{currentReward.icon}</span>
+								<span className='text-white/60 font-medium'>{currentReward.title}</span>
+							</div>
+
 							<button
 								onClick={onClose}
 								className='mt-6 px-6 py-2 rounded-xl bg-white/10 text-white hover:bg-white/20 transition-colors'
@@ -252,6 +270,7 @@ export function QuestModal({ quest, onClose }: QuestModalProps) {
 										whileTap={{ scale: 0.98 }}
 										onClick={() => {
 											completeQuest(quest.id);
+											unlockVoucher(currentReward); // Provide voucher to wallet
 											if (quest.stampId) unlockStamp(quest.stampId);
 											confetti({
 												particleCount: 50,
@@ -335,7 +354,7 @@ export function QuestModal({ quest, onClose }: QuestModalProps) {
 							<div className='mt-6 pt-4 border-t border-white/10'>
 								<div className='flex items-center gap-2 text-sm text-white/40'>
 									<Gift className='w-4 h-4' />
-									<span>Phần thưởng: {quest.reward}</span>
+									<span>Phần thưởng: {currentReward.title}</span>
 								</div>
 							</div>
 						</>
