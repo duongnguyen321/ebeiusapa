@@ -20,35 +20,58 @@ Hãy thực hiện deep research và lập kế hoạch chi tiết cho chuyến 
 
 ### Khách sạn
 
-- **Tên:** Sapa House Hotel Halal Certified
-- **Địa chỉ:** 03 A Thác Bạc, thị trấn Sapa
-- **Vị trí:** Cách quảng trường ~1km
+- **Tên:** Chill With Home Sapa
+- **Địa chỉ:** 22 Cát Cát, thị trấn Sapa
 - **Bao gồm:** Ăn sáng hàng ngày
 - **Checkout:** 12:00 ngày 18/01
 - **Dịch vụ:** Có thể đặt bánh sinh nhật
 
+* Popular landmarks
+  Cat Cat Ethnic Village 470 m
+
+Sun World Fansipan Legend 680 m
+
+Quang Truong Square 890 m
+
+The Stone Church (Holy Rosary Church)
+1.1 km Ham Rong Mountain
+
+1.6 km
+Closest landmarks
+Hieu Stone 170 m
+
+Heaven Sapa 360 m
+
+Cat Cat Ethnic Village 470 m
+
+Tiên Sa Waterfall 510 m
+
+Fansipan Legend 680 m
+
+-
+
 ### Dự báo thời tiết
 
-| Ngày  | Thứ      | Thời tiết          |
-| ----- | -------- | ------------------ |
-| 15/01 | Thứ 5    | Mưa phùn, sương mù |
-| 16/01 | Thứ 6    | Mưa phùn, sương mù |
-| 17/01 | Thứ 7    | Hửng nắng          |
-| 18/01 | Chủ nhật | Hửng nắng          |
+| Ngày  | Thứ      | Thời tiết                                 |
+| ----- | -------- | ----------------------------------------- |
+| 15/01 | Thứ 5    | Một hai cơn mưa rào ngắn. 14 độ           |
+| 16/01 | Thứ 6    | Mây và nắng, 15 độ                        |
+| 17/01 | Thứ 7    | Hửng nắng, Có thể mưa rào một chút, 17 độ |
+| 18/01 | Chủ nhật | Nhiều nắng, 15 độ                         |
 
 ### Ngân sách
 
-| Khoản mục                 | Số tiền               |
-| ------------------------- | --------------------- |
-| Tổng ngân sách            | 6-7 triệu VNĐ         |
-| Khách sạn (đã trả)        | 2 triệu               |
-| Xe khứ hồi (đã trả)       | 1.5 triệu             |
-| Bánh sinh nhật            | 250k                  |
-| **Còn lại cho hoạt động** | **2.25 - 3.25 triệu** |
+| Khoản mục                 | Số tiền       |
+| ------------------------- | ------------- |
+| Tổng ngân sách            | 6 triệu VNĐ   |
+| Khách sạn (đã trả)        | 1.742.50 VNĐ |
+| Xe khứ hồi (đã trả)       | 1.5 triệu     |
+| Bánh sinh nhật            | 250k          |
+| **Còn lại cho hoạt động** | **2.5 triệu** |
 
 ---
 
-## LỊCH TRÌNH ĐÃ XÁC ĐỊNH
+## LỊCH TRÌNH Dự kiến
 
 ### Ngày 1 - 15/01 (Thứ 5)
 
@@ -74,13 +97,13 @@ Hãy thực hiện deep research và lập kế hoạch chi tiết cho chuyến 
 
 ### Ngày 3 - 17/01 (Thứ 7) - NGÀY CHƠI CHÍNH ☀️
 
-| Thời gian   | Hoạt động                          |
-| ----------- | ---------------------------------- |
-| Sau 10:00   | Thức dậy, ăn sáng                  |
-| 11:00-14:00 | Đi Cát Cát + Hàm Rồng (cùng route) |
-| 14:00-16:00 | Về nghỉ ngơi                       |
-| 16:00-22:00 | Chợ đêm Sapa (mở Thứ 6-CN)         |
-| 22:00+      | Ăn tối, về khách sạn               |
+| Thời gian   | Hoạt động                  |
+| ----------- | -------------------------- |
+| Sau 10:00   | Thức dậy, ăn sáng          |
+| 11:00-14:00 | Hàm Rồng (cùng route)      |
+| 14:00-16:00 | Về nghỉ ngơi               |
+| 16:00-22:00 | Chợ đêm Sapa (mở Thứ 6-CN) |
+| 22:00+      | Ăn tối, về khách sạn       |
 
 ### Ngày 4 - 18/01 (Chủ nhật)
 
@@ -97,13 +120,13 @@ Hãy thực hiện deep research và lập kế hoạch chi tiết cho chuyến 
 
 ### Địa điểm
 
-| ✅ SẼ ĐI               | ❌ KHÔNG ĐI                    |
-| ---------------------- | ------------------------------ |
-| Bản Cát Cát            | Fansipan (đắt + lạnh)          |
-| Núi Hàm Rồng           | Tả Van (xa quá)                |
-| Nhà thờ đá Sapa        | Điểm check-in nhân tạo giá cao |
-| Quảng trường + Hồ Sapa |                                |
-| Chợ đêm Sapa           |                                |
+| ✅ SẼ ĐI               | ❌ KHÔNG ĐI                     |
+| ---------------------- | ------------------------------- |
+| Bản Cát Cát            | Fansipan, Sunworld (đắt + lạnh) |
+| Núi Hàm Rồng           | Tả Van (xa quá)                 |
+| Nhà thờ đá Sapa        | Điểm check-in nhân tạo giá cao  |
+| Quảng trường + Hồ Sapa |                                 |
+| Chợ đêm Sapa           |                                 |
 
 ### Di chuyển
 
@@ -162,7 +185,7 @@ Hãy thực hiện deep research và lập kế hoạch chi tiết cho chuyến 
 | Linh hoạt (dậy muộn, chơi khuya) | 15%      |
 | Phù hợp ngân sách                | 20%      |
 
-### Bước 4: Kế hoạch tối ưu chi tiết
+### Bước 4: Kế hoạch Dự Kiến tối ưu chi tiết
 
 **A. Lịch trình từng ngày:**
 
@@ -208,7 +231,7 @@ Hãy thực hiện deep research và lập kế hoạch chi tiết cho chuyến 
 **G. Bảng chi phí tổng hợp:**
 
 - Chi tiết từng khoản
-- Tổng cộng (phải ≤3.25 triệu)
+- Tổng cộng (phải ≤2.5 triệu)
 
 **H. Plan B khi mưa:**
 
@@ -225,7 +248,7 @@ Hãy thực hiện deep research và lập kế hoạch chi tiết cho chuyến 
 3. Đề xuất Fansipan, Tả Van, điểm check-in nhân tạo
 4. Đề xuất địa điểm/nhà hàng không còn hoạt động 2026
 5. Bỏ qua thời tiết khi lên lịch
-6. Vượt ngân sách (2.25-3.25 triệu)
+6. Vượt ngân sách (2.25-2.5 triệu)
 7. Quên: chiều 15/01 nghỉ say xe
 8. Quên: 14-15h ngày 18/01 lên xe về
 9. Quên: chợ đêm chỉ mở Thứ 6-CN (16h-22h)
@@ -237,7 +260,7 @@ Hãy thực hiện deep research và lập kế hoạch chi tiết cho chuyến 
 3. Mỗi buổi có gợi ý trang phục
 4. Tiệc sinh nhật tối 16/01 tại phòng
 5. Ngâm thuốc chiều 16/01 tại spa chất lượng
-6. Đi cả Cát Cát + Hàm Rồng ngày 17/01 (cùng route)
+6. Đi cả Hàm Rồng ngày 17/01
 7. Nhà thờ đá: đêm 15/01 + ngày 16/01
 
 ---
@@ -245,7 +268,7 @@ Hãy thực hiện deep research và lập kế hoạch chi tiết cho chuyến 
 ## CHECKLIST TRƯỚC KHI HOÀN THÀNH
 
 - [ ] Lịch trình 4 ngày chi tiết theo giờ
-- [ ] Tổng chi phí ≤3.25 triệu
+- [ ] Tổng chi phí ≤2.5 triệu
 - [ ] Nhà hàng với tên, địa chỉ, giá
 - [ ] Spa ngâm thuốc chất lượng
 - [ ] Gợi ý chụp ảnh mỗi điểm
@@ -253,4 +276,4 @@ Hãy thực hiện deep research và lập kế hoạch chi tiết cho chuyến 
 - [ ] Plan B thời tiết xấu
 - [ ] Kế hoạch sinh nhật 16/01
 - [ ] Lịch chợ đêm 17/01
-- [ ] Route Cát Cát + Hàm Rồng hiệu quả
+- [ ] Route Hàm Rồng hiệu quả

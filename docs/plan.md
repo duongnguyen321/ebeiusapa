@@ -130,25 +130,23 @@ Kế hoạch cuối cùng sẽ lấy Luồng 1 (Lãng mạn) làm nòng cốt ch
 
 * **09:00 \- 11:00: Khởi động chậm (Slow Morning)**  
   * Ngủ nướng (quyền lợi của người có sinh nhật). Ăn sáng muộn tại khách sạn (đã bao gồm). Tiết kiệm chi phí bữa trưa.  
-* **11:00 \- 13:00: Café Săn Sương mù (Indoor Chill)**  
+* **11:00 \- 12:30: Café Săn Sương mù (Indoor Chill)**  
   * **Địa điểm:** **Le Gecko Café** (02 Ngũ Chỉ Sơn \- Khu vực hồ trung tâm).9  
   * **Tại sao?** Le Gecko có kiến trúc Pháp cổ điển, không gian ấm cúng, đồ uống nóng (Cacao, Café trứng) rất ngon. Ngồi trong nhà kính nhìn ra hồ Sapa mờ sương là trải nghiệm rất thi vị mà không sợ mưa ướt.  
   * **Chi phí:** \~100.000 \- 150.000 VNĐ.  
   * **Di chuyển:** Taxi từ khách sạn ra Le Gecko (\~40k) hoặc đi bộ nếu trời chỉ mưa bay nhẹ (khoảng 500m).  
-* **13:00 \- 14:30:** Về khách sạn nghỉ trưa (Nap time). Giữ sức cho buổi chiều.
-* **14:30 \- 17:00:** Nghỉ ngơi tự do hoặc đi Café view núi (Viettrekking/Coóng) nếu hôm qua chưa đi kịp. Dành sức tối đi chợ tình. (Đã đẩy Cát Cát sang chiều hôm qua để nay được ngủ nướng).
-  * **Lưu ý thời tiết:** Dù dự báo có sương mù, nhưng thung lũng Cát Cát thấp hơn thị trấn nên thường quang hơn. Hơn nữa, chụp ảnh bản làng trong sương (moody) cũng rất đẹp.
-* **17:30 \- 19:30: Trải nghiệm Must-Do: Tắm lá thuốc Dao Đỏ (Deep Wellness)**
+* **12:30 \- 15:00:** Tiếp tục thư giãn tại Le Gecko hoặc ăn trưa nhẹ tại đây. Tận hưởng không gian chậm rãi.
+* **15:00 \- 17:00: Trải nghiệm Must-Do: Tắm lá thuốc Dao Đỏ (Deep Wellness)**
   * **Địa điểm:** **Sapa Green Hotel Spa** (02 Hoàng Liên) hoặc các cơ sở uy tín gần trung tâm.
-  * **Logic chiến lược:** Sau khi đi bộ dốc Cát Cát, đôi chân sẽ mỏi nhừ. Tắm lá thuốc ngay lúc này là "liều thuốc tiên" để phục hồi cơ bắp, chuẩn bị cho tiệc tối.
+  * **Logic chiến lược:** Tắm lá thuốc là "liều thuốc tiên" để phục hồi cơ thể, thư giãn tinh thần, chuẩn bị cho tiệc tối.
   * **Chi phí:** \~250.000 VNĐ/người.  
-* **17:30 \- 20:00: Tiệc tối Sinh nhật (The Birthday Dinner)**  
-  * **Địa điểm:** **Nhà hàng A Quỳnh** (15 Thạch Sơn).17  
-  * **Món chính:** **Lẩu Cá Tầm Sapa**.  
-  * **Tại sao là Cá Tầm?** Cá Tầm Sapa là đặc sản cao cấp, thịt trắng, dai, không có xương dăm (chỉ có sụn giòn), nấu lẩu măng chua rất hợp vị và dễ ăn, sang trọng hơn Thắng Cố cho dịp sinh nhật.18  
-  * **Tại sao là A Quỳnh?** Nhà hàng có không gian kiến trúc Tây Bắc đặc trưng (gỗ, đèn vàng ấm cúng), rộng rãi, phục vụ chuyên nghiệp và chất lượng ổn định lâu năm.20  
-  * **Chi phí:** Một nồi lẩu cá tầm cho 2 người khoảng 600.000 VNĐ \+ đồ uống. Tổng \~700.000 \- 800.000 VNĐ.  
-* **20:30 trở đi:** Trở về phòng khách sạn. Tổ chức cắt bánh, uống rượu vang trong không gian riêng tư.
+* **17:00 \- 19:00: Chợ phiên săn đồ tiệc (Shopping)**
+  * **Hoạt động:** Mua sắm đồ lưu niệm, hạt dẻ, và đồ trang trí cho tiệc sinh nhật.
+* **19:00 \- 20:00:** Chuẩn bị cho tiệc sinh nhật.
+* **20:00 trở đi: Tiệc sinh nhật (The Birthday Party)**  
+  * **Địa điểm:** Tại phòng khách sạn.  
+  * **Chi tiết:** Tiệc riêng tư với bánh kem, rượu vang, và không gian lãng mạn.
+  * **Ăn tối:** Trước đó (11:00) đã ăn Lẩu Cá Tầm hoành tráng. Buổi tối có thể ăn nhẹ tại chợ phiên hoặc gọi đồ về phòng.
 
 ### ---
 
@@ -169,7 +167,7 @@ Kế hoạch cuối cùng sẽ lấy Luồng 1 (Lãng mạn) làm nòng cốt ch
   * **Tại sao?** Đây là món Signature của quán. Gà đen bản địa chắc thịt, da giòn, sốt tiêu xanh thơm nồng, cay nhẹ, kích thích vị giác cực tốt.27  
   * **Chi phí:** \~300.000 \- 400.000 VNĐ.  
 * **13:00 - 14:30:** Về khách sạn nghỉ trưa (Nap time).
-* **14:30 - 17:00:** Dành thời gian nghỉ ngơi, café chiều hoặc mua sắm nhẹ nhàng quanh trung tâm. (Vì đã đi Cát Cát hôm qua để hôm nay ngủ nướng thoải mái).  
+* **14:30 - 17:00:** Dành thời gian nghỉ ngơi, café chiều hoặc mua sắm nhẹ nhàng quanh trung tâm. Tận hưởng buổi chiều thư thái.  
 * **18:00 \- 22:00: Chợ Đêm Sapa & Ẩm thực đường phố**  
   * **Địa điểm:** Khu vực Chợ Mới hoặc Sân Quần (Mở vào tối T6-CN).  
   * **Hoạt động:** Ăn tối bằng **Đồ nướng Sapa**. Chọn các quán vỉa hè hoặc các quán nướng ngói.  
@@ -234,10 +232,6 @@ Với điều kiện ánh sáng phức tạp (sương mù rồi lại nắng g�
   * *Đạo cụ:* Một chiếc ô trong suốt (mua tại tạp hóa Sapa \~50k) là đạo cụ thần thánh để chụp dưới mưa phùn.  
 * **Chụp tại Nhà thờ Đá:**  
   * *Góc máy:* Đừng đứng chính diện (rất đông). Hãy đi ra bên hông (phía tay trái hướng nhìn vào nhà thờ), đặt điện thoại thấp sát đất, hướng lên trời để lấy trọn tháp chuông trên nền trời mà không dính người đi đường.  
-* **Chụp tại Bản Cát Cát:**  
-  * *Góc Cầu Si:* Bạn nữ đứng giữa cầu, bạn nam đứng trên bờ cao chụp xuống (High-angle shot). Góc này lấy được cả suối, cầu và dáng người nhỏ nhắn giữa thiên nhiên.  
-  * *Pose dáng:*  
-    * *Quay lưng:* Bạn nữ quay lưng về phía camera, nhìn ra suối/núi (Che giấu sự mệt mỏi nếu có, tạo cảm giác "so deep").39  
     * *Tương tác:* Cầm vạt váy xòe, giả vờ bước đi, hoặc vuốt tóc nhẹ nhàng.
 
 ## ---
@@ -248,14 +242,14 @@ Với ngân sách hoạt động **2.250.000 \- 3.250.000 VNĐ**, đây là bả
 
 | Hạng mục | Chi tiết dự kiến | Chi phí (VNĐ) | Ghi chú |
 | :---- | :---- | :---- | :---- |
-| **Vé tham quan** | Cát Cát (150k x2) \+ Hàm Rồng (70k x2) | 440.000 | Cố định, không thể giảm |
-| **Di chuyển tại Sapa** | Taxi (Bến-KS 2 chiều: 100k) \+ Taxi đi Cát Cát/Ăn uống (\~300k) \+ Xe ôm Cát Cát chiều về (100k) | 500.000 | Ước tính an toàn (có thể dư) |
+| **Vé tham quan** | Hàm Rồng (70k x2) | 140.000 | Cát Cát đã lược bỏ |
+| **Di chuyển tại Sapa** | Taxi (Bến-KS 2 chiều: 100k) \+ Taxi Ăn uống/Cafe (\~200k) | 300.000 | Tiết kiệm hơn do không đi Cát Cát |
 | **Sinh nhật (Decor)** | Bánh kem (250k) \+ Rượu/Snack siêu thị (200k) | 450.000 | Tự mua siêu thị sẽ rẻ hơn vào bar |
 | **Spa (Tắm thuốc)** | 2 suất x 250k (Sapa Green) | 500.000 | Đáng tiền, không nên cắt giảm |
-| **Tiệc tối Sinh nhật** | Lẩu Cá Tầm \+ Đồ uống (A Quỳnh/A Phủ) | 700.000 | Bữa ăn quan trọng nhất |
+| **Tiệc tối Sinh nhật** | Lẩu Cá Tầm \+ Đồ uống (A Quỳnh/A Phủ) | 700.000 | Bữa ăn quan trọng nhất (Ăn trưa) |
 | **Ăn uống các bữa khác** | 3 bữa trưa (300k) \+ 2 bữa tối nhẹ (300k) \+ Café (150k) | 750.000 | Ăn phở, nướng xiên, cơm bình dân |
 | **Mua sắm quà** | Hạt dẻ, trâu gác bếp (Mua ít làm quà tượng trưng) | 300.000 | Tùy chọn (Optional) |
-| **TỔNG CỘNG** |  | **3.640.000** | **Vượt ngân sách \~390k** |
+| **TỔNG CỘNG** |  | **3.140.000** | **Trong ngân sách** |
 
 Điều chỉnh Chiến lược để khớp ngân sách (2.25 \- 3.25 triệu):  
 Để đưa tổng chi về mức an toàn (\~3.000.000 VNĐ), cần thực hiện các điều chỉnh sau:
@@ -273,7 +267,7 @@ Với ngân sách hoạt động **2.250.000 \- 3.250.000 VNĐ**, đây là bả
 * **Rủi ro 1: Trời mưa quá to vào ngày 17/01 (Ngày dự kiến đi Cát Cát/Hàm Rồng).**  
   * *Plan B:* Hủy đi bộ. Chuyển sang đi taxi đến **Moana Sapa** (gần trung tâm). Đây là khu check-in nhân tạo nhưng có mái che, đường đi lát bê tông sạch sẽ, có tượng cô gái Moana và hồ vô cực, chụp ảnh vẫn đẹp mà không bị bẩn giày. Hoặc dành thời gian tại **Sun Plaza** (Trung tâm thương mại, kiến trúc đẹp, trong nhà).  
 * **Rủi ro 2: Bạn gái bị tái phát say xe/mệt mỏi.**  
-  * *Plan B:* Cắt bỏ hoàn toàn lịch trình Cát Cát (vì đi bộ nhiều). Chuyển sang phương án "Café hopping". Thuê taxi chở đến quán café **Viettrekking** hoặc **Coóng Coffee**, ngồi một chỗ ngắm mây và thung lũng. Gọi đồ ăn về phòng khách sạn qua các app hoặc nhờ lễ tân đặt giúp (Dịch vụ ship đồ ăn tại Sapa rất phát triển).  
+  * *Plan B:* Gọi đồ ăn về phòng khách sạn qua các app hoặc nhờ lễ tân đặt giúp (Dịch vụ ship đồ ăn tại Sapa rất phát triển).  
 * **Rủi ro 3: Hết tiền mặt (Cash Flow).**  
   * *Lưu ý:* Nhiều quán nướng vỉa hè, xe ôm, vé tham quan có thể yêu cầu tiền mặt. Sapa có nhiều cây ATM tập trung ở đường **Ngũ Chỉ Sơn** và **Cầu Mây**.40 Hãy rút sẵn khoảng 2 triệu tiền mặt khi đến nơi.
 

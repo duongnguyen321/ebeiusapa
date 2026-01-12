@@ -5,7 +5,8 @@ import { toast } from "sonner";
 // '2026-01-15T00:00:00' works clearly.
 export const UNLOCK_DATE = new Date('2026-01-15T00:00:00+07:00'); // Assuming +07:00 timezone based on user context or local time
 
-export const isRestricted = (): boolean => {
+export const isRestricted = (): boolean => {  
+  if (process.env.NODE_ENV === 'development') return false;
   const now = new Date();
   return now < UNLOCK_DATE;
 };

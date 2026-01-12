@@ -72,10 +72,6 @@ export function BudgetRoleSelector() {
 					</div>
 				</motion.button>
 			</div>
-
-			<p className='text-center text-xs text-white/40 mt-4'>
-				💡 Tip: "Anh" sẽ có sẵn danh sách chi phí theo kế hoạch
-			</p>
 		</div>
 	);
 }

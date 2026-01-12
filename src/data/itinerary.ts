@@ -226,10 +226,10 @@ export const itinerary: DaySchedule[] = [
 				isHighlight: true,
 			},
 			{
-				time: '12:30 - 13:30',
+				time: '12:30 - 15:00',
 				title: 'Le Gecko Café - Góc Paris tình tứ ☕',
 				description:
-					'Ngồi ban công ngắm phố, anh ngắm em uống Cacao nóng. Nghỉ chân, tiêu hóa trước khi đi bản.',
+					'Ngồi ban công ngắm phố, anh ngắm em uống Cacao nóng. Thời gian thảnh thơi để tâm tình và tận hưởng không khí Sapa.',
 				address: '02 Ngũ Chỉ Sơn',
 				hotline: '0214 387 1224',
 				photoTips: {
@@ -241,29 +241,10 @@ export const itinerary: DaySchedule[] = [
 				isHighlight: true,
 			},
 			{
-				time: '13:30 - 16:00',
-				title: 'Lạc bước Cát Cát 🏔️',
-				description:
-					'Em hóa thân thành cô gái bản, anh làm chàng trai si tình đi theo chụp ảnh. Chiều hửng nắng ấm (14-17°C), khung cảnh đẹp nhất!',
-				distance: '2km (Đi Taxi xuống cổng bản)',
-				transport: 'Taxi chiều đi - Xe ôm chiều về (Không đi bộ ngược dốc)',
-				photoTips: {
-					angle: 'Góc trên cao chụp xuống (High-angle) tại cầu Si',
-					pose: 'Quay lưng nhìn suối (Deep), tay cầm vạt váy xòe',
-					tips: "Thuê trang phục dân tộc H'mông/Dao tại cổng bản",
-				},
-				warnings: [
-					'Tuyệt đối không đi bộ ngược lên dốc (Rất mệt)',
-					'Thuê xe ôm ngay bãi xe cuối bản để về',
-				],
-				type: 'activity',
-				isHighlight: true,
-			},
-			{
-				time: '16:00 - 17:30',
+				time: '15:00 - 17:00',
 				title: 'Thư giãn cùng thảo dược 🌿',
 				description:
-					'Tắm lá thuốc Dao Đỏ, ngâm mình cho da dẻ hồng hào sau khi leo bản. Thơm tho để anh hít hà.',
+					'Tắm lá thuốc Dao Đỏ, ngâm mình cho da dẻ hồng hào. Thơm tho để anh hít hà.',
 				address: '02 Hoàng Liên',
 				hotline: '0214 387 2222',
 				warnings: [
@@ -274,7 +255,7 @@ export const itinerary: DaySchedule[] = [
 				isHighlight: true,
 			},
 			{
-				time: '17:30 - 19:30',
+				time: '17:00 - 19:00',
 				title: 'Chợ phiên săn đồ tiệc 🛒',
 				description:
 					'Len lỏi chợ đêm mua hạt dẻ nóng, quà sinh nhật, và đồ tổ chức tiệc tại phòng. Cùng nhau chọn bánh kem nhé!',
