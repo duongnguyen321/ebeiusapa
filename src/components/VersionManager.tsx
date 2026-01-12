@@ -7,14 +7,12 @@ const VersionManager = () => {
 			if (process.env.NODE_ENV === 'development') return;
 
 			try {
-				const response = await fetch(
-					`https://raw.githubusercontent.com/duongnguyen321/ebeiusapa/refs/heads/main/package.json?t=${Date.now()}`
-				);
+				const response = await fetch(`/version.json?t=${Date.now()}`);
 				
 				if (!response.ok) return;
 
-				const remotePackageJson = await response.json();
-				const remoteVersion = remotePackageJson.version;
+				const remoteConfig = await response.json();
+				const remoteVersion = remoteConfig.version;
 				const localVersion = __APP_VERSION__;
 
 				console.log(`[Version Check] Local: ${localVersion} | Remote: ${remoteVersion}`);

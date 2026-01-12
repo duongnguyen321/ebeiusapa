@@ -36,6 +36,20 @@ const injectEasterEggPrefetch = () => {
 	};
 };
 
+// Plugin to generate version.json file
+const generateVersionFile = () => {
+	return {
+		name: 'generate-version-file',
+		writeBundle() {
+			const versionFile = path.resolve(__dirname, 'dist/version.json');
+			fs.writeFileSync(
+				versionFile,
+				JSON.stringify({ version: packageJson.version })
+			);
+		},
+	};
+};
+
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
 	server: {
@@ -49,6 +63,7 @@ export default defineConfig(({ mode }) => ({
 		react(),
 		mode === 'development' && componentTagger(),
 		injectEasterEggPrefetch(),
+		generateVersionFile(),
 		VitePWA({
 			registerType: 'autoUpdate',
 			includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
@@ -83,6 +98,7 @@ export default defineConfig(({ mode }) => ({
 			},
 			workbox: {
 				globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
+				globIgnores: ['**/version.json'],
 				runtimeCaching: [
 					{
 						urlPattern: /\/images\/easter-eggs\/.*/i,
