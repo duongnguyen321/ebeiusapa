@@ -89,7 +89,7 @@ export const memoryCapsules: MemoryCapsuleData[] = [
 			'/images/easter-eggs/we-are-foot-skinship-at-our-company.JPG',
 			'/images/easter-eggs/we-are-foot-skinship-at-our-compay-again.JPG',
 			'/images/easter-eggs/take-a-photo-you-use-my-cloth-and-my-short-at-our-company.jpeg',
-			'/images/easter-eggs/secretly-taking photos-our-company..jpeg',
+			'/images/easter-eggs/secretly-taking-photos-our-company.jpeg',
 		],
 	},
 	{
@@ -101,7 +101,7 @@ export const memoryCapsules: MemoryCapsuleData[] = [
 		images: [
 			'/images/easter-eggs/third-times-go-to-PUKU-cafe.JPG',
 			'/images/easter-eggs/fourth-time-go-to-PUKU-cafe-and-eat-pizza-and-im-working-on-my-macbook.JPG',
-			'/images/easter-eggs/your-old-poor-iphone-and first-time-hangout-with-you-late-night-at-PUKU-cafe.JPG',
+			'/images/easter-eggs/your-old-poor-iphone-and-first-time-hangout-with-you-late-night-at-PUKU-cafe.JPG',
 			'/images/easter-eggs/the-secconds-time-go-to-puku-cafe-again.jpg',
 			'/images/easter-eggs/first-time-we-go-to-bar-together-2.jpeg',
 			'/images/easter-eggs/first-time-we-are-go-to-bar-together.jpeg',
