@@ -7,7 +7,9 @@ import {
 	Gamepad2,
 	Smile,
 	Ticket,
+	BookHeart,
 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 interface BottomNavbarProps {
 	onEmergency: () => void;
@@ -36,7 +38,17 @@ const BottomNavbar = ({
 	showMoodActive = false,
 	showWalletActive = false,
 }: BottomNavbarProps) => {
+	const navigate = useNavigate();
 	const navItems = [
+		{
+			id: 'passport',
+			icon: BookHeart,
+			label: 'Passport',
+			onClick: () => navigate('/passport'),
+			color: 'text-amber-400',
+			hoverBg: 'hover:bg-amber-500/20',
+			isSpecial: true,
+		},
 		{
 			id: 'letters',
 			icon: Heart,
