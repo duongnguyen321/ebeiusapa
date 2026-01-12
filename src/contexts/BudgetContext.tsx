@@ -60,126 +60,8 @@ interface BudgetContextType {
 const STORAGE_KEY = "sapa_budget_v1";
 const MAX_BUDGET = 6_377_500; // 6.377.500 VNĐ
 
-// Pre-defined items for "Anh" role based on plan.md
-const anhDefaultItems: Omit<BudgetItem, "id" | "createdAt">[] = [
-  {
-    title: "Sapa House Hotel (3 Đêm)",
-    category: "stay",
-    estimatedAmount: 1_743_250,
-    actualAmount: 0,
-    isPaid: true,
-    isActive: true,
-    day: 0,
-  },
-  {
-    title: "Xe Hanoi - Sapa (Khứ hồi)",
-    category: "transport",
-    estimatedAmount: 1_500_000,
-    actualAmount: 0,
-    isPaid: true,
-    isActive: true,
-    day: 0,
-  },
-  {
-    title: "Taxi về khách sạn (Ngày 1)",
-    category: "transport",
-    estimatedAmount: 50_000,
-    actualAmount: 0,
-    isPaid: false,
-    isActive: true,
-    day: 1,
-  },
-  {
-    title: "Ăn tối: Cốn Sủi Ông Há",
-    category: "food",
-    estimatedAmount: 100_000,
-    actualAmount: 0,
-    isPaid: false,
-    isActive: true,
-    day: 1,
-  },
-  {
-    title: "Brunch: Lẩu Cá Tầm (A Quỳnh)",
-    category: "food",
-    estimatedAmount: 700_000,
-    actualAmount: 0,
-    isPaid: false,
-    isActive: true,
-    day: 2,
-  },
-  {
-    title: "Cafe Le Gecko",
-    category: "food",
-    estimatedAmount: 150_000,
-    actualAmount: 0,
-    isPaid: false,
-    isActive: true,
-    day: 2,
-  },
-  {
-    title: "Spa Tắm lá thuốc (x2)",
-    category: "other",
-    estimatedAmount: 500_000,
-    actualAmount: 0,
-    isPaid: false,
-    isActive: true,
-    day: 2,
-  },
-  {
-    title: "Mua sắm: Đồ tiệc & Quà",
-    category: "shopping",
-    estimatedAmount: 450_000,
-    actualAmount: 0,
-    isPaid: false,
-    isActive: true,
-    day: 2,
-  },
-  {
-    title: "Vé Hàm Rồng (x2)",
-    category: "ticket",
-    estimatedAmount: 140_000,
-    actualAmount: 0,
-    isPaid: false,
-    isActive: true,
-    day: 3,
-  },
-  {
-    title: "Trưa: Gà nướng Tiêu xanh",
-    category: "food",
-    estimatedAmount: 400_000,
-    actualAmount: 0,
-    isPaid: false,
-    isActive: true,
-    day: 3,
-  },
-  {
-    title: "Ăn vặt / Chợ đêm",
-    category: "food",
-    estimatedAmount: 300_000,
-    actualAmount: 0,
-    isPaid: false,
-    isActive: true,
-    day: 3,
-  },
-  {
-    title: "Cafe Viettrekking",
-    category: "food",
-    estimatedAmount: 150_000,
-    actualAmount: 0,
-    isPaid: false,
-    isActive: true,
-    day: 4,
-  },
-  {
-    title: "Taxi ra bến xe",
-    category: "transport",
-    estimatedAmount: 50_000,
-    actualAmount: 0,
-    isPaid: false,
-    isActive: true,
-    day: 4,
-  },
-];
+// Pre-defined items for "Anh" role - Imported from data
+import { anhDefaultItems } from "@/data/budget";
 
 const defaultState: BudgetState = {
   role: null,
@@ -221,10 +103,17 @@ export function BudgetProvider({ children }: { children: ReactNode }) {
             }))
           : prev.items;
 
+      // Initialize maxBudget based on role
+      // Anh: See full trip budget
+      // Em: Start with 0 budget (User request)
+      const maxBudget =
+        role === "em" ? 0 : role === "anh" ? MAX_BUDGET : prev.maxBudget;
+
       return {
         ...prev,
         role,
         items,
+        maxBudget,
       };
     });
   }, []);

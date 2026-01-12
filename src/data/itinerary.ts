@@ -72,9 +72,9 @@ export interface TripInfo {
 
 export const tripInfo: TripInfo = {
 	hotel: {
-		name: 'Sapa House Hotel',
-		address: '03A Thác Bạc, TT. Sapa',
-		phone: ' 0983 994 867',
+		name: 'Chill With Home Sapa',
+		address: '22 Cát Cát, thị trấn Sapa',
+		phone: '0983 994 867',
 		checkIn: '14:00 ngày 15/01',
 		checkOut: '12:00 ngày 18/01',
 		includes: [
@@ -120,8 +120,8 @@ export const itinerary: DaySchedule[] = [
 		],
 		weather: {
 			icon: '🌧️',
-			description: 'Mưa phùn, sương mù đậm đặc. Độ ẩm >90%, tầm nhìn <50m.',
-			temp: '11-15°C',
+			description: 'Một hai cơn mưa rào ngắn. Cảm giác se lạnh.',
+			temp: '14°C',
 		},
 		outfit:
 			'Ưu tiên màu Đỏ, Cam đất hoặc Trắng kem để nổi bật trong sương (Tránh màu ghi/xám). Mang theo ô trong suốt.',
@@ -134,7 +134,7 @@ export const itinerary: DaySchedule[] = [
 				title: 'Về chốn bình yên',
 				description:
 					'Nhận phòng, khép cửa lại, để sương gió ở ngoài, chỉ còn hơi ấm đôi mình.',
-				address: '03A Thác Bạc, TT. Sapa',
+				address: '22 Cát Cát, thị trấn Sapa',
 				note: 'Căn phòng này sẽ lưu giữ những khoảnh khắc ngọt ngào nhất',
 				type: 'transport',
 			},
@@ -195,8 +195,8 @@ export const itinerary: DaySchedule[] = [
 		],
 		weather: {
 			icon: '⛅',
-			description: 'Có mưa phùn nhẹ và sương mù. Trời lạnh ẩm.',
-			temp: '12-17°C',
+			description: 'Mây và nắng đan xen. Thời tiết dễ chịu.',
+			temp: '15°C',
 		},
 		outfit:
 			'Trang phục ấm áp, thoải mái. Mang theo váy xinh để thay cho bữa tiệc tối (Khoác thêm áo ấm bên ngoài).',
@@ -288,9 +288,9 @@ export const itinerary: DaySchedule[] = [
 			'Hòa mình vào chợ tình (để thấy đôi mình là tâm điểm)',
 		],
 		weather: {
-			icon: '☀️',
-			description: 'Trời hửng nắng, mây tan. Ánh sáng đẹp nhất chuyến đi.',
-			temp: '11-18°C',
+			icon: '🌦️',
+			description: 'Hửng nắng, có thể có mưa rào nhẹ một chút. Ánh sáng đẹp.',
+			temp: '17°C',
 		},
 		outfit:
 			'Tone màu sáng: Trắng, Đỏ, Vàng để nổi bật trên nền xanh. Giày đế mềm/thể thao để tiện đi bộ.',
@@ -374,9 +374,9 @@ export const itinerary: DaySchedule[] = [
 			'Hẹn ngày trở lại khám phá tiếp',
 		],
 		weather: {
-			icon: '🌤️',
-			description: 'Hửng nắng, có thể có biển mây vào sáng sớm.',
-			temp: '10-16°C',
+			icon: '☀️',
+			description: 'Nhiều nắng, trời trong xanh. Rất thích hợp để ngắm cảnh.',
+			temp: '15°C',
 		},
 		outfit: 'Trang phục thoải mái, dễ chịu để di chuyển đường dài.',
 		warnings: ['Kiểm tra kỹ hành lý, đừng để quên đồ nhé'],
@@ -409,7 +409,7 @@ export const itinerary: DaySchedule[] = [
 				title: 'Tạm biệt căn phòng nhỏ',
 				description:
 					'Trả phòng thôi. Cảm ơn nơi này đã lưu giữ kỷ niệm đẹp của chúng mình.',
-				address: 'Sapa House Hotel',
+				address: 'Chill With Home Sapa',
 				type: 'transport',
 			},
 			{

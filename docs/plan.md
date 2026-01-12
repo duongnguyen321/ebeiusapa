@@ -20,25 +20,25 @@ Việc thấu hiểu sâu sắc đối tượng tham gia là tiền đề cho m�
    * Mức chi tiêu bình quân: \~560.000 \- 800.000 VNĐ/ngày cho cả cặp đôi.  
    * **Đánh giá:** Đây là mức ngân sách "Trung bình \- Tiết kiệm" (Mid-range/Budget). Với chi phí ăn uống tại Sapa ngày càng tăng (Lẩu cá tầm trung bình 500k-600k/nồi), áp lực tài chính là có thực. Chiến lược tài chính sẽ phải áp dụng mô hình "High-Low": Chi mạnh tay cho đúng 01 bữa tiệc sinh nhật và dịch vụ Spa chất lượng, và thực hiện tiết kiệm tối đa ở các bữa ăn phụ (sáng/trưa) và tối ưu hóa phương tiện di chuyển.
 
-### **1.2. Phân tích Vị trí Địa lý: Lợi thế chiến lược của Sapa House Hotel**
+### **1.2. Phân tích Vị trí Địa lý: Lợi thế chiến lược của Chill With Home Sapa**
 
-Khách sạn Sapa House (03A Thác Bạc) sở hữu một vị trí chiến lược giúp giải quyết bài toán "hạn chế đi bộ":
+Khách sạn Chill With Home Sapa (22 Cát Cát) sở hữu một vị trí nằm ngay trong bản Cát Cát, mang lại trải nghiệm sống giữa thiên nhiên nhưng cũng đặt ra bài toán về di chuyển:
 
-* **Khoảng cách đến Nhà thờ Đá và Quảng trường:** Theo dữ liệu đo đạc, khoảng cách chỉ dao động từ **150m đến 320m**.1 Đây là khoảng cách lý tưởng, nằm hoàn toàn trong "vùng an toàn" của quy tắc 1km. Du khách có thể đi bộ nhẹ nhàng ra trung tâm trong 5-7 phút mà không tốn sức.  
-* **Tiếp cận tiện ích:** Vị trí này gần các siêu thị tiện ích như Siêu thị Xuân Trường (46 Ngũ Chỉ Sơn \- cách khoảng 500m) 4 và các nhà hàng trên đường Thác Bạc, giúp việc mua sắm đồ sinh nhật và ăn uống trở nên thuận tiện.
+* **Khoảng cách:** Cách quảng trường/Nhà thờ đá khoảng 1km. Tuy nhiên, đây là 1km đường dốc.
+* **Chiến lược di chuyển:** Tuyệt đối không đi bộ ngược dốc từ khách sạn lên trung tâm để giữ sức. Luôn sử dụng Taxi (chiều đi) và Xe ôm/Taxi (chiều về).
+* **Tiếp cận tiện ích:** Xa các siêu thị lớn ở trung tâm, cần mua sắm đầy đủ (nước, đồ ăn vặt) khi ở trên thị trấn trước khi về phòng.
 
 ### **1.3. Phân tích Khí tượng học và Tác động đến Lịch trình**
 
 Dự báo thời tiết cho giai đoạn 15/01 \- 18/01/2026 cho thấy sự phân hóa rõ rệt thành hai hình thái, quyết định trực tiếp đến cấu trúc lịch trình:
 
-* **Giai đoạn 1 (15-16/01): Mưa phùn, Sương mù đậm đặc.**  
-  * *Đặc điểm:* Độ ẩm \>90%, tầm nhìn xa \<50m, nhiệt độ cảm nhận (RealFeel) thấp hơn thực tế do gió và ẩm.  
-  * *Tác động:* Các hoạt động ngắm cảnh trên cao (Hàm Rồng) hay thung lũng (Cát Cát) sẽ **vô hiệu hóa** về mặt thị giác (không thấy gì ngoài sương mù). Chụp ảnh ngoại cảnh sẽ khó khăn.  
-  * *Chiến lược:* Chuyển sang mô hình **"Du lịch nghỉ dưỡng & Chăm sóc sức khỏe" (Wellness & Retreat)**. Tập trung vào Spa, tắm lá thuốc, café không gian ấm cúng (indoor), và ẩm thực nóng hổi.  
-* **Giai đoạn 2 (17-18/01): Hửng nắng.**  
-  * *Đặc điểm:* Mây tan, trời trong xanh, có thể có biển mây vào sáng sớm. Ánh sáng tự nhiên tốt.  
-  * *Tác động:* Đây là "cửa sổ vàng" duy nhất để thực hiện các hoạt động tham quan (Sightseeing).  
-  * *Chiến lược:* Dồn toàn bộ các điểm tham quan trọng điểm (Key Visual Sites) như Hàm Rồng và Bản Cát Cát vào giai đoạn này.
+* **Giai đoạn 1 (15-16/01): Mưa rào nhẹ & Mây nắng.**  
+  * *Đặc điểm:* Ngày 15 có một hai cơn mưa rào ngắn (14°C). Ngày 16 trời mây và nắng (15°C).
+  * *Tác động:* Thời tiết khá thuận lợi hơn dự báo trước đó. Không quá mù mịt.
+  * *Chiến lược:* Vẫn duy trì nghỉ ngơi ngày đầu. Ngày sinh nhật 16/01 có nắng nhẹ rất đẹp để chụp ảnh tại Cafe và đi dạo.
+* **Giai đoạn 2 (17-18/01): Hửng nắng đẹp.**  
+  * *Đặc điểm:* Ngày 17 hửng nắng (có thể mưa nhẹ), 17°C. Ngày 18 nhiều nắng, 15°C.
+  * *Chiến lược:* 17/01 vẫn là ngày đẹp nhất để đi Hàm Rồng như kế hoạch.
 
 ## ---
 
@@ -104,9 +104,9 @@ Kế hoạch cuối cùng sẽ lấy Luồng 1 (Lãng mạn) làm nòng cốt ch
 
 * **14:00 \- 14:30: Di chuyển về "Căn cứ địa"**  
   * Xe Hà Sơn Hải Vân đến bến (thường là bến xe mới hoặc văn phòng 573 Điện Biên Phủ).  
-  * **Hành động:** Gọi taxi ngay lập tức để về Sapa House Hotel (03A Thác Bạc).  
-  * *Chi phí taxi:* \~40.000 \- 50.000 VNĐ.5 Tuyệt đối không đi bộ dù quãng đường ngắn để tránh xách hành lý nặng gây mệt.  
-  * **Check-in:** Nhận phòng, kiểm tra máy sưởi/đệm điện. Đây là yếu tố sống còn vì ngày này trời mưa lạnh.  
+  * **Hành động:** Gọi taxi ngay lập tức để về Chill With Home Sapa (22 Cát Cát).  
+  * *Chi phí taxi:* \~60.000 \- 80.000 VNĐ (xa hơn Sapa House).  
+  * **Check-in:** Nhận phòng. Do phòng nằm trong bản Cát Cát nên rất yên tĩnh.  
 * **14:30 \- 18:30: Phục hồi Thụ động (Deep Rest)**  
   * **Hoạt động:** Ngủ. Đây là yêu cầu bắt buộc để bạn gái hồi phục tiền đình sau cơn say xe. Không cố đi chơi sớm.  
   * *Mẹo nhỏ:* Uống một cốc trà gừng nóng (xin lễ tân hoặc tự pha) để làm ấm bụng.  
@@ -243,13 +243,12 @@ Với ngân sách hoạt động **2.250.000 \- 3.250.000 VNĐ**, đây là bả
 | Hạng mục | Chi tiết dự kiến | Chi phí (VNĐ) | Ghi chú |
 | :---- | :---- | :---- | :---- |
 | **Vé tham quan** | Hàm Rồng (70k x2) | 140.000 | Cát Cát đã lược bỏ |
-| **Di chuyển tại Sapa** | Taxi (Bến-KS 2 chiều: 100k) \+ Taxi Ăn uống/Cafe (\~200k) | 300.000 | Tiết kiệm hơn do không đi Cát Cát |
-| **Sinh nhật (Decor)** | Bánh kem (250k) \+ Rượu/Snack siêu thị (200k) | 450.000 | Tự mua siêu thị sẽ rẻ hơn vào bar |
-| **Spa (Tắm thuốc)** | 2 suất x 250k (Sapa Green) | 500.000 | Đáng tiền, không nên cắt giảm |
-| **Tiệc tối Sinh nhật** | Lẩu Cá Tầm \+ Đồ uống (A Quỳnh/A Phủ) | 700.000 | Bữa ăn quan trọng nhất (Ăn trưa) |
-| **Ăn uống các bữa khác** | 3 bữa trưa (300k) \+ 2 bữa tối nhẹ (300k) \+ Café (150k) | 750.000 | Ăn phở, nướng xiên, cơm bình dân |
-| **Mua sắm quà** | Hạt dẻ, trâu gác bếp (Mua ít làm quà tượng trưng) | 300.000 | Tùy chọn (Optional) |
-| **TỔNG CỘNG** |  | **3.140.000** | **Trong ngân sách** |
+| **Di chuyển tại Sapa** | Taxi (Bến-KS 2 chiều + Di chuyển ăn uống) | 400.000 | Tăng chi phí taxi do ở Cát Cát (xa trung tâm) |
+| **Sinh nhật (Decor)** | Bánh kem (200k) \+ Rượu/Snack siêu thị (150k) | 350.000 | Tối ưu chi phí decor |
+| **Spa (Tắm thuốc)** | 2 suất x 200k (Relax Spa) | 400.000 | Chọn Spa tầm trung chất lượng ổn |
+| **Tiệc sinh nhật (Trưa)** | Lẩu Cá Tầm (A Quỳnh/A Phủ) | 600.000 | Chọn set vừa phải |
+| **Ăn uống các bữa khác** | Trưa/Tối nhẹ + Cafe | 600.000 | Ăn bình dân ngon bổ rẻ |
+| **TỔNG CỘNG** |  | **2.490.000** | **Đạt mục tiêu < 2.5 Triệu** |
 
 Điều chỉnh Chiến lược để khớp ngân sách (2.25 \- 3.25 triệu):  
 Để đưa tổng chi về mức an toàn (\~3.000.000 VNĐ), cần thực hiện các điều chỉnh sau:
