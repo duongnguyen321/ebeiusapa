@@ -6,7 +6,6 @@ import GamePlayPage from "@/pages/GamePlayPage";
 import PassportPage from "@/pages/PassportPage";
 import NotFound from "@/pages/NotFound";
 import LiquidGlassFilters from "@/components/LiquidGlassFilters";
-import VersionManager from "@/components/VersionManager";
 import { useImagePrefetch } from "./hooks/useImagePrefetch";
 import { isRestricted } from "@/utils/restriction";
 
@@ -32,7 +31,6 @@ const App = () => {
           }
         }}
       />
-      <VersionManager />
       <LiquidGlassFilters />
       <BrowserRouter>
         <Routes>

@@ -4,6 +4,7 @@ import { BirthdayCelebration } from '@/components/BirthdayCelebration';
 import { SurpriseProvider } from '@/contexts/SurpriseContext';
 import { TripProvider } from '@/contexts/TripContext';
 import { EasterEggProvider } from '@/contexts/EasterEggContext';
+import { VersionProvider } from '@/contexts/VersionContext';
 import { AnimatedOutlet } from '@/components/AnimatedOutlet';
 import EasterEggLayer from '@/components/EasterEggLayer';
 import { NotificationManager } from '@/components/NotificationManager';
@@ -11,8 +12,9 @@ import { NotificationManager } from '@/components/NotificationManager';
 export default function RootLayout() {
 	return (
 		<TripProvider>
-			<SurpriseProvider>
-				<EasterEggProvider>
+			<VersionProvider>
+				<SurpriseProvider>
+					<EasterEggProvider>
 					<div className={cn('min-h-screen overflow-x-hidden relative bg-slate-900 text-white')}>
 						<NotificationManager />
 						<NoiseBackground />
@@ -28,6 +30,7 @@ export default function RootLayout() {
 					</div>
 				</EasterEggProvider>
 			</SurpriseProvider>
+			</VersionProvider>
 		</TripProvider>
 	);
 }

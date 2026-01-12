@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import { motion, useMotionValue, useTransform } from "framer-motion";
 import { ChevronRight } from "lucide-react";
+import { useVersion } from "@/contexts/VersionContext";
 
 interface SlideToUnlockProps {
   onUnlock: () => void;
@@ -10,20 +11,8 @@ const SlideToUnlock = ({ onUnlock }: SlideToUnlockProps) => {
   const constraintsRef = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const [maxDrag, setMaxDrag] = useState(340);
-  const [version, setVersion] = useState({
-    local: __APP_VERSION__,
-    remote: "",
-  });
-  useEffect(() => {
-    const fetchVersion = async () => {
-      const response = await fetch(`/version.json?t=${Date.now()}`);
-      if (!response.ok) return;
-      const remoteConfig = await response.json();
-      const remoteVersion = remoteConfig.version;
-      setVersion({ local: __APP_VERSION__, remote: remoteVersion });
-    };
-    fetchVersion();
-  }, []);
+  const { localVersion, remoteVersion } = useVersion();
+
   // Calculate max drag based on actual container width
   useEffect(() => {
     const updateMaxDrag = () => {
@@ -116,7 +105,7 @@ const SlideToUnlock = ({ onUnlock }: SlideToUnlockProps) => {
           }}
         />
         <div className="absolute right-0 left-0 top-0 bottom-0 flex items-end justify-center">
-			<span className="text-xs opacity-20">{version.local}{version.remote && ` (${version.remote})`}</span>
+			<span className="text-xs opacity-20">{localVersion}{remoteVersion && ` (${remoteVersion})`}</span>
 		</div>
       </motion.div>
 
