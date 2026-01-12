@@ -1,12 +1,98 @@
 import { motion, AnimatePresence, PanInfo } from 'framer-motion';
-import { X, ChevronLeft, ChevronRight } from 'lucide-react';
-import { useState, useCallback } from 'react';
+import { X, ChevronLeft, ChevronRight, Loader2 } from 'lucide-react';
+import { useState, useCallback, forwardRef } from 'react';
 import { createPortal } from 'react-dom';
+import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 import { moodData, type MoodOption } from '@/data/easterEggs';
 
 interface MoodStationProps {
 	onClose?: () => void;
 }
+
+// Inner component for Zoom + Loading + Slide
+const MoodImage = forwardRef<
+	HTMLDivElement,
+	{
+		src: string;
+		direction: number;
+		onDragEnd: (
+			event: MouseEvent | TouchEvent | PointerEvent,
+			info: PanInfo
+		) => void;
+	}
+>(({ src, direction, onDragEnd }, ref) => {
+	const [isLoading, setIsLoading] = useState(true);
+
+	const slideVariants = {
+		enter: (dir: number) => ({
+			x: dir > 0 ? '100%' : '-100%',
+			opacity: 0,
+		}),
+		center: {
+			x: 0,
+			opacity: 1,
+		},
+		exit: (dir: number) => ({
+			x: dir < 0 ? '100%' : '-100%',
+			opacity: 0,
+		}),
+	};
+
+	return (
+		<motion.div
+			ref={ref}
+			custom={direction}
+			variants={slideVariants}
+			initial='enter'
+			animate='center'
+			exit='exit'
+			transition={{
+				x: { type: 'spring', stiffness: 300, damping: 30 },
+				opacity: { duration: 0.15 },
+			}}
+			drag='x'
+			dragConstraints={{ left: 0, right: 0 }}
+			dragElastic={0.2}
+			onDragEnd={onDragEnd}
+			className='absolute inset-0 w-full h-full flex items-center justify-center'
+		>
+			{isLoading && (
+				<div className='absolute inset-0 flex items-center justify-center bg-white/5 animate-pulse rounded-lg'>
+					<Loader2 className='w-8 h-8 text-white/30 animate-spin' />
+				</div>
+			)}
+
+			<TransformWrapper
+				initialScale={1}
+				minScale={1}
+				maxScale={4}
+				centerOnInit
+				wheel={{ disabled: true }}
+				doubleClick={{ disabled: false, mode: 'reset' }}
+			>
+				{/* @ts-ignore */}
+				{({ zoomIn, resetTransform }: any) => (
+					<TransformComponent
+						wrapperClass='!w-full !h-full'
+						contentClass='!w-full !h-full flex items-center justify-center'
+					>
+						<img
+							src={src}
+							alt='Mood response'
+							onLoad={() => setIsLoading(false)}
+							className={`max-w-full max-h-full object-contain rounded-2xl shadow-2xl cursor-grab active:cursor-grabbing transition-opacity duration-300 ${
+								isLoading ? 'opacity-0' : 'opacity-100'
+							}`}
+							draggable={false}
+						/>
+					</TransformComponent>
+				)}
+			</TransformWrapper>
+		</motion.div>
+	);
+});
+
+MoodImage.displayName = 'MoodImage';
 
 export default function MoodStation({ onClose }: MoodStationProps) {
 	const [selectedMood, setSelectedMood] = useState<MoodOption | null>(null);
@@ -55,21 +141,6 @@ export default function MoodStation({ onClose }: MoodStationProps) {
 		},
 		[goNext, goPrev]
 	);
-
-	const slideVariants = {
-		enter: (dir: number) => ({
-			x: dir > 0 ? 300 : -300,
-			opacity: 0,
-		}),
-		center: {
-			x: 0,
-			opacity: 1,
-		},
-		exit: (dir: number) => ({
-			x: dir < 0 ? 300 : -300,
-			opacity: 0,
-		}),
-	};
 
 	return (
 		<>
@@ -184,26 +255,13 @@ export default function MoodStation({ onClose }: MoodStationProps) {
 										<AnimatePresence
 											initial={false}
 											custom={direction}
-											mode='popLayout'
+											mode='wait'
 										>
-											<motion.img
+											<MoodImage
 												key={currentImageIndex}
 												src={selectedMood.response.images[currentImageIndex]}
-												alt='Mood response'
-												custom={direction}
-												variants={slideVariants}
-												initial='enter'
-												animate='center'
-												exit='exit'
-												transition={{
-													x: { type: 'spring', stiffness: 300, damping: 30 },
-													opacity: { duration: 0.15 },
-												}}
-												drag='x'
-												dragConstraints={{ left: 0, right: 0 }}
-												dragElastic={0.2}
+												direction={direction}
 												onDragEnd={handleDragEnd}
-												className='absolute inset-0 m-auto max-w-full max-h-full object-contain rounded-2xl shadow-2xl cursor-grab active:cursor-grabbing touch-pan-y'
 											/>
 										</AnimatePresence>
 
@@ -212,13 +270,13 @@ export default function MoodStation({ onClose }: MoodStationProps) {
 											<>
 												<button
 													onClick={goPrev}
-													className='absolute left-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center transition-colors border border-white/10'
+													className='absolute left-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center transition-colors border border-white/10 z-10'
 												>
 													<ChevronLeft className='w-6 h-6 text-white' />
 												</button>
 												<button
 													onClick={goNext}
-													className='absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center transition-colors border border-white/10'
+													className='absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center transition-colors border border-white/10 z-10'
 												>
 													<ChevronRight className='w-6 h-6 text-white' />
 												</button>

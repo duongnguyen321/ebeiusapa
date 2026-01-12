@@ -1,12 +1,133 @@
 import { motion, AnimatePresence, PanInfo } from 'framer-motion';
-import { X, ChevronLeft, ChevronRight } from 'lucide-react';
-import { useState, useCallback } from 'react';
+import { X, ChevronLeft, ChevronRight, Loader2 } from 'lucide-react';
+import { useState, useCallback, forwardRef } from 'react';
+import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 import { funnyMoments, type FunnyMomentData } from '@/data/easterEggs';
 
 interface FunnyModalProps {
 	funny: FunnyMomentData;
 	onClose: () => void;
 }
+
+// Inner component for Zoom + Loading + Slide
+const FunnyModalImage = forwardRef<
+	HTMLDivElement,
+	{
+		funny: FunnyMomentData;
+		direction: number;
+		onDragEnd: (
+			event: MouseEvent | TouchEvent | PointerEvent,
+			info: PanInfo
+		) => void;
+		index: number;
+		total: number;
+	}
+>(({ funny, direction, onDragEnd, index, total }, ref) => {
+	const [isLoading, setIsLoading] = useState(true);
+
+	const slideVariants = {
+		enter: (dir: number) => ({
+			x: dir > 0 ? '100%' : '-100%',
+			opacity: 0,
+			rotate: dir > 0 ? 10 : -10,
+		}),
+		center: {
+			x: 0,
+			opacity: 1,
+			rotate: 0,
+		},
+		exit: (dir: number) => ({
+			x: dir < 0 ? '100%' : '-100%',
+			opacity: 0,
+			rotate: dir < 0 ? 10 : -10,
+		}),
+	};
+
+	return (
+		<motion.div
+			ref={ref}
+			custom={direction}
+			variants={slideVariants}
+			initial='enter'
+			animate='center'
+			exit='exit'
+			transition={{
+				x: { type: 'spring', stiffness: 300, damping: 30 },
+				rotate: { type: 'spring', stiffness: 200, damping: 30 },
+				opacity: { duration: 0.2 },
+			}}
+			drag='x'
+			dragConstraints={{ left: 0, right: 0 }}
+			dragElastic={0.2}
+			onDragEnd={onDragEnd}
+			className='bg-white p-3 pb-24 rounded-sm shadow-2xl transform cursor-grab active:cursor-grabbing touch-pan-y relative h-auto'
+		>
+			{/* Image Container */}
+			<div className='relative overflow-hidden bg-gray-100 h-[50vh] w-full flex items-center justify-center'>
+				{isLoading && (
+					<div className='absolute inset-0 flex items-center justify-center bg-gray-200 animate-pulse z-20'>
+						<Loader2 className='w-8 h-8 text-black/20 animate-spin' />
+					</div>
+				)}
+
+				<TransformWrapper
+					initialScale={1}
+					minScale={1}
+					maxScale={4}
+					centerOnInit
+					wheel={{ disabled: true }}
+					doubleClick={{ disabled: false, mode: 'reset' }}
+				>
+					{/* @ts-ignore */}
+					{({ zoomIn, resetTransform }: any) => (
+						<TransformComponent
+							wrapperClass='!w-full !h-full'
+							contentClass='!w-full !h-full flex items-center justify-center'
+						>
+							<div className='relative w-full h-full flex items-center justify-center'>
+								<img
+									src={funny.image}
+									alt='Funny moment'
+									onLoad={() => setIsLoading(false)}
+									className={`max-w-full max-h-full object-contain select-none transition-opacity duration-300 ${
+										isLoading ? 'opacity-0' : 'opacity-100'
+									}`}
+									draggable={false}
+								/>
+								{/* Fun sticker overlay - inside zoom to scale with image */}
+								{!isLoading && (
+									<motion.div
+										initial={{ scale: 0, rotate: -20 }}
+										animate={{ scale: 1, rotate: 12 }}
+										transition={{ delay: 0.3, type: 'spring' }}
+										className='absolute top-3 right-3 text-4xl pointer-events-none'
+									>
+										😂
+									</motion.div>
+								)}
+							</div>
+						</TransformComponent>
+					)}
+				</TransformWrapper>
+			</div>
+
+			{/* Caption */}
+			<div className='absolute bottom-3 left-3 right-3'>
+				<p className='text-slate-800 font-handwriting text-lg text-center italic leading-tight'>
+					{funny.comment}
+				</p>
+				<p className='mt-2 text-center text-[10px] text-slate-400 font-sans tracking-widest uppercase'>
+					Funny Moment {index + 1}/{total}
+				</p>
+			</div>
+
+			{/* Tape effect */}
+			<div className='absolute -top-4 left-1/2 -translate-x-1/2 w-16 h-6 bg-amber-100/80 rotate-[-2deg] shadow-sm z-10' />
+		</motion.div>
+	);
+});
+
+FunnyModalImage.displayName = 'FunnyModalImage';
 
 export function EasterEggFunnyModal({ funny, onClose }: FunnyModalProps) {
 	// Find the initial index based on the passed 'funny' item
@@ -40,26 +161,6 @@ export function EasterEggFunnyModal({ funny, onClose }: FunnyModalProps) {
 		}
 	};
 
-	const slideVariants = {
-		enter: (dir: number) => ({
-			x: dir > 0 ? '100%' : '-100%',
-			opacity: 0,
-			rotate: dir > 0 ? 10 : -10,
-		}),
-		center: {
-			x: 0,
-			opacity: 1,
-			rotate: 0,
-		},
-		exit: (dir: number) => ({
-			x: dir < 0 ? '100%' : '-100%',
-			opacity: 0,
-			rotate: dir < 0 ? 10 : -10,
-		}),
-	};
-
-	const currentMoment = funnyMoments[currentIndex];
-
 	return (
 		<motion.div
 			initial={{ opacity: 0 }}
@@ -89,56 +190,15 @@ export function EasterEggFunnyModal({ funny, onClose }: FunnyModalProps) {
 					<ChevronRight size={40} />
 				</button>
 
-				<AnimatePresence initial={false} custom={direction} mode='popLayout'>
-					<motion.div
+				<AnimatePresence initial={false} custom={direction} mode='wait'>
+					<FunnyModalImage
 						key={currentIndex}
-						custom={direction}
-						variants={slideVariants}
-						initial='enter'
-						animate='center'
-						exit='exit'
-						transition={{
-							x: { type: 'spring', stiffness: 300, damping: 30 },
-							rotate: { type: 'spring', stiffness: 200, damping: 30 },
-							opacity: { duration: 0.2 },
-						}}
-						drag='x'
-						dragConstraints={{ left: 0, right: 0 }}
-						dragElastic={0.2}
+						funny={funnyMoments[currentIndex]}
+						direction={direction}
 						onDragEnd={handleDragEnd}
-						className='bg-white p-3 pb-24 rounded-sm shadow-2xl transform cursor-grab active:cursor-grabbing touch-pan-y relative'
-					>
-						{/* Image */}
-						<div className='relative overflow-hidden bg-gray-100 h-[50vh] w-full flex items-center justify-center'>
-							<img
-								src={currentMoment.image}
-								alt='Funny moment'
-								className='absolute inset-0 w-full h-full object-contain select-none pointer-events-none'
-							/>
-							{/* Fun sticker overlay */}
-							<motion.div
-								initial={{ scale: 0, rotate: -20 }}
-								animate={{ scale: 1, rotate: 12 }}
-								transition={{ delay: 0.3, type: 'spring' }}
-								className='absolute top-3 right-3 text-4xl'
-							>
-								😂
-							</motion.div>
-						</div>
-
-						{/* Caption */}
-						<div className='absolute bottom-3 left-3 right-3'>
-							<p className='text-slate-800 font-handwriting text-lg text-center italic leading-tight'>
-								{currentMoment.comment}
-							</p>
-							<p className='mt-2 text-center text-[10px] text-slate-400 font-sans tracking-widest uppercase'>
-								Funny Moment {currentIndex + 1}/{funnyMoments.length}
-							</p>
-						</div>
-
-						{/* Tape effect - Re-added inside the card to move with it */}
-						<div className='absolute -top-4 left-1/2 -translate-x-1/2 w-16 h-6 bg-amber-100/80 rotate-[-2deg] shadow-sm z-10' />
-					</motion.div>
+						index={currentIndex}
+						total={funnyMoments.length}
+					/>
 				</AnimatePresence>
 
 				{/* Close button - Fixed relative to container */}
