@@ -184,7 +184,7 @@ export default function MoodStation({ onClose }: MoodStationProps) {
 										<AnimatePresence
 											initial={false}
 											custom={direction}
-											mode='wait'
+											mode='popLayout'
 										>
 											<motion.img
 												key={currentImageIndex}
@@ -201,9 +201,9 @@ export default function MoodStation({ onClose }: MoodStationProps) {
 												}}
 												drag='x'
 												dragConstraints={{ left: 0, right: 0 }}
-												dragElastic={0.7}
+												dragElastic={0.2}
 												onDragEnd={handleDragEnd}
-												className='max-w-full max-h-[50vh] md:max-h-[55vh] object-contain rounded-2xl shadow-2xl cursor-grab active:cursor-grabbing touch-pan-y'
+												className='absolute inset-0 m-auto max-w-full max-h-full object-contain rounded-2xl shadow-2xl cursor-grab active:cursor-grabbing touch-pan-y'
 											/>
 										</AnimatePresence>
 

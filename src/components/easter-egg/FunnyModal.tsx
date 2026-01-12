@@ -42,7 +42,7 @@ export function EasterEggFunnyModal({ funny, onClose }: FunnyModalProps) {
 
 	const slideVariants = {
 		enter: (dir: number) => ({
-			x: dir > 0 ? 300 : -300,
+			x: dir > 0 ? '100%' : '-100%',
 			opacity: 0,
 			rotate: dir > 0 ? 10 : -10,
 		}),
@@ -52,7 +52,7 @@ export function EasterEggFunnyModal({ funny, onClose }: FunnyModalProps) {
 			rotate: 0,
 		},
 		exit: (dir: number) => ({
-			x: dir < 0 ? 300 : -300,
+			x: dir < 0 ? '100%' : '-100%',
 			opacity: 0,
 			rotate: dir < 0 ? 10 : -10,
 		}),
@@ -89,7 +89,7 @@ export function EasterEggFunnyModal({ funny, onClose }: FunnyModalProps) {
 					<ChevronRight size={40} />
 				</button>
 
-				<AnimatePresence initial={false} custom={direction} mode='wait'>
+				<AnimatePresence initial={false} custom={direction} mode='popLayout'>
 					<motion.div
 						key={currentIndex}
 						custom={direction}
@@ -104,16 +104,16 @@ export function EasterEggFunnyModal({ funny, onClose }: FunnyModalProps) {
 						}}
 						drag='x'
 						dragConstraints={{ left: 0, right: 0 }}
-						dragElastic={0.7}
+						dragElastic={0.2}
 						onDragEnd={handleDragEnd}
 						className='bg-white p-3 pb-24 rounded-sm shadow-2xl transform cursor-grab active:cursor-grabbing touch-pan-y relative'
 					>
 						{/* Image */}
-						<div className='relative overflow-hidden bg-gray-100 max-h-[50vh]'>
+						<div className='relative overflow-hidden bg-gray-100 h-[50vh] w-full flex items-center justify-center'>
 							<img
 								src={currentMoment.image}
 								alt='Funny moment'
-								className='w-full h-full object-contain select-none pointer-events-none'
+								className='absolute inset-0 w-full h-full object-contain select-none pointer-events-none'
 							/>
 							{/* Fun sticker overlay */}
 							<motion.div

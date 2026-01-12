@@ -38,7 +38,7 @@ export function EasterEggMemoryModal({ memory, onClose }: MemoryModalProps) {
 
 	const slideVariants = {
 		enter: (dir: number) => ({
-			x: dir > 0 ? 300 : -300,
+			x: dir > 0 ? '100%' : '-100%',
 			opacity: 0,
 		}),
 		center: {
@@ -46,7 +46,7 @@ export function EasterEggMemoryModal({ memory, onClose }: MemoryModalProps) {
 			opacity: 1,
 		},
 		exit: (dir: number) => ({
-			x: dir < 0 ? 300 : -300,
+			x: dir < 0 ? '100%' : '-100%',
 			opacity: 0,
 		}),
 	};
@@ -86,8 +86,8 @@ export function EasterEggMemoryModal({ memory, onClose }: MemoryModalProps) {
 				</div>
 
 				{/* Image Gallery */}
-				<div className='relative bg-white/15 backdrop-blur-md overflow-hidden max-h-[50vh]'>
-					<AnimatePresence initial={false} custom={direction} mode='wait'>
+				<div className='relative bg-white/15 backdrop-blur-md overflow-hidden h-[50vh] w-full flex items-center justify-center'>
+					<AnimatePresence initial={false} custom={direction} mode='popLayout'>
 						<motion.img
 							key={currentIndex}
 							src={memory.images[currentIndex]}
@@ -103,9 +103,9 @@ export function EasterEggMemoryModal({ memory, onClose }: MemoryModalProps) {
 							}}
 							drag='x'
 							dragConstraints={{ left: 0, right: 0 }}
-							dragElastic={0.7}
+							dragElastic={0.2}
 							onDragEnd={handleDragEnd}
-							className='w-full max-h-[50vh] object-contain cursor-grab active:cursor-grabbing touch-pan-y'
+							className='absolute inset-0 w-full h-full object-contain cursor-grab active:cursor-grabbing touch-pan-y'
 						/>
 					</AnimatePresence>
 
