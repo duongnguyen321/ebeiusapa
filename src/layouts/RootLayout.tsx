@@ -28,8 +28,8 @@ export default function RootLayout() {
 						{/* Global Overlay Components */}
 						<BirthdayCelebration />
 					</div>
-				</EasterEggProvider>
-			</SurpriseProvider>
+					</EasterEggProvider>
+				</SurpriseProvider>
 			</VersionProvider>
 		</TripProvider>
 	);

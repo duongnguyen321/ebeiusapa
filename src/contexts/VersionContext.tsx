@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { toast } from 'sonner';
+import { useNotifications } from '@/hooks/useNotifications';
 
 interface VersionContextType {
 	localVersion: string;
@@ -22,6 +23,7 @@ export function VersionProvider({ children }: { children: React.ReactNode }) {
 	const [localVersion] = useState<string>(__APP_VERSION__);
 	const [remoteVersion, setRemoteVersion] = useState<string | null>(null);
 	const [isUpdateAvailable, setIsUpdateAvailable] = useState(false);
+	const { showNotification } = useNotifications();
 
 	const checkForUpdate = async () => {
 		if (process.env.NODE_ENV === 'development') return;
@@ -43,6 +45,16 @@ export function VersionProvider({ children }: { children: React.ReactNode }) {
 				toast.info('Phát hiện bản cập nhật mới! Đang tải lại...', {
 					duration: 5000,
 				});
+
+				showNotification('Cập nhật mới! ✨', {
+					body: 'Có phiên bản mới đang chờ bạn. Ứng dụng sẽ tự động cập nhật ngay. 🚀',
+					icon: '/icons/icon-192.png',
+					requireInteraction: true,
+				});
+
+				// Delay to let toast and notification show and be read
+				// 4 seconds to give user time to see the toast context
+				await new Promise(resolve => setTimeout(resolve, 4000));
 
 				// 1. Unregister Service Workers
 				if ('serviceWorker' in navigator) {
