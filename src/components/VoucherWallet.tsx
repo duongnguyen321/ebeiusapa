@@ -2,7 +2,7 @@ import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
 import { Ticket, Check, Gift } from 'lucide-react';
 import { useEasterEgg } from '@/contexts/EasterEggContext';
-import type { VoucherReward } from '@/data/easterEggs';
+import type { VoucherReward } from '@/types/game';
 
 interface VoucherWalletProps {
 	onClose?: () => void;

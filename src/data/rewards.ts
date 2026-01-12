@@ -32,7 +32,7 @@ export const dailyRewards: DailyReward[] = [
 		id: 'day3-nhu',
 		date: '2026-01-17',
 		message:
-			'Ngày ngọt ngào lên ngôi! ✨\n\n🎁 Phần thưởng bí ẩn: 1 CHIẾC "NHỤ"!\n\nChỉ hai ta mới hiểu nó tuyệt vời thế nào... Một món quà ấm áp, mềm mại và khiến tim rung rinh. Chuẩn bị tinh thần đón nhận nhé! 💋',
+			'Ngày damdang lên ngôi! ✨\n\n🎁 Phần thưởng bí ẩn: 1 CHIẾC "NHỤ"!\n\nChỉ hai ta mới hiểu nó tuyệt vời thế nào... Một món quà ấm áp, mềm mại và khiến tim rung rinh. Chuẩn bị tinh thần đón nhận nhé! 💋',
 		icon: '💋',
 	},
 ];

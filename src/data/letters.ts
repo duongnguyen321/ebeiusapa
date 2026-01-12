@@ -11,17 +11,17 @@ export const loveLetters: LoveLetter[] = [
 	{
 		id: 1,
 		day: 1,
-		title: 'Ngày 1 - Khởi đầu ngọt ngào',
+		title: 'Ngày 1 - Chế độ Ngủ Đông',
 		content: `Bé yêu của anh,
+		
+Chào mừng em đến với "ổ chiến thuật" 22 Cát Cát!
 
-Chào mừng em đến với kỳ nghỉ "hâm nóng tình yêu" 4 ngày 3 đêm!
+Hôm nay mục tiêu duy nhất của chúng mình là: "Hibernation" - Ngủ đông.
+Sapa lạnh lắm, nên anh đã chuẩn bị sẵn chăn ấm, nệm êm và... một vòng tay 37 độ để sưởi ấm cho em rồi đây.
 
-Sapa lạnh cắt da cắt thịt, nhưng yên tâm, anh đã mang theo "lò sưởi" 37 độ chạy bằng cơm, bao ôm, bao ấm.
-
-Chuyến này đi chơi là phụ, "vun đắp tình cảm" mới là chính. Em chỉ việc ăn ngon, mặc đẹp, cười xinh. Những việc nặng nhọc như xách đồ, trả tiền, hay... chiều chuộng em cứ để anh lo.
-
-Chuẩn bị tinh thần đi, anh sẽ bám em không rời đâu đấy! �`,
-		signature: 'Anh người yêu "phiền phức" của em ❤️',
+Tối nay mình sẽ ăn lẩu ngay tại phòng, không đi đâu xa cả. Chỉ có ăn, ngủ và yêu thôi.
+Tắt điện thoại, bỏ lại lo âu ngoài kia nhé! ❤️`,
+		signature: 'Cái Lò Sưởi Di Động của em ❤️',
 		unlockDate: '2026-01-15',
 	},
 	{
@@ -34,28 +34,28 @@ Chuẩn bị tinh thần đi, anh sẽ bám em không rời đâu đấy! �`,
 
 Tuổi mới chúc em chân cứng đá mềm, nhưng ở trong vòng tay anh thì cứ để anh che chở là được nhé.
 
-Hôm nay em là nhất, là nữ hoàng. Anh xin nguyện làm "chàng vệ sĩ" tận tâm phục vụ mọi yêu cầu của em.
+Hôm nay em là nhất, là nữ hoàng. Sáng mình đi ăn Cốn Sủi, chiều đi Spa thư giãn, và tối nay... sẽ có một bí mật nhỏ chờ em tại phòng.
+Chuẩn bị tinh thần để cười thật tươi nhé!
 
-Quà sinh nhật anh đã gói ghém kỹ lưỡng (bí mật đấy). Hy vọng em sẽ thích món quà bất ngờ này.
-
-Đêm nay sẽ là một đêm thật đẹp... ❤️`,
+Yêu em nồng nàn! ❤️`,
 		signature: 'Fan hâm mộ số 1 của em ❤️',
 		unlockDate: '2026-01-16',
 	},
 	{
 		id: 3,
 		day: 3,
-		title: 'Ngày 3 - Say trong men tình',
+		title: 'Ngày 3 - Dạo bước trong mây',
 		content: `Cục cưng ơi,
 
-Hôm nay leo núi mỏi chân không? Nếu mỏi thì tối về đây anh massage cho, thư giãn thoải mái miễn phí trọn đời.
+Hôm nay mình sẽ cùng nhau săn mây trên Hàm Rồng và sống ảo "cháy máy" ở Moana nhé.
+Mặc bộ đồ Vintage màu nâu anh chọn, em sẽ là cô gái xinh đẹp nhất núi rừng Tây Bắc hôm nay!
 
-Cảnh Sapa đẹp thật, sương khói mờ ảo, nhưng thề có bóng đèn, cảnh đẹp đến mấy cũng làm nền cho em. Say cảnh một mà say em mười!
+Chiều về mình sẽ đi bộ thong thả xuống dốc (Downhill), tay trong tay ngắm hoàng hôn.
+Nếu mỏi chân thì leo lên lưng anh cõng.
+Tối nay sẽ có đại tiệc Cá Tầm bù đắp năng lượng.
 
-Đi đâu cũng được, miễn là mình nắm tay nhau. Yêu cái nết, mê nụ cười, say cái mùi hương của em.
-
-Đừng ai sướng như anh, có cô người yêu xinh đẹp tuyệt vời! 😘`,
-		signature: 'Người nghiện em ❤️',
+Yêu cái nết, mê nụ cười của em! 😘`,
+		signature: 'Người chịu trách nhiệm cõng em ❤️',
 		unlockDate: '2026-01-17',
 	},
 	{
@@ -64,14 +64,14 @@ Cảnh Sapa đẹp thật, sương khói mờ ảo, nhưng thề có bóng đèn
 		title: 'Ngày về - Hẹn mãi bên nhau',
 		content: `Vợ tương lai của anh,
 
-Vậy là kết thúc tour "du hí" Sapa. 4 ngày qua anh đã cảm nhận đủ tình yêu chưa? Hay vẫn muốn thêm nữa?
+Vậy là kết thúc tour "du hí" Sapa. 4 ngày qua anh đã cảm nhận đủ tình yêu chưa?
+Cảm ơn em đã đi cùng anh, ăn cùng anh, và... ngủ cùng anh (cái này quan trọng).
 
-Về lại thành phố, nhớ giữ nụ cười rạng rỡ như lúc ở bên anh nhé. Cấm được buồn rầu, anh biết là anh... phạt đấy.
+Về lại thành phố, nhớ giữ nụ cười rạng rỡ như lúc ở Sapa này nhé.
+Hành trình Sapa khép lại, nhưng hành trình chung đôi của mình thì còn dài miên man.
 
-Hành trình Sapa khép lại, nhưng hành trình chung đôi của mình thì còn dài miên man. Về nhà mình lại tiếp tục vun đắp những ngày vui vẻ nhé.
-
-Yêu em nồng nàn và da diết! ❤️`,
-		signature: 'Của riêng em �',
+Yêu em và hẹn chuyến đi tiếp theo! ❤️`,
+		signature: 'Của riêng em 💍',
 		unlockDate: '2026-01-18',
 	},
 ];

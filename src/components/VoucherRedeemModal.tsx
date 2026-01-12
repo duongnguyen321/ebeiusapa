@@ -2,7 +2,7 @@ import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
 import { X, Lock, Check } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import type { VoucherReward } from '@/data/easterEggs';
+import type { VoucherReward } from '@/types/game';
 
 interface VoucherRedeemModalProps {
 	voucher: VoucherReward;

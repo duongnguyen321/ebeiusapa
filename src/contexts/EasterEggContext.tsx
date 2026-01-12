@@ -13,8 +13,8 @@ import {
 	type QuizData,
 	type FunnyMomentData,
 	type MemoryCapsuleData,
-	type VoucherReward,
 } from '@/data/easterEggs';
+import type { VoucherReward } from '@/types/game';
 import { isRestricted } from '@/utils/restriction';
 
 // ==================== TYPES ====================

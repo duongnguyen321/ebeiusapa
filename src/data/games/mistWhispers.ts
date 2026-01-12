@@ -133,7 +133,7 @@ const worldCards: WhisperCard[] = [
 		id: 26,
 		type: 'world',
 		question:
-			'Nếu chúng ta bỏ phố về rừng mở homestay ở Sapa, ai sẽ là người nấu ăn, ai là người dọn phòng?',
+			'Nếu chúng ta bỏ phố về "Chill With Home" ở Sapa làm quản gia trọn đời, ai sẽ là người nấu ăn, ai là người dọn phòng?',
 	},
 	{
 		id: 27,
