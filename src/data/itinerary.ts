@@ -74,7 +74,7 @@ export const tripInfo: TripInfo = {
 	hotel: {
 		name: 'Sapa House Hotel',
 		address: '03A Thác Bạc, TT. Sapa',
-		phone: '0214 387 1234',
+		phone: ' 0214 3772 288',
 		checkIn: '14:00 ngày 15/01',
 		checkOut: '12:00 ngày 18/01',
 		includes: [
@@ -101,7 +101,7 @@ export const tripInfo: TripInfo = {
 export const emergencyContacts: EmergencyContact[] = [
 	{ name: 'Taxi Xanh Sapa', phone: '0214 363 63 63', icon: '🚕' },
 	{ name: 'Taxi Mai Linh', phone: '0214 376 76 76', icon: '🚖' },
-	{ name: 'Khách sạn Sapa House', phone: '0214 387 1234', icon: '🏨' },
+	{ name: 'Khách sạn Sapa House', phone: ' 0214 3772 288', icon: '🏨' },
 ];
 
 // ==================== ITINERARY ====================
