@@ -19,9 +19,19 @@ function getAllFiles(dirPath: string, arrayOfFiles: string[] = []) {
   return arrayOfFiles;
 }
 
-// Function to safe-ify filenames
-function safeName(name: string): string {
-    return name.replace(/\s+/g, '-').replace(/\.\.+/g, '.');
+// Function to safe-ify filenames and standardise extensions
+function normalizeName(name: string): string {
+    let newName = name.replace(/\s+/g, '-').replace(/\.\.+/g, '.');
+    
+    const ext = path.extname(newName);
+    // Standardize extension
+    if (ext === '.JPG' || ext === '.jpeg' || ext === '.JPEG') {
+        newName = newName.slice(0, -ext.length) + '.jpg';
+    } else if (ext === '.PNG') {
+        newName = newName.slice(0, -ext.length) + '.png';
+    }
+    
+    return newName;
 }
 
 try {
@@ -34,7 +44,7 @@ try {
   actualFilesFull.forEach(fullPath => {
       const dir = path.dirname(fullPath);
       const filename = path.basename(fullPath);
-      const newFilename = safeName(filename);
+      const newFilename = normalizeName(filename);
 
       if (filename !== newFilename) {
           const newFullPath = path.join(dir, newFilename);
@@ -46,7 +56,6 @@ try {
           renameCount++;
 
           // Update code content
-          // We need to be careful to replace only the reference
           // The code uses '/images/easter-eggs/FILENAME'
           
           // Escape special regex chars in filename for search
@@ -69,7 +78,7 @@ try {
       console.log(`Renamed ${renameCount} files.`);
       console.log(`Updated ${codeUpdateCount} references in src/data/easterEggs.ts`);
   } else {
-      console.log("No unsafe filenames found.");
+      console.log("No files needed normalization.");
   }
 
 
