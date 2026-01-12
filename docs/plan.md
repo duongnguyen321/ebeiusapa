@@ -135,18 +135,13 @@ Kế hoạch cuối cùng sẽ lấy Luồng 1 (Lãng mạn) làm nòng cốt ch
   * **Tại sao?** Le Gecko có kiến trúc Pháp cổ điển, không gian ấm cúng, đồ uống nóng (Cacao, Café trứng) rất ngon. Ngồi trong nhà kính nhìn ra hồ Sapa mờ sương là trải nghiệm rất thi vị mà không sợ mưa ướt.  
   * **Chi phí:** \~100.000 \- 150.000 VNĐ.  
   * **Di chuyển:** Taxi từ khách sạn ra Le Gecko (\~40k) hoặc đi bộ nếu trời chỉ mưa bay nhẹ (khoảng 500m).  
-* **13:00 \- 14:30: Chuẩn bị Hậu cần Sinh nhật**  
-  * **Mua sắm:** Ghé **Siêu thị Xuân Trường** (46 Ngũ Chỉ Sơn, gần Le Gecko).4  
-  * **Cần mua:** Một chai rượu vang nhỏ (hoặc nước trái cây lên men), nến, bật lửa, một ít trái cây/snack.  
-  * **Lấy bánh sinh nhật:** Ghé tiệm bánh đã đặt trước (Gợi ý: **Tiệm bánh chị Híp** \- 14 Thác Bạc, rất gần khách sạn Sapa House 11).  
-  * **Chi phí dự kiến:** Bánh (250k) \+ Đồ siêu thị (200k).  
-* **14:30 \- 17:00: Trải nghiệm Must-Do: Tắm lá thuốc Dao Đỏ (Deep Wellness)**  
-  * **Địa điểm đề xuất:** **Sapa Green Hotel Spa** (02 Hoàng Liên).12  
-  * **Phân tích chuyên sâu:** Đây là cơ sở tiên phong và uy tín nhất. Họ sử dụng bồn gỗ Pơ-mu (giữ nhiệt tốt, mùi thơm) và nước thuốc nấu đậm đặc từ hơn 100 loại thảo dược, có màu huyết dụ sóng sánh.12 Không nên tắm ở các cơ sở nhỏ lẻ giá rẻ vì nước thường loãng.  
-  * **Tác dụng:** Giúp lưu thông khí huyết, giải cảm lạnh (rất tốt khi trời mưa), làm đẹp da và thư giãn cơ bắp tối đa.14  
-  * **Lưu ý an toàn:** Chỉ ngâm tối đa 20-25 phút để tránh say thuốc.15 Sau khi tắm không cần tráng lại nước thường để thuốc ngấm.  
-  * **Chi phí:** \~250.000 VNĐ/người.16 Tổng 500k.  
-  * **Di chuyển:** Taxi khứ hồi (\~60k-80k).  
+* **13:00 \- 14:30:** Về khách sạn nghỉ trưa (Nap time). Giữ sức cho buổi chiều.
+* **14:30 \- 17:00:** Nghỉ ngơi tự do hoặc đi Café view núi (Viettrekking/Coóng) nếu hôm qua chưa đi kịp. Dành sức tối đi chợ tình. (Đã đẩy Cát Cát sang chiều hôm qua để nay được ngủ nướng).
+  * **Lưu ý thời tiết:** Dù dự báo có sương mù, nhưng thung lũng Cát Cát thấp hơn thị trấn nên thường quang hơn. Hơn nữa, chụp ảnh bản làng trong sương (moody) cũng rất đẹp.
+* **17:30 \- 19:30: Trải nghiệm Must-Do: Tắm lá thuốc Dao Đỏ (Deep Wellness)**
+  * **Địa điểm:** **Sapa Green Hotel Spa** (02 Hoàng Liên) hoặc các cơ sở uy tín gần trung tâm.
+  * **Logic chiến lược:** Sau khi đi bộ dốc Cát Cát, đôi chân sẽ mỏi nhừ. Tắm lá thuốc ngay lúc này là "liều thuốc tiên" để phục hồi cơ bắp, chuẩn bị cho tiệc tối.
+  * **Chi phí:** \~250.000 VNĐ/người.  
 * **17:30 \- 20:00: Tiệc tối Sinh nhật (The Birthday Dinner)**  
   * **Địa điểm:** **Nhà hàng A Quỳnh** (15 Thạch Sơn).17  
   * **Món chính:** **Lẩu Cá Tầm Sapa**.  
@@ -173,13 +168,8 @@ Kế hoạch cuối cùng sẽ lấy Luồng 1 (Lãng mạn) làm nòng cốt ch
   * **Món chính:** **Gà nướng tiêu xanh**.  
   * **Tại sao?** Đây là món Signature của quán. Gà đen bản địa chắc thịt, da giòn, sốt tiêu xanh thơm nồng, cay nhẹ, kích thích vị giác cực tốt.27  
   * **Chi phí:** \~300.000 \- 400.000 VNĐ.  
-* **13:00 \- 14:30:** Về khách sạn nghỉ trưa (Nap time). Giữ sức cho buổi chiều.  
-* **14:30 \- 17:30: Khám phá Bản Cát Cát (Cultural Walk)**  
-  * **Chiến lược di chuyển (CỰC KỲ QUAN TRỌNG):**  
-    1. **Chiều đi:** Bắt taxi từ khách sạn xuống thẳng **Cổng vé bản Cát Cát** (khoảng 2km). Giá \~50k-70k.5  
-    2. **Tham quan:** Mua vé (150k/người).29 Đi bộ theo đường bậc thang đi xuống. Bản Cát Cát là lộ trình "đi xuống dốc". Dừng chụp ảnh tại khu vực vườn hoa, guồng nước, thác Tiên Sa.  
-    3. **Chiều về (Critical):** Khi xuống đến điểm cuối cùng (Thác nước/Nhà máy thủy điện), **TUYỆT ĐỐI KHÔNG ĐI BỘ NGƯỢC LÊN**. Dốc rất đứng và dài (\>1km leo dốc). Tại khu vực cầu Si/bãi xe cuối bản, luôn có đội ngũ xe ôm đợi sẵn. Hãy thuê xe ôm chở ngược lên trung tâm thị trấn (Giá niêm yết \~40k-50k/người).5 Đây là giải pháp duy nhất để tuân thủ quy tắc sức khỏe.  
-  * **Hoạt động phụ:** Thuê trang phục dân tộc H'mông/Dao (50k/bộ) tại các tiệm ngay cổng bản để chụp ảnh.29  
+* **13:00 - 14:30:** Về khách sạn nghỉ trưa (Nap time).
+* **14:30 - 17:00:** Dành thời gian nghỉ ngơi, café chiều hoặc mua sắm nhẹ nhàng quanh trung tâm. (Vì đã đi Cát Cát hôm qua để hôm nay ngủ nướng thoải mái).  
 * **18:00 \- 22:00: Chợ Đêm Sapa & Ẩm thực đường phố**  
   * **Địa điểm:** Khu vực Chợ Mới hoặc Sân Quần (Mở vào tối T6-CN).  
   * **Hoạt động:** Ăn tối bằng **Đồ nướng Sapa**. Chọn các quán vỉa hè hoặc các quán nướng ngói.  
