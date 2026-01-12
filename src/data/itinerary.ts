@@ -103,7 +103,7 @@ export const emergencyContacts: EmergencyContact[] = [
 	{ name: 'Tiệm Bánh Chị Híp', phone: '0974 511 568', icon: '🎂' },
 	{ name: 'Nhà hàng A Phủ', phone: '0868 159 900', icon: '🐟' },
 	{ name: 'Thắng Cố A Quỳnh', phone: '0214 3871 555', icon: '🍲' },
-	{ name: 'Dao\'s Center (Spa)', phone: '0917 822 844', icon: '💆‍♀️' },
+	{ name: "Dao's Center (Spa)", phone: '0917 822 844', icon: '💆‍♀️' },
 ];
 
 // ==================== ITINERARY ====================
@@ -125,8 +125,7 @@ export const itinerary: DaySchedule[] = [
 			description: 'Lạnh, có thể mưa phùn. 8-14°C.',
 			temp: '14°C',
 		},
-		outfit:
-			'Đồ nỉ ấm, đồ ngủ đôi dễ thương. Ở trong phòng là chính.',
+		outfit: 'Đồ nỉ ấm, đồ ngủ đôi dễ thương. Ở trong phòng là chính.',
 		warnings: [
 			'Nhớ đặt suất ăn tối lúc 14:15 ngay khi check-in',
 			'Kéo rèm, tắt chuông điện thoại để ngủ trọn vẹn',
@@ -143,7 +142,8 @@ export const itinerary: DaySchedule[] = [
 			{
 				time: '14:15',
 				title: 'Check-in Chill With Home',
-				description: 'Nhận phòng. *Hành động ngay:* Đặt lẩu gà/BBQ cho bữa tối lúc 20:30.',
+				description:
+					'Nhận phòng. *Hành động ngay:* Đặt lẩu gà/BBQ cho bữa tối lúc 20:30.',
 				address: '22 Cát Cát',
 				note: 'Dặn lễ tân: "Bọn mình ngủ say, đúng 20h30 hãy gọi bọn mình dậy ăn nhé"',
 				type: 'rest',
@@ -151,7 +151,8 @@ export const itinerary: DaySchedule[] = [
 			{
 				time: '14:30 - 20:00',
 				title: 'NGỦ ĐÔNG (HIBERNATION)',
-				description: 'Kéo rèm, bật sưởi, đắp chăn bông và ôm nhau ngủ. Bù lại quãng đường di chuyển mệt mỏi.',
+				description:
+					'Kéo rèm, bật sưởi, đắp chăn bông và ôm nhau ngủ. Bù lại quãng đường di chuyển mệt mỏi.',
 				note: 'Tắt chuông điện thoại. Chỉ có đôi ta và giấc ngủ.',
 				type: 'rest',
 				isHighlight: true,
@@ -190,13 +191,12 @@ export const itinerary: DaySchedule[] = [
 		id: 2,
 		date: '2026-01-16',
 		dateLabel: 'Thứ 6, 16/01',
-		title: 'Sinh Nhật Bí Mật & Spa 🎂',
-		theme: 'Sang chảnh & Bất ngờ',
+		title: 'Relax & Spa Day 💆‍♀️',
+		theme: 'Sang chảnh & Thư giãn',
 		goals: [
-			'Bí mật order bánh kem',
 			'Chụp bộ ảnh cháy máy ở Sun Plaza',
 			'Tắm lá thuốc thư giãn',
-			'Tiệc sinh nhật Private',
+			'Tận hưởng buổi tối lãng mạn',
 		],
 		weather: {
 			icon: '⛅',
@@ -211,15 +211,14 @@ export const itinerary: DaySchedule[] = [
 				time: 'Sáng - 12:00',
 				title: 'Ngủ nướng & Chuẩn bị',
 				description:
-					'Ngủ thoải mái. *10:00:* Bí mật đặt bánh (Ship 16h đến lễ tân). 12:00: Nàng makeup lồng lộn.',
-				note: 'Nhớ dặn ship: Đừng gọi số bạn nữ, gửi lễ tân giúp anh (đã confirm lễ tân)',
+					'Ngủ thoải mái. 12:00: Nàng makeup lồng lộn để chuẩn bị lên phố.',
+				note: 'Hãy chuẩn bị một tâm hồn đẹp',
 				type: 'rest',
 			},
 			{
 				time: '12:30',
 				title: 'Lên phố',
-				description:
-					'Gọi Taxi Xanh lên trung tâm (Dốc ngược).',
+				description: 'Gọi Taxi Xanh lên trung tâm (Dốc ngược).',
 				hotline: '0214 3 63 63 63',
 				type: 'transport',
 			},
@@ -234,8 +233,7 @@ export const itinerary: DaySchedule[] = [
 			{
 				time: '14:00 - 16:00',
 				title: 'Sống ảo Sun Plaza',
-				description:
-					'Check-in cháy máy tại Sun Plaza & Nhà Thờ Đá.',
+				description: 'Check-in cháy máy tại Sun Plaza & Nhà Thờ Đá.',
 				address: 'Trung tâm thị trấn',
 				photoTips: {
 					angle: 'Hất từ dưới lên lấy trọn tòa nhà và chân dài',
@@ -249,25 +247,21 @@ export const itinerary: DaySchedule[] = [
 				time: '16:00 - 17:00',
 				title: 'Cafe ngắm phố',
 				description:
-					'Cộng Cafe hoặc Viettrekking. *Lúc này bánh kem được ship đến Homestay (Lễ tân nhận).*',
-				note: 'Nhắn kiểm tra xem lễ tân nhận bánh chưa',
+					'Cộng Cafe hoặc Viettrekking. Thưởng thức ly cafe nóng giữa tiết trời se lạnh.',
 				type: 'rest',
 			},
 			{
 				time: '17:00 - 17:30',
 				title: 'Di chuyển đến Spa',
-				description: 'Đến Dao\'s Center (26 Đồng Lợi).',
+				description: "Đến Dao's Center (26 Đồng Lợi).",
 				type: 'transport',
 			},
 			{
 				time: '17:30 - 19:30',
 				title: 'Tắm lá thuốc Dao Đỏ',
-				description:
-					'Ngâm bồn gỗ thư giãn. Xả hơi sau khi đi bộ chụp ảnh.',
-				address: 'Dao\'s Center',
-				warnings: [
-					'Ngâm 20 phút thôi kẻo say thuốc',
-				],
+				description: 'Ngâm bồn gỗ thư giãn. Xả hơi sau khi đi bộ chụp ảnh.',
+				address: "Dao's Center",
+				warnings: ['Ngâm 20 phút thôi kẻo say thuốc'],
 				type: 'spa',
 				isHighlight: true,
 			},
@@ -288,12 +282,11 @@ export const itinerary: DaySchedule[] = [
 			},
 			{
 				time: '21:00',
-				title: 'PRIVATE BIRTHDAY PARTY 🎂',
-				description:
-					'Setup tiệc tại phòng: Bánh kem, rượu vang, đồ nướng, nến. Tặng quà và thổi nến.',
+				title: 'Bí Mật Ngọt Ngào 🤫',
+				description: 'Một bất ngờ nho nhỏ dành riêng cho em. Hãy chờ xem nhé!',
 				type: 'activity',
 				isHighlight: true,
-				note: 'Tắt đèn trần, bật đèn ngủ/flash cho lãng mạn',
+				note: 'Nhắm mắt lại và chờ đợi',
 			},
 		],
 		isBirthday: true,
@@ -330,15 +323,13 @@ export const itinerary: DaySchedule[] = [
 			{
 				time: '12:30',
 				title: 'Lên đường',
-				description:
-					'Taxi lên thẳng Cổng Núi Hàm Rồng.',
+				description: 'Taxi lên thẳng Cổng Núi Hàm Rồng.',
 				type: 'transport',
 			},
 			{
 				time: '13:00 - 15:00',
 				title: 'Leo núi Hàm Rồng',
-				description:
-					'Chỉ leo đến Vườn Lan và Sân Mây (tầng 1).',
+				description: 'Chỉ leo đến Vườn Lan và Sân Mây (tầng 1).',
 				address: 'Khu du lịch Hàm Rồng',
 				photoTips: {
 					angle: 'Chụp giữa vườn hoa',
@@ -377,20 +368,15 @@ export const itinerary: DaySchedule[] = [
 			{
 				time: '18:00 - 19:30',
 				title: 'Nghỉ ngơi',
-				description: 'Về phòng thay đồ ấm, chuẩn bị đi ăn bữa sang nhất chuyến đi.',
+				description:
+					'Về phòng thay đồ ấm, chuẩn bị đi ăn bữa sang nhất chuyến đi.',
 				type: 'rest',
-			},
-			{
-				time: '19:30',
-				title: 'Lên thị trấn',
-				type: 'transport',
 			},
 			{
 				time: '20:00',
 				title: 'Đại tiệc Sapa',
 				description: 'Ăn Lẩu Cá Tầm hoặc Thắng Cố + Rượu ngô.',
 				address: 'Thắng Cố A Quỳnh (15 Thạch Sơn)',
-				note: 'Chi phí bù trừ từ việc ăn sáng/trưa tiết kiệm',
 				type: 'meal',
 				isHighlight: true,
 			},
@@ -425,8 +411,7 @@ export const itinerary: DaySchedule[] = [
 			{
 				time: '08:30',
 				title: 'Ăn sáng',
-				description:
-					'Ăn nhẹ tại homestay hoặc ra đầu bản ăn bún/phở.',
+				description: 'Ăn nhẹ tại homestay hoặc ra đầu bản ăn bún/phở.',
 				type: 'meal',
 			},
 			{
@@ -439,8 +424,7 @@ export const itinerary: DaySchedule[] = [
 			{
 				time: '11:00',
 				title: 'Check-out',
-				description:
-					'Thanh toán tiền ăn tối hôm đầu. Trả phòng.',
+				description: 'Thanh toán tiền ăn tối hôm đầu. Trả phòng.',
 				type: 'transport',
 			},
 			{
@@ -452,8 +436,7 @@ export const itinerary: DaySchedule[] = [
 			{
 				time: '14:00 - 15:00',
 				title: 'Về Hà Nội',
-				description:
-					'Lên xe giường nằm. Tạm biệt Sapa.',
+				description: 'Lên xe giường nằm. Tạm biệt Sapa.',
 				type: 'transport',
 				isHighlight: true,
 			},

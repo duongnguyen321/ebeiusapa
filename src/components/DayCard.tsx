@@ -85,9 +85,9 @@ const DayCard = ({
 			<motion.div
 				onClick={onToggle}
 				className={cn(
-					"glass-panel p-4 md:p-6 rounded-xl md:rounded-2xl cursor-pointer",
-					isActiveDay && "timeline-active",
-					isExpanded && "invisible"
+					'glass-panel p-4 md:p-6 rounded-xl md:rounded-2xl cursor-pointer',
+					isActiveDay && 'timeline-active',
+					isExpanded && 'invisible'
 				)}
 				whileHover={
 					!isExpanded
@@ -209,7 +209,7 @@ const DayCard = ({
 								<X className='w-5 h-5 text-white' />
 							</motion.button>
 
-							<div className='h-full overflow-y-auto p-4 md:p-6 lg:p-8 scrollbar-hide'>
+							<div className='h-full overflow-y-auto p-4 md:p-6 lg:p-8 scrollbar-hide pb-20'>
 								{/* Header */}
 								<div className='mb-4 md:mb-6 pr-12'>
 									<div className='flex items-start justify-between mb-3 md:mb-4'>
