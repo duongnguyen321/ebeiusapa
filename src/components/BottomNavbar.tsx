@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
 	PhoneCall,
@@ -48,6 +48,11 @@ const BottomNavbar = ({
 
 	// Helper to check if a path is active
 	const isActive = (path: string) => location.pathname.startsWith(path);
+
+	// Close menu on location change
+	useEffect(() => {
+		setActiveGroupId(null);
+	}, [location.pathname]);
 
 	// Group 1: Love & Memories
 	const loveItems: NavItem[] = [
