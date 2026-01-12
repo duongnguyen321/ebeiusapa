@@ -5,6 +5,7 @@ import {
 	useEffect,
 	ReactNode,
 } from 'react';
+import { isRestricted } from '@/utils/restriction';
 
 interface SurpriseState {
 	unlockedLetters: number[];
@@ -76,6 +77,7 @@ export function SurpriseProvider({ children }: { children: ReactNode }) {
 	}, [state]);
 
 	const unlockLetter = (index: number) => {
+		if (isRestricted()) return;
 		if (!state.unlockedLetters.includes(index)) {
 			setState((prev) => ({
 				...prev,
@@ -85,6 +87,7 @@ export function SurpriseProvider({ children }: { children: ReactNode }) {
 	};
 
 	const markScratchCardUsed = (date: string) => {
+		if (isRestricted()) return;
 		if (!state.scratchCardUsedDates.includes(date)) {
 			setState((prev) => ({
 				...prev,
@@ -103,6 +106,7 @@ export function SurpriseProvider({ children }: { children: ReactNode }) {
 	};
 
 	const markBirthdayCelebrationShown = () => {
+		if (isRestricted()) return;
 		setState((prev) => ({
 			...prev,
 			birthdayCelebrationShown: true,
@@ -110,6 +114,7 @@ export function SurpriseProvider({ children }: { children: ReactNode }) {
 	};
 
 	const unlockSecretNote = (id: string) => {
+		if (isRestricted()) return;
 		if (!state.secretNotesUnlocked.includes(id)) {
 			setState((prev) => ({
 				...prev,
@@ -123,6 +128,7 @@ export function SurpriseProvider({ children }: { children: ReactNode }) {
 	};
 
 	const canScratchToday = () => {
+		if (isRestricted()) return false;
 		const today = new Date().toISOString().split('T')[0];
 		return !state.scratchCardUsedDates.includes(today);
 	};
@@ -144,6 +150,7 @@ export function SurpriseProvider({ children }: { children: ReactNode }) {
 	};
 
 	const canUnlockLetter = (index: number) => {
+		if (isRestricted()) return false;
 		const now = new Date();
 		return now >= LETTER_UNLOCK_TIMES[index];
 	};

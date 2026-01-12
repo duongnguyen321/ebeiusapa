@@ -15,6 +15,7 @@ import {
 	type MemoryCapsuleData,
 	type VoucherReward,
 } from '@/data/easterEggs';
+import { isRestricted } from '@/utils/restriction';
 
 // ==================== TYPES ====================
 type EggContentType = 'quiz' | 'funny' | 'memory';
@@ -179,11 +180,13 @@ export function EasterEggProvider({ children }: { children: React.ReactNode }) {
 	// Spawn egg
 	const spawnEgg = useCallback(() => {
 		if (isEggVisible) return;
+		if (isRestricted()) return; // Restriction check
 
 		setEggPosition(generateRandomPosition());
 		setIsEggVisible(true);
 		// Removed auto-hide TTL
 	}, [isEggVisible, generateRandomPosition]);
+
 
 	// Hide egg
 	const hideEgg = useCallback(() => {

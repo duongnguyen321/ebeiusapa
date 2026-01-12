@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { BottomNavbarGroup, NavItem } from './BottomNavbarGroup';
+import { handleRestrictedAction } from '@/utils/restriction';
 
 interface BottomNavbarProps {
 	onEmergency: () => void;
@@ -60,7 +61,10 @@ const BottomNavbar = ({
 			id: 'passport',
 			icon: BookHeart,
 			label: 'Passport',
-			onClick: () => navigate('/passport'),
+			onClick: () => {
+				if (handleRestrictedAction('Passport')) return;
+				navigate('/passport');
+			},
 			color: 'text-amber-400',
 			hoverBg: 'hover:bg-amber-500/20',
 			isActive: isActive('/passport'),
@@ -69,7 +73,10 @@ const BottomNavbar = ({
 			id: 'letters',
 			icon: Heart,
 			label: 'Thư tình',
-			onClick: onLetters,
+			onClick: () => {
+				if (handleRestrictedAction('Thư tình')) return;
+				onLetters();
+			},
 			color: 'text-pink-400',
 			hoverBg: 'hover:bg-pink-500/20',
 			isActive: showLettersActive,
@@ -78,7 +85,10 @@ const BottomNavbar = ({
 			id: 'mood',
 			icon: Smile,
 			label: 'Mood',
-			onClick: onMood,
+			onClick: () => {
+				if (handleRestrictedAction('Mood')) return;
+				onMood();
+			},
 			color: 'text-cyan-400',
 			hoverBg: 'hover:bg-cyan-500/20',
 			isActive: showMoodActive,
@@ -91,7 +101,10 @@ const BottomNavbar = ({
 			id: 'games',
 			icon: Gamepad2,
 			label: 'Trò chơi',
-			onClick: onGames,
+			onClick: () => {
+				if (handleRestrictedAction('Trò chơi')) return;
+				onGames();
+			},
 			color: 'text-purple-400',
 			hoverBg: 'hover:bg-purple-500/20',
 			isActive: showGamesActive || isActive('/games'),
@@ -100,7 +113,10 @@ const BottomNavbar = ({
 			id: 'scratch',
 			icon: Gift,
 			label: 'May mắn',
-			onClick: onScratchCard,
+			onClick: () => {
+				if (handleRestrictedAction('May mắn')) return;
+				onScratchCard();
+			},
 			color: 'text-amber-400',
 			hoverBg: 'hover:bg-amber-500/20',
 		},
@@ -108,7 +124,10 @@ const BottomNavbar = ({
 			id: 'wallet',
 			icon: Ticket,
 			label: 'Voucher',
-			onClick: onWallet,
+			onClick: () => {
+				if (handleRestrictedAction('Voucher')) return;
+				onWallet();
+			},
 			color: 'text-orange-400',
 			hoverBg: 'hover:bg-orange-500/20',
 			isActive: showWalletActive,
