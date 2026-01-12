@@ -9,7 +9,7 @@ import {
 	Ticket,
 	BookHeart,
 } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 interface BottomNavbarProps {
 	onEmergency: () => void;
@@ -39,6 +39,11 @@ const BottomNavbar = ({
 	showWalletActive = false,
 }: BottomNavbarProps) => {
 	const navigate = useNavigate();
+    const location = useLocation();
+
+    // Helper to check if a path is active
+    const isActive = (path: string) => location.pathname.startsWith(path);
+
 	const navItems = [
 		{
 			id: 'passport',
@@ -47,7 +52,7 @@ const BottomNavbar = ({
 			onClick: () => navigate('/passport'),
 			color: 'text-amber-400',
 			hoverBg: 'hover:bg-amber-500/20',
-			isSpecial: true,
+			isActive: isActive('/passport'),
 		},
 		{
 			id: 'letters',
@@ -74,7 +79,7 @@ const BottomNavbar = ({
 			onClick: onGames,
 			color: 'text-purple-400',
 			hoverBg: 'hover:bg-purple-500/20',
-			isActive: showGamesActive,
+			isActive: showGamesActive || isActive('/games'),
 		},
 		{
 			id: 'scratch',

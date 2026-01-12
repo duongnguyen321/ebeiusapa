@@ -67,7 +67,7 @@ export function FloatingSOS() {
 							transition={{ type: 'spring', stiffness: 300, damping: 25 }}
 							className='absolute bottom-16 right-0 mb-2'
 						>
-							<div className='bg-white/10 backdrop-blur-xl rounded-2xl p-2 border border-white/10 shadow-2xl min-w-[160px]'>
+							<div className='bg-white/10 backdrop-blur-xl rounded-2xl p-2 border border-white/10 shadow-2xl min-w-[160px] flex flex-col gap-2'>
 								{sosItems.map((item, index) => (
 									<motion.button
 										key={item.id}
@@ -79,7 +79,7 @@ export function FloatingSOS() {
 											setIsOpen(false);
 										}}
 										className={`
-											w-full flex items-center gap-3 p-3 rounded-xl
+											w-full flex items-center gap-3 p-2 rounded-xl
 											hover:bg-white/10 transition-colors
 											${item.color}
 										`}
@@ -106,7 +106,7 @@ export function FloatingSOS() {
 						${
 							isOpen
 								? 'bg-white/20 backdrop-blur-xl border border-white/20'
-								: 'bg-red-500/80 backdrop-blur-xl border border-red-400/30 shadow-[0_0_20px_rgba(239,68,68,0.4)] animate-pulse'
+								: 'bg-red-500/80 backdrop-blur-xl border border-red-400/30 shadow-[0_0_20px_rgba(239,68,68,0.4)]'
 						}
 					`}
 				>

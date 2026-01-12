@@ -1,47 +1,20 @@
-import BottomNavbar from '@/components/BottomNavbar';
-import BottomSheet from '@/components/BottomSheet';
-import DayCard from '@/components/DayCard';
-import EmergencyPanel from '@/components/EmergencyPanel';
-import GamesModal from '@/components/GamesModal';
-import MoodStation from '@/components/MoodStation';
-import VoucherWallet from '@/components/VoucherWallet';
 import { PageTransition } from '@/components/PageTransition';
-import { ScratchCard } from '@/components/ScratchCard';
-import { LetterCard, SecretLetter } from '@/components/SecretLetter';
+import DayCard from '@/components/DayCard';
 import TripHeader from '@/components/TripHeader';
 import { useTrip } from '@/contexts/TripContext';
 import { itinerary } from '@/data/itinerary';
-import { loveLetters } from '@/data/letters';
 import { useActiveTimeline } from '@/hooks/useActiveTimeline';
 import { motion } from 'framer-motion';
-import { Heart, Smile, Ticket } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function TimelinePage() {
 	const navigate = useNavigate();
-	const location = useLocation();
-	const { isUnlocked, lockApp } = useTrip();
+	const { isUnlocked } = useTrip();
 	const activeTimeline = useActiveTimeline();
 
-	// Modals State
-	const [showScratchCard, setShowScratchCard] = useState(false);
-	const [showLetters, setShowLetters] = useState(false);
-	const [selectedLetter, setSelectedLetter] = useState<number | null>(null);
-	const [showGames, setShowGames] = useState(false);
-	const [showMood, setShowMood] = useState(false);
-	const [showWallet, setShowWallet] = useState(false);
-
 	const [expandedDay, setExpandedDay] = useState<number | null>(null);
-	const [showEmergency, setShowEmergency] = useState(false);
 	const containerRef = useRef<HTMLDivElement>(null);
-
-	// Re-open modals from navigation state
-	useEffect(() => {
-		if (location.state?.showGames) {
-			setShowGames(true);
-		}
-	}, [location.state]);
 
 	// Protect route
 	useEffect(() => {
@@ -61,40 +34,14 @@ export default function TimelinePage() {
 		setExpandedDay(expandedDay === dayId ? null : dayId);
 	};
 
-	const handleSelectGame = (gameId: string) => {
-		setShowGames(false);
-		navigate(`/games/${gameId}`);
-	};
-
 	if (!isUnlocked) return null;
 
 	return (
 		<PageTransition variant='fade'>
 			<div
 				ref={containerRef}
-				className='min-h-screen p-6 pb-24 md:p-12 md:pb-28 relative z-10'
+				className='min-h-screen p-6 md:p-12 relative z-10'
 			>
-				{/* Emergency Panel */}
-				<EmergencyPanel
-					isOpen={showEmergency}
-					onClose={() => setShowEmergency(false)}
-				/>
-
-				{/* Bottom Navigation Bar */}
-				<BottomNavbar
-					onEmergency={() => setShowEmergency(true)}
-					onScratchCard={() => setShowScratchCard(true)}
-					onLetters={() => setShowLetters(!showLetters)}
-					onGames={() => setShowGames(true)}
-					onMood={() => setShowMood(!showMood)}
-					onWallet={() => setShowWallet(!showWallet)}
-					onExit={() => lockApp()}
-					showLettersActive={showLetters}
-					showGamesActive={showGames}
-					showMoodActive={showMood}
-					showWalletActive={showWallet}
-				/>
-
 				<div className='max-w-4xl mx-auto'>
 					{/* Header */}
 					<motion.div
@@ -172,78 +119,6 @@ export default function TimelinePage() {
 						))}
 					</div>
 				</div>
-
-				{/* Love Letters Bottom Sheet Modal */}
-				<BottomSheet
-					isOpen={showLetters}
-					onClose={() => setShowLetters(false)}
-					title='Thư bí mật mỗi ngày'
-					icon={<Heart className='w-5 h-5 text-pink-400 fill-pink-400' />}
-					maxWidth='md:max-w-lg'
-				>
-					<div className='flex md:grid md:grid-cols-2 gap-3 overflow-x-auto pb-2 md:overflow-x-visible snap-x snap-mandatory'>
-						{loveLetters.map((_, index) => (
-							<div
-								key={index}
-								className='flex-shrink-0 w-[75vw] md:w-full snap-center'
-							>
-								<LetterCard
-									letterIndex={index}
-									onClick={() => {
-										setSelectedLetter(index);
-										setShowLetters(false);
-									}}
-								/>
-							</div>
-						))}
-					</div>
-				</BottomSheet>
-
-				{/* Mood Station Bottom Sheet */}
-				<BottomSheet
-					isOpen={showMood}
-					onClose={() => setShowMood(false)}
-					title='Mood Station'
-					icon={<Smile className='w-5 h-5 text-cyan-400' />}
-					maxWidth='md:max-w-md'
-				>
-					<MoodStation onClose={() => setShowMood(false)} />
-				</BottomSheet>
-
-				{/* Voucher Wallet Bottom Sheet */}
-				<BottomSheet
-					isOpen={showWallet}
-					onClose={() => setShowWallet(false)}
-					title='Voucher Wallet'
-					icon={<Ticket className='w-5 h-5 text-orange-400' />}
-					maxWidth='md:max-w-md'
-				>
-					<VoucherWallet onClose={() => setShowWallet(false)} />
-				</BottomSheet>
-
-				{/* Scratch Card Modal */}
-				<BottomSheet
-					isOpen={showScratchCard}
-					onClose={() => setShowScratchCard(false)}
-					title='🎁 Thẻ Cào May Mắn'
-					maxWidth='md:max-w-sm'
-				>
-					<ScratchCard onComplete={() => {}} />
-				</BottomSheet>
-
-				{/* Secret Letter Modal */}
-				<SecretLetter
-					letterIndex={selectedLetter ?? 0}
-					isOpen={selectedLetter !== null}
-					onClose={() => setSelectedLetter(null)}
-				/>
-
-				{/* Games Modal */}
-				<GamesModal
-					isOpen={showGames}
-					onClose={() => setShowGames(false)}
-					onSelectGame={handleSelectGame}
-				/>
 			</div>
 		</PageTransition>
 	);

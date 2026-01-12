@@ -4,7 +4,12 @@ import { X, Lock, Check, Gift, Copy, Eye, EyeOff } from 'lucide-react';
 import { usePassport } from '@/contexts/PassportContext';
 import { type PassportQuest, validateQuestCode } from '@/data/passportQuests';
 import confetti from 'canvas-confetti';
+import MarkdownIt from 'markdown-it';
 
+const md = new MarkdownIt({
+	breaks: true,
+	html: true,
+});
 interface QuestModalProps {
 	quest: PassportQuest;
 	onClose: () => void;
@@ -180,11 +185,14 @@ export function QuestModal({ quest, onClose }: QuestModalProps) {
 
 							{/* Quest Description */}
 							<div className='bg-white/5 rounded-xl p-4 mb-6'>
-								<p className='text-white/80 whitespace-pre-line'>
-									{role === 'anh'
-										? quest.descriptionAnh
-										: quest.descriptionEm}
-								</p>
+								<div
+									className='prose prose-invert prose-p:text-white/80 prose-p:my-1 prose-headings:text-white prose-strong:text-white text-white/80 whitespace-pre-line max-w-none'
+									dangerouslySetInnerHTML={{
+										__html: md.render(
+											role === 'anh' ? quest.descriptionAnh : quest.descriptionEm
+										),
+									}}
+								/>
 							</div>
 
 							{/* Role-specific UI */}

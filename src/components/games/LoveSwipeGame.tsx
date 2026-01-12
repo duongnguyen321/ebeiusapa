@@ -439,7 +439,7 @@ export function LoveSwipeGame({ onClose }: LoveSwipeGameProps) {
 					{showControls && currentCard && (
 						<motion.div
 							key={`swipe-${phase}-${currentIndex}`}
-							className='relative w-full max-w-sm'
+							className='relative w-full max-w-sm aspect-[3/4]'
 							initial={{ opacity: 0, scale: 0.9 }}
 							animate={{ opacity: 1, scale: 1, x: flyX }}
 							transition={{ type: 'spring', damping: 20, stiffness: 200 }}
@@ -458,7 +458,7 @@ export function LoveSwipeGame({ onClose }: LoveSwipeGameProps) {
 									x: isAnimating ? 0 : x,
 									rotate: isAnimating ? 0 : rotate,
 								}}
-								className='relative rounded-3xl glass-card overflow-hidden cursor-grab active:cursor-grabbing'
+								className='relative h-full w-full rounded-3xl glass-card overflow-hidden cursor-grab active:cursor-grabbing'
 							>
 								{/* Swipe indicators */}
 								<motion.div
