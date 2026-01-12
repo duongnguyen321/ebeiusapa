@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
 	PhoneCall,
 	Gift,
@@ -8,8 +9,11 @@ import {
 	Smile,
 	Ticket,
 	BookHeart,
+	Menu,
+	Sparkles,
 } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { BottomNavbarGroup, NavItem } from './BottomNavbarGroup';
 
 interface BottomNavbarProps {
 	onEmergency: () => void;
@@ -39,12 +43,14 @@ const BottomNavbar = ({
 	showWalletActive = false,
 }: BottomNavbarProps) => {
 	const navigate = useNavigate();
-    const location = useLocation();
+	const location = useLocation();
+	const [activeGroupId, setActiveGroupId] = useState<string | null>(null);
 
-    // Helper to check if a path is active
-    const isActive = (path: string) => location.pathname.startsWith(path);
+	// Helper to check if a path is active
+	const isActive = (path: string) => location.pathname.startsWith(path);
 
-	const navItems = [
+	// Group 1: Love & Memories
+	const loveItems: NavItem[] = [
 		{
 			id: 'passport',
 			icon: BookHeart,
@@ -66,12 +72,16 @@ const BottomNavbar = ({
 		{
 			id: 'mood',
 			icon: Smile,
-			label: 'Tâm trạng',
+			label: 'Mood',
 			onClick: onMood,
 			color: 'text-cyan-400',
 			hoverBg: 'hover:bg-cyan-500/20',
 			isActive: showMoodActive,
 		},
+	];
+
+	// Group 2: Fun & Rewards
+	const funItems: NavItem[] = [
 		{
 			id: 'games',
 			icon: Gamepad2,
@@ -98,10 +108,14 @@ const BottomNavbar = ({
 			hoverBg: 'hover:bg-orange-500/20',
 			isActive: showWalletActive,
 		},
+	];
+
+	// Group 3: System / Utils
+	const systemItems: NavItem[] = [
 		{
 			id: 'emergency',
 			icon: PhoneCall,
-			label: 'Gọi điện',
+			label: 'Khẩn cấp',
 			onClick: onEmergency,
 			color: 'text-red-400',
 			hoverBg: 'hover:bg-red-500/20',
@@ -116,32 +130,64 @@ const BottomNavbar = ({
 		},
 	];
 
+	const handleGroupToggle = (groupId: string) => {
+		setActiveGroupId(activeGroupId === groupId ? null : groupId);
+	};
+
 	return (
-		<motion.nav
-			initial={{ y: 100, opacity: 0 }}
-			animate={{ y: 0, opacity: 1 }}
-			transition={{ type: 'spring', damping: 25, stiffness: 200, delay: 0.3 }}
-			className='bottom-navbar-compact'
-		>
-			<div className='bottom-navbar-pill overflow-x-auto'>
-				{navItems.map((item) => (
-					<motion.button
-						key={item.id}
-						whileHover={{ scale: 1.15 }}
-						whileTap={{ scale: 0.9 }}
-						onClick={item.onClick}
-						className={`nav-icon-btn flex-shrink-0 ${item.hoverBg} ${
-							item.isActive
-								? 'bg-white/10 border-pink-400/50 shadow-[0_0_15px_rgba(244,114,182,0.4)]'
-								: ''
-						}`}
-						aria-label={item.label}
-					>
-						<item.icon className={`w-5 h-5 ${item.color}`} />
-					</motion.button>
-				))}
-			</div>
-		</motion.nav>
+		<>
+			{/* Global Backdrop */}
+			<AnimatePresence>
+				{activeGroupId && (
+					<motion.div
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 1 }}
+						exit={{ opacity: 0 }}
+						className="fixed inset-0 z-40 bg-black/20 backdrop-blur-[1px]"
+						onClick={() => setActiveGroupId(null)}
+					/>
+				)}
+			</AnimatePresence>
+
+			<motion.nav
+				initial={{ y: 100, opacity: 0 }}
+				animate={{ y: 0, opacity: 1 }}
+				transition={{ type: 'spring', damping: 25, stiffness: 200, delay: 0.3 }}
+				className="bottom-navbar-compact"
+			>
+				<div className="bottom-navbar-pill overflow-visible relative">
+					<BottomNavbarGroup
+						icon={Heart}
+						label="Kỷ niệm"
+						items={loveItems}
+						isOpen={activeGroupId === 'love'}
+						onToggle={() => handleGroupToggle('love')}
+						activeColor="text-pink-400"
+					/>
+
+					<div className="w-px h-6 bg-white/10 mx-1" />
+
+					<BottomNavbarGroup
+						icon={Sparkles}
+						label="Giải trí"
+						items={funItems}
+						isOpen={activeGroupId === 'fun'}
+						onToggle={() => handleGroupToggle('fun')}
+						activeColor="text-purple-400"
+					/>
+
+					<div className="w-px h-6 bg-white/10 mx-1" />
+
+					<BottomNavbarGroup
+						icon={Menu}
+						label="Khác"
+						items={systemItems}
+						isOpen={activeGroupId === 'system'}
+						onToggle={() => handleGroupToggle('system')}
+					/>
+				</div>
+			</motion.nav>
+		</>
 	);
 };
 
