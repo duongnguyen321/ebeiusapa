@@ -1,11 +1,12 @@
 import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Clock, Heart, Target, AlertTriangle } from 'lucide-react';
+import { Clock, Heart, Target, AlertTriangle } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 import type { DaySchedule } from '@/data/itinerary';
 import WeatherIcon from './WeatherIcon';
 import TimelineItem from './TimelineItem';
 import confetti from 'canvas-confetti';
+import ExpandableCardModal from './ExpandableCardModal';
 
 interface DayCardProps {
 	day: DaySchedule;
@@ -143,228 +144,152 @@ const DayCard = ({
 			{/* Modal - AnimatePresence for enter/exit animations */}
 			<AnimatePresence>
 				{isExpanded && (
-					<>
-						{/* Backdrop */}
-						<motion.div
-							key={`backdrop-${day.id}`}
-							className='fixed inset-0 bg-slate-950/60 backdrop-blur-md z-[90]'
-							initial={{ opacity: 0 }}
-							animate={{ opacity: 1 }}
-							exit={{ opacity: 0 }}
-							transition={{ duration: 0.3 }}
-							onClick={onToggle}
-						/>
-
-						{/* Modal Content - Liquid Glass Slide Up */}
-						<motion.div
-							key={`modal-${day.id}`}
-							className='fixed inset-0 md:inset-8 z-[100] overflow-hidden pointer-events-auto md:rounded-3xl'
-							style={{
-								background:
-									'linear-gradient(180deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.08) 100%)',
-								backdropFilter: 'blur(24px) saturate(180%)',
-								WebkitBackdropFilter: 'blur(24px) saturate(180%)',
-								border: '1px solid rgba(255,255,255,0.15)',
-								boxShadow:
-									'0 -8px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.25)',
-							}}
-							initial={{ opacity: 0, y: '100%', scale: 0.95 }}
-							animate={{ opacity: 1, y: 0, scale: 1 }}
-							exit={{ opacity: 0, y: '100%', scale: 0.95 }}
-							transition={{
-								type: 'spring',
-								stiffness: 300,
-								damping: 30,
-								mass: 0.8,
-							}}
-							onClick={(e) => e.stopPropagation()}
-						>
-							{/* Specular highlight */}
-							<div
-								className='absolute top-0 left-0 right-0 h-[1px] pointer-events-none z-10'
-								style={{
-									background:
-										'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.5) 20%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0.5) 80%, transparent 100%)',
-								}}
-							/>
-
-							{/* Close Button - Prominent */}
-							<motion.button
-								onClick={onToggle}
-								className='absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center rounded-full transition-all'
-								style={{
-									background:
-										'linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.08) 100%)',
-									backdropFilter: 'blur(12px)',
-									border: '1px solid rgba(255,255,255,0.2)',
-									boxShadow: '0 4px 16px rgba(0,0,0,0.2)',
-								}}
-								whileHover={{
-									scale: 1.1,
-									backgroundColor: 'rgba(255,255,255,0.2)',
-								}}
-								whileTap={{ scale: 0.95 }}
-								aria-label='Đóng'
-							>
-								<X className='w-5 h-5 text-white' />
-							</motion.button>
-
-							<div className='h-full overflow-y-auto p-4 md:p-6 lg:p-8 scrollbar-hide pb-20'>
-								{/* Header */}
-								<div className='mb-4 md:mb-6 pr-12'>
-									<div className='flex items-start justify-between mb-3 md:mb-4'>
-										<div>
-											<motion.div
-												className='text-4xl md:text-5xl lg:text-6xl font-playfair text-white mb-1 md:mb-2'
-												initial={{ y: 20, opacity: 0 }}
-												animate={{ y: 0, opacity: 1 }}
-												transition={{ delay: 0.1 }}
-											>
-												Ngày {day.id}
-											</motion.div>
-											<motion.h2
-												className='text-xl md:text-2xl lg:text-3xl font-playfair text-amber-400 mb-1 md:mb-2'
-												initial={{ y: 20, opacity: 0 }}
-												animate={{ y: 0, opacity: 1 }}
-												transition={{ delay: 0.15 }}
-											>
-												{day.title}
-											</motion.h2>
-											<motion.p
-												className='text-sm md:text-base text-white/60'
-												initial={{ y: 20, opacity: 0 }}
-												animate={{ y: 0, opacity: 1 }}
-												transition={{ delay: 0.2 }}
-											>
-												{day.dateLabel}
-											</motion.p>
-										</div>
-
-										<WeatherIcon
-											icon={day.weather.icon}
-											className='w-10 h-10 md:w-12 md:h-12 text-amber-400'
-										/>
-									</div>
-
-									{/* Active Day Badge */}
-									{isActiveDay && (
-										<motion.div
-											initial={{ opacity: 0, scale: 0.9 }}
-											animate={{ opacity: 1, scale: 1 }}
-											className='inline-flex items-center gap-2 badge-active mb-3'
-										>
-											<span className='relative flex h-2 w-2'>
-												<span className='animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75'></span>
-												<span className='relative inline-flex rounded-full h-2 w-2 bg-white'></span>
-											</span>
-											Hôm nay
-										</motion.div>
-									)}
-
-									{/* Theme & Goals */}
-									{day.theme && (
-										<motion.div
-											className='mb-3 flex items-center gap-2 text-purple-400'
-											initial={{ y: 20, opacity: 0 }}
-											animate={{ y: 0, opacity: 1 }}
-											transition={{ delay: 0.22 }}
-										>
-											<Target className='w-4 h-4' />
-											<span className='text-sm font-medium'>{day.theme}</span>
-										</motion.div>
-									)}
-
-									{/* Goals */}
-									{day.goals && day.goals.length > 0 && (
-										<motion.div
-											className='mb-3 glass-panel p-3 rounded-xl'
-											initial={{ y: 20, opacity: 0 }}
-											animate={{ y: 0, opacity: 1 }}
-											transition={{ delay: 0.24 }}
-										>
-											<div className='text-white/50 text-xs mb-1'>
-												🎯 Mục tiêu
-											</div>
-											<ul className='space-y-1'>
-												{day.goals.map((goal, idx) => (
-													<li
-														key={idx}
-														className='text-white/80 text-sm flex items-start gap-2'
-													>
-														<span className='text-amber-400'>•</span>
-														{goal}
-													</li>
-												))}
-											</ul>
-										</motion.div>
-									)}
-
-									{/* Warnings */}
-									{day.warnings && day.warnings.length > 0 && (
-										<motion.div
-											className='mb-3 space-y-1'
-											initial={{ y: 20, opacity: 0 }}
-											animate={{ y: 0, opacity: 1 }}
-											transition={{ delay: 0.26 }}
-										>
-											{day.warnings.map((warning, idx) => (
-												<div
-													key={idx}
-													className='flex items-start gap-2 text-orange-400 text-sm bg-orange-500/10 border border-orange-500/20 px-3 py-2 rounded-lg'
-												>
-													<AlertTriangle className='w-4 h-4 mt-0.5 flex-shrink-0' />
-													<span>{warning}</span>
-												</div>
-											))}
-										</motion.div>
-									)}
-
-									<div className='grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-3 text-xs md:text-sm'>
-										<div className='glass-panel p-2 md:p-3 rounded-lg md:rounded-xl'>
-											<div className='text-white/50 mb-0.5 md:mb-1'>
-												Thời tiết
-											</div>
-											<div className='text-white'>
-												{day.weather.description}
-											</div>
-										</div>
-										<div className='glass-panel p-2 md:p-3 rounded-lg md:rounded-xl'>
-											<div className='text-white/50 mb-0.5 md:mb-1'>
-												Nhiệt độ
-											</div>
-											<div className='text-amber-400'>{day.weather.temp}</div>
-										</div>
-										<div className='glass-panel p-2 md:p-3 rounded-lg md:rounded-xl'>
-											<div className='text-white/50 mb-0.5 md:mb-1'>
-												Outfit gợi ý
-											</div>
-											<div className='text-white'>{day.outfit}</div>
-										</div>
-									</div>
+					<ExpandableCardModal isOpen={isExpanded} onClose={onToggle}>
+						{/* Header */}
+						<div className='mb-4 md:mb-6 pr-12'>
+							<div className='flex items-start justify-between mb-3 md:mb-4'>
+								<div>
+									<motion.div
+										className='text-4xl md:text-5xl lg:text-6xl font-playfair text-white mb-1 md:mb-2'
+										initial={{ y: 20, opacity: 0 }}
+										animate={{ y: 0, opacity: 1 }}
+										transition={{ delay: 0.1 }}
+									>
+										Ngày {day.id}
+									</motion.div>
+									<motion.h2
+										className='text-xl md:text-2xl lg:text-3xl font-playfair text-amber-400 mb-1 md:mb-2'
+										initial={{ y: 20, opacity: 0 }}
+										animate={{ y: 0, opacity: 1 }}
+										transition={{ delay: 0.15 }}
+									>
+										{day.title}
+									</motion.h2>
+									<motion.p
+										className='text-sm md:text-base text-white/60'
+										initial={{ y: 20, opacity: 0 }}
+										animate={{ y: 0, opacity: 1 }}
+										transition={{ delay: 0.2 }}
+									>
+										{day.dateLabel}
+									</motion.p>
 								</div>
 
-								{/* Timeline */}
-								<div className='space-y-2 md:space-y-3'>
-									<h3 className='text-white font-semibold text-base md:text-lg mb-3 md:mb-4 flex items-center gap-2'>
-										<Clock className='w-4 h-4 md:w-5 md:h-5 text-amber-400' />
-										Lịch trình chi tiết
-									</h3>
-									{day.timeline.map((item, idx) => (
+								<WeatherIcon
+									icon={day.weather.icon}
+									className='w-10 h-10 md:w-12 md:h-12 text-amber-400'
+								/>
+							</div>
+
+							{/* Active Day Badge */}
+							{isActiveDay && (
+								<motion.div
+									initial={{ opacity: 0, scale: 0.9 }}
+									animate={{ opacity: 1, scale: 1 }}
+									className='inline-flex items-center gap-2 badge-active mb-3'
+								>
+									<span className='relative flex h-2 w-2'>
+										<span className='animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75'></span>
+										<span className='relative inline-flex rounded-full h-2 w-2 bg-white'></span>
+									</span>
+									Hôm nay
+								</motion.div>
+							)}
+
+							{/* Theme & Goals */}
+							{day.theme && (
+								<motion.div
+									className='mb-3 flex items-center gap-2 text-purple-400'
+									initial={{ y: 20, opacity: 0 }}
+									animate={{ y: 0, opacity: 1 }}
+									transition={{ delay: 0.22 }}
+								>
+									<Target className='w-4 h-4' />
+									<span className='text-sm font-medium'>{day.theme}</span>
+								</motion.div>
+							)}
+
+							{/* Goals */}
+							{day.goals && day.goals.length > 0 && (
+								<motion.div
+									className='mb-3 glass-panel p-3 rounded-xl'
+									initial={{ y: 20, opacity: 0 }}
+									animate={{ y: 0, opacity: 1 }}
+									transition={{ delay: 0.24 }}
+								>
+									<div className='text-white/50 text-xs mb-1'>🎯 Mục tiêu</div>
+									<ul className='space-y-1'>
+										{day.goals.map((goal, idx) => (
+											<li
+												key={idx}
+												className='text-white/80 text-sm flex items-start gap-2'
+											>
+												<span className='text-amber-400'>•</span>
+												{goal}
+											</li>
+										))}
+									</ul>
+								</motion.div>
+							)}
+
+							{/* Warnings */}
+							{day.warnings && day.warnings.length > 0 && (
+								<motion.div
+									className='mb-3 space-y-1'
+									initial={{ y: 20, opacity: 0 }}
+									animate={{ y: 0, opacity: 1 }}
+									transition={{ delay: 0.26 }}
+								>
+									{day.warnings.map((warning, idx) => (
 										<div
 											key={idx}
-											ref={idx === activeItemIndex ? activeItemRef : null}
+											className='flex items-start gap-2 text-orange-400 text-sm bg-orange-500/10 border border-orange-500/20 px-3 py-2 rounded-lg'
 										>
-											<TimelineItem
-												item={item}
-												isActive={idx === activeItemIndex}
-												isUpcoming={idx === upcomingItemIndex}
-											/>
+											<AlertTriangle className='w-4 h-4 mt-0.5 flex-shrink-0' />
+											<span>{warning}</span>
 										</div>
 									))}
+								</motion.div>
+							)}
+
+							<div className='grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-3 text-xs md:text-sm'>
+								<div className='glass-panel p-2 md:p-3 rounded-lg md:rounded-xl'>
+									<div className='text-white/50 mb-0.5 md:mb-1'>Thời tiết</div>
+									<div className='text-white'>{day.weather.description}</div>
+								</div>
+								<div className='glass-panel p-2 md:p-3 rounded-lg md:rounded-xl'>
+									<div className='text-white/50 mb-0.5 md:mb-1'>Nhiệt độ</div>
+									<div className='text-amber-400'>{day.weather.temp}</div>
+								</div>
+								<div className='glass-panel p-2 md:p-3 rounded-lg md:rounded-xl'>
+									<div className='text-white/50 mb-0.5 md:mb-1'>
+										Outfit gợi ý
+									</div>
+									<div className='text-white'>{day.outfit}</div>
 								</div>
 							</div>
-						</motion.div>
-					</>
+						</div>
+
+						{/* Timeline */}
+						<div className='space-y-2 md:space-y-3'>
+							<h3 className='text-white font-semibold text-base md:text-lg mb-3 md:mb-4 flex items-center gap-2'>
+								<Clock className='w-4 h-4 md:w-5 md:h-5 text-amber-400' />
+								Lịch trình chi tiết
+							</h3>
+							{day.timeline.map((item, idx) => (
+								<div
+									key={idx}
+									ref={idx === activeItemIndex ? activeItemRef : null}
+								>
+									<TimelineItem
+										item={item}
+										isActive={idx === activeItemIndex}
+										isUpcoming={idx === upcomingItemIndex}
+									/>
+								</div>
+							))}
+						</div>
+					</ExpandableCardModal>
 				)}
 			</AnimatePresence>
 		</>

@@ -39,11 +39,27 @@ export interface DaySchedule {
 	isBirthday?: boolean;
 	warnings?: string[];
 }
-
 export interface EmergencyContact {
 	name: string;
 	phone: string;
 	icon: string;
+}
+
+export interface PackingCategory {
+	title: string;
+	items: string[];
+}
+
+export interface PackingList {
+	boy: PackingCategory[];
+	girl: PackingCategory[];
+}
+
+export interface PlanB {
+	condition: string;
+	place: string;
+	activity: string;
+	benefit: string;
 }
 
 export interface TripInfo {
@@ -62,10 +78,8 @@ export interface TripInfo {
 		returnDeparture: string;
 		returnArrival: string;
 	};
-	birthday: {
-		date: string;
-		person: string;
-	};
+	packingList: PackingList;
+	planB: PlanB;
 }
 
 // ==================== TRIP INFO ====================
@@ -90,20 +104,79 @@ export const tripInfo: TripInfo = {
 		returnDeparture: '12:00 Xe trung chuyển đón -> 14:00 Xe chạy',
 		returnArrival: 'Về nhà để "yêu" tiếp',
 	},
-	birthday: {
-		date: '16/01/2026',
-		person: 'Nàng thơ của anh',
+	packingList: {
+		boy: [
+			{
+				title: 'Trang phục',
+				items: [
+					'1 Áo khoác đại hàn (Màu tối/trung tính)',
+					'2 Áo len/Hoodie',
+					'Quần Jeans/Kaki thoải mái',
+				],
+			},
+			{
+				title: 'Thiết bị',
+				items: ['Sạc dự phòng (quan trọng)', 'Khăn giấy ướt (lau tay khi ăn)'],
+			},
+			{
+				title: 'Đồ sinh tồn',
+				items: [
+					'4 Hộp mì ly/Phở gói (Ăn sáng ngày 3 & 4)',
+					'2 Gói xúc xích ăn liền',
+					'Đồ ăn vặt (Bim bim, kẹo) nhâm nhi rượu vang',
+				],
+			},
+		],
+		girl: [
+			{
+				title: 'Set 1 (Tối N1 - Chill Homestay)',
+				items: [
+					'Đồ bộ Pijama nỉ lông/hình thú cute',
+					'Hoặc set len tăm thoải mái (Màu: Be/Hồng phấn)',
+				],
+			},
+			{
+				title: 'Set 2 (Ngày 2 - Sinh nhật)',
+				items: [
+					'Váy len body + Áo khoác dạ dáng dài/Măng tô',
+					'Phụ kiện: Mũ nồi + Boot cao cổ',
+					'Màu: Đỏ đô/Trắng kem/Nâu tây (Sang chảnh)',
+				],
+			},
+			{
+				title: 'Set 3 (Tối N2 - Party)',
+				items: [
+					'Váy lụa 2 dây sexy (nếu phòng ấm)',
+					'Hoặc váy len trễ vai quyến rũ',
+				],
+			},
+			{
+				title: 'Set 4 (Ngày 3 - Vintage/Đi bộ)',
+				items: [
+					'Chân váy dài xếp ly/thổ cẩm + Áo len thụng + Khăn choàng',
+					'Màu: Vàng mù tạt, Nâu đất, Xanh rêu',
+					'Giày: Sneaker/Đế bằng (Bắt buộc)',
+				],
+			},
+		],
+	},
+	planB: {
+		condition: 'Khi trời mưa hoặc quá lạnh (thay thế Moana/Hàm Rồng)',
+		place: 'Khách sạn De La Coupole (MGallery) - Sun Plaza',
+		activity: 'Cafe Cacao Patisserie: Chocolate nóng + Bánh ngọt',
+		benefit: 'Không gian sang chảnh như cung điện Pháp, ấm áp, chụp ảnh đẹp',
 	},
 };
 
 // ==================== EMERGENCY CONTACTS ====================
 
 export const emergencyContacts: EmergencyContact[] = [
-	{ name: 'Taxi Xanh Sapa', phone: '0214 363 63 63', icon: '🚕' },
+	{ name: 'Taxi Xanh Sapa', phone: '0214 3 63 63 63', icon: '🚕' },
 	{ name: 'Tiệm Bánh Chị Híp', phone: '0974 511 568', icon: '🎂' },
 	{ name: 'Nhà hàng A Phủ', phone: '0868 159 900', icon: '🐟' },
 	{ name: 'Thắng Cố A Quỳnh', phone: '0214 3871 555', icon: '🍲' },
 	{ name: "Dao's Center (Spa)", phone: '0917 822 844', icon: '💆‍♀️' },
+	{ name: 'Chill With Home', phone: '0983 994 867', icon: '🏡' },
 ];
 
 // ==================== ITINERARY ====================
