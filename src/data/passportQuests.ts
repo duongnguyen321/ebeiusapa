@@ -16,20 +16,6 @@ export interface PassportQuest {
 	stampId?: string;
 }
 
-// Generate a simple code from quest ID
-function generateCode(id: string): string {
-	// Simple hash to 4 digits
-	let hash = 0;
-	for (let i = 0; i < id.length; i++) {
-		const char = id.charCodeAt(i);
-		hash = (hash << 5) - hash + char;
-		hash = hash & hash; // Convert to 32bit integer
-	}
-	return Math.abs(hash % 10000)
-		.toString()
-		.padStart(4, '0');
-}
-
 export const passportQuests: PassportQuest[] = [
 	// ==================== DAY 1: HẠ CÁNH & PHỤC HỒI ====================
 	{
@@ -46,7 +32,7 @@ export const passportQuests: PassportQuest[] = [
 		rewardAnh: {
 			id: 'voucher-luggage',
 			title: 'Được Em Đấm Lưng',
-			description: 'Vì đã vất vả xách hành lý, Anh được Em đấm lưng 5 phút.',
+			description: 'Sử dụng voucher để yêu cầu Em đấm lưng cho Anh trong 5 phút ngay lập tức.',
 			icon: '💆‍♂️',
 			isRedeemed: false,
 			isUsed: false,
@@ -54,7 +40,7 @@ export const passportQuests: PassportQuest[] = [
 		rewardEm: {
 			id: 'voucher-princess-mode',
 			title: 'Chế Độ Công Chúa',
-			description: 'Anh sẽ phục vụ Em A-Z trong 1 tiếng tiếp theo.',
+			description: 'Voucher đặc quyền: Anh phải phục vụ Em A-Z trong 1 tiếng khi Em kích hoạt.',
 			icon: '👑',
 			isRedeemed: false,
 			isUsed: false,
@@ -75,7 +61,7 @@ export const passportQuests: PassportQuest[] = [
 		rewardAnh: {
 			id: 'voucher-actor',
 			title: 'Diễn Viên Triển Vọng',
-			description: 'Được Em khen ngợi khả năng diễn xuất (hoặc thưởng 1 cái hôn).',
+			description: 'Yêu cầu Em phải dành lời khen ngợi cho khả năng diễn xuất của Anh (hoặc thưởng 1 cái hôn).',
 			icon: '🎭',
 			isRedeemed: false,
 			isUsed: false,
@@ -83,7 +69,7 @@ export const passportQuests: PassportQuest[] = [
 		rewardEm: {
 			id: 'voucher-queen',
 			title: 'Quyền Lực Tối Thượng',
-			description: 'Em nói gì Anh cũng phải "Dạ, thưa Hoàng Hậu" trong 30p.',
+			description: 'Khi sử dụng, Anh buộc phải trả lời "Dạ, thưa Hoàng Hậu" với mọi câu nói của Em trong 30p.',
 			icon: '👸',
 			isRedeemed: false,
 			isUsed: false,
@@ -104,7 +90,7 @@ export const passportQuests: PassportQuest[] = [
 		rewardAnh: {
 			id: 'voucher-pillow',
 			title: 'Gối Ôm Cao Cấp',
-			description: 'Được Em ôm ngủ cả đêm nay (không được đẩy ra).',
+			description: 'Được Em ôm ngủ cả đêm nay (cấm Em đẩy ra dù có nóng).',
 			icon: '🛌',
 			isRedeemed: false,
 			isUsed: false,
@@ -112,7 +98,7 @@ export const passportQuests: PassportQuest[] = [
 		rewardEm: {
 			id: 'voucher-battery',
 			title: 'Sạc Pin Tình Yêu',
-			description: 'Nạp đầy 100% năng lượng yêu thương từ Anh.',
+			description: 'Được Anh nạp đầy 100% năng lượng yêu thương bất cứ lúc nào Em muốn.',
 			icon: '🔋',
 			isRedeemed: false,
 			isUsed: false,
@@ -141,7 +127,7 @@ export const passportQuests: PassportQuest[] = [
 		rewardEm: {
 			id: 'voucher-foodie',
 			title: 'Cái Bụng No Căng',
-			description: 'Miễn nhiễm với việc rửa bát/dọn dẹp trong tối nay.',
+			description: 'Thẻ bài miễn tử: Em được miễn làm việc nhà/rửa bát/dọn dẹp trong tối nay.',
 			icon: '🍜',
 			isRedeemed: false,
 			isUsed: false,
@@ -162,7 +148,7 @@ export const passportQuests: PassportQuest[] = [
 		rewardAnh: {
 			id: 'voucher-knight',
 			title: 'Hiệp Sĩ Bảo Vệ',
-			description: 'Được Em nắm tay không buông suốt cả buổi tối.',
+			description: 'Yêu cầu Em phải nắm tay Anh không buông trong suốt buổi đi dạo tối nay.',
 			icon: '🛡️',
 			isRedeemed: false,
 			isUsed: false,
@@ -201,7 +187,7 @@ export const passportQuests: PassportQuest[] = [
 		rewardEm: {
 			id: 'voucher-beauty',
 			title: 'Xinh Đẹp Tuyệt Trần',
-			description: 'Được Anh khen xinh đẹp mỗi 30 phút/lần trong hôm nay.',
+			description: 'Kích hoạt để Anh phải khen Em xinh đẹp mỗi 30 phút/lần trong ngày hôm nay.',
 			icon: '💄',
 			isRedeemed: false,
 			isUsed: false,
@@ -222,7 +208,7 @@ export const passportQuests: PassportQuest[] = [
 		rewardAnh: {
 			id: 'voucher-poet',
 			title: 'Nhà Thơ Tình',
-			description: 'Được Em hôn má vì bài thơ tán tỉnh quá sến.',
+			description: 'Được Em hôn má thưởng vì bài thơ tán tỉnh quá "sến".',
 			icon: '📜',
 			isRedeemed: false,
 			isUsed: false,
@@ -259,7 +245,7 @@ export const passportQuests: PassportQuest[] = [
 		rewardEm: {
 			id: 'voucher-meme-queen',
 			title: 'Nữ Hoàng Meme',
-			description: 'Được quyền xóa tấm ảnh mặt xấu của mình (nếu muốn).',
+			description: 'Voucher xóa ảnh: Yêu cầu Anh xóa ngay tấm ảnh dìm hàng vừa chụp.',
 			icon: '🤡',
 			isRedeemed: false,
 			isUsed: false,
@@ -317,7 +303,7 @@ export const passportQuests: PassportQuest[] = [
 		rewardEm: {
 			id: 'voucher-relax',
 			title: 'Phiếu Bé Ngoan',
-			description: 'Được Anh sấy tóc cho sau khi tắm xong.',
+			description: 'Voucher spa tại gia: Yêu cầu Anh sấy tóc cho Em ngay sau khi tắm.',
 			icon: '🧖‍♀️',
 			isRedeemed: false,
 			isUsed: false,
@@ -338,7 +324,7 @@ export const passportQuests: PassportQuest[] = [
 		rewardAnh: {
 			id: 'voucher-toast',
 			title: 'Người Đàn Ông Ga Lăng',
-			description: 'Được Em châm chước bỏ qua lỗi lầm nhỏ trong ngày.',
+			description: 'Thẻ bài miễn tội: Em sẽ bỏ qua một lỗi lầm nhỏ của Anh trong ngày.',
 			icon: '🥂',
 			isRedeemed: false,
 			isUsed: false,
@@ -367,7 +353,7 @@ export const passportQuests: PassportQuest[] = [
 		rewardAnh: {
 			id: 'voucher-singer',
 			title: 'Ca Sĩ Opera',
-			description: 'Được Em vỗ tay cổ vũ (dù hát dở).',
+			description: 'Yêu cầu Em phải vỗ tay cổ vũ nhiệt tình cho màn trình diễn của Anh.',
 			icon: '🎤',
 			isRedeemed: false,
 			isUsed: false,

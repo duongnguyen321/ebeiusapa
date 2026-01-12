@@ -255,7 +255,7 @@ export const quizData: QuizData[] = [
 		reward: {
 			id: 'voucher-hug',
 			title: 'Thẻ Ôm Vô Điều Kiện',
-			description: 'Bất cứ lúc nào em cần, anh sẽ có mặt để ôm em.',
+			description: 'Voucher ôm: Dùng bất cứ lúc nào để yêu cầu Anh ôm Em ngay lập tức.',
 			icon: '🫂',
 			isRedeemed: false,
 			isUsed: false,
@@ -282,7 +282,7 @@ export const quizData: QuizData[] = [
 		reward: {
 			id: 'voucher-photo',
 			title: 'Thợ Chụp Ảnh Riêng',
-			description: 'Anh sẽ chụp cho em 100 tấm ảnh sống ảo cho đến khi ưng ý.',
+			description: 'Voucher nhiếp ảnh: Yêu cầu Anh chụp 100 tấm ảnh sống ảo cho đến khi Em ưng ý.',
 			icon: '📸',
 			isRedeemed: false,
 			isUsed: false,
@@ -338,7 +338,7 @@ export const quizData: QuizData[] = [
 		reward: {
 			id: 'voucher-massage',
 			title: 'Thẻ Massage',
-			description: 'Anh sẽ massage cho em 30 phút. Không được kêu ca!',
+			description: 'Voucher thư giãn: Yêu cầu Anh massage cho Em trong 30 phút (cấm kêu ca).',
 			icon: '🦶',
 			isRedeemed: false,
 			isUsed: false,
@@ -426,7 +426,7 @@ export const quizData: QuizData[] = [
 		reward: {
 			id: 'voucher-king',
 			title: 'Hoàng Hậu Lệnh',
-			description: 'Em nói gì anh cũng phải nghe theo trong vòng 1 tiếng.',
+			description: 'Voucher quyền lực: Trong 1 tiếng tới, Anh phải nghe theo mọi lời Em nói.',
 			icon: '👑',
 			isRedeemed: false,
 			isUsed: false,
@@ -480,7 +480,7 @@ export const quizData: QuizData[] = [
 		reward: {
 			id: 'voucher-kiss',
 			title: '100 Cái Hôn',
-			description: 'Nhận ngay 100 nụ hôn vào bất cứ chỗ nào em muốn.',
+			description: 'Voucher nụ hôn: Nhận ngay 100 cái hôn vào bất cứ chỗ nào Em chỉ định.',
 			icon: '💋',
 			isRedeemed: false,
 			isUsed: false,
@@ -509,7 +509,7 @@ export const quizData: QuizData[] = [
 		reward: {
 			id: 'voucher-cook',
 			title: 'Voucher Đầu Bếp',
-			description: 'Anh sẽ nấu bất cứ món gì em yêu cầu (trong khả năng).',
+			description: 'Voucher đầu bếp: Yêu cầu Anh nấu bất cứ món gì Em muốn (trong khả năng).',
 			icon: '👨‍🍳',
 			isRedeemed: false,
 			isUsed: false,
@@ -536,7 +536,7 @@ export const quizData: QuizData[] = [
 		reward: {
 			id: 'voucher-sleep',
 			title: 'Voucher Ngủ Nướng',
-			description: 'Được phép ngủ nướng thêm 30p vào buổi sáng.',
+			description: 'Voucher ngủ nướng: Em được quyền ngủ nướng thêm 30p vào buổi sáng bất kỳ.',
 			icon: '💤',
 			isRedeemed: false,
 			isUsed: false,
@@ -563,7 +563,7 @@ export const quizData: QuizData[] = [
 		reward: {
 			id: 'voucher-trip',
 			title: 'Voucher Du Lịch',
-			description: 'Anh hứa sẽ đưa em đi du lịch ít nhất 1 lần/năm.',
+			description: 'Voucher vi vu: Lời hứa danh dự từ Anh sẽ đưa Em đi du lịch ít nhất 1 lần/năm.',
 			icon: '✈️',
 			isRedeemed: false,
 			isUsed: false,
