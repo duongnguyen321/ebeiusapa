@@ -584,6 +584,7 @@ export const moodData: MoodCheckinData[] = [
 				response: {
 					images: [
 						'/images/easter-eggs/we-sleep-all-night-at-West-Lake-Flower-Valley-with-your-first-flowers-i-bouth.jpg',
+						'/images/easter-eggs/you-are-sexy-in-homestay-bed-when-we-have-a-celebrate-love.jpg',
 						'/images/easter-eggs/you-are-so-wet-in-homestay-bed-when-we-have-a-celebrate-love.jpg',
 					],
 					message:
@@ -627,6 +628,7 @@ export const moodData: MoodCheckinData[] = [
 						'/images/easter-eggs/you-are-showing-to-me-your-beautyful-image-5.jpg',
 						'/images/easter-eggs/you-are-showing-to-me-your-beautyful-image-6.jpg',
 						'/images/easter-eggs/you-are-showing-to-me-your-beautyful-image-7.jpg',
+						'/images/easter-eggs/you-are-sexy-in-homestay-bed-when-we-have-a-celebrate-love.jpg',
 					],
 					message: 'Em cười xinh như những bức ảnh này vậy. Yêu em!',
 				},
@@ -665,6 +667,7 @@ export const moodData: MoodCheckinData[] = [
 					images: [
 						'/images/easter-eggs/we-are-going-to-beautyful-cafe-name-rouge-cafe-and-bistro.jpg',
 						'/images/easter-eggs/you-are-so-sexy-sweet-in-Rouge-cafe-and-bistro-with-my-dress-im-bouth-to-you.jpg',
+						'/images/easter-eggs/you-are-sexy-in-homestay-bed-when-we-have-a-celebrate-love.jpg',
 					],
 					message: 'Tận hưởng khoảnh khắc bình yên này nhé công chúa.',
 				},
