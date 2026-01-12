@@ -1,14 +1,17 @@
 import { cn } from '@/lib/utils';
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Plus, RotateCcw } from 'lucide-react';
+import { Plus, RotateCcw, BarChart3, List } from 'lucide-react';
 import { useBudget, BudgetCategory, BudgetItem } from '@/contexts/BudgetContext';
 import { BudgetWalletCard } from './BudgetWalletCard';
 import { BudgetListItem } from './BudgetListItem';
 import { BudgetEntryModal } from './BudgetEntryModal';
 import { BudgetRoleSelector } from './BudgetRoleSelector';
+import { BudgetCharts } from './BudgetCharts';
 import { useBudgetReminder } from '@/hooks/useBudgetReminder';
 import { toast } from 'sonner';
+
+type DashboardTab = 'list' | 'charts';
 
 interface BudgetDashboardProps {
 	onClose?: () => void;
@@ -30,6 +33,7 @@ export function BudgetDashboard({ onClose }: BudgetDashboardProps) {
 
 	const [showEntryModal, setShowEntryModal] = useState(false);
 	const [editingItem, setEditingItem] = useState<BudgetItem | null>(null);
+	const [activeTab, setActiveTab] = useState<DashboardTab>('list');
 
 	const isAnhView = role === 'anh';
 
@@ -113,10 +117,46 @@ export function BudgetDashboard({ onClose }: BudgetDashboardProps) {
 			{/* Wallet Card */}
 			<BudgetWalletCard />
 
+			{/* Tab Switcher */}
+			<div className='flex gap-2 p-1 bg-white/5 rounded-xl'>
+				<button
+					onClick={() => setActiveTab('list')}
+					className={cn(
+						'flex-1 py-2 px-3 rounded-lg text-sm font-medium transition-all flex items-center justify-center gap-2',
+						activeTab === 'list'
+							? isAnhView
+								? 'bg-cyan-500/30 text-cyan-300'
+								: 'bg-pink-500/30 text-pink-300'
+							: 'text-white/50 hover:text-white/70'
+					)}
+				>
+					<List className='w-4 h-4' />
+					Danh sách
+				</button>
+				<button
+					onClick={() => setActiveTab('charts')}
+					className={cn(
+						'flex-1 py-2 px-3 rounded-lg text-sm font-medium transition-all flex items-center justify-center gap-2',
+						activeTab === 'charts'
+							? isAnhView
+								? 'bg-cyan-500/30 text-cyan-300'
+								: 'bg-pink-500/30 text-pink-300'
+							: 'text-white/50 hover:text-white/70'
+					)}
+				>
+					<BarChart3 className='w-4 h-4' />
+					Thống kê
+				</button>
+			</div>
+
 			{/* Header with Reset Button */}
 			<div className='flex items-center justify-between'>
 				<h3 className='text-sm font-medium text-white/70'>
-					{isAnhView ? 'Danh sách chi phí' : 'Chi tiêu của Em'}
+					{activeTab === 'list'
+						? isAnhView
+							? 'Danh sách chi phí'
+							: 'Chi tiêu của Em'
+						: 'Biểu đồ thống kê'}
 				</h3>
 				<button
 					onClick={handleReset}
@@ -127,77 +167,99 @@ export function BudgetDashboard({ onClose }: BudgetDashboardProps) {
 				</button>
 			</div>
 
-			{/* Items List */}
-			<div className='space-y-3 max-h-[40vh] overflow-y-auto pr-1'>
-				{isAnhView ? (
-					// Anh view: Grouped by day
-					Object.entries(groupedItems).map(([dayLabel, dayItems]) => {
-						if (dayItems.length === 0) return null;
-						return (
-							<div key={dayLabel} className='space-y-2'>
-								<p className='text-xs font-medium text-cyan-400/70 pl-1'>
-									{dayLabel}
-								</p>
+			{/* Content based on active tab */}
+			<AnimatePresence mode='wait'>
+				{activeTab === 'list' ? (
+					<motion.div
+						key='list'
+						initial={{ opacity: 0, x: -20 }}
+						animate={{ opacity: 1, x: 0 }}
+						exit={{ opacity: 0, x: -20 }}
+						className='space-y-3'
+					>
+						{/* Items List */}
+						<div className='space-y-3 max-h-[35vh] overflow-y-auto pr-1'>
+							{isAnhView ? (
+								// Anh view: Grouped by day
+								Object.entries(groupedItems).map(([dayLabel, dayItems]) => {
+									if (dayItems.length === 0) return null;
+									return (
+										<div key={dayLabel} className='space-y-2'>
+											<p className='text-xs font-medium text-cyan-400/70 pl-1'>
+												{dayLabel}
+											</p>
+											<AnimatePresence mode='popLayout'>
+												{dayItems.map((item) => (
+													<BudgetListItem
+														key={item.id}
+														item={item}
+														isAnhView={isAnhView}
+														onTogglePaid={() => togglePaid(item.id)}
+														onEdit={() => handleEditItem(item)}
+														onDelete={() => handleDeleteItem(item.id)}
+													/>
+												))}
+											</AnimatePresence>
+										</div>
+									);
+								})
+							) : (
+								// Em view: Simple list
 								<AnimatePresence mode='popLayout'>
-									{dayItems.map((item) => (
-										<BudgetListItem
-											key={item.id}
-											item={item}
-											isAnhView={isAnhView}
-											onTogglePaid={() => togglePaid(item.id)}
-											onEdit={() => handleEditItem(item)}
-											onDelete={() => handleDeleteItem(item.id)}
-										/>
-									))}
+									{items.length === 0 ? (
+										<motion.div
+											initial={{ opacity: 0 }}
+											animate={{ opacity: 1 }}
+											className='text-center py-8'
+										>
+											<p className='text-white/40 text-sm'>
+												Chưa có chi tiêu nào. Thêm mới nào! 🛍️
+											</p>
+										</motion.div>
+									) : (
+										items.map((item) => (
+											<BudgetListItem
+												key={item.id}
+												item={item}
+												isAnhView={isAnhView}
+												onTogglePaid={() => togglePaid(item.id)}
+												onEdit={() => handleEditItem(item)}
+												onDelete={() => handleDeleteItem(item.id)}
+											/>
+										))
+									)}
 								</AnimatePresence>
-							</div>
-						);
-					})
-				) : (
-					// Em view: Simple list
-					<AnimatePresence mode='popLayout'>
-						{items.length === 0 ? (
-							<motion.div
-								initial={{ opacity: 0 }}
-								animate={{ opacity: 1 }}
-								className='text-center py-8'
-							>
-								<p className='text-white/40 text-sm'>
-									Chưa có chi tiêu nào. Thêm mới nào! 🛍️
-								</p>
-							</motion.div>
-						) : (
-							items.map((item) => (
-								<BudgetListItem
-									key={item.id}
-									item={item}
-									isAnhView={isAnhView}
-									onTogglePaid={() => togglePaid(item.id)}
-									onEdit={() => handleEditItem(item)}
-									onDelete={() => handleDeleteItem(item.id)}
-								/>
-							))
-						)}
-					</AnimatePresence>
-				)}
-			</div>
+							)}
+						</div>
 
-			{/* Floating Add Button */}
-			<motion.button
-				whileHover={{ scale: 1.05 }}
-				whileTap={{ scale: 0.95 }}
-				onClick={handleAddItem}
-				className={cn(
-					'w-full py-3 rounded-xl font-medium transition-all',
-					'flex items-center justify-center gap-2',
-					isAnhView
-						? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 hover:bg-cyan-500/30'
-						: 'bg-pink-500/20 text-pink-300 border border-pink-500/30 hover:bg-pink-500/30'
+						{/* Floating Add Button */}
+						<motion.button
+							whileHover={{ scale: 1.05 }}
+							whileTap={{ scale: 0.95 }}
+							onClick={handleAddItem}
+							className={cn(
+								'w-full py-3 rounded-xl font-medium transition-all',
+								'flex items-center justify-center gap-2',
+								isAnhView
+									? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 hover:bg-cyan-500/30'
+									: 'bg-pink-500/20 text-pink-300 border border-pink-500/30 hover:bg-pink-500/30'
+							)}
+						>
+							<Plus className='w-5 h-5' />
+							Thêm chi tiêu
+						</motion.button>
+					</motion.div>
+				) : (
+					<motion.div
+						key='charts'
+						initial={{ opacity: 0, x: 20 }}
+						animate={{ opacity: 1, x: 0 }}
+						exit={{ opacity: 0, x: 20 }}
+					>
+						<BudgetCharts />
+					</motion.div>
 				)}
-			>
-				<Plus className='w-5 h-5' />
-				Thêm chi tiêu
-			</motion.button>
+			</AnimatePresence>
 
 			{/* Entry Modal */}
 			<BudgetEntryModal
