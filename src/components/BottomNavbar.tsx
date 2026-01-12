@@ -14,6 +14,7 @@ import {
 	Sparkles,
 	Bell,
 	BellOff,
+	Wallet,
 } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { BottomNavbarGroup, NavItem } from './BottomNavbarGroup';
@@ -27,11 +28,13 @@ interface BottomNavbarProps {
 	onGames: () => void;
 	onMood: () => void;
 	onWallet: () => void;
+	onBudget: () => void;
 	onExit: () => void;
 	showLettersActive?: boolean;
 	showGamesActive?: boolean;
 	showMoodActive?: boolean;
 	showWalletActive?: boolean;
+	showBudgetActive?: boolean;
 }
 
 const BottomNavbar = ({
@@ -41,11 +44,13 @@ const BottomNavbar = ({
 	onGames,
 	onMood,
 	onWallet,
+	onBudget,
 	onExit,
 	showLettersActive = false,
 	showGamesActive = false,
 	showMoodActive = false,
 	showWalletActive = false,
+	showBudgetActive = false,
 }: BottomNavbarProps) => {
 	const navigate = useNavigate();
 	const location = useLocation();
@@ -137,6 +142,18 @@ const BottomNavbar = ({
 			color: 'text-orange-400',
 			hoverBg: 'hover:bg-orange-500/20',
 			isActive: showWalletActive,
+		},
+		{
+			id: 'budget',
+			icon: Wallet,
+			label: 'Chi tiêu',
+			onClick: () => {
+				if (handleRestrictedAction('Chi tiêu')) return;
+				onBudget();
+			},
+			color: 'text-green-400',
+			hoverBg: 'hover:bg-green-500/20',
+			isActive: showBudgetActive,
 		},
 	];
 
