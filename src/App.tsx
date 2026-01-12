@@ -9,6 +9,7 @@ import TimelinePage from '@/pages/TimelinePage';
 import GamePlayPage from '@/pages/GamePlayPage';
 import NotFound from '@/pages/NotFound';
 import LiquidGlassFilters from '@/components/LiquidGlassFilters';
+import VersionManager from '@/components/VersionManager';
 import { useImagePrefetch } from './hooks/useImagePrefetch';
 
 const queryClient = new QueryClient();
@@ -18,6 +19,7 @@ const App = () => {
 
 	return (
 		<QueryClientProvider client={queryClient}>
+			<VersionManager />
 			<LiquidGlassFilters />
 			<TooltipProvider>
 				<Toaster />

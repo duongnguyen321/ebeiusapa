@@ -1,0 +1,71 @@
+import { useEffect } from 'react';
+import { toast } from 'sonner';
+
+const VersionManager = () => {
+	useEffect(() => {
+		const checkForUpdate = async () => {
+			if (process.env.NODE_ENV === 'development') return;
+
+			try {
+				const response = await fetch(
+					`https://raw.githubusercontent.com/duongnguyen321/ebeiusapa/refs/heads/main/package.json?t=${Date.now()}`
+				);
+				
+				if (!response.ok) return;
+
+				const remotePackageJson = await response.json();
+				const remoteVersion = remotePackageJson.version;
+				const localVersion = __APP_VERSION__;
+
+				console.log(`[Version Check] Local: ${localVersion} | Remote: ${remoteVersion}`);
+
+				if (remoteVersion !== localVersion) {
+					console.log('[Version Manager] New version detected. clearing cache...');
+					
+					toast.info('Phát hiện bản cập nhật mới! Đang tải lại...', {
+						duration: 5000,
+					});
+
+					// 1. Unregister Service Workers
+					if ('serviceWorker' in navigator) {
+						const registrations = await navigator.serviceWorker.getRegistrations();
+						for (const registration of registrations) {
+							await registration.unregister();
+						}
+					}
+
+					// 2. Clear all caches
+					if ('caches' in window) {
+						const cacheNames = await caches.keys();
+						await Promise.all(
+							cacheNames.map((cacheName) => caches.delete(cacheName))
+						);
+					}
+
+					// 3. Clear Storage (Optional, be careful if you want to keep user data)
+					// localStorage.clear(); // Keeping this commented out to preserve user progress like coins
+
+					// 4. Reload page
+					window.location.reload();
+				}
+			} catch (error) {
+				console.error('[Version Manager] Error checking version:', error);
+			}
+		};
+
+		// Check on mount
+		checkForUpdate();
+
+		// Check when window gains focus
+		const onFocus = () => checkForUpdate();
+		window.addEventListener('focus', onFocus);
+
+		return () => {
+			window.removeEventListener('focus', onFocus);
+		};
+	}, []);
+
+	return null; // This component handles logic only
+};
+
+export default VersionManager;

@@ -4,6 +4,7 @@ import path from 'path';
 import fs from 'fs';
 import { componentTagger } from 'lovable-tagger';
 import { VitePWA } from 'vite-plugin-pwa';
+import packageJson from './package.json';
 
 // Custom plugin to inject prefetch links
 const injectEasterEggPrefetch = () => {
@@ -40,6 +41,9 @@ export default defineConfig(({ mode }) => ({
 	server: {
 		host: '::',
 		port: 8080,
+	},
+	define: {
+		__APP_VERSION__: JSON.stringify(packageJson.version),
 	},
 	plugins: [
 		react(),
