@@ -43,24 +43,21 @@ Instead of GPS or Server, we use a **"Verbal Sync"** mechanism.
 
 | Time | Role "Anh" (Planner) | Role "Em" (Muse) | Interaction (Sync) |
 | :--- | :--- | :--- | :--- |
-| **09:00**<br>(Morning) | **Secret Mission:** "The Sneaky Cake"<br>Gọi điện confirm lại bánh với tiệm Chị Híp (14 Thác Bạc) lúc Em đang ngủ/tắm. | **Quest:** "Mirror Mirror"<br>Chụp 1 tấm selfie trước gương với OOTD màu Trắng/Đỏ. | Anh confirm xong -> Đọc code `CAKE` -> Máy Em hiện pop-up: "Chuẩn bị xinh đẹp đi!" |
-| **11:00**<br>(Cafe) | **Quest:** "Le Gecko Chill"<br>Tìm góc ban công nhìn ra hồ tại Le Gecko (02 Ngũ Chỉ Sơn). | **Quiz:** "Paris in Sapa"<br>Em muốn uống gì? (Cacao nóng / Cafe trứng). | Order xong -> Nhập mã `CAFE` -> Mở khóa playlist nhạc Pháp. |
-| **13:00**<br>(Prep) | **Logistics:** "Supply Run"<br>Ghé siêu thị Xuân Trường mua Nến, Rượu vang, Snack cho tiệc đêm. | **Relax:** "Music DJ"<br>Chọn bài hát sẽ bật trong lúc tắm lá thuốc. | Anh mua đủ đồ -> Nhập code `READY` -> Em duyệt danh sách nhạc. |
-| **14:30**<br>(Spa) | **Mission:** "Red Dao Healer"<br>Đưa Em đến Sapa Green Spa. Chọn bồn gỗ Pơ-mu. | **Sensory:** "Herbal Immersion"<br>Ngâm lá thuốc 20p. Hít sâu mùi thảo mộc. | Anh thanh toán -> Nhập code `RELAX` -> Mở khóa Voucher "Massage tay 10p" (Anh tự làm). |
-| **17:30**<br>(Dinner) | **Quest:** "Sturgeon King"<br>Tại A Quỳnh (15 Thạch Sơn): Gắp miếng sụn cá tầm giòn nhất cho Em. | **Food Critic:**<br>Đánh giá món Lẩu Cá Tầm: 1-5 sao? (Lưu vào Memory). | Cụng ly rượu vang -> Cùng nhấn `CHEERS` trên 2 máy -> Pháo hoa nổ (Confetti). |
-| **21:00**<br>(Party) | **Event:** "Make a Wish"<br>Thắp nến, tắt đèn, hát Happy Birthday. | **Action:** "Blow the Candles"<br>Thổi nến và ước. Mở quà của Anh. | Em thổi nến (via Microphone detect hoặc bấm nút) -> Màn hình hiện pháo hoa & lời chúc. |
+| **10:00**<br>(Morning) | **Secret Mission:** "The Sneaky Cake"<br>Gọi điện confirm lại bánh với tiệm Chị Híp (14 Thác Bạc) lúc Em đang ngủ/tắm. | **Status:** "Sleeping Beauty"<br>Em ngủ nướng thỏa thích. Khi nào dậy thì make-up thật xinh đẹp. | Anh confirm xong -> Đọc code `CAKE` -> Máy Em hiện pop-up: "Chuẩn bị xinh đẹp đi!" |
+| **13:00**<br>(Lunch) | **Quest:** "Cốn Sủi Hunter"<br>Đưa Em đi ăn Cốn Sủi Ông Há (591 ĐBP). Gọi thêm sủi cảo chiên. | **Quest:** "Foodie Gram"<br>Thưởng thức đặc sản và chụp ảnh lưu niệm món ăn lạ này. | Ăn xong -> Nhập mã `YUMMY` -> Mở khóa "Voucher Bj Thượng Hạng" / "Quyền Bón Ăn". |
+| **14:00**<br>(Photo) | **Quest:** "Cameraman"<br>Chụp cháy máy cho Em tại Sun Plaza & Nhà thờ đá. Lăn xả, nằm đất chụp góc rộng. | **Model:** "Paris Vibes"<br>Diễn sâu tại trời Âu (fake). Mặc váy len body sang chảnh. | Chụp ảnh xong -> Nhập code `PARIS` -> Mở khóa "Voucher Khám Phá". |
+| **17:30**<br>(Spa) | **Mission:** "Red Dao Healer"<br>Đến Dao's Center. Đảm bảo Em được ngâm bồn thoải mái nhất. | **Sensory:** "Herbal Immersion"<br>Ngâm lá thuốc Dao Đỏ thư giãn. Tắt điện thoại, tận hưởng mùi thảo mộc. | Anh thanh toán -> Nhập code `RELAX` -> Mở khóa "Voucher La Hét" / "Spa Tình Yêu". |
+| **21:00**<br>(Party) | **Event:** "Make a Wish"<br>Bất ngờ!! Tổ chức Tiệc sinh nhật tại phòng. Bánh kem, nến, nhạc. | **Action:** "Blow the Candles"<br>Thổi nến và ước. Mở quà của Anh. | Em thổi nến -> Nhập code `WISH` -> Mở khóa "Show Thoát Y" / "Ghế Người". |
 
 ### **DAY 3 (17/01): THE ADVENTURE (Khám Phá)**
 *Theme: Nắng đẹp & Ảnh đẹp. Goal: Săn mây & Văn hóa.*
 
 | Time | Role "Anh" (Sherpa) | Role "Em" (Model) | Interaction (Sync) |
 | :--- | :--- | :--- | :--- |
-| **09:00**<br>(Hàm Rồng) | **Guide:** "Cloud Hunter"<br>Dẫn đường lên Vườn Lan 1 -> Sân Mây (đỉnh cao nhất). | **Pose Challenge:** "High Fashion"<br>Tạo 3 dáng khác nhau: Quay lưng, Vuốt tóc, Cười tỏa nắng. | Anh chụp đủ 3 tấm -> Nhập code `PEAK` -> Em mở khóa huy hiệu "Nhà leo núi". |
-| **12:00**<br>(Lunch) | **Quest:** "Peppery Chicken"<br>Tại Hải Lâm (69 Xuân Viên): Xé gà nướng tiêu xanh và bón cho Em. | **Taste Test:** "Spicy Level"<br>Thử độ cay của sốt tiêu xanh. (Cay / Vừa / Ngon). | Ăn xong -> Nhập code `SPICY` -> Mở khóa "Nụ hôn vị tiêu". |
-| **14:30**<br>(Transport) | **Safety:** "Taxi First"<br>Gọi Taxi xuống cổng bản Cát Cát. Không đi bộ chiều xuống (giữ sức). | **Prep:** "Hydration"<br>Uống nước, bôi kem chống nắng trước khi vào bản. | Lên taxi -> Anh bấm "Start Journey" -> Map hiện lộ trình Cát Cát. |
-| **15:00**<br>(Cát Cát) | **Photo:** "Stream & Wheel"<br>Chụp ảnh tại Guồng Nước khổng lồ và Cầu Si. | **Activity:** "Costume Try-on"<br>(Optional) Thử đồ dân tộc H'mông nếu thích. | Chụp ảnh xong -> Nhập code `STREAM` -> Lưu ảnh vào "Passport Gallery". |
-| **16:30**<br>(Return) | **CRITICAL MISSION:** "No Climbing"<br>**BẮT BUỘC** thuê xe ôm ngay bãi xe cuối bản để chở ngược lên. Không cho Em đi bộ! | **Relief:** "Enjoy the Ride"<br>Ôm chặt Anh (hoặc bác xe ôm) lên dốc. | Về đến thị trấn -> Nhập code `SAFE` -> Máy Em hiện: "Anh xót chân em lắm". |
-| **19:00**<br>(Market) | **Quest:** "Street Food"<br>Mua xiên nướng (thịt cuốn cải mèo) và Trứng nướng. | **Quest:** "Chestnut Tester"<br>Ăn thử hạt dẻ nóng. Nếu ngon mua 1 ít. | Cùng ăn trứng nướng -> Check-in "Street Food Lover". |
+| **13:00**<br>(Hàm Rồng) | **Guide:** "Sherpa Lead"<br>Dẫn đường lên Vườn Lan 1 -> Sân Mây (đỉnh cao nhất). Đỡ Em những đoạn dốc. | **Pose:** "High Fashion"<br>Leo núi nhưng vẫn phải xinh. Lên Sân Mây ngắm toàn cảnh thị trấn. | Anh chụp ảnh -> Nhập code `PEAK` -> Mở khóa "Voucher Nuốt Trọn" / "Triển Lãm Kín". |
+| **15:15**<br>(Moana) | **Assistant:** "Living Prop"<br>Cầm đồ cho Em thay. Hạ thấp máy sát mặt nước chụp ảnh. | **Star:** "Infinity Pool"<br>Tạo dáng bên hồ vô cực, tượng cô gái. | Chụp xong -> Nhập code `MOANA` -> Mở khóa "Voucher Gối Đầu". |
+| **17:00**<br>(Walk) | **Partner:** "Hand in Hand"<br>Đi bộ xuôi dốc từ Moana về Homestay. | **Dreamer:** "Sunset Walk"<br>Tản bộ ngắm cảnh thung lũng hoàng hôn. | Về đến nơi -> Nhập code `WALK` -> Mở khóa "Voucher Public". |
+| **20:00**<br>(Dinner) | **VIP:** "Sturgeon King"<br>Ăn tối Lẩu Cá Tầm/Thắng Cố tại A Quỳnh. | **Gourmet:** "Sapa Feast"<br>Ăn sập Sapa. Thử món Thắng Cố (nếu dám). | Ăn xong -> Nhập code `FEAST` -> Mở khóa "Quyền Xâm Nhập" / "Tiệc Nyotaimori". |
 
 ### **DAY 4 (18/01): THE FAREWELL (Lưu Luyến)**
 *Theme: Nắng nhẹ. Goal: Tạm biệt & Hẹn gặp lại.*
