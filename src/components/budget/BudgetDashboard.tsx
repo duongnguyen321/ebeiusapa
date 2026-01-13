@@ -90,6 +90,7 @@ export function BudgetDashboard({ onClose }: BudgetDashboardProps) {
 				estimatedAmount: 0,
 				actualAmount: data.amount,
 				isPaid: false,
+				isActive: true,
 			});
 			toast.success('Đã thêm chi tiêu mới');
 		}
