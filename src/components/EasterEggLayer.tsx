@@ -45,12 +45,17 @@ export default function EasterEggLayer() {
 								ease: 'easeInOut',
 							},
 						}}
+						drag
+						dragMomentum={false}
+						dragElastic={0.1}
+						whileDrag={{ scale: 1.1, cursor: 'grabbing' }}
 						onClick={clickEgg}
-						className={cn('fixed z-50 cursor-pointer')}
+						className={cn('fixed z-50 cursor-grab active:cursor-grabbing')}
 						style={{
 							top: `${eggPosition.top}%`,
 							left: `${eggPosition.left}%`,
 							transform: 'translate(-50%, -50%)',
+							touchAction: 'none', // Prevent scrolling while dragging on touch devices
 						}}
 						whileHover={{ scale: 1.2 }}
 						whileTap={{ scale: 0.9 }}

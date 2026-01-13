@@ -15,7 +15,7 @@ import {
 	type MemoryCapsuleData,
 } from '@/data/easterEggs';
 import type { VoucherReward } from '@/types/game';
-import { isRestricted } from '@/utils/restriction';
+import { isRestricted } from '@/lib/restriction';
 
 // ==================== TYPES ====================
 type EggContentType = 'quiz' | 'funny' | 'memory';
@@ -133,7 +133,6 @@ export function EasterEggProvider({ children }: { children: React.ReactNode }) {
 	const [answeredQuizIds, setAnsweredQuizIds] = useState<string[]>(() =>
 		loadFromStorage(STORAGE_KEYS.answeredQuizzes, [])
 	);
-	const [eggTimeoutId, setEggTimeoutId] = useState<NodeJS.Timeout | null>(null);
 
 	// Persist state changes
 	useEffect(() => {

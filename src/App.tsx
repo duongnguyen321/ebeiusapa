@@ -7,7 +7,7 @@ import PassportPage from '@/pages/PassportPage';
 import NotFound from '@/pages/NotFound';
 import LiquidGlassFilters from '@/components/LiquidGlassFilters';
 import { useImagePrefetch } from './hooks/useImagePrefetch';
-import { isRestricted } from '@/utils/restriction';
+import { isRestricted } from '@/lib/restriction';
 
 import { toast, Toaster } from 'sonner';
 import MainLayout from '@/layouts/MainLayout';

@@ -18,7 +18,7 @@ import {
 } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { BottomNavbarGroup, NavItem } from './BottomNavbarGroup';
-import { handleRestrictedAction } from '@/utils/restriction';
+import { handleRestrictedAction } from '@/lib/restriction';
 import { useNotifications } from '@/hooks/useNotifications';
 
 interface BottomNavbarProps {

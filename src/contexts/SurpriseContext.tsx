@@ -5,7 +5,7 @@ import {
 	useEffect,
 	ReactNode,
 } from 'react';
-import { isRestricted } from '@/utils/restriction';
+import { isRestricted } from '@/lib/restriction';
 
 interface SurpriseState {
 	unlockedLetters: number[];

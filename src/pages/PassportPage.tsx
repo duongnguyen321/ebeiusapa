@@ -5,7 +5,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import { usePassport, PassportProvider } from "@/contexts/PassportContext";
 import { RoleSelector } from "@/components/passport/RoleSelector";
 import { PassportDashboard } from "@/components/passport/PassportDashboard";
-import { FloatingSOS } from "@/components/passport/FloatingSOS";
 import { PageTransition } from "@/components/PageTransition";
 
 function PassportContent() {
@@ -43,7 +42,6 @@ function PassportContent() {
             transition={{ duration: 0.3 }}
           >
             <PassportDashboard onBack={handleBack} />
-            <FloatingSOS />
           </motion.div>
         )}
       </AnimatePresence>

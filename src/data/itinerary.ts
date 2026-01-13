@@ -121,7 +121,7 @@ export const tripInfo: TripInfo = {
 			{
 				title: 'Đồ sinh tồn',
 				items: [
-					'4 Hộp mì ly/Phở gói (Ăn sáng ngày 3 & 4)',
+					'4 Hộp mì ly/Phở gói (đề phòng dậy muộn)',
 					'2 Gói xúc xích ăn liền',
 					'Đồ ăn vặt (Bim bim, kẹo) nhâm nhi rượu vang',
 				],

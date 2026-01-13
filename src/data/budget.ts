@@ -23,7 +23,7 @@ export const anhDefaultItems: Omit<BudgetItem, "id" | "createdAt">[] = [
 
   // --- DAY 1 (15/01) ---
   {
-    title: "Taxi về Homestay",
+    title: "Taxi: Bến xe -> Homestay",
     category: "transport",
     estimatedAmount: 80_000,
     actualAmount: 0,
@@ -32,7 +32,7 @@ export const anhDefaultItems: Omit<BudgetItem, "id" | "createdAt">[] = [
     day: 1,
   },
   {
-    title: "Bữa tối: BBQ Homestay",
+    title: "Bữa tối: BBQ/Lẩu tại Homestay",
     category: "food",
     estimatedAmount: 400_000,
     actualAmount: 0,
@@ -43,7 +43,7 @@ export const anhDefaultItems: Omit<BudgetItem, "id" | "createdAt">[] = [
 
   // --- DAY 2 (16/01) - BIRTHDAY ---
   {
-    title: "Taxi lên phố (Chiều đi)",
+    title: "Taxi: Homestay -> Trung tâm (Sáng)",
     category: "transport",
     estimatedAmount: 80_000,
     actualAmount: 0,
@@ -52,7 +52,7 @@ export const anhDefaultItems: Omit<BudgetItem, "id" | "createdAt">[] = [
     day: 2,
   },
   {
-    title: "Trưa: Cốn sủi Ông Há",
+    title: "Ăn trưa: Cốn Sủi Ông Há (2 bát + sủi cảo)",
     category: "food",
     estimatedAmount: 120_000,
     actualAmount: 0,
@@ -61,16 +61,25 @@ export const anhDefaultItems: Omit<BudgetItem, "id" | "createdAt">[] = [
     day: 2,
   },
   {
-    title: "Cafe (Cộng/Viettrekking)",
+    title: "Cafe ngắm phố (Cộng/Viettrekking)",
     category: "food",
-    estimatedAmount: 150_000,
+    estimatedAmount: 100_000,
     actualAmount: 0,
     isPaid: false,
     isActive: true,
     day: 2,
   },
   {
-    title: "Spa Tắm lá thuốc (x2)",
+    title: "Bánh sinh nhật (Bento 10cm + Ship)",
+    category: "food",
+    estimatedAmount: 200_000,
+    actualAmount: 0,
+    isPaid: false,
+    isActive: true,
+    day: 2,
+  },
+  {
+    title: "Spa: Tắm lá thuốc Dao's Center (2 người)",
     category: "other",
     estimatedAmount: 500_000,
     actualAmount: 0,
@@ -79,16 +88,16 @@ export const anhDefaultItems: Omit<BudgetItem, "id" | "createdAt">[] = [
     day: 2,
   },
   {
-    title: "Sinh nhật (Bánh + Đồ nướng)",
+    title: "Đồ ăn Chợ Đêm (Thịt nướng, Cơm lam)",
     category: "food",
-    estimatedAmount: 430_000,
+    estimatedAmount: 250_000,
     actualAmount: 0,
     isPaid: false,
     isActive: true,
     day: 2,
   },
   {
-    title: "Taxi về Homestay (Chiều về)",
+    title: "Taxi: Trung tâm -> Homestay (Tối)",
     category: "transport",
     estimatedAmount: 80_000,
     actualAmount: 0,
@@ -99,7 +108,7 @@ export const anhDefaultItems: Omit<BudgetItem, "id" | "createdAt">[] = [
 
   // --- DAY 3 (17/01) ---
   {
-    title: "Taxi đi Hàm Rồng",
+    title: "Taxi: Homestay -> Hàm Rồng",
     category: "transport",
     estimatedAmount: 80_000,
     actualAmount: 0,
@@ -108,16 +117,16 @@ export const anhDefaultItems: Omit<BudgetItem, "id" | "createdAt">[] = [
     day: 3,
   },
   {
-    title: "Vé Hàm Rồng + Moana",
+    title: "Vé tham quan: Núi Hàm Rồng (2 người)",
     category: "ticket",
-    estimatedAmount: 300_000,
+    estimatedAmount: 140_000,
     actualAmount: 0,
     isPaid: false,
     isActive: true,
     day: 3,
   },
   {
-    title: "Taxi sang Moana",
+    title: "Taxi: Hàm Rồng -> Moana",
     category: "transport",
     estimatedAmount: 50_000,
     actualAmount: 0,
@@ -126,7 +135,16 @@ export const anhDefaultItems: Omit<BudgetItem, "id" | "createdAt">[] = [
     day: 3,
   },
   {
-    title: "Taxi lên phố ăn tối",
+    title: "Vé tham quan: Moana Sapa (2 người)",
+    category: "ticket",
+    estimatedAmount: 160_000,
+    actualAmount: 0,
+    isPaid: false,
+    isActive: true,
+    day: 3,
+  },
+  {
+    title: "Taxi: Đi ăn tối (Dự phòng)",
     category: "transport",
     estimatedAmount: 80_000,
     actualAmount: 0,
@@ -135,16 +153,16 @@ export const anhDefaultItems: Omit<BudgetItem, "id" | "createdAt">[] = [
     day: 3,
   },
   {
-    title: "Tối Sang chảnh (Cá Tầm/Thắng Cố)",
+    title: "Bữa tối sang chảnh (Lẩu Cá Tầm/Thắng Cố)",
     category: "food",
-    estimatedAmount: 600_000,
+    estimatedAmount: 700_000,
     actualAmount: 0,
     isPaid: false,
     isActive: true,
     day: 3,
   },
   {
-    title: "Taxi về Homestay (Tối muộn)",
+    title: "Taxi: Thị trấn -> Homestay (Sau ăn tối)",
     category: "transport",
     estimatedAmount: 80_000,
     actualAmount: 0,
@@ -155,7 +173,7 @@ export const anhDefaultItems: Omit<BudgetItem, "id" | "createdAt">[] = [
 
   // --- DAY 4 (18/01) ---
   {
-    title: "Dự phòng (Ăn sáng/Cafe)",
+    title: "Ăn sáng/Cafe chia tay",
     category: "food",
     estimatedAmount: 150_000,
     actualAmount: 0,
