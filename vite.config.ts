@@ -61,6 +61,23 @@ export default defineConfig(({ mode }) => ({
 	define: {
 		__APP_VERSION__: JSON.stringify(packageJson.version),
 	},
+	build: {
+		rollupOptions: {
+			output: {
+				manualChunks: {
+					'vendor-react': ['react', 'react-dom', 'react-router-dom'],
+					'ui-libs': [
+						'framer-motion',
+						'canvas-confetti',
+						'sonner',
+						'react-zoom-pan-pinch',
+					],
+					lucide: ['lucide-react'],
+				},
+			},
+		},
+		chunkSizeWarningLimit: 1000,
+	},
 	plugins: [
 		react(),
 		mode === 'development' && componentTagger(),
