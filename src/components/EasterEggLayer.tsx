@@ -1,10 +1,13 @@
 import { cn } from '@/lib/utils';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useEasterEgg } from '@/contexts/EasterEggContext';
 import { EasterEggQuizModal } from './easter-egg/QuizModal';
 import { EasterEggFunnyModal } from './easter-egg/FunnyModal';
 import { EasterEggMemoryModal } from './easter-egg/MemoryModal';
 import { VoucherRedeemModal } from './VoucherRedeemModal';
+import { LiquidLuckModal } from './LiquidLuckModal';
+import { handleRestrictedAction } from '@/lib/restriction';
 
 const EGG_ICONS = ['🥚', '🎁', '💝'];
 
@@ -22,7 +25,14 @@ export default function EasterEggLayer() {
 		redeemVoucher,
 	} = useEasterEgg();
 
+	const [showLiquidLuck, setShowLiquidLuck] = useState(false);
+
 	const randomIcon = EGG_ICONS[Math.floor(Math.random() * EGG_ICONS.length)];
+
+	const handleOpenLiquidLuck = () => {
+		if (handleRestrictedAction('Liquid Luck')) return;
+		setShowLiquidLuck(true);
+	};
 
 	return (
 		<>
@@ -80,6 +90,55 @@ export default function EasterEggLayer() {
 				)}
 			</AnimatePresence>
 
+			{/* Floating Liquid Luck Bubble Button */}
+			<motion.button
+				initial={{ scale: 0, opacity: 0 }}
+				animate={{
+					scale: 1,
+					opacity: 1,
+					y: [0, -6, 0],
+				}}
+				transition={{
+					scale: { type: 'spring', stiffness: 400, damping: 20, delay: 0.5 },
+					y: {
+						repeat: Infinity,
+						duration: 2.5,
+						ease: 'easeInOut',
+					},
+				}}
+				drag
+				dragMomentum={false}
+				dragElastic={0.1}
+				whileDrag={{ scale: 1.1, cursor: 'grabbing' }}
+				onClick={handleOpenLiquidLuck}
+				className={cn(
+					'fixed z-50 cursor-grab active:cursor-grabbing',
+					'bottom-24 right-4'
+				)}
+				style={{
+					touchAction: 'none',
+				}}
+				whileHover={{ scale: 1.15 }}
+				whileTap={{ scale: 0.9 }}
+			>
+				<div className='relative'>
+					{/* Glow effect */}
+					<div className='absolute inset-0 bg-purple-400/30 rounded-full blur-xl animate-pulse' />
+					{/* Potion icon */}
+					<div className='relative w-12 h-12 flex items-center justify-center rounded-full bg-gradient-to-br from-purple-500/40 to-pink-500/40 border border-white/20 backdrop-blur-sm'>
+						<span className='text-2xl'>🧪</span>
+					</div>
+					{/* Bubble particles */}
+					<motion.div
+						className='absolute -top-1 -left-1 text-xs'
+						animate={{ y: [-2, -8, -2], opacity: [0.5, 1, 0.5] }}
+						transition={{ repeat: Infinity, duration: 1.5 }}
+					>
+						🫧
+					</motion.div>
+				</div>
+			</motion.button>
+
 			{/* Content Modals */}
 			<AnimatePresence>
 				{showContentModal && currentContent && (
@@ -119,6 +178,12 @@ export default function EasterEggLayer() {
 					/>
 				)}
 			</AnimatePresence>
+
+			{/* Liquid Luck Modal */}
+			<LiquidLuckModal
+				isOpen={showLiquidLuck}
+				onClose={() => setShowLiquidLuck(false)}
+			/>
 		</>
 	);
 }
