@@ -57,8 +57,10 @@ interface BudgetContextType {
   lastRemindedAt: number;
 }
 
-const STORAGE_KEY = "sapa_budget_v1";
+import { STORAGE_KEYS } from "@/config/storage";
 const MAX_BUDGET = 6_377_500; // 6.377.500 VNĐ
+
+// const STORAGE_KEY = "sapa_budget_v1"; // Removed
 
 // Pre-defined items for "Anh" role - Imported from data
 import { anhDefaultItems } from "@/data/budget";
@@ -76,7 +78,7 @@ const BudgetContext = createContext<BudgetContextType | null>(null);
 export function BudgetProvider({ children }: { children: ReactNode }) {
   const [state, setState] = useState<BudgetState>(() => {
     try {
-      const saved = localStorage.getItem(STORAGE_KEY);
+      const saved = localStorage.getItem(STORAGE_KEYS.BUDGET.STATE);
       if (saved) {
         return JSON.parse(saved);
       }
@@ -88,7 +90,7 @@ export function BudgetProvider({ children }: { children: ReactNode }) {
 
   // Persist to localStorage
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    localStorage.setItem(STORAGE_KEYS.BUDGET.STATE, JSON.stringify(state));
   }, [state]);
 
   const setRole = useCallback((role: BudgetRole) => {
@@ -217,7 +219,7 @@ export function BudgetProvider({ children }: { children: ReactNode }) {
 
   const resetBudget = useCallback(() => {
     setState(defaultState);
-    localStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem(STORAGE_KEYS.BUDGET.STATE);
   }, []);
 
   const updateLastReminded = useCallback(() => {

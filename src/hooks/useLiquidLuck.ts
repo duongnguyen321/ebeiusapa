@@ -8,7 +8,10 @@ import {
 	LiquidTheme,
 } from '@/data/liquidLuck';
 
-const STORAGE_KEY = 'sapa_liquid_luck_v1';
+import { STORAGE_KEYS } from '@/config/storage';
+
+// const STORAGE_KEY = 'sapa_liquid_luck_v1'; // Removed
+
 
 interface LiquidLuckState {
 	role: 'anh' | 'em' | null;
@@ -26,7 +29,7 @@ function getTimeOfDay(): TimeOfDay {
 
 function loadState(): LiquidLuckState {
 	try {
-		const stored = localStorage.getItem(STORAGE_KEY);
+		const stored = localStorage.getItem(STORAGE_KEYS.LIQUID_LUCK.STATE);
 		if (stored) {
 			return JSON.parse(stored);
 		}
@@ -42,7 +45,7 @@ function loadState(): LiquidLuckState {
 
 function saveState(state: LiquidLuckState) {
 	try {
-		localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+		localStorage.setItem(STORAGE_KEYS.LIQUID_LUCK.STATE, JSON.stringify(state));
 	} catch (e) {
 		console.warn('Failed to save liquid luck state:', e);
 	}

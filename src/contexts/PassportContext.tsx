@@ -39,7 +39,10 @@ interface PassportContextType {
 	resetPassport: () => void;
 }
 
-const STORAGE_KEY = 'sapa_passport_data_v1';
+import { STORAGE_KEYS } from '@/config/storage';
+
+// const STORAGE_KEY = 'sapa_passport_data_v1'; // Removed
+
 
 const defaultState: PassportState = {
 	role: null,
@@ -54,7 +57,7 @@ const PassportContext = createContext<PassportContextType | null>(null);
 export function PassportProvider({ children }: { children: ReactNode }) {
 	const [state, setState] = useState<PassportState>(() => {
 		try {
-			const saved = localStorage.getItem(STORAGE_KEY);
+			const saved = localStorage.getItem(STORAGE_KEYS.PASSPORT.DATA);
 			if (saved) {
 				return JSON.parse(saved);
 			}
@@ -66,7 +69,7 @@ export function PassportProvider({ children }: { children: ReactNode }) {
 
 	// Persist to localStorage
 	useEffect(() => {
-		localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+		localStorage.setItem(STORAGE_KEYS.PASSPORT.DATA, JSON.stringify(state));
 	}, [state]);
 
 	const setRole = useCallback((role: PassportRole) => {
@@ -120,7 +123,7 @@ export function PassportProvider({ children }: { children: ReactNode }) {
 
 	const resetPassport = useCallback(() => {
 		setState(defaultState);
-		localStorage.removeItem(STORAGE_KEY);
+		localStorage.removeItem(STORAGE_KEYS.PASSPORT.DATA);
 	}, []);
 
 	return (

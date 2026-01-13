@@ -30,7 +30,10 @@ interface SurpriseContextType extends SurpriseState {
 	canUnlockLetter: (index: number) => boolean;
 }
 
-const STORAGE_KEY = 'sapa-surprise-state';
+import { STORAGE_KEYS } from '@/config/storage';
+
+// const STORAGE_KEY = 'sapa-surprise-state'; // Removed
+
 
 // Letters unlock at 8:00 AM each day
 const LETTER_UNLOCK_TIMES = [
@@ -44,7 +47,7 @@ const SurpriseContext = createContext<SurpriseContextType | null>(null);
 
 function loadState(): SurpriseState {
 	try {
-		const stored = localStorage.getItem(STORAGE_KEY);
+		const stored = localStorage.getItem(STORAGE_KEYS.SURPRISE.STATE);
 		if (stored) {
 			return JSON.parse(stored);
 		}
@@ -62,7 +65,7 @@ function loadState(): SurpriseState {
 
 function saveState(state: SurpriseState) {
 	try {
-		localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+		localStorage.setItem(STORAGE_KEYS.SURPRISE.STATE, JSON.stringify(state));
 	} catch (e) {
 		console.warn('Failed to save surprise state:', e);
 	}

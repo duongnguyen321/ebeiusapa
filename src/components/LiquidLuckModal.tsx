@@ -2,6 +2,7 @@ import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, RotateCcw } from 'lucide-react';
 import { useLiquidLuck } from '@/hooks/useLiquidLuck';
+import { useEasterEgg } from '@/contexts/EasterEggContext';
 import {
 	LiquidContainer,
 	LiquidScratchReveal,
@@ -26,6 +27,8 @@ export function LiquidLuckModal({ isOpen, onClose }: LiquidLuckModalProps) {
 		completeMixing,
 		closeReveal,
 	} = useLiquidLuck();
+	
+	const { unlockVoucher } = useEasterEgg();
 
 	const handleClose = () => {
 		closeReveal();
@@ -35,6 +38,25 @@ export function LiquidLuckModal({ isOpen, onClose }: LiquidLuckModalProps) {
 	const handlePlayAgain = () => {
 		closeReveal();
 		startMixing();
+	};
+
+	const handleReveal = () => {
+		if (currentTask) {
+			// Map LiquidTask to VoucherReward
+			// Use emojis for icons since VoucherWallet expects string (or we adapt)
+			let icon = '🎁';
+			if (currentTask.type === 'dare') icon = '⚡';
+			if (currentTask.type === 'spicy') icon = '🌶️';
+
+			unlockVoucher({
+				id: currentTask.id,
+				title: currentTask.content,
+				description: currentTask.description || 'Liquid Luck Reward',
+				icon: icon, 
+				isRedeemed: false,
+				isUsed: false,
+			});
+		}
 	};
 
 	return (
@@ -164,6 +186,7 @@ export function LiquidLuckModal({ isOpen, onClose }: LiquidLuckModalProps) {
 								task={currentTask}
 								theme={theme}
 								onClose={handlePlayAgain}
+								onReveal={handleReveal}
 							/>
 						)}
 					</AnimatePresence>

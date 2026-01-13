@@ -73,12 +73,10 @@ const WRONG_ANSWER_COOLDOWN_MS = IS_DEV ? 10 * 1000 : 120 * 1000; // 10s (Dev) v
 const QUIZ_CHANCE = 0.5; // 50% quiz, 50% funny/memory
 const REDEEM_PASSWORD = '16012005';
 
-const STORAGE_KEYS = {
-	lastInteraction: 'easter_egg_last_interaction',
-	unlockedVouchers: 'easter_egg_unlocked_vouchers',
-	usedVouchers: 'easter_egg_used_vouchers',
-	answeredQuizzes: 'easter_egg_answered_quizzes',
-};
+import { STORAGE_KEYS } from '@/config/storage'; // Import centralized keys
+
+// REMOVED local STORAGE_KEYS definition
+
 
 // ==================== CONTEXT ====================
 const EasterEggContext = createContext<EasterEggContextType | null>(null);
@@ -113,7 +111,8 @@ export function EasterEggProvider({ children }: { children: React.ReactNode }) {
 		useState<VoucherReward | null>(null);
 
 	const [lastInteractionTime, setLastInteractionTime] = useState(() => {
-		const stored = loadFromStorage(STORAGE_KEYS.lastInteraction, Date.now());
+		const stored = loadFromStorage(STORAGE_KEYS.EASTER_EGG.LAST_INTERACTION, Date.now());
+
 		const timeSince = Date.now() - stored;
 
 		// If user was offline for a long time (> cooldown),
@@ -125,40 +124,40 @@ export function EasterEggProvider({ children }: { children: React.ReactNode }) {
 		return stored;
 	});
 	const [unlockedVouchers, setUnlockedVouchers] = useState<VoucherReward[]>(
-		() => loadFromStorage(STORAGE_KEYS.unlockedVouchers, [])
+		() => loadFromStorage(STORAGE_KEYS.EASTER_EGG.UNLOCKED_VOUCHERS, [])
 	);
 	const [usedVoucherIds, setUsedVoucherIds] = useState<string[]>(() =>
-		loadFromStorage(STORAGE_KEYS.usedVouchers, [])
+		loadFromStorage(STORAGE_KEYS.EASTER_EGG.USED_VOUCHERS, [])
 	);
 	const [answeredQuizIds, setAnsweredQuizIds] = useState<string[]>(() =>
-		loadFromStorage(STORAGE_KEYS.answeredQuizzes, [])
+		loadFromStorage(STORAGE_KEYS.EASTER_EGG.ANSWERED_QUIZZES, [])
 	);
 
 	// Persist state changes
 	useEffect(() => {
 		localStorage.setItem(
-			STORAGE_KEYS.lastInteraction,
+			STORAGE_KEYS.EASTER_EGG.LAST_INTERACTION,
 			JSON.stringify(lastInteractionTime)
 		);
 	}, [lastInteractionTime]);
 
 	useEffect(() => {
 		localStorage.setItem(
-			STORAGE_KEYS.unlockedVouchers,
+			STORAGE_KEYS.EASTER_EGG.UNLOCKED_VOUCHERS,
 			JSON.stringify(unlockedVouchers)
 		);
 	}, [unlockedVouchers]);
 
 	useEffect(() => {
 		localStorage.setItem(
-			STORAGE_KEYS.usedVouchers,
+			STORAGE_KEYS.EASTER_EGG.USED_VOUCHERS,
 			JSON.stringify(usedVoucherIds)
 		);
 	}, [usedVoucherIds]);
 
 	useEffect(() => {
 		localStorage.setItem(
-			STORAGE_KEYS.answeredQuizzes,
+			STORAGE_KEYS.EASTER_EGG.ANSWERED_QUIZZES,
 			JSON.stringify(answeredQuizIds)
 		);
 	}, [answeredQuizIds]);

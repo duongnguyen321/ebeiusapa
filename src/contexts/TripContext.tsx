@@ -14,19 +14,22 @@ interface TripContextType {
 
 const TripContext = createContext<TripContextType | null>(null);
 
-const STORAGE_KEY = 'sapa-trip-unlocked';
+import { STORAGE_KEYS } from '@/config/storage';
+
+// const STORAGE_KEY = 'sapa-trip-unlocked'; // Removed
+
 
 export function TripProvider({ children }: { children: ReactNode }) {
 	const [isUnlocked, setIsUnlocked] = useState(() => {
 		try {
-			return localStorage.getItem(STORAGE_KEY) === 'true';
+			return localStorage.getItem(STORAGE_KEYS.TRIP.UNLOCKED) === 'true';
 		} catch {
 			return false;
 		}
 	});
 
 	useEffect(() => {
-		localStorage.setItem(STORAGE_KEY, String(isUnlocked));
+		localStorage.setItem(STORAGE_KEYS.TRIP.UNLOCKED, String(isUnlocked));
 	}, [isUnlocked]);
 
 	const unlockApp = () => setIsUnlocked(true);

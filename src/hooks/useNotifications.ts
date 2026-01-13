@@ -1,8 +1,9 @@
 import { useEffect, useCallback, useState } from 'react';
 import { itinerary } from '@/data/itinerary';
 
+import { STORAGE_KEYS } from '@/config/storage';
 const NOTIFICATION_ADVANCE_MINUTES = 15;
-const NOTIFICATION_KEY = 'sapa-notifications-scheduled';
+// const NOTIFICATION_KEY = 'sapa-notifications-scheduled'; // Removed
 
 export interface NotificationState {
 	permission: NotificationPermission;
@@ -48,7 +49,7 @@ export function useNotifications() {
 
 		// Clear existing scheduled notifications
 		const existingTimers = JSON.parse(
-			localStorage.getItem(NOTIFICATION_KEY) || '[]'
+			localStorage.getItem(STORAGE_KEYS.NOTIFICATIONS.SCHEDULED) || '[]'
 		);
 		existingTimers.forEach((id: number) => clearTimeout(id));
 
@@ -99,7 +100,7 @@ export function useNotifications() {
 		}
 
 		// Save timer IDs
-		localStorage.setItem(NOTIFICATION_KEY, JSON.stringify(timerIds));
+		localStorage.setItem(STORAGE_KEYS.NOTIFICATIONS.SCHEDULED, JSON.stringify(timerIds));
 		setState((prev) => ({ ...prev, scheduledCount: timerIds.length }));
 
 		return timerIds.length;

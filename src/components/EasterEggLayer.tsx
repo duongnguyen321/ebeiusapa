@@ -9,9 +9,14 @@ import { VoucherRedeemModal } from './VoucherRedeemModal';
 import { LiquidLuckModal } from './LiquidLuckModal';
 import { handleRestrictedAction } from '@/lib/restriction';
 
+import { useLocation } from 'react-router-dom';
+
 const EGG_ICONS = ['🥚', '🎁', '💝'];
 
 export default function EasterEggLayer() {
+	const location = useLocation();
+	const isIntro = location.pathname === '/intro' || location.pathname === '/';
+
 	const {
 		isEggVisible,
 		eggPosition,
@@ -36,8 +41,11 @@ export default function EasterEggLayer() {
 
 	return (
 		<>
-			{/* Floating Egg Button */}
-			<AnimatePresence>
+			{/* Hide everything on intro screen */}
+			{!isIntro && (
+				<>
+					{/* Floating Egg Button */}
+					<AnimatePresence>
 				{isEggVisible && (
 					<motion.button
 						initial={{ scale: 0, opacity: 0 }}
@@ -179,11 +187,13 @@ export default function EasterEggLayer() {
 				)}
 			</AnimatePresence>
 
-			{/* Liquid Luck Modal */}
+						{/* Liquid Luck Modal */}
 			<LiquidLuckModal
 				isOpen={showLiquidLuck}
 				onClose={() => setShowLiquidLuck(false)}
 			/>
+				</>
+			)}
 		</>
 	);
 }

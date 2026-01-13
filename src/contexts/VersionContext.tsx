@@ -1,3 +1,4 @@
+import { CACHE_KEYS } from '@/config/storage';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { useNotifications } from '@/hooks/useNotifications';
@@ -78,9 +79,9 @@ export function VersionProvider({ children }: { children: React.ReactNode }) {
 					await Promise.all(
 						cacheNames.map((cacheName) => {
 							if (
-								cacheName.includes('precache') ||
-								cacheName.includes('pages') ||
-								cacheName.includes('app-data')
+								cacheName.includes(CACHE_KEYS.PRECACHE) ||
+								cacheName.includes(CACHE_KEYS.PAGES) ||
+								cacheName.includes(CACHE_KEYS.APP_DATA)
 							) {
 								return caches.delete(cacheName);
 							}

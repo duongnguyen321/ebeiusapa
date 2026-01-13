@@ -115,13 +115,15 @@ export function LiquidContainer({ theme, onMixComplete }: LiquidContainerProps) 
 					{/* Liquid Body */}
 					<motion.ellipse
 						cx='50'
-						cy={90 - progress * 0.4}
+						initial={{ cy: 90 }}
 						rx='45'
 						ry='30'
 						fill='url(#liquid-gradient)'
 						filter='url(#liquid-wave)'
 						animate={{
-							cy: isHolding ? [90 - progress * 0.4, 85 - progress * 0.4, 90 - progress * 0.4] : 90 - progress * 0.4,
+							cy: isHolding 
+								? [90 - progress * 0.4, 85 - progress * 0.4, 90 - progress * 0.4] 
+								: 90 - progress * 0.4,
 						}}
 						transition={{
 							repeat: isHolding ? Infinity : 0,

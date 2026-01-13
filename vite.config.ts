@@ -5,6 +5,7 @@ import fs from 'fs';
 import { componentTagger } from 'lovable-tagger';
 import { VitePWA } from 'vite-plugin-pwa';
 import packageJson from './package.json';
+import { CACHE_KEYS } from './src/config/storage';
 
 // Custom plugin to inject prefetch links
 const injectEasterEggPrefetch = () => {
@@ -55,6 +56,7 @@ export default defineConfig(({ mode }) => ({
 	server: {
 		host: '::',
 		port: 8080,
+		allowedHosts: ['localhost', '127.0.0.1', '0.0.0.0'],
 	},
 	define: {
 		__APP_VERSION__: JSON.stringify(packageJson.version),
@@ -109,7 +111,7 @@ export default defineConfig(({ mode }) => ({
 						urlPattern: /\/images\/easter-eggs\/.*/i,
 						handler: 'CacheFirst',
 						options: {
-							cacheName: 'easter-egg-images',
+							cacheName: CACHE_KEYS.EASTER_EGG_IMAGES,
 							expiration: {
 								maxEntries: 200,
 								maxAgeSeconds: 60 * 60 * 24 * 60, // 60 days
@@ -123,7 +125,7 @@ export default defineConfig(({ mode }) => ({
 						urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
 						handler: 'CacheFirst',
 						options: {
-							cacheName: 'google-fonts-cache',
+							cacheName: CACHE_KEYS.GOOGLE_FONTS,
 							expiration: {
 								maxEntries: 10,
 								maxAgeSeconds: 60 * 60 * 24 * 365, // 1 year

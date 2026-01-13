@@ -1,3 +1,4 @@
+import { STORAGE_KEYS } from '@/config/storage';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -26,7 +27,7 @@ const TripHeader = () => {
 
 	// Load checked state from localStorage
 	useEffect(() => {
-		const saved = localStorage.getItem('packing_list_checked');
+		const saved = localStorage.getItem(STORAGE_KEYS.PACKING_LIST.CHECKED);
 		if (saved) {
 			setCheckedItems(JSON.parse(saved));
 		}
@@ -34,7 +35,7 @@ const TripHeader = () => {
 
 	// Save checked state to localStorage
 	useEffect(() => {
-		localStorage.setItem('packing_list_checked', JSON.stringify(checkedItems));
+		localStorage.setItem(STORAGE_KEYS.PACKING_LIST.CHECKED, JSON.stringify(checkedItems));
 	}, [checkedItems]);
 
 	const toggleItem = (

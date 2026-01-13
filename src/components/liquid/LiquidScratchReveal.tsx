@@ -9,57 +9,82 @@ interface LiquidScratchRevealProps {
 	task: LiquidTask;
 	theme: LiquidTheme;
 	onClose: () => void;
+	onReveal?: () => void;
 }
 
 export function LiquidScratchReveal({
 	task,
 	theme,
 	onClose,
+	onReveal,
 }: LiquidScratchRevealProps) {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
-	const containerRef = useRef<HTMLDivElement>(null);
 	const [isRevealed, setIsRevealed] = useState(false);
 	const [scratchPercent, setScratchPercent] = useState(0);
 	const isDrawing = useRef(false);
 
 	useEffect(() => {
 		const canvas = canvasRef.current;
-		const container = containerRef.current;
-		if (!canvas || !container) return;
+		if (!canvas) return;
 
 		const ctx = canvas.getContext('2d');
 		if (!ctx) return;
 
-		// Set canvas size
-		const resize = () => {
-			const rect = container.getBoundingClientRect();
-			canvas.width = rect.width;
-			canvas.height = rect.height;
-
+		const drawOverlay = (width: number, height: number) => {
 			// Fill with frosted glass overlay
-			ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
-			ctx.fillRect(0, 0, canvas.width, canvas.height);
+			ctx.fillStyle = 'rgba(255, 255, 255, 0.2)'; // Slightly more opaque
+			ctx.fillRect(0, 0, width, height);
+
+			// Add shimmer/noise
+			const imageData = ctx.getImageData(0, 0, width, height);
+			const data = imageData.data;
+			for (let i = 0; i < data.length; i += 4) {
+				const noise = Math.random() * 20;
+				data[i] = Math.min(255, data[i] + noise);
+				data[i + 1] = Math.min(255, data[i + 1] + noise);
+				data[i + 2] = Math.min(255, data[i + 2] + noise);
+			}
+			ctx.putImageData(imageData, 0, 0);
 
 			// Add sparkle dots
-			ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
-			for (let i = 0; i < 80; i++) {
-				const x = Math.random() * canvas.width;
-				const y = Math.random() * canvas.height;
+			ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+			for (let i = 0; i < 60; i++) {
+				const x = Math.random() * width;
+				const y = Math.random() * height;
 				ctx.beginPath();
 				ctx.arc(x, y, Math.random() * 2 + 1, 0, Math.PI * 2);
 				ctx.fill();
 			}
 
-			// Add text
+			// Add text hint
+			ctx.save();
 			ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
-			ctx.font = 'bold 16px Inter';
+			ctx.font = '600 16px "Inter", sans-serif';
 			ctx.textAlign = 'center';
-			ctx.fillText('✨ Cào để xem thử thách ✨', canvas.width / 2, canvas.height / 2);
+			ctx.shadowColor = 'rgba(0,0,0,0.5)';
+			ctx.shadowBlur = 4;
+			ctx.fillText('✨ Cào để xem kết quả ✨', width / 2, height / 2);
+			ctx.restore();
 		};
 
-		resize();
-		window.addEventListener('resize', resize);
-		return () => window.removeEventListener('resize', resize);
+		// ResizeObserver to handle animation/layout changes
+		const resizeObserver = new ResizeObserver((entries) => {
+			for (const entry of entries) {
+				const { width, height } = entry.contentRect;
+				// Set actual canvas size to match display size
+				canvas.width = width;
+				canvas.height = height;
+				drawOverlay(width, height);
+			}
+		});
+
+		if (canvas.parentElement) {
+			resizeObserver.observe(canvas.parentElement);
+		}
+
+		return () => {
+			resizeObserver.disconnect();
+		};
 	}, []);
 
 	const scratch = useCallback(
@@ -70,22 +95,36 @@ export function LiquidScratchReveal({
 			const ctx = canvas.getContext('2d');
 			if (!ctx) return;
 
+			// Enable erasing
 			ctx.globalCompositeOperation = 'destination-out';
 			ctx.beginPath();
-			ctx.arc(x, y, 30, 0, Math.PI * 2);
+			// Increased brush size for easier scratching
+			ctx.arc(x, y, 45, 0, Math.PI * 2);
 			ctx.fill();
 
-			// Calculate scratch percentage
-			const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-			let transparent = 0;
-			for (let i = 3; i < imageData.data.length; i += 4) {
-				if (imageData.data[i] === 0) transparent++;
+			// Calculate scratch percentage optimized
+			// We checking pixels with a stride to improve perf
+			const width = canvas.width;
+			const height = canvas.height;
+			const imageData = ctx.getImageData(0, 0, width, height);
+			const totalPixels = width * height;
+			let clearPixels = 0;
+			
+			// Check every 10th pixel to speed up
+			const stride = 10;
+			for (let i = 0; i < totalPixels; i += stride) {
+				const alpha = imageData.data[i * 4 + 3];
+				if (alpha === 0) {
+					clearPixels++;
+				}
 			}
-			const percent = (transparent / (imageData.data.length / 4)) * 100;
+
+			// Calculate percentage based on sampled pixels
+			const percent = (clearPixels / (totalPixels / stride)) * 100;
 			setScratchPercent(percent);
 
-			// Reveal when 55% scratched
-			if (percent > 55 && !isRevealed) {
+			// Lower threshold (30%) for easier reveal
+			if (percent > 30 && !isRevealed) {
 				handleReveal();
 			}
 		},
@@ -94,20 +133,24 @@ export function LiquidScratchReveal({
 
 	const handleReveal = () => {
 		setIsRevealed(true);
+		onReveal?.();
 
-		// Confetti celebration
+		// Trigger Confetti
 		confetti({
-			particleCount: 80,
-			spread: 60,
+			particleCount: 100,
+			spread: 70,
 			origin: { y: 0.6 },
+			gravity: 0.8,
+			ticks: 300,
 			colors:
 				task.targetRole === 'anh'
-					? ['#22d3ee', '#0ea5e9', '#3b82f6']
-					: ['#ec4899', '#f472b6', '#f43f5e'],
+					? ['#22d3ee', '#3b82f6', '#ffffff'] // Brand colors for Anh
+					: ['#f472b6', '#fb7185', '#ffffff'], // Brand colors for Em
 		});
 	};
 
 	const handlePointerDown = (e: React.PointerEvent) => {
+		if (isRevealed) return;
 		isDrawing.current = true;
 		const rect = canvasRef.current?.getBoundingClientRect();
 		if (rect) {
@@ -116,7 +159,7 @@ export function LiquidScratchReveal({
 	};
 
 	const handlePointerMove = (e: React.PointerEvent) => {
-		if (!isDrawing.current) return;
+		if (!isDrawing.current || isRevealed) return;
 		const rect = canvasRef.current?.getBoundingClientRect();
 		if (rect) {
 			scratch(e.clientX - rect.left, e.clientY - rect.top);
@@ -138,140 +181,111 @@ export function LiquidScratchReveal({
 			onClick={onClose}
 		>
 			<motion.div
-				initial={{ scale: 0.8, opacity: 0 }}
+				initial={{ scale: 0.9, opacity: 0 }}
 				animate={{ scale: 1, opacity: 1 }}
-				exit={{ scale: 0.8, opacity: 0 }}
+				exit={{ scale: 0.9, opacity: 0 }}
+				transition={{ type: 'spring', damping: 20 }}
 				className={cn(
-					'relative w-full max-w-sm aspect-[4/5] rounded-3xl overflow-hidden',
+					'relative w-full max-w-sm aspect-[3/4] rounded-[32px] overflow-hidden shadow-2xl',
 					theme.gradient,
 					theme.shadow
 				)}
 				onClick={(e) => e.stopPropagation()}
 			>
-				{/* Close Button */}
-				<button
-					onClick={onClose}
-					className='absolute top-3 right-3 z-20 p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors'
-				>
-					<X className='w-5 h-5 text-white' />
-				</button>
+				{/* Header Actions */}
+				<div className='absolute top-4 right-4 z-30'>
+					<button
+						onClick={onClose}
+						className='p-2 rounded-full bg-black/20 text-white/70 hover:bg-black/40 hover:text-white transition-all'
+					>
+						<X className='w-5 h-5' />
+					</button>
+				</div>
 
-				{/* Content behind scratch overlay */}
+				{/* Hidden Content (Revealed after scratch) */}
 				<div
-					ref={containerRef}
-					className='absolute inset-0 p-6 flex flex-col items-center justify-center'
+					className='absolute inset-0 p-8 flex flex-col items-center justify-center text-center'
 				>
 					<AnimatePresence>
 						{isRevealed && (
 							<motion.div
-								initial={{ scale: 0.5, opacity: 0 }}
-								animate={{ scale: 1, opacity: 1 }}
-								className='text-center'
+								initial={{ scale: 0.8, opacity: 0, y: 20 }}
+								animate={{ scale: 1, opacity: 1, y: 0 }}
+								transition={{ delay: 0.1, duration: 0.4 }}
+								className='flex flex-col items-center'
 							>
-								{/* Task Type Badge */}
-								<motion.div
-									initial={{ y: -20, opacity: 0 }}
-									animate={{ y: 0, opacity: 1 }}
-									transition={{ delay: 0.2 }}
+								{/* Result Badge */}
+								<div
 									className={cn(
-										'inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium mb-4',
-										task.type === 'dare' && 'bg-amber-500/20 text-amber-300',
-										task.type === 'reward' && 'bg-emerald-500/20 text-emerald-300',
-										task.type === 'spicy' && 'bg-rose-500/20 text-rose-300'
+										'inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-bold mb-6 backdrop-blur-md shadow-lg border border-white/10',
+										task.type === 'dare' && 'bg-amber-500/80 text-white',
+										task.type === 'reward' && 'bg-emerald-500/80 text-white',
+										task.type === 'spicy' && 'bg-rose-600/80 text-white'
 									)}
 								>
-									{task.type === 'dare' && '⚡ Thử thách'}
-									{task.type === 'reward' && '🎁 Phần thưởng'}
-									{task.type === 'spicy' && '🌶️ Spicy'}
-									<span className='ml-1'>
-										{'🔥'.repeat(task.spicyLevel)}
-									</span>
-								</motion.div>
+									{task.type === 'dare' && '⚡ THỬ THÁCH'}
+									{task.type === 'reward' && '🎁 PHẦN THƯỞNG'}
+									{task.type === 'spicy' && '🌶️ SPICY'}
+								</div>
 
-								{/* Icon */}
+								{/* Big Icon */}
 								<motion.div
-									animate={{
-										rotate: [0, -5, 5, -5, 0],
-										scale: [1, 1.1, 1],
-									}}
-									transition={{
-										duration: 0.5,
-										repeat: Infinity,
-										repeatDelay: 2,
-									}}
-									className='mb-4'
+									initial={{ rotate: -10, scale: 0 }}
+									animate={{ rotate: 0, scale: 1 }}
+									transition={{ type: 'spring', delay: 0.2 }}
+									className='mb-6 p-6 rounded-3xl bg-white/20 backdrop-blur-xl border border-white/30 shadow-inner'
 								>
 									{TaskIcon ? (
-										<TaskIcon
-											className='w-16 h-16 mx-auto'
-											style={{ color: theme.blobColor }}
-										/>
+										<TaskIcon className='w-20 h-20 text-white drop-shadow-lg' />
 									) : (
-										<Sparkles
-											className='w-16 h-16 mx-auto'
-											style={{ color: theme.blobColor }}
-										/>
+										<Sparkles className='w-20 h-20 text-white' />
 									)}
 								</motion.div>
 
-								{/* Title */}
-								<motion.h3
-									initial={{ y: 20, opacity: 0 }}
-									animate={{ y: 0, opacity: 1 }}
-									transition={{ delay: 0.3 }}
-									className='text-2xl font-bold text-white mb-3'
-								>
+								{/* Content */}
+								<h3 className='text-3xl font-black text-white mb-4 leading-tight drop-shadow-md'>
 									{task.content}
-								</motion.h3>
+								</h3>
 
-								{/* Description */}
 								{task.description && (
-									<motion.p
-										initial={{ y: 20, opacity: 0 }}
-										animate={{ y: 0, opacity: 1 }}
-										transition={{ delay: 0.4 }}
-										className='text-white/80 leading-relaxed'
-									>
+									<p className='text-white/90 text-lg leading-relaxed font-medium max-w-[280px]'>
 										{task.description}
-									</motion.p>
+									</p>
 								)}
 							</motion.div>
 						)}
 					</AnimatePresence>
 
+					{/* Hint when hidden */}
 					{!isRevealed && (
-						<div className='text-white/30 text-center'>
-							<Sparkles className='w-12 h-12 mx-auto mb-2' />
-							<p>Thử thách đang ẩn...</p>
+						<div className='absolute inset-0 flex flex-col items-center justify-center z-0 opacity-50 pointer-events-none'>
+							<Sparkles className='w-32 h-32 text-white/20 animate-pulse' />
 						</div>
 					)}
 				</div>
 
-				{/* Scratch overlay canvas */}
-				{!isRevealed && (
-					<canvas
-						ref={canvasRef}
-						className='absolute inset-0 cursor-crosshair touch-none backdrop-blur-md'
-						onPointerDown={handlePointerDown}
-						onPointerMove={handlePointerMove}
-						onPointerUp={handlePointerUp}
-						onPointerLeave={handlePointerUp}
-					/>
-				)}
+				{/* Scratch Canvas Overlay */}
+				<canvas
+					ref={canvasRef}
+					className={cn(
+						'absolute inset-0 touch-none z-10 transition-opacity duration-700',
+						isRevealed ? 'opacity-0 pointer-events-none' : 'opacity-100'
+					)}
+					style={{ touchAction: 'none' }}
+					onPointerDown={handlePointerDown}
+					onPointerMove={handlePointerMove}
+					onPointerUp={handlePointerUp}
+					onPointerLeave={handlePointerUp}
+				/>
 
-				{/* Progress indicator */}
-				{!isRevealed && scratchPercent > 0 && (
-					<div className='absolute bottom-4 left-4 right-4'>
-						<div className='h-1 bg-white/10 rounded-full overflow-hidden'>
-							<motion.div
-								className='h-full'
-								style={{ backgroundColor: theme.blobColor }}
-								initial={{ width: 0 }}
-								animate={{ width: `${scratchPercent}%` }}
-							/>
-						</div>
-					</div>
-				)}
+				{/* Progress Bar (Bottom) */}
+				<div 
+					className={cn(
+						'absolute bottom-0 left-0 h-1.5 bg-white transition-all duration-300 z-20',
+						isRevealed ? 'opacity-0' : 'opacity-100'
+					)}
+					style={{ width: `${scratchPercent}%` }}
+				/>
 			</motion.div>
 		</motion.div>
 	);
