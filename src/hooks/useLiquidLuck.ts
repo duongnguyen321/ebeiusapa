@@ -114,8 +114,6 @@ export function useLiquidLuck() {
 		// Rigged logic:
 		// Anh: 70% dare, 30% double trouble (spicy)
 		// Em: 70% reward, 30% lucky (spicy)
-		const random = Math.random();
-		const isSpicyRoll = random > 0.7;
 		const timeOfDay = getTimeOfDay();
 		const isLateNight = timeOfDay === 'late_night';
 
