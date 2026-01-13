@@ -176,7 +176,7 @@ export const emergencyContacts: EmergencyContact[] = [
 	{ name: 'Nhà hàng A Phủ', phone: '0868 159 900', icon: '🐟' },
 	{ name: 'Thắng Cố A Quỳnh', phone: '0214 3871 555', icon: '🍲' },
 	{ name: "Dao's Center (Spa)", phone: '0917 822 844', icon: '💆‍♀️' },
-	{ name: 'Chill With Home', phone: '0983 994 867', icon: '🏡' },
+	{ name: 'Chill With Home', phone: '0968 964 290', icon: '🏡' },
 ];
 
 // ==================== ITINERARY ====================
