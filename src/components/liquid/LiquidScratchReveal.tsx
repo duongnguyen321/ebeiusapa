@@ -98,41 +98,69 @@ export function LiquidScratchReveal({
 			const ctx = canvas.getContext('2d');
 			if (!ctx) return;
 
+			// Draw the scratch (Fast)
 			// Enable erasing
 			ctx.globalCompositeOperation = 'destination-out';
 			ctx.beginPath();
-			// Increased brush size for easier scratching
 			ctx.arc(x, y, 45, 0, Math.PI * 2);
 			ctx.fill();
 
-			// Calculate scratch percentage optimized
-			// We checking pixels with a stride to improve perf
-			const width = canvas.width;
-			const height = canvas.height;
-			const imageData = ctx.getImageData(0, 0, width, height);
-			const totalPixels = width * height;
-			let clearPixels = 0;
-			
-			// Check every 10th pixel to speed up
-			const stride = 10;
-			for (let i = 0; i < totalPixels; i += stride) {
-				const alpha = imageData.data[i * 4 + 3];
-				if (alpha === 0) {
-					clearPixels++;
-				}
-			}
-
-			// Calculate percentage based on sampled pixels
-			const percent = (clearPixels / (totalPixels / stride)) * 100;
-			setScratchPercent(percent);
-
-			// Lower threshold (30%) for easier reveal
-			if (percent > 30 && !isRevealed) {
-				handleReveal();
-			}
+			// OPTIMIZATION: Don't calculate percentage on every move!
+			// This causes a synchronous readback (getImageData) which kills performance.
+			// We only calculate if enough time has passed or explicitly requested.
 		},
 		[isRevealed]
 	);
+
+	// Throttled percentage check
+	const checkScratchPercentage = useCallback(() => {
+		const canvas = canvasRef.current;
+		if (!canvas || isRevealed) return;
+
+		const ctx = canvas.getContext('2d');
+		if (!ctx) return;
+
+		const width = canvas.width;
+		const height = canvas.height;
+		
+		// Use a smaller sample area / stride for performance
+		const stride = 15; // Increased stride
+		const imageData = ctx.getImageData(0, 0, width, height);
+		const data = imageData.data;
+		let clearPixels = 0;
+		let totalPixels = 0;
+
+		for (let i = 0; i < data.length; i += stride * 4) {
+			totalPixels++;
+			if (data[i + 3] === 0) {
+				clearPixels++;
+			}
+		}
+
+		const percent = (clearPixels / totalPixels) * 100;
+		setScratchPercent(percent);
+
+		if (percent > 35 && !isRevealed) {
+			handleReveal();
+		}
+	}, [isRevealed]);
+
+	// Batch checks using a ref to track if we need to check
+	const lastCheckRef = useRef(0);
+	const handlePointerMove = (e: React.PointerEvent) => {
+		if (!isDrawing.current || isRevealed) return;
+		const rect = canvasRef.current?.getBoundingClientRect();
+		if (rect) {
+			scratch(e.clientX - rect.left, e.clientY - rect.top);
+			
+			// Throttle check to every 200ms
+			const now = Date.now();
+			if (now - lastCheckRef.current > 200) {
+				checkScratchPercentage();
+				lastCheckRef.current = now;
+			}
+		}
+	};
 
 	const handleReveal = () => {
 		setIsRevealed(true);
@@ -161,16 +189,12 @@ export function LiquidScratchReveal({
 		}
 	};
 
-	const handlePointerMove = (e: React.PointerEvent) => {
-		if (!isDrawing.current || isRevealed) return;
-		const rect = canvasRef.current?.getBoundingClientRect();
-		if (rect) {
-			scratch(e.clientX - rect.left, e.clientY - rect.top);
-		}
-	};
+
 
 	const handlePointerUp = () => {
 		isDrawing.current = false;
+		// Perform a final accurate check on release
+		checkScratchPercentage();
 	};
 
 	// Helper to determine badge style

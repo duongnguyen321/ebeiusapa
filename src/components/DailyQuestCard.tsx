@@ -55,10 +55,26 @@ export function DailyQuestCard({
 					backdropFilter: 'blur(20px) saturate(180%)',
 					WebkitBackdropFilter: 'blur(20px) saturate(180%)',
 				}}
-				initial={{ opacity: 0, y: 50, scale: 0.95 }}
-				animate={{ opacity: 1, y: 0, scale: 1 }}
-				exit={{ opacity: 0, y: 50, scale: 0.95 }}
-				transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+				layout // Enables morphing layout animations
+				initial={{ opacity: 0, y: 100, scale: 0.9, rotateX: 10 }}
+				animate={{ 
+					opacity: 1, 
+					y: 0, 
+					scale: 1, 
+					rotateX: 0,
+					transition: {
+						type: 'spring',
+						stiffness: 400,
+						damping: 30,
+						mass: 1
+					}
+				}}
+				exit={{ 
+					opacity: 0, 
+					y: 100, 
+					scale: 0.9,
+					transition: { duration: 0.2 }
+				}}
 			>
 				{/* Specular highlight */}
 				<div

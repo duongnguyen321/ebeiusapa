@@ -13,51 +13,50 @@ export function LiquidContainer({ theme, onMixComplete }: LiquidContainerProps) 
 	const containerRef = useRef<HTMLDivElement>(null);
 	const [isHolding, setIsHolding] = useState(false);
 	const [progress, setProgress] = useState(0);
-	const [waveIntensity, setWaveIntensity] = useState(1);
-	const holdStartRef = useRef<number>(0);
-	const animationRef = useRef<number>(0);
+	const waveIntensity = 1 + progress / 25;
 
-	// Mix progress animation
+	// Logic Control - decouple from render loop
 	useEffect(() => {
+		let timeout: NodeJS.Timeout;
+		let interval: NodeJS.Timeout;
+
 		if (isHolding) {
-			holdStartRef.current = Date.now();
-			
-			const animate = () => {
-				const elapsed = Date.now() - holdStartRef.current;
-				const newProgress = Math.min((elapsed / 2500) * 100, 100); // 2.5 seconds to complete
-				setProgress(newProgress);
-				setWaveIntensity(1 + newProgress / 25); // Increase wave intensity as mixing
+			const totalTime = 2500;
+			const startTime = Date.now();
 
-				if (newProgress >= 100) {
-					onMixComplete();
-					return;
-				}
+			// Logic completion
+			timeout = setTimeout(() => {
+				onMixComplete();
+			}, totalTime);
 
-				if (isHolding) {
-					animationRef.current = requestAnimationFrame(animate);
-				}
-			};
-
-			animationRef.current = requestAnimationFrame(animate);
+			// Visual text update (throttled)
+			interval = setInterval(() => {
+				const elapsed = Date.now() - startTime;
+				const p = Math.min((elapsed / totalTime) * 100, 100);
+				setProgress(p); // Only updates for text
+			}, 100); // 10fps is enough for text
 		} else {
-			// Slowly decrease progress when not holding
-			const decay = () => {
-				setProgress((prev) => {
-					const newVal = prev - 2;
-					if (newVal <= 0) return 0;
-					animationRef.current = requestAnimationFrame(decay);
-					return newVal;
-				});
-			};
-			animationRef.current = requestAnimationFrame(decay);
+			setProgress(0); // Reset immediately on release
 		}
 
 		return () => {
-			if (animationRef.current) {
-				cancelAnimationFrame(animationRef.current);
-			}
+			clearTimeout(timeout);
+			clearInterval(interval);
 		};
 	}, [isHolding, onMixComplete]);
+
+	// Visual Wave Animation - Framer Motion variants
+	const liquidVariants = {
+		idle: { cy: 90 },
+		filling: { 
+			cy: [90, 85, 90],
+			transition: { 
+				repeat: Infinity, 
+				duration: 2, 
+				ease: "easeInOut" as const
+			}
+		}
+	};
 
 	const handlePointerDown = useCallback(() => {
 		setIsHolding(true);
@@ -104,7 +103,7 @@ export function LiquidContainer({ theme, onMixComplete }: LiquidContainerProps) 
 									repeatCount='indefinite'
 								/>
 							</feTurbulence>
-							<feDisplacementMap in='SourceGraphic' scale={10 * waveIntensity} />
+							<feDisplacementMap in='SourceGraphic' scale="12" />
 						</filter>
 						<linearGradient id='liquid-gradient' x1='0%' y1='0%' x2='0%' y2='100%'>
 							<stop offset='0%' stopColor={theme.blobColor} stopOpacity='0.8' />
@@ -115,48 +114,44 @@ export function LiquidContainer({ theme, onMixComplete }: LiquidContainerProps) 
 					{/* Liquid Body */}
 					<motion.ellipse
 						cx='50'
-						initial={{ cy: 90 }}
+						initial='idle'
+						animate={isHolding ? 'filling' : 'idle'}
+						variants={liquidVariants}
 						rx='45'
 						ry='30'
 						fill='url(#liquid-gradient)'
 						filter='url(#liquid-wave)'
-						animate={{
-							cy: isHolding 
-								? [90 - progress * 0.4, 85 - progress * 0.4, 90 - progress * 0.4] 
-								: 90 - progress * 0.4,
-						}}
-						transition={{
-							repeat: isHolding ? Infinity : 0,
-							duration: 0.5 / waveIntensity,
-							ease: 'easeInOut',
-						}}
 					/>
 
-					{/* Bubbles */}
-					{isHolding && (
-						<>
-							{[...Array(Math.floor(progress / 20) + 2)].map((_, i) => (
-								<motion.circle
-									key={i}
-									cx={30 + Math.random() * 40}
-									cy={100}
-									r={2 + Math.random() * 3}
-									fill='white'
-									fillOpacity={0.6}
-									initial={{ cy: 100, opacity: 0 }}
-									animate={{
-										cy: [100, 50 - progress * 0.3, 30],
-										opacity: [0, 0.8, 0],
-									}}
-									transition={{
-										duration: 1 + Math.random(),
-										repeat: Infinity,
-										delay: i * 0.2,
-									}}
-								/>
-							))}
-						</>
-					)}
+					{/* Bubbles - Only render a fixed set when holding */}
+					<AnimatePresence>
+						{isHolding && (
+							<>
+								{[1, 2, 3, 4, 5].map((i) => (
+									<motion.circle
+										key={i}
+										cx={30 + Math.random() * 40}
+										cy={100}
+										r={2 + Math.random() * 3}
+										fill='white'
+										fillOpacity={0.6}
+										initial={{ cy: 100, opacity: 0 }}
+										animate={{
+											cy: 20,
+											opacity: [0, 0.8, 0],
+										}}
+										exit={{ opacity: 0 }}
+										transition={{
+											duration: 1 + Math.random(),
+											repeat: Infinity,
+											delay: i * 0.2,
+											ease: "easeOut"
+										}}
+									/>
+								))}
+							</>
+						)}
+					</AnimatePresence>
 				</svg>
 
 				{/* Glow Effect */}

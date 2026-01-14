@@ -90,16 +90,33 @@ export function QuestCompletionModal({
 							)}
 							style={{
 								background:
-									'linear-gradient(180deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.08) 100%)',
-								backdropFilter: 'blur(24px) saturate(180%)',
-								WebkitBackdropFilter: 'blur(24px) saturate(180%)',
+									'linear-gradient(180deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.05) 100%)',
+								backdropFilter: 'blur(24px) saturate(200%)', // Increased saturation
+								WebkitBackdropFilter: 'blur(24px) saturate(200%)',
+								boxShadow: 
+									'0 0 0 1px rgba(255,255,255,0.2), inset 0 0 30px rgba(255,255,255,0.1), 0 20px 60px rgba(0,0,0,0.5)', // Added inset lens depth
 							}}
-							initial={{ scale: 0.9, y: 20 }}
-							animate={{ scale: 1, y: 0 }}
-							exit={{ scale: 0.9, y: 20 }}
-							transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+							initial={{ scale: 0.8, opacity: 0, y: 50 }}
+							animate={{ 
+								scale: 1, 
+								opacity: 1, 
+								y: 0,
+								transition: {
+									type: 'spring',
+									stiffness: 300,
+									damping: 20
+								}
+							}}
+							exit={{ scale: 0.8, opacity: 0, y: 50 }}
 							onClick={(e) => e.stopPropagation()}
 						>
+							{/* LENS FLARE / REFLECTION */}
+							<div 
+								className="absolute -top-20 -right-20 w-60 h-60 rounded-full bg-white/20 blur-3xl pointer-events-none mix-blend-overlay"
+								style={{
+									background: 'radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%)'
+								}}
+							/>
 							{/* Specular highlight */}
 							<div
 								className="absolute top-0 left-0 right-0 h-[1px]"

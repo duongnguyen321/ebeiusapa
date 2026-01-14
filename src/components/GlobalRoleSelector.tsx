@@ -51,10 +51,9 @@ export function GlobalRoleSelector({ onComplete }: GlobalRoleSelectorProps) {
 							onClick={() => handleSelectRole('anh')}
 							className={cn(
 								'relative p-6 rounded-3xl overflow-hidden',
-								'bg-gradient-to-br from-cyan-500/20 to-blue-500/10',
-								'border border-cyan-500/30 hover:border-cyan-500/50',
-								'backdrop-blur-xl',
-								'transition-all duration-300'
+								'glass-panel-hover', // Use the premium class
+								'border border-cyan-500/20',
+								'hover:shadow-[0_0_30px_rgba(6,182,212,0.15)]' // Cyan glow
 							)}
 						>
 							{/* Specular highlight */}
@@ -62,7 +61,8 @@ export function GlobalRoleSelector({ onComplete }: GlobalRoleSelectorProps) {
 								className="absolute top-0 left-0 right-0 h-[1px]"
 								style={{
 									background:
-										'linear-gradient(90deg, transparent 0%, rgba(103,232,249,0.4) 50%, transparent 100%)',
+										'linear-gradient(90deg, transparent 0%, rgba(103,232,249,0.6) 50%, transparent 100%)', // Brighter highlight
+									boxShadow: '0 2px 10px rgba(103,232,249,0.3)'
 								}}
 							/>
 
@@ -85,10 +85,9 @@ export function GlobalRoleSelector({ onComplete }: GlobalRoleSelectorProps) {
 							onClick={() => handleSelectRole('em')}
 							className={cn(
 								'relative p-6 rounded-3xl overflow-hidden',
-								'bg-gradient-to-br from-pink-500/20 to-rose-500/10',
-								'border border-pink-500/30 hover:border-pink-500/50',
-								'backdrop-blur-xl',
-								'transition-all duration-300'
+								'glass-panel-hover',
+								'border border-pink-500/20',
+								'hover:shadow-[0_0_30px_rgba(236,72,153,0.15)]' // Pink glow
 							)}
 						>
 							{/* Specular highlight */}
@@ -96,7 +95,8 @@ export function GlobalRoleSelector({ onComplete }: GlobalRoleSelectorProps) {
 								className="absolute top-0 left-0 right-0 h-[1px]"
 								style={{
 									background:
-										'linear-gradient(90deg, transparent 0%, rgba(244,114,182,0.4) 50%, transparent 100%)',
+										'linear-gradient(90deg, transparent 0%, rgba(244,114,182,0.6) 50%, transparent 100%)', // Brighter highlight
+									boxShadow: '0 2px 10px rgba(244,114,182,0.3)'
 								}}
 							/>
 
