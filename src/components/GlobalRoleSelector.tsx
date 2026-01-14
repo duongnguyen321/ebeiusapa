@@ -73,11 +73,7 @@ export function GlobalRoleSelector({ onComplete }: GlobalRoleSelectorProps) {
 								<div className="text-center">
 									<p className="text-xl font-display text-cyan-300">❄️ Anh</p>
 									<p className="text-xs text-white/50 mt-2">Chủ động</p>
-									<p className="text-[10px] text-white/40 mt-1 leading-relaxed">
-										Hoàn thành nhiệm vụ
-										<br />
-										Trao cho Em reward
-									</p>
+									
 								</div>
 							</div>
 						</motion.button>
@@ -111,11 +107,6 @@ export function GlobalRoleSelector({ onComplete }: GlobalRoleSelectorProps) {
 								<div className="text-center">
 									<p className="text-xl font-display text-pink-300">🌸 Em</p>
 									<p className="text-xs text-white/50 mt-2">Được chiều</p>
-									<p className="text-[10px] text-white/40 mt-1 leading-relaxed">
-										Nhận reward từ Anh
-										<br />
-										Tận hưởng trải nghiệm
-									</p>
 								</div>
 							</div>
 						</motion.button>

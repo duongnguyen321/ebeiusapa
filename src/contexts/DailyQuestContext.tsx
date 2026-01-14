@@ -144,7 +144,21 @@ export function DailyQuestProvider({ children }: { children: ReactNode }) {
 		(quest: DailyQuest): boolean => {
 			if (!quest.allowedMoods) return true;
 			if (!currentMood) return true;
-			return quest.allowedMoods.includes(currentMood);
+
+			// Direct match
+			if (quest.allowedMoods.includes(currentMood)) return true;
+
+			// Mood Group Fallback Logic
+			// Map specific moods to general categories that might be in quest.allowedMoods
+			const naughtyGroup = ['horny'];
+			const romanticGroup = ['happy', 'missing', 'waiting', 'cold'];
+			const playfulGroup = ['hungry', 'grumpy', 'chill'];
+
+			if (naughtyGroup.includes(currentMood) && quest.allowedMoods.includes('naughty')) return true;
+			if (romanticGroup.includes(currentMood) && quest.allowedMoods.includes('romantic')) return true;
+			if (playfulGroup.includes(currentMood) && quest.allowedMoods.includes('playful')) return true;
+
+			return false;
 		},
 		[currentMood]
 	);

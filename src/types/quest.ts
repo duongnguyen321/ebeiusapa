@@ -15,7 +15,18 @@ export interface GlobalRoleState {
 // MOOD TYPES
 // ============================================
 
-export type MoodType = 'romantic' | 'naughty' | 'playful';
+export type MoodType = 
+	| 'happy' 
+	| 'missing' 
+	| 'chill' 
+	| 'hungry' 
+	| 'waiting' 
+	| 'cold' 
+	| 'grumpy' 
+	| 'horny'
+	| 'romantic' // Keep legacy for fallback or specific events
+	| 'naughty'  // Keep legacy for fallback
+	| 'playful'; // Keep legacy for fallback
 
 export interface MoodState {
 	currentMood: MoodType | null;

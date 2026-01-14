@@ -106,25 +106,16 @@ export default function MoodStation({ onClose }: MoodStationProps) {
 
 	const moodOptions = moodData[0]?.options ?? [];
 
-	// Map MoodStation mood IDs to DailyQuest MoodType
-	const moodIdToQuestMood: Record<string, MoodType> = {
-		happy: 'romantic',
-		missing: 'romantic',
-		chill: 'playful',
-		hungry: 'playful',
-		waiting: 'playful',
-		cold: 'romantic',
-		grumpy: 'playful',
-	};
+
 
 	const handleMoodSelect = (mood: MoodOption) => {
 		setSelectedMood(mood);
 		setCurrentImageIndex(0);
 		setDirection(0);
 		
-		// Save to MoodContext for Daily Quest filtering
-		const questMood = moodIdToQuestMood[mood.id] || 'playful';
-		setMood(questMood);
+		// Save to MoodContext directly
+		// The mood IDs from moodData now match specific MoodTypes
+		setMood(mood.id as MoodType);
 	};
 
 	const handleCloseOverlay = () => {

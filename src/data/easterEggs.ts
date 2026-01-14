@@ -516,6 +516,19 @@ export const moodData: MoodCheckinData[] = [
 				},
 			},
 			{
+				id: 'horny',
+				icon: '😈',
+				label: 'Hư đốn',
+				response: {
+					images: [
+						'/images/easter-eggs/you-are-sexy-in-homestay-bed-when-we-have-a-celebrate-love.jpg',
+						'/images/easter-eggs/you-are-so-wet-in-homestay-bed-when-we-have-a-celebrate-love.jpg',
+					],
+					message:
+						'Á à, nay em bé hư quá ta! Tối nay biết tay anh 😈',
+				},
+			},
+			{
 				id: 'hungry',
 				icon: '🤤',
 				label: 'Đói bụng rồi',

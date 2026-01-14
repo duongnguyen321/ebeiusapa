@@ -42,13 +42,27 @@ interface EggContent {
 // ==================== CONTENT SELECTION LOGIC ====================
 const getEggProbabilities = (mood: string | null) => {
 	switch (mood) {
+		// Playful Group
 		case 'playful':
+		case 'hungry':
+		case 'chill':
+		case 'grumpy':
 			return { quiz: 0.3, liquid: 0.4, funny: 0.2, memory: 0.1 };
+
+		// Naughty Group
 		case 'naughty':
-			return { quiz: 0.2, liquid: 0.5, funny: 0.2, memory: 0.1 };
+		case 'horny':
+			return { quiz: 0.1, liquid: 0.6, funny: 0.2, memory: 0.1 };
+
+		// Romantic Group
 		case 'romantic':
+		case 'happy':
+		case 'missing':
+		case 'waiting':
+		case 'cold':
 			return { quiz: 0.4, liquid: 0.1, funny: 0.1, memory: 0.4 };
-		default: // 'neutral' or null
+
+		default: // null or unknown
 			return { quiz: 0.5, liquid: 0.1, funny: 0.2, memory: 0.2 };
 	}
 };
@@ -350,6 +364,16 @@ export function EasterEggProvider({ children }: { children: React.ReactNode }) {
 				if (prev.includes(voucherId)) return prev;
 				return [...prev, voucherId];
 			});
+
+			// CRITICAL FIX: Also update the unlockedVouchers list to reflect 'isUsed'
+			// This ensures localStorage 'egg_unlocked_vouchers' shows the change
+			setUnlockedVouchers((prev) => 
+				prev.map(v => 
+					v.id === voucherId 
+						? { ...v, isUsed: true, usedAt: Date.now() } 
+						: v
+				)
+			);
 
 			return true;
 		},

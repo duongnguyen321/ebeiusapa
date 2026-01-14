@@ -14,6 +14,35 @@ import { AnimatedOutlet } from '@/components/AnimatedOutlet';
 import EasterEggLayer from '@/components/EasterEggLayer';
 import { NotificationManager } from '@/components/NotificationManager';
 import { RoleGuard } from '@/components/RoleGuard';
+import { useTheme } from '@/contexts/ThemeContext';
+
+function LayoutContent() {
+	const { theme } = useTheme();
+
+	return (
+		<div className={cn(
+			'min-h-screen overflow-x-hidden relative transition-colors duration-700 ease-in-out',
+			theme.bg,
+			theme.text // Apply base text color too
+		)}>
+			<div className={cn('absolute inset-0 opacity-30 pointer-events-none bg-gradient-to-b', theme.gradient)} />
+			
+			<NotificationManager />
+			<NoiseBackground />
+
+			{/* Main Content Area with Animated Routes */}
+			<RoleGuard>
+				<AnimatedOutlet />
+			</RoleGuard>
+
+			{/* Easter Egg Layer - Floating eggs and modals */}
+			<EasterEggLayer />
+
+			{/* Global Overlay Components */}
+			<BirthdayCelebration />
+		</div>
+	);
+}
 
 export default function RootLayout() {
 	return (
@@ -26,21 +55,7 @@ export default function RootLayout() {
 								<DailyQuestProvider>
 									<EasterEggProvider>
 										<BudgetProvider>
-											<div className={cn('min-h-screen overflow-x-hidden relative bg-slate-900 text-white')}>
-												<NotificationManager />
-												<NoiseBackground />
-
-												{/* Main Content Area with Animated Routes */}
-												<RoleGuard>
-													<AnimatedOutlet />
-												</RoleGuard>
-
-												{/* Easter Egg Layer - Floating eggs and modals */}
-												<EasterEggLayer />
-
-												{/* Global Overlay Components */}
-												<BirthdayCelebration />
-											</div>
+											<LayoutContent />
 										</BudgetProvider>
 									</EasterEggProvider>
 								</DailyQuestProvider>

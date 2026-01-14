@@ -116,14 +116,15 @@ export function useLiquidLuck() {
 
 		let spicyChance = 0.3; // Default
 
-		if (currentMood === 'naughty') {
-			spicyChance = 0.8;
-		} else if (currentMood === 'romantic') {
-			spicyChance = 0.1;
-		} else if (currentMood === 'playful') {
-			spicyChance = 0.4;
+		// Granular Mood Logic for Spicy Chance
+		if (currentMood === 'horny' || currentMood === 'naughty') {
+			spicyChance = 0.8; // Very high chance
+		} else if (currentMood === 'romantic' || currentMood === 'cold' || currentMood === 'missing' || currentMood === 'waiting') {
+			spicyChance = 0.1; // Mostly romantic/service
+		} else if (currentMood === 'playful' || currentMood === 'grumpy' || currentMood === 'hungry') {
+			spicyChance = 0.4; // Balanced
 		} else if (isLateNight) {
-			spicyChance += 0.2; // Booast at night if mood undefined
+			spicyChance += 0.2; // Boost at night if mood is neutral/unknown
 		}
 
 		let weightedPool: VoucherDisplay[];
