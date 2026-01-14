@@ -2,14 +2,16 @@ import { cn } from '@/lib/utils';
 import { useRef, useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
-import { LiquidTask, LiquidTheme } from '@/data/liquidLuck';
+import { LiquidTheme } from '@/data/liquidLuck';
+import { VoucherDisplay } from '@/data/vouchers/types';
 import { X, Sparkles } from 'lucide-react';
 
 interface LiquidScratchRevealProps {
-	task: LiquidTask;
+	task: VoucherDisplay;
 	theme: LiquidTheme;
 	onClose: () => void;
 	onReveal?: () => void;
+	role?: 'anh' | 'em'; // Optional, to determining confetti brand colors
 }
 
 export function LiquidScratchReveal({
@@ -17,6 +19,7 @@ export function LiquidScratchReveal({
 	theme,
 	onClose,
 	onReveal,
+	role,
 }: LiquidScratchRevealProps) {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const [isRevealed, setIsRevealed] = useState(false);
@@ -143,7 +146,7 @@ export function LiquidScratchReveal({
 			gravity: 0.8,
 			ticks: 300,
 			colors:
-				task.targetRole === 'anh'
+				role === 'anh'
 					? ['#22d3ee', '#3b82f6', '#ffffff'] // Brand colors for Anh
 					: ['#f472b6', '#fb7185', '#ffffff'], // Brand colors for Em
 		});
@@ -170,7 +173,36 @@ export function LiquidScratchReveal({
 		isDrawing.current = false;
 	};
 
-	const TaskIcon = task.icon;
+	// Helper to determine badge style
+	const getBadgeStyle = () => {
+		switch (task.category) {
+			case 'spicy':
+				return 'bg-rose-600/80 text-white';
+			case 'sensual':
+				return 'bg-purple-500/80 text-white'; // New color for sensual
+			case 'service':
+				return 'bg-emerald-500/80 text-white';
+			case 'fun':
+				return 'bg-amber-500/80 text-white';
+			default:
+				return 'bg-blue-500/80 text-white';
+		}
+	};
+
+	const getBadgeText = () => {
+		switch (task.category) {
+			case 'spicy':
+				return '🌶️ SPICY 18+';
+			case 'sensual':
+				return '🔥 SENSUAL';
+			case 'service':
+				return '🎁 SERVICE';
+			case 'fun':
+				return '⚡ FUN & CUTE';
+			default:
+				return '✨ SPECIAL';
+		}
+	};
 
 	return (
 		<motion.div
@@ -218,14 +250,10 @@ export function LiquidScratchReveal({
 								<div
 									className={cn(
 										'inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-bold mb-6 backdrop-blur-md shadow-lg border border-white/10',
-										task.type === 'dare' && 'bg-amber-500/80 text-white',
-										task.type === 'reward' && 'bg-emerald-500/80 text-white',
-										task.type === 'spicy' && 'bg-rose-600/80 text-white'
+										getBadgeStyle()
 									)}
 								>
-									{task.type === 'dare' && '⚡ THỬ THÁCH'}
-									{task.type === 'reward' && '🎁 PHẦN THƯỞNG'}
-									{task.type === 'spicy' && '🌶️ SPICY'}
+									{getBadgeText()}
 								</div>
 
 								{/* Big Icon */}
@@ -235,16 +263,15 @@ export function LiquidScratchReveal({
 									transition={{ type: 'spring', delay: 0.2 }}
 									className='mb-6 p-6 rounded-3xl bg-white/20 backdrop-blur-xl border border-white/30 shadow-inner'
 								>
-									{TaskIcon ? (
-										<TaskIcon className='w-20 h-20 text-white drop-shadow-lg' />
-									) : (
-										<Sparkles className='w-20 h-20 text-white' />
-									)}
+									{/* Use string emoji directly */}
+									<span className="text-6xl filter drop-shadow-lg">
+										{task.icon}
+									</span>
 								</motion.div>
 
 								{/* Content */}
 								<h3 className='text-3xl font-black text-white mb-4 leading-tight drop-shadow-md'>
-									{task.content}
+									{task.title}
 								</h3>
 
 								{task.description && (

@@ -6,7 +6,6 @@ import { useBudget, BudgetCategory, BudgetItem } from '@/contexts/BudgetContext'
 import { BudgetWalletCard } from './BudgetWalletCard';
 import { BudgetListItem } from './BudgetListItem';
 import { BudgetEntryModal } from './BudgetEntryModal';
-import { BudgetRoleSelector } from './BudgetRoleSelector';
 import { BudgetCharts } from './BudgetCharts';
 import { useBudgetReminder } from '@/hooks/useBudgetReminder';
 import { toast } from 'sonner';
@@ -108,10 +107,10 @@ export function BudgetDashboard({ onClose }: BudgetDashboardProps) {
 		}
 	};
 
-	// Show role selector if no role selected
-	if (!role) {
-		return <BudgetRoleSelector />;
-	}
+	// Show role selector if no role selected - REMOVED (Global Role Enforced)
+	// if (!role) {
+	// 	return <BudgetRoleSelector />;
+	// }
 
 	return (
 		<div className='space-y-4'>

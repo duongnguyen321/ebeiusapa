@@ -1,12 +1,12 @@
+
 import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, RotateCcw } from 'lucide-react';
+import { X } from 'lucide-react';
 import { useLiquidLuck } from '@/hooks/useLiquidLuck';
 import { useEasterEgg } from '@/contexts/EasterEggContext';
 import {
 	LiquidContainer,
 	LiquidScratchReveal,
-	LiquidRoleSelector,
 } from './liquid';
 
 interface LiquidLuckModalProps {
@@ -21,8 +21,6 @@ export function LiquidLuckModal({ isOpen, onClose }: LiquidLuckModalProps) {
 		currentTask,
 		isMixing,
 		isRevealing,
-		setRole,
-		resetRole,
 		startMixing,
 		completeMixing,
 		closeReveal,
@@ -42,17 +40,12 @@ export function LiquidLuckModal({ isOpen, onClose }: LiquidLuckModalProps) {
 
 	const handleReveal = () => {
 		if (currentTask) {
-			// Map LiquidTask to VoucherReward
-			// Use emojis for icons since VoucherWallet expects string (or we adapt)
-			let icon = '🎁';
-			if (currentTask.type === 'dare') icon = '⚡';
-			if (currentTask.type === 'spicy') icon = '🌶️';
-
+			// Unlock voucher using centralized definition
 			unlockVoucher({
 				id: currentTask.id,
-				title: currentTask.content,
+				title: currentTask.title,
 				description: currentTask.description || 'Liquid Luck Reward',
-				icon: icon, 
+				icon: currentTask.icon, 
 				isRedeemed: false,
 				isUsed: false,
 			});
@@ -66,7 +59,7 @@ export function LiquidLuckModal({ isOpen, onClose }: LiquidLuckModalProps) {
 					initial={{ opacity: 0 }}
 					animate={{ opacity: 1 }}
 					exit={{ opacity: 0 }}
-					className='fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm'
+					className='fixed inset-0 z-50 flex items-center justify-center p-2 bg-black/70 backdrop-blur-sm'
 					onClick={handleClose}
 				>
 					<motion.div
@@ -89,15 +82,6 @@ export function LiquidLuckModal({ isOpen, onClose }: LiquidLuckModalProps) {
 								<h2 className='text-xl font-bold text-white'>Liquid Luck</h2>
 							</div>
 							<div className='flex items-center gap-2'>
-								{role && (
-									<button
-										onClick={resetRole}
-										className='p-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors'
-										title='Đổi vai trò'
-									>
-										<RotateCcw className='w-4 h-4 text-white/60' />
-									</button>
-								)}
 								<button
 									onClick={handleClose}
 									className='p-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors'
@@ -110,18 +94,6 @@ export function LiquidLuckModal({ isOpen, onClose }: LiquidLuckModalProps) {
 						{/* Content */}
 						<div className='min-h-[400px] flex items-center justify-center'>
 							<AnimatePresence mode='wait'>
-								{/* Role Selection */}
-								{!role && (
-									<motion.div
-										key='role-select'
-										initial={{ opacity: 0, y: 20 }}
-										animate={{ opacity: 1, y: 0 }}
-										exit={{ opacity: 0, y: -20 }}
-									>
-										<LiquidRoleSelector onSelectRole={setRole} />
-									</motion.div>
-								)}
-
 								{/* Mixing State */}
 								{role && theme && !isRevealing && (
 									<motion.div
@@ -133,7 +105,7 @@ export function LiquidLuckModal({ isOpen, onClose }: LiquidLuckModalProps) {
 									>
 										{!isMixing ? (
 											<div className='text-center space-y-6'>
-												<p className='text-white/60'>
+												<p className='text-white/60 text-lg'>
 													Sẵn sàng thử vận may chưa?
 												</p>
 												<motion.button
@@ -141,11 +113,11 @@ export function LiquidLuckModal({ isOpen, onClose }: LiquidLuckModalProps) {
 													whileTap={{ scale: 0.95 }}
 													onClick={startMixing}
 													className={cn(
-														'px-8 py-4 rounded-2xl font-bold text-lg',
+														'px-10 py-5 rounded-2xl font-bold text-xl shadow-lg',
 														'transition-all',
 														role === 'anh'
-															? 'bg-gradient-to-r from-cyan-500 to-blue-500 text-white'
-															: 'bg-gradient-to-r from-pink-500 to-rose-500 text-white'
+															? 'bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-cyan-500/20'
+															: 'bg-gradient-to-r from-pink-500 to-rose-500 text-white shadow-pink-500/20'
 													)}
 												>
 													🎲 Bắt đầu lắc!
@@ -187,6 +159,7 @@ export function LiquidLuckModal({ isOpen, onClose }: LiquidLuckModalProps) {
 								theme={theme}
 								onClose={handlePlayAgain}
 								onReveal={handleReveal}
+								role={role || undefined}
 							/>
 						)}
 					</AnimatePresence>

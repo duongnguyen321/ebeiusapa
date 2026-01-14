@@ -5,6 +5,8 @@ import { useState, useCallback, forwardRef } from 'react';
 import { createPortal } from 'react-dom';
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 import { moodData, type MoodOption } from '@/data/easterEggs';
+import { useMood } from '@/contexts/MoodContext';
+import type { MoodType } from '@/types/quest';
 
 interface MoodStationProps {
 	onClose?: () => void;
@@ -100,13 +102,29 @@ export default function MoodStation({ onClose }: MoodStationProps) {
 	const [selectedMood, setSelectedMood] = useState<MoodOption | null>(null);
 	const [currentImageIndex, setCurrentImageIndex] = useState(0);
 	const [direction, setDirection] = useState(0);
+	const { setMood } = useMood();
 
 	const moodOptions = moodData[0]?.options ?? [];
+
+	// Map MoodStation mood IDs to DailyQuest MoodType
+	const moodIdToQuestMood: Record<string, MoodType> = {
+		happy: 'romantic',
+		missing: 'romantic',
+		chill: 'playful',
+		hungry: 'playful',
+		waiting: 'playful',
+		cold: 'romantic',
+		grumpy: 'playful',
+	};
 
 	const handleMoodSelect = (mood: MoodOption) => {
 		setSelectedMood(mood);
 		setCurrentImageIndex(0);
 		setDirection(0);
+		
+		// Save to MoodContext for Daily Quest filtering
+		const questMood = moodIdToQuestMood[mood.id] || 'playful';
+		setMood(questMood);
 	};
 
 	const handleCloseOverlay = () => {

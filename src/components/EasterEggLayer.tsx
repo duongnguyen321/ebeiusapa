@@ -189,8 +189,13 @@ export default function EasterEggLayer() {
 
 						{/* Liquid Luck Modal */}
 			<LiquidLuckModal
-				isOpen={showLiquidLuck}
-				onClose={() => setShowLiquidLuck(false)}
+				isOpen={showLiquidLuck || (showContentModal && currentContent?.type === 'liquid_luck')}
+				onClose={() => {
+					setShowLiquidLuck(false);
+					if (currentContent?.type === 'liquid_luck') {
+						closeContentModal();
+					}
+				}}
 			/>
 				</>
 			)}

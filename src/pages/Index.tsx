@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTrip } from '@/contexts/TripContext';
 import { targetDate } from '@/data/itinerary';
@@ -19,7 +19,6 @@ const Index = () => {
 
 	const handleUnlock = () => {
 		unlockApp();
-		// Navigation will happen via effect
 	};
 
 	return (

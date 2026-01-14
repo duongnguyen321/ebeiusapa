@@ -1,12 +1,12 @@
 {
   "name": "vite_react_shadcn_ts",
   "private": true,
-  "version": "0.0.33",
+  "version": "0.0.34",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "build:dev": "vite build --mode development",
+    "build": "tsc && vite build",
+    "build:dev": "tsc && vite build --mode development",
     "lint": "eslint .",
     "bump-version": "node scripts/bump-version.js",
     "bump-auto": "node scripts/bump-version.js patch",

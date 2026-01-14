@@ -3,7 +3,7 @@ export interface EasterEggConfig {
 	spawnChance: number;
 }
 
-import type { VoucherReward } from '../types/game';
+import type { VoucherId } from './vouchers';
 
 export interface QuizOption {
 	id: string;
@@ -18,7 +18,8 @@ export interface QuizData {
 	question: string;
 	images?: string[];
 	options: QuizOption[];
-	reward: VoucherReward;
+	rewardAnh: VoucherId;
+	rewardEm: VoucherId;
 }
 
 export interface MoodResponse {
@@ -225,6 +226,8 @@ export const memoryCapsules: MemoryCapsuleData[] = [
 ];
 
 // --- DAILY QUIZ & VOUCHERS ---
+import { VOUCHER_IDS } from './vouchers';
+
 export const quizData: QuizData[] = [
 	// --- DAY 1: 15/01/2026 (Travel & Beginnings) ---
 	{
@@ -245,14 +248,8 @@ export const quizData: QuizData[] = [
 			},
 			{ id: 'c', label: 'Ngày anh trúng số', isCorrect: false },
 		],
-		reward: {
-			id: 'voucher-hug',
-			title: 'Voucher Gấu Koala',
-			description: 'Thời hạn: 10 phút. Em được quyền đu bám lên người Anh như gấu Koala. Anh phải đỡ và giữ chặt Em, không được buông.',
-			icon: '🫂',
-			isRedeemed: false,
-			isUsed: false,
-		},
+		rewardAnh: VOUCHER_IDS.HUG_KOALA,
+		rewardEm: VOUCHER_IDS.CUDDLE_NIGHT,
 	},
 	{
 		id: 'quiz-day1-2',
@@ -272,14 +269,8 @@ export const quizData: QuizData[] = [
 			},
 			{ id: 'c', label: 'Hạ Long', isCorrect: false },
 		],
-		reward: {
-			id: 'voucher-photo',
-			title: 'Voucher Thị Tẩm Bằng Mắt',
-			description: "Thời hạn: 10 phút. Em dang rộng hai chân, Anh được phép nhìn ngắm 'kỳ quan' của Em. Luật: Chỉ nhìn, cấm chạm.",
-			icon: '👀',
-			isRedeemed: false,
-			isUsed: false,
-		},
+		rewardAnh: VOUCHER_IDS.GAZE_TEMPLE,
+		rewardEm: VOUCHER_IDS.STRIP_SHOW,
 	},
 	{
 		id: 'quiz-day1-3',
@@ -299,14 +290,8 @@ export const quizData: QuizData[] = [
 			},
 			{ id: 'c', label: 'Giày đôi', isCorrect: false },
 		],
-		reward: {
-			id: 'voucher-drink',
-			title: "Voucher Thưởng Thức 'Mật Ngọt'",
-			description: "Thời hạn: 10 phút. Anh được quyền dùng lưỡi vét cạn và hút lấy những giọt 'mật' từ cơ thể Em. Em phải nằm im tận hưởng.",
-			icon: '👅',
-			isRedeemed: false,
-			isUsed: false,
-		},
+			rewardAnh: VOUCHER_IDS.ORAL_SLOW,
+		rewardEm: VOUCHER_IDS.FINGER_PLAY,
 	},
 
 	// --- DAY 2: 16/01/2026 (Nature & Adventure) ---
@@ -328,14 +313,8 @@ export const quizData: QuizData[] = [
 			},
 			{ id: 'c', label: 'Bi tự đến', isCorrect: false },
 		],
-		reward: {
-			id: 'voucher-massage',
-			title: 'Voucher Kích Thích Điểm G',
-			description: 'Thời hạn: 20 phút. Anh dùng ngón tay ma thuật để đưa Em lên đỉnh. Em chỉ việc nằm hưởng thụ kỹ thuật của Anh.',
-			icon: '🔞',
-			isRedeemed: false,
-			isUsed: false,
-		},
+		rewardAnh: VOUCHER_IDS.FINGER_PLAY,
+		rewardEm: VOUCHER_IDS.MASSAGE_FULL,
 	},
 	{
 		id: 'quiz-day2-2',
@@ -355,14 +334,8 @@ export const quizData: QuizData[] = [
 			{ id: 'b', label: 'Màu vàng nổi loạn', isCorrect: false },
 			{ id: 'c', label: 'Màu xanh dương', isCorrect: false },
 		],
-		reward: {
-			id: 'voucher-hair',
-			title: 'Dịch Vụ Sấy Tóc Tình Yêu',
-			description: 'Thời hạn: 15 phút. Anh có nhiệm vụ sấy tóc khô ráo, chải tóc và massage nhẹ nhàng da đầu cho Em sau khi tắm.',
-			icon: '💆‍♀️',
-			isRedeemed: false,
-			isUsed: false,
-		},
+			rewardAnh: VOUCHER_IDS.HAIR_DRY,
+		rewardEm: VOUCHER_IDS.HAIR_WASH,
 	},
 	{
 		id: 'quiz-day2-3',
@@ -382,14 +355,8 @@ export const quizData: QuizData[] = [
 			},
 			{ id: 'c', label: 'Quần Jeans', isCorrect: false },
 		],
-		reward: {
-			id: 'voucher-coffee',
-			title: 'Voucher Báo Thức 18+',
-			description: "Thời hạn: 20 phút. Anh đưa voucher này trước khi ngủ. Sáng hôm sau Em phải gọi Anh dậy bằng cách 'thổi kèn' đến khi Anh tỉnh hẳn.",
-			icon: '☕',
-			isRedeemed: false,
-			isUsed: false,
-		},
+			rewardAnh: VOUCHER_IDS.MORNING_WOOD,
+		rewardEm: VOUCHER_IDS.TEA_SERVICE,
 	},
 
 	// --- DAY 3: 17/01/2026 (Romance & Memories) ---
@@ -416,14 +383,8 @@ export const quizData: QuizData[] = [
 				responseMessage: 'Em còn không thè lưỡi ra cơ mà (lêu lêu)!',
 			},
 		],
-		reward: {
-			id: 'voucher-king',
-			title: 'Voucher Bịt Mắt Dẫn Lối',
-			description: 'Thời hạn: 30 phút. Anh tự nguyện bịt mắt. Em toàn quyền dắt Anh đi đâu hoặc làm bất cứ gì để kích thích các giác quan của Anh.',
-			icon: '⛓️',
-			isRedeemed: false,
-			isUsed: false,
-		},
+			rewardAnh: VOUCHER_IDS.BLINDFOLD_LEAD,
+		rewardEm: VOUCHER_IDS.SENSUAL_MASSAGE,
 	},
 	{
 		id: 'quiz-day3-2',
@@ -443,14 +404,8 @@ export const quizData: QuizData[] = [
 			},
 			{ id: 'c', label: 'Aries Rooftop', isCorrect: false },
 		],
-		reward: {
-			id: 'voucher-snack',
-			title: 'Voucher Ăn Đêm Đặc Biệt',
-			description: "Thời hạn: 20 phút. Anh đói bụng? Anh có quyền vạch chân Em ra và ăn 'món nước' đặc sản thay vì ăn mì tôm.",
-			icon: '🍕',
-			isRedeemed: false,
-			isUsed: false,
-		},
+			rewardAnh: VOUCHER_IDS.ORAL_SLOW,
+		rewardEm: VOUCHER_IDS.LAP_PILLOW,
 	},
 	{
 		id: 'quiz-day3-3',
@@ -470,14 +425,8 @@ export const quizData: QuizData[] = [
 			},
 			{ id: 'c', label: 'Không ai bắt được', isCorrect: false },
 		],
-		reward: {
-			id: 'voucher-kiss',
-			title: 'Voucher Lưỡi Du Ngoạn',
-			description: 'Thời hạn: 15 phút. Anh có quyền dùng lưỡi liếm láp khắp cơ thể Em, từ ngón chân lên đến tận môi mà không bị cấm cản.',
-			icon: '💋',
-			isRedeemed: false,
-			isUsed: false,
-		},
+			rewardAnh: VOUCHER_IDS.BODY_LICK,
+		rewardEm: VOUCHER_IDS.HICKEY_MARK,
 	},
 
 	// --- DAY 4: 18/01/2026 (Future & Love) ---
@@ -499,14 +448,8 @@ export const quizData: QuizData[] = [
 			},
 			{ id: 'c', label: 'Mì tôm', isCorrect: false },
 		],
-		reward: {
-			id: 'voucher-cook',
-			title: 'Voucher Đầu Bếp',
-			description: 'Voucher đầu bếp: Yêu cầu Anh nấu bất cứ món gì Em muốn (trong khả năng).',
-			icon: '👨‍🍳',
-			isRedeemed: false,
-			isUsed: false,
-		},
+			rewardAnh: VOUCHER_IDS.COOK_REQUEST,
+		rewardEm: VOUCHER_IDS.COOK_REQUEST,
 	},
 	{
 		id: 'quiz-day4-2',
@@ -526,14 +469,8 @@ export const quizData: QuizData[] = [
 			{ id: 'b', label: 'Hay dỗi', isCorrect: false },
 			{ id: 'c', label: 'Ăn chậm', isCorrect: false },
 		],
-		reward: {
-			id: 'voucher-sleep',
-			title: 'Voucher Ngủ Nướng',
-			description: 'Voucher ngủ nướng: Em được quyền ngủ nướng thêm 30p vào buổi sáng bất kỳ.',
-			icon: '💤',
-			isRedeemed: false,
-			isUsed: false,
-		},
+			rewardAnh: VOUCHER_IDS.SLEEP_EXTRA,
+		rewardEm: VOUCHER_IDS.SLEEP_EXTRA,
 	},
 	{
 		id: 'quiz-day4-3',
@@ -553,14 +490,8 @@ export const quizData: QuizData[] = [
 				responseMessage: 'Chỉ cần có nhau, đâu cũng là nhà ❤️',
 			},
 		],
-		reward: {
-			id: 'voucher-trip',
-			title: 'Voucher Du Lịch',
-			description: 'Voucher vi vu: Lời hứa danh dự từ Anh sẽ đưa Em đi du lịch ít nhất 1 lần/năm.',
-			icon: '✈️',
-			isRedeemed: false,
-			isUsed: false,
-		},
+		rewardAnh: VOUCHER_IDS.NEXT_TRIP,
+		rewardEm: VOUCHER_IDS.NEXT_TRIP,
 	},
 ];
 

@@ -6,6 +6,7 @@ import {
 	ReactNode,
 	useCallback,
 } from 'react';
+import { useGlobalRole } from './GlobalRoleContext';
 
 export type PassportRole = 'anh' | 'em' | null;
 
@@ -67,18 +68,23 @@ export function PassportProvider({ children }: { children: ReactNode }) {
 		return defaultState;
 	});
 
-	// Persist to localStorage
+	// Consumer of Global Role
+	const { role: globalRole, setRole: setGlobalRole } = useGlobalRole();
+
 	useEffect(() => {
-		localStorage.setItem(STORAGE_KEYS.PASSPORT.DATA, JSON.stringify(state));
+		const stateToSave = {
+			unlockedStamps: state.unlockedStamps,
+			completedQuests: state.completedQuests,
+			memories: state.memories,
+		};
+		localStorage.setItem(STORAGE_KEYS.PASSPORT.DATA, JSON.stringify(stateToSave));
 	}, [state]);
 
 	const setRole = useCallback((role: PassportRole) => {
-		setState((prev) => ({
-			...prev,
-			role,
-			theme: role === 'anh' ? 'blue' : 'pink',
-		}));
-	}, []);
+		if (role) {
+			setGlobalRole(role);
+		}
+	}, [setGlobalRole]);
 
 	const completeQuest = useCallback((questId: string) => {
 		setState((prev) => ({
@@ -126,11 +132,15 @@ export function PassportProvider({ children }: { children: ReactNode }) {
 		localStorage.removeItem(STORAGE_KEYS.PASSPORT.DATA);
 	}, []);
 
+	// Derived state
+	const currentRole = globalRole;
+	const currentTheme = currentRole === 'anh' ? 'blue' : 'pink';
+
 	return (
 		<PassportContext.Provider
 			value={{
-				role: state.role,
-				theme: state.theme,
+				role: currentRole as PassportRole,
+				theme: currentTheme,
 				unlockedStamps: state.unlockedStamps,
 				completedQuests: state.completedQuests,
 				memories: state.memories,

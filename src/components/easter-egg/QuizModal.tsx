@@ -10,6 +10,9 @@ import {
 } from 'lucide-react';
 import { useState } from 'react';
 import type { QuizData } from '@/data/easterEggs';
+import { createVoucherReward } from '@/data/vouchers';
+import type { GlobalRole } from '@/types/quest';
+import { useGlobalRole } from '@/contexts/GlobalRoleContext';
 
 interface QuizModalProps {
 	quiz: QuizData;
@@ -25,6 +28,13 @@ export function EasterEggQuizModal({
 	const [selectedOption, setSelectedOption] = useState<string | null>(null);
 	const [showResult, setShowResult] = useState(false);
 	const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+	// Get role from Context
+	const { role } = useGlobalRole();
+	const currentRole = role || 'em';
+	
+	const rewardId = currentRole === 'anh' ? quiz.rewardAnh : quiz.rewardEm;
+	const reward = createVoucherReward(rewardId, currentRole);
 
 	const paginate = (newDirection: number) => {
 		if (!quiz.images) return;
@@ -223,7 +233,7 @@ export function EasterEggQuizModal({
 							isCorrect ? 'bg-green-500/20' : 'bg-red-500/20'
 						)}
 					>
-						{isCorrect ? (
+						{isCorrect && reward ? (
 							<div className='space-y-2'>
 								<div className='flex items-center justify-center gap-2'>
 									<Gift className='w-6 h-6 text-amber-400' />
@@ -231,9 +241,10 @@ export function EasterEggQuizModal({
 										Chúc mừng! Bạn nhận được:
 									</span>
 								</div>
-								<p className='text-white font-semibold'>
-									{quiz.reward.icon} {quiz.reward.title}
-								</p>
+								<div className='bg-white/10 rounded-lg p-2 flex items-center gap-3 justify-center'>
+									<span className='text-2xl'>{reward.icon}</span>
+									<span className='text-white font-semibold'>{reward.title}</span>
+								</div>
 								{selectedOptionData?.responseMessage && (
 									<p className='text-white/70 text-sm'>
 										{selectedOptionData.responseMessage}

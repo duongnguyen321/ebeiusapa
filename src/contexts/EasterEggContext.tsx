@@ -16,16 +16,42 @@ import {
 } from '@/data/easterEggs';
 import type { VoucherReward } from '@/types/game';
 import { isRestricted } from '@/lib/restriction';
+import { createVoucherReward } from '@/data/vouchers';
+import type { GlobalRole } from '@/types/quest';
+import { useGlobalRole } from './GlobalRoleContext';
+import { useMood } from './MoodContext';
 
 // ==================== TYPES ====================
-type EggContentType = 'quiz' | 'funny' | 'memory';
+type EggContentType = 'quiz' | 'funny' | 'memory' | 'liquid_luck';
 
 interface EggContent {
 	type: EggContentType;
 	quiz?: QuizData;
 	funny?: FunnyMomentData;
 	memory?: MemoryCapsuleData;
+	// No data needed for liquid luck, just the type
 }
+
+
+// ==================== CONSTANTS ====================
+// (Moved CONSTLANTS from below if needed, or just let them be)
+// Actually, CONSTANTS are at line 140.
+// I will just remove the ghost block.
+
+
+// ==================== CONTENT SELECTION LOGIC ====================
+const getEggProbabilities = (mood: string | null) => {
+	switch (mood) {
+		case 'playful':
+			return { quiz: 0.3, liquid: 0.4, funny: 0.2, memory: 0.1 };
+		case 'naughty':
+			return { quiz: 0.2, liquid: 0.5, funny: 0.2, memory: 0.1 };
+		case 'romantic':
+			return { quiz: 0.4, liquid: 0.1, funny: 0.1, memory: 0.4 };
+		default: // 'neutral' or null
+			return { quiz: 0.5, liquid: 0.1, funny: 0.2, memory: 0.2 };
+	}
+};
 
 interface EasterEggState {
 	// Egg visibility & position
@@ -91,6 +117,8 @@ export function useEasterEgg() {
 
 // ==================== PROVIDER ====================
 export function EasterEggProvider({ children }: { children: React.ReactNode }) {
+	const { currentMood } = useMood();
+
 	// Load persisted state
 	const loadFromStorage = <T,>(key: string, defaultValue: T): T => {
 		try {
@@ -224,25 +252,44 @@ export function EasterEggProvider({ children }: { children: React.ReactNode }) {
 		hideEgg();
 
 		const random = Math.random();
-
-		if (random < QUIZ_CHANCE) {
-			// 90% - Quiz
+		const probs = getEggProbabilities(currentMood);
+		
+		// Cumulative probability thresholds
+		const quizThreshold = probs.quiz;
+		const liquidThreshold = quizThreshold + probs.liquid;
+		const funnyThreshold = liquidThreshold + probs.funny;
+		
+		// 1. Try Quiz (Priority if available)
+		if (random < quizThreshold) {
 			const quiz = getAvailableQuiz();
 			if (quiz) {
 				setCurrentContent({ type: 'quiz', quiz });
 				setShowContentModal(true);
 				return;
 			}
+			// Fallthrough: If quiz selected but none available, treat as non-quiz roll
 		}
 
-		// 10% or no quiz available - Funny/Memory
-		if (Math.random() < 0.5) {
+		// 2. Try Liquid Luck
+		// Note check against threshold OR fallback from quiz
+		if (random < liquidThreshold || (random < quizThreshold)) { 
+             // If we fell through quiz (random < quizThreshold but no quiz), we come here.
+             // But we need to be careful not to over-index Liquid Luck.
+             // Actually, if no quiz, we should re-roll or redistribute.
+             // Simple fallback: If no quiz, try Liquid Luck.
+			setCurrentContent({ type: 'liquid_luck' });
+			setShowContentModal(true);
+			return;
+		}
+
+		// 3. Try Funny / Memory
+		if (random < funnyThreshold) {
 			setCurrentContent({ type: 'funny', funny: getRandomFunnyMoment() });
 		} else {
 			setCurrentContent({ type: 'memory', memory: getRandomMemoryCapsule() });
 		}
 		setShowContentModal(true);
-	}, [hideEgg, getAvailableQuiz]);
+	}, [hideEgg, getAvailableQuiz, currentMood]);
 
 	// Close content modal
 	const closeContentModal = useCallback(() => {
@@ -261,18 +308,28 @@ export function EasterEggProvider({ children }: { children: React.ReactNode }) {
 	}, []);
 
 	// Answer quiz
+	const { role } = useGlobalRole();
+
 	const answerQuiz = useCallback((quizId: string, isCorrect: boolean) => {
 		setAnsweredQuizIds((prev) => [...prev, quizId]);
 
 		if (isCorrect) {
 			// Add reward to wallet
 			const quiz = quizData.find((q) => q.id === quizId);
-			if (quiz?.reward) {
-				setUnlockedVouchers((prev) => {
-					// Don't add duplicate
-					if (prev.some((v) => v.id === quiz.reward.id)) return prev;
-					return [...prev, { ...quiz.reward, isRedeemed: true }];
-				});
+			if (quiz) {
+				// Get current role from context
+				const currentRole = role || 'em';
+				const rewardId = currentRole === 'anh' ? quiz.rewardAnh : quiz.rewardEm;
+				
+				const voucher = createVoucherReward(rewardId, currentRole);
+
+				if (voucher) {
+					setUnlockedVouchers((prev) => {
+						// Don't add duplicate
+						if (prev.some((v) => v.id === voucher.id)) return prev;
+						return [...prev, { ...voucher, isRedeemed: true }];
+					});
+				}
 			}
 		} else {
 			// Wrong answer - set cooldown

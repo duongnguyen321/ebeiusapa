@@ -6,32 +6,47 @@ import { TripProvider } from '@/contexts/TripContext';
 import { EasterEggProvider } from '@/contexts/EasterEggContext';
 import { VersionProvider } from '@/contexts/VersionContext';
 import { BudgetProvider } from '@/contexts/BudgetContext';
+import { GlobalRoleProvider } from '@/contexts/GlobalRoleContext';
+import { MoodProvider } from '@/contexts/MoodContext';
+import { ThemeProvider } from '@/contexts/ThemeContext';
+import { DailyQuestProvider } from '@/contexts/DailyQuestContext';
 import { AnimatedOutlet } from '@/components/AnimatedOutlet';
 import EasterEggLayer from '@/components/EasterEggLayer';
 import { NotificationManager } from '@/components/NotificationManager';
+import { RoleGuard } from '@/components/RoleGuard';
 
 export default function RootLayout() {
 	return (
 		<TripProvider>
 			<VersionProvider>
 				<SurpriseProvider>
-					<EasterEggProvider>
-						<BudgetProvider>
-							<div className={cn('min-h-screen overflow-x-hidden relative bg-slate-900 text-white')}>
-								<NotificationManager />
-								<NoiseBackground />
+					<GlobalRoleProvider>
+						<MoodProvider>
+							<ThemeProvider>
+								<DailyQuestProvider>
+									<EasterEggProvider>
+										<BudgetProvider>
+											<div className={cn('min-h-screen overflow-x-hidden relative bg-slate-900 text-white')}>
+												<NotificationManager />
+												<NoiseBackground />
 
-								{/* Main Content Area with Animated Routes */}
-								<AnimatedOutlet />
+												{/* Main Content Area with Animated Routes */}
+												<RoleGuard>
+													<AnimatedOutlet />
+												</RoleGuard>
 
-								{/* Easter Egg Layer - Floating eggs and modals */}
-								<EasterEggLayer />
+												{/* Easter Egg Layer - Floating eggs and modals */}
+												<EasterEggLayer />
 
-								{/* Global Overlay Components */}
-								<BirthdayCelebration />
-							</div>
-						</BudgetProvider>
-					</EasterEggProvider>
+												{/* Global Overlay Components */}
+												<BirthdayCelebration />
+											</div>
+										</BudgetProvider>
+									</EasterEggProvider>
+								</DailyQuestProvider>
+							</ThemeProvider>
+						</MoodProvider>
+					</GlobalRoleProvider>
 				</SurpriseProvider>
 			</VersionProvider>
 		</TripProvider>

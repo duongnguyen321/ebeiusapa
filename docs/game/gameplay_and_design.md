@@ -144,13 +144,15 @@ Logic: Random kết hợp: \[Động từ\] \+ \[Vị trí\] \+ \[Điều kiện
 
 Developer cần tạo 3 mảng dữ liệu (Arrays). Game sẽ random lấy 1 phần tử từ mỗi mảng.
 
-Mảng 1: Hành động (Verbs) \- 30 items  
+Mảng 1: Hành động (Actions) \- 15 items  
 \`\`  
-Mảng 2: Vị trí (Body Parts/Locations) \- 30 items  
+Mảng 2: Vị trí (Body Parts/Locations) \- 15 items  
 \`\`  
-Mảng 3: Điều kiện Sapa (Modifiers) \- 40 items  
+Mảng 3: Điều kiện Sapa (Modifiers) \- 15 items  
 \`\`  
-*Tổng tổ hợp:* 30 x 30 x 40 \= 36,000 kết quả (Vượt xa yêu cầu 100).
+*Tổng tổ hợp:* 15 x 15 x 15 \= 3,375 kết quả (Vượt xa yêu cầu 100).
+
+> **Lưu ý:** Phiên bản hiện tại đã được tinh chỉnh với nội dung lãng mạn phù hợp cho ngữ cảnh sinh nhật Sapa. Xem implementation chi tiết tại `src/data/games/highlandDice.ts`.
 
 ## ---
 

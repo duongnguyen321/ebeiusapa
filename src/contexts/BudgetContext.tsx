@@ -6,9 +6,12 @@ import {
   ReactNode,
   useCallback,
   useMemo,
+  useRef,
 } from "react";
 
-export type BudgetRole = "anh" | "em" | null;
+import type { GlobalRole } from '@/types/quest';
+export type BudgetRole = GlobalRole | null;
+import { useGlobalRole } from './GlobalRoleContext';
 export type BudgetCategory =
   | "transport"
   | "stay"
@@ -30,7 +33,7 @@ export interface BudgetItem {
 }
 
 export interface BudgetState {
-  role: BudgetRole;
+  // role managed globally
   maxBudget: number;
   currencyUnit: "VNĐ";
   items: BudgetItem[];
@@ -46,7 +49,7 @@ interface BudgetContextType {
   totalEstimated: number;
   remainingBudget: number;
   spendingPercent: number;
-  setRole: (role: BudgetRole) => void;
+  // setRole removed
   setMaxBudget: (amount: number) => void;
   addItem: (item: Omit<BudgetItem, "id" | "createdAt">) => void;
   updateItem: (id: string, updates: Partial<BudgetItem>) => void;
@@ -66,7 +69,6 @@ const MAX_BUDGET = 6_377_500; // 6.377.500 VNĐ
 import { anhDefaultItems } from "@/data/budget";
 
 const defaultState: BudgetState = {
-  role: null,
   maxBudget: MAX_BUDGET,
   currencyUnit: "VNĐ",
   items: [],
@@ -76,6 +78,9 @@ const defaultState: BudgetState = {
 const BudgetContext = createContext<BudgetContextType | null>(null);
 
 export function BudgetProvider({ children }: { children: ReactNode }) {
+  const { role: globalRole } = useGlobalRole();
+  const prevRoleRef = useRef<BudgetRole>(null);
+
   const [state, setState] = useState<BudgetState>(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEYS.BUDGET.STATE);
@@ -93,39 +98,46 @@ export function BudgetProvider({ children }: { children: ReactNode }) {
     localStorage.setItem(STORAGE_KEYS.BUDGET.STATE, JSON.stringify(state));
   }, [state]);
 
-  const setRole = useCallback((role: BudgetRole) => {
-    setState((prev) => {
-      // If selecting Anh and no items yet, populate with default items
-      const items =
-        role === "anh" && prev.items.length === 0
-          ? anhDefaultItems.map((item, index) => ({
-              ...item,
-              id: `anh_item_${index}`,
-              createdAt: Date.now(),
-            }))
-          : prev.items;
+	// Sync with Global Role & Initialize Data
+	useEffect(() => {
+    const currentRole = globalRole;
+    const prevRole = prevRoleRef.current;
 
-      // Initialize maxBudget based on role
-      // Anh: See full trip budget
-      // Em: Start with 0 budget (User request)
-      const maxBudget =
-        role === "em" ? 0 : role === "anh" ? MAX_BUDGET : prev.maxBudget;
+    // Only run logic if role effectively changed or on first significant mount
+		if (currentRole && currentRole !== prevRole) {
+      setState((prev) => {
+        // If selecting Anh and no items yet, populate with default items
+        const items =
+          currentRole === "anh" && prev.items.length === 0
+            ? anhDefaultItems.map((item, index) => ({
+                ...item,
+                id: `anh_item_${index}`,
+                createdAt: Date.now(),
+              }))
+            : prev.items;
 
-      return {
-        ...prev,
-        role,
-        items,
-        maxBudget,
-      };
-    });
-  }, []);
+        // Initialize maxBudget based on role CHANGE
+        // Anh: See full trip budget
+        // Em: Start with 0 budget (User request)
+        const maxBudget =
+          currentRole === "em" ? 0 : currentRole === "anh" ? MAX_BUDGET : prev.maxBudget;
+
+        return {
+          ...prev,
+          items,
+          maxBudget,
+        };
+      });
+		}
+    prevRoleRef.current = currentRole;
+	}, [globalRole]);
 
   const setMaxBudget = useCallback((amount: number) => {
     setState((prev) => {
       let newItems = [...prev.items];
 
       // Auto-balancing logic for "Anh" role
-      if (prev.role === "anh") {
+      if (globalRole === "anh") {
         // Reset all to active first to start fresh calculation?
         // Or keep existing inactive? User said "inactive it... until done".
         // Implicitly, if we raise budget, we might want to reactive?
@@ -258,7 +270,7 @@ export function BudgetProvider({ children }: { children: ReactNode }) {
   return (
     <BudgetContext.Provider
       value={{
-        role: state.role,
+        role: globalRole,
         maxBudget: state.maxBudget,
         currencyUnit: state.currencyUnit,
         items: state.items,
@@ -266,7 +278,7 @@ export function BudgetProvider({ children }: { children: ReactNode }) {
         totalEstimated,
         remainingBudget,
         spendingPercent,
-        setRole,
+        // setRole removed
         setMaxBudget,
         addItem,
         updateItem,

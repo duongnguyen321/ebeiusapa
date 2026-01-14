@@ -13,7 +13,8 @@ export const isRestricted = (): boolean => {
 
 export const handleRestrictedAction = (actionName: string): boolean => {
 	if (isRestricted()) {
-		toast.error(`Tính năng "${actionName}" sẽ được mở vào ngày 14/01/2026!`, {
+		const unlockDate = UNLOCK_DATE.toLocaleDateString('vi-VN');
+		toast.error(`Tính năng "${actionName}" sẽ được mở vào ngày ${unlockDate}!`, {
 			description: 'Hãy quay lại sau nhé ❤️',
 			duration: 3000,
 		});

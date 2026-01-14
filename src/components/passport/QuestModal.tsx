@@ -7,11 +7,13 @@ import { useEasterEgg } from '@/contexts/EasterEggContext';
 import { type PassportQuest, validateQuestCode } from '@/data/passportQuests';
 import confetti from 'canvas-confetti';
 import MarkdownIt from 'markdown-it';
+import { createVoucherReward } from '@/data/vouchers';
 
 const md = new MarkdownIt({
 	breaks: true,
 	html: true,
 });
+
 interface QuestModalProps {
 	quest: PassportQuest;
 	onClose: () => void;
@@ -30,7 +32,16 @@ export function QuestModal({ quest, onClose }: QuestModalProps) {
 	const isCompleted = isQuestCompleted(quest.id);
 
 	// Determine current reward based on role
-	const currentReward = role === 'anh' ? quest.rewardAnh : quest.rewardEm;
+	const rewardId = role === 'anh' ? quest.rewardAnh : quest.rewardEm;
+	const currentReward = createVoucherReward(rewardId, role) || {
+		// Fallback (should not happen if registry is complete)
+		id: rewardId,
+		title: 'Unknown Reward',
+		description: 'Reward not found',
+		icon: '❓',
+		isRedeemed: false,
+		isUsed: false,
+	};
 
 	// Theme colors
 	const themeColors = {

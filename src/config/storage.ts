@@ -32,12 +32,22 @@ export const STORAGE_KEYS = {
     USED_VOUCHERS: `${PREFIX_STORAGE_VERSION}_easter_egg_used_vouchers`,
     ANSWERED_QUIZZES: `${PREFIX_STORAGE_VERSION}_easter_egg_answered_quizzes`,
   },
+  GLOBAL_ROLE: {
+    STATE: `${PREFIX_STORAGE_VERSION}_global_role`,
+  },
+  MOOD: {
+    STATE: `${PREFIX_STORAGE_VERSION}_mood_state`,
+    LAST_DATE: `${PREFIX_STORAGE_VERSION}_mood_last_date`,
+  },
+  DAILY_QUEST: {
+    PROGRESS: `${PREFIX_STORAGE_VERSION}_daily_quest_progress`,
+  },
 } as const;
 
 export const CACHE_KEYS = {
   PRECACHE: `${PREFIX_STORAGE_VERSION}_precache`,
   PAGES: `${PREFIX_STORAGE_VERSION}_pages`,
   APP_DATA: `${PREFIX_STORAGE_VERSION}_app-data`,
-  EASTER_EGG_IMAGES: `${PREFIX_STORAGE_VERSION}_easter-egg-images`,
-  GOOGLE_FONTS: `${PREFIX_STORAGE_VERSION}_google-fonts-cache`,
+  EASTER_EGG_IMAGES: `easter-egg-images`,
+  GOOGLE_FONTS: `google-fonts-cache`,
 } as const;

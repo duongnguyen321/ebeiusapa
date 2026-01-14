@@ -1,20 +1,20 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import {
-	LiquidTask,
 	liquidTasksAnh,
 	liquidRewardsEm,
 	LIQUID_THEMES,
-	TimeOfDay,
 	LiquidTheme,
 } from '@/data/liquidLuck';
-
+import {
+	getVoucherForRole,
+} from '@/data/vouchers/index';
+import { VoucherDisplay, TimeOfDay } from '@/data/vouchers/types';
 import { STORAGE_KEYS } from '@/config/storage';
-
-// const STORAGE_KEY = 'sapa_liquid_luck_v1'; // Removed
-
+import { useGlobalRole } from '@/contexts/GlobalRoleContext';
+import { useMood } from '@/contexts/MoodContext';
 
 interface LiquidLuckState {
-	role: 'anh' | 'em' | null;
+	// Removed role from here
 	history: string[]; // IDs of tasks already drawn
 	lastDrawAt: number;
 }
@@ -31,13 +31,17 @@ function loadState(): LiquidLuckState {
 	try {
 		const stored = localStorage.getItem(STORAGE_KEYS.LIQUID_LUCK.STATE);
 		if (stored) {
-			return JSON.parse(stored);
+			const parsed = JSON.parse(stored);
+			// Migration: If stored state has role, ignore it/clean it
+			return {
+				history: parsed.history || [],
+				lastDrawAt: parsed.lastDrawAt || 0
+			};
 		}
 	} catch (e) {
 		console.warn('Failed to load liquid luck state:', e);
 	}
 	return {
-		role: null,
 		history: [],
 		lastDrawAt: 0,
 	};
@@ -52,8 +56,11 @@ function saveState(state: LiquidLuckState) {
 }
 
 export function useLiquidLuck() {
+	const { role } = useGlobalRole();
+	const { currentMood } = useMood();
+
 	const [state, setState] = useState<LiquidLuckState>(loadState);
-	const [currentTask, setCurrentTask] = useState<LiquidTask | null>(null);
+	const [currentTask, setCurrentTask] = useState<VoucherDisplay | null>(null);
 	const [isMixing, setIsMixing] = useState(false);
 	const [isRevealing, setIsRevealing] = useState(false);
 
@@ -63,40 +70,28 @@ export function useLiquidLuck() {
 	}, [state]);
 
 	const theme: LiquidTheme | null = useMemo(() => {
-		if (!state.role) return null;
-		return LIQUID_THEMES[state.role];
-	}, [state.role]);
+		if (!role) return null;
+		return LIQUID_THEMES[role];
+	}, [role]);
 
-	const setRole = useCallback((role: 'anh' | 'em') => {
-		setState((prev) => ({
-			...prev,
-			role,
-		}));
-	}, []);
-
-	const resetRole = useCallback(() => {
-		setState({
-			role: null,
-			history: [],
-			lastDrawAt: 0,
-		});
-		setCurrentTask(null);
-		setIsMixing(false);
-		setIsRevealing(false);
-	}, []);
+	// Removed local setRole/resetRole - controlled globally
 
 	// Get filtered task pool based on role and time of day
-	const getFilteredPool = useCallback((): LiquidTask[] => {
+	const getFilteredPool = useCallback((): VoucherDisplay[] => {
+		if (!role) return [];
+		
+		const poolIds = role === 'anh' ? liquidTasksAnh : liquidRewardsEm;
 		const timeOfDay = getTimeOfDay();
-		const pool = state.role === 'anh' ? liquidTasksAnh : liquidRewardsEm;
 
-		// Filter by time of day (if specified)
-		return pool.filter((task) => {
-			// If no timeOfDay restriction, allow all
-			if (!task.timeOfDay || task.timeOfDay.length === 0) return true;
-			return task.timeOfDay.includes(timeOfDay);
-		});
-	}, [state.role]);
+		// Convert IDs to VoucherDisplay objects relative to the role
+		const vouchers = poolIds
+			.map(id => getVoucherForRole(id, role))
+			.filter((v): v is VoucherDisplay => v !== null);
+
+		// Filter by time of day (if specified in definition)
+		// Currently mostly undefined, so allows all
+		return vouchers; // Simplified for now
+	}, [role]);
 
 	// Rigged random selection logic
 	const drawTask = useCallback(() => {
@@ -111,39 +106,36 @@ export function useLiquidLuck() {
 			availablePool = pool;
 		}
 
-		// Rigged logic:
-		// Anh: 70% dare, 30% double trouble (spicy)
-		// Em: 70% reward, 30% lucky (spicy)
+		// Rigged logic based on MOOD
+		// Romantic -> High Cute/Service (Level 1)
+		// Naughty -> High Sensual (Level 2+)
+		// Playful -> Balanced / Random
+		
 		const timeOfDay = getTimeOfDay();
 		const isLateNight = timeOfDay === 'late_night';
 
-		// Higher spicy chance at late_night
-		const spicyChance = isLateNight ? 0.5 : 0.3;
+		let spicyChance = 0.3; // Default
 
-		let weightedPool: LiquidTask[];
+		if (currentMood === 'naughty') {
+			spicyChance = 0.8;
+		} else if (currentMood === 'romantic') {
+			spicyChance = 0.1;
+		} else if (currentMood === 'playful') {
+			spicyChance = 0.4;
+		} else if (isLateNight) {
+			spicyChance += 0.2; // Booast at night if mood undefined
+		}
 
-		if (state.role === 'anh') {
-			// Anh gets mostly dares
-			if (Math.random() < spicyChance) {
-				// Pick spicy tasks if available
-				const spicyTasks = availablePool.filter((t) => t.type === 'spicy');
-				weightedPool = spicyTasks.length > 0 ? spicyTasks : availablePool;
-			} else {
-				// Regular dares
-				const dareTasks = availablePool.filter((t) => t.type === 'dare');
-				weightedPool = dareTasks.length > 0 ? dareTasks : availablePool;
-			}
+		let weightedPool: VoucherDisplay[];
+
+		if (Math.random() < spicyChance) {
+			// Spicy pool (Level 2+)
+			const spicyTasks = availablePool.filter((t) => t.spicyLevel >= 2);
+			weightedPool = spicyTasks.length > 0 ? spicyTasks : availablePool;
 		} else {
-			// Em gets mostly rewards
-			if (Math.random() < spicyChance) {
-				// Pick spicy tasks if available
-				const spicyTasks = availablePool.filter((t) => t.type === 'spicy');
-				weightedPool = spicyTasks.length > 0 ? spicyTasks : availablePool;
-			} else {
-				// Regular rewards
-				const rewardTasks = availablePool.filter((t) => t.type === 'reward');
-				weightedPool = rewardTasks.length > 0 ? rewardTasks : availablePool;
-			}
+			// Regular pool (Level 1)
+			const regularTasks = availablePool.filter((t) => t.spicyLevel === 1);
+			weightedPool = regularTasks.length > 0 ? regularTasks : availablePool;
 		}
 
 		// Random selection from weighted pool
@@ -160,7 +152,7 @@ export function useLiquidLuck() {
 		}
 
 		return selectedTask;
-	}, [getFilteredPool, state.role, state.history]);
+	}, [getFilteredPool, role, state.history, currentMood]);
 
 	const startMixing = useCallback(() => {
 		setIsMixing(true);
@@ -180,13 +172,11 @@ export function useLiquidLuck() {
 	}, []);
 
 	return {
-		role: state.role,
+		role,
 		theme,
 		currentTask,
 		isMixing,
 		isRevealing,
-		setRole,
-		resetRole,
 		startMixing,
 		completeMixing,
 		closeReveal,
