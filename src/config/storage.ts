@@ -2,7 +2,7 @@
  * Centralized configuration for storage keys
  * Used to avoid magic strings and ensure consistency across the app
  */
-export const PREFIX_STORAGE_VERSION = 'sapa_V1';
+export const PREFIX_STORAGE_VERSION = 'sapa_V2';
 
 export const STORAGE_KEYS = {
   TRIP: {
