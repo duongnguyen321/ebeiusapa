@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils';
-import { useRef, useEffect, useState, useCallback } from 'react';
+import { useRef, useEffect, useState, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { LiquidTheme } from '@/data/liquidLuck';
 import { Droplets } from 'lucide-react';
@@ -9,11 +9,25 @@ interface LiquidContainerProps {
 	onMixComplete: () => void;
 }
 
-export function LiquidContainer({ theme, onMixComplete }: LiquidContainerProps) {
+export function LiquidContainer({
+	theme,
+	onMixComplete,
+}: LiquidContainerProps) {
 	const containerRef = useRef<HTMLDivElement>(null);
 	const [isHolding, setIsHolding] = useState(false);
 	const [progress, setProgress] = useState(0);
 	const waveIntensity = 1 + progress / 25;
+
+	// Performance: Detect mobile/reduced motion to disable expensive SVG filters
+	const useSimpleMode = useMemo(() => {
+		if (typeof window === 'undefined') return false;
+		const prefersReducedMotion = window.matchMedia(
+			'(prefers-reduced-motion: reduce)'
+		).matches;
+		const isTouchDevice =
+			'ontouchstart' in window || navigator.maxTouchPoints > 0;
+		return prefersReducedMotion || isTouchDevice;
+	}, []);
 
 	// Logic Control - decouple from render loop
 	useEffect(() => {
@@ -48,14 +62,14 @@ export function LiquidContainer({ theme, onMixComplete }: LiquidContainerProps) 
 	// Visual Wave Animation - Framer Motion variants
 	const liquidVariants = {
 		idle: { cy: 90 },
-		filling: { 
+		filling: {
 			cy: [90, 85, 90],
-			transition: { 
-				repeat: Infinity, 
-				duration: 2, 
-				ease: "easeInOut" as const
-			}
-		}
+			transition: {
+				repeat: Infinity,
+				duration: 2,
+				ease: 'easeInOut' as const,
+			},
+		},
 	};
 
 	const handlePointerDown = useCallback(() => {
@@ -89,25 +103,39 @@ export function LiquidContainer({ theme, onMixComplete }: LiquidContainerProps) 
 				{/* SVG Filter for Liquid Effect */}
 				<svg className='absolute inset-0 w-full h-full' viewBox='0 0 100 120'>
 					<defs>
-						<filter id='liquid-wave'>
-							<feTurbulence
-								type='fractalNoise'
-								baseFrequency={0.01}
-								numOctaves={3}
-								seed={1}
-							>
-								<animate
-									attributeName='baseFrequency'
-									dur={`${3 / waveIntensity}s`}
-									values='0.01;0.02;0.01'
-									repeatCount='indefinite'
-								/>
-							</feTurbulence>
-							<feDisplacementMap in='SourceGraphic' scale="12" />
-						</filter>
-						<linearGradient id='liquid-gradient' x1='0%' y1='0%' x2='0%' y2='100%'>
+						{/* Only render expensive filter on desktop (non-touch devices) */}
+						{!useSimpleMode && (
+							<filter id='liquid-wave'>
+								<feTurbulence
+									type='fractalNoise'
+									baseFrequency={0.01}
+									numOctaves={3}
+									seed={1}
+								>
+									<animate
+										attributeName='baseFrequency'
+										dur={`${3 / waveIntensity}s`}
+										values='0.01;0.02;0.01'
+										repeatCount='indefinite'
+									/>
+								</feTurbulence>
+								<feDisplacementMap in='SourceGraphic' scale='12' />
+							</filter>
+						)}
+
+						<linearGradient
+							id='liquid-gradient'
+							x1='0%'
+							y1='0%'
+							x2='0%'
+							y2='100%'
+						>
 							<stop offset='0%' stopColor={theme.blobColor} stopOpacity='0.8' />
-							<stop offset='100%' stopColor={theme.blobColor} stopOpacity='0.4' />
+							<stop
+								offset='100%'
+								stopColor={theme.blobColor}
+								stopOpacity='0.4'
+							/>
 						</linearGradient>
 					</defs>
 
@@ -120,7 +148,7 @@ export function LiquidContainer({ theme, onMixComplete }: LiquidContainerProps) 
 						rx='45'
 						ry='30'
 						fill='url(#liquid-gradient)'
-						filter='url(#liquid-wave)'
+						filter={useSimpleMode ? undefined : 'url(#liquid-wave)'}
 					/>
 
 					{/* Bubbles - Only render a fixed set when holding */}
@@ -145,7 +173,7 @@ export function LiquidContainer({ theme, onMixComplete }: LiquidContainerProps) 
 											duration: 1 + Math.random(),
 											repeat: Infinity,
 											delay: i * 0.2,
-											ease: "easeOut"
+											ease: 'easeOut',
 										}}
 									/>
 								))}
@@ -194,10 +222,7 @@ export function LiquidContainer({ theme, onMixComplete }: LiquidContainerProps) 
 					/>
 				</svg>
 				<div className='absolute inset-0 flex items-center justify-center'>
-					<Droplets
-						className='w-6 h-6'
-						style={{ color: theme.blobColor }}
-					/>
+					<Droplets className='w-6 h-6' style={{ color: theme.blobColor }} />
 				</div>
 			</div>
 

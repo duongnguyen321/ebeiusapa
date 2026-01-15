@@ -32,12 +32,10 @@ interface EggContent {
 	// No data needed for liquid luck, just the type
 }
 
-
 // ==================== CONSTANTS ====================
 // (Moved CONSTLANTS from below if needed, or just let them be)
 // Actually, CONSTANTS are at line 140.
 // I will just remove the ghost block.
-
 
 // ==================== CONTENT SELECTION LOGIC ====================
 const getEggProbabilities = (mood: string | null) => {
@@ -117,7 +115,6 @@ import { STORAGE_KEYS } from '@/config/storage'; // Import centralized keys
 
 // REMOVED local STORAGE_KEYS definition
 
-
 // ==================== CONTEXT ====================
 const EasterEggContext = createContext<EasterEggContextType | null>(null);
 
@@ -153,7 +150,10 @@ export function EasterEggProvider({ children }: { children: React.ReactNode }) {
 		useState<VoucherReward | null>(null);
 
 	const [lastInteractionTime, setLastInteractionTime] = useState(() => {
-		const stored = loadFromStorage(STORAGE_KEYS.EASTER_EGG.LAST_INTERACTION, Date.now());
+		const stored = loadFromStorage(
+			STORAGE_KEYS.EASTER_EGG.LAST_INTERACTION,
+			Date.now()
+		);
 
 		const timeSince = Date.now() - stored;
 
@@ -227,7 +227,6 @@ export function EasterEggProvider({ children }: { children: React.ReactNode }) {
 		// Removed auto-hide TTL
 	}, [isEggVisible, generateRandomPosition]);
 
-
 	// Hide egg
 	const hideEgg = useCallback(() => {
 		setIsEggVisible(false);
@@ -267,12 +266,12 @@ export function EasterEggProvider({ children }: { children: React.ReactNode }) {
 
 		const random = Math.random();
 		const probs = getEggProbabilities(currentMood);
-		
+
 		// Cumulative probability thresholds
 		const quizThreshold = probs.quiz;
 		const liquidThreshold = quizThreshold + probs.liquid;
 		const funnyThreshold = liquidThreshold + probs.funny;
-		
+
 		// 1. Try Quiz (Priority if available)
 		if (random < quizThreshold) {
 			const quiz = getAvailableQuiz();
@@ -286,11 +285,11 @@ export function EasterEggProvider({ children }: { children: React.ReactNode }) {
 
 		// 2. Try Liquid Luck
 		// Note check against threshold OR fallback from quiz
-		if (random < liquidThreshold || (random < quizThreshold)) { 
-             // If we fell through quiz (random < quizThreshold but no quiz), we come here.
-             // But we need to be careful not to over-index Liquid Luck.
-             // Actually, if no quiz, we should re-roll or redistribute.
-             // Simple fallback: If no quiz, try Liquid Luck.
+		if (random < liquidThreshold || random < quizThreshold) {
+			// If we fell through quiz (random < quizThreshold but no quiz), we come here.
+			// But we need to be careful not to over-index Liquid Luck.
+			// Actually, if no quiz, we should re-roll or redistribute.
+			// Simple fallback: If no quiz, try Liquid Luck.
 			setCurrentContent({ type: 'liquid_luck' });
 			setShowContentModal(true);
 			return;
@@ -334,7 +333,7 @@ export function EasterEggProvider({ children }: { children: React.ReactNode }) {
 				// Get current role from context
 				const currentRole = role || 'em';
 				const rewardId = currentRole === 'anh' ? quiz.rewardAnh : quiz.rewardEm;
-				
+
 				const voucher = createVoucherReward(rewardId, currentRole);
 
 				if (voucher) {
@@ -367,11 +366,9 @@ export function EasterEggProvider({ children }: { children: React.ReactNode }) {
 
 			// CRITICAL FIX: Also update the unlockedVouchers list to reflect 'isUsed'
 			// This ensures localStorage 'egg_unlocked_vouchers' shows the change
-			setUnlockedVouchers((prev) => 
-				prev.map(v => 
-					v.id === voucherId 
-						? { ...v, isUsed: true, usedAt: Date.now() } 
-						: v
+			setUnlockedVouchers((prev) =>
+				prev.map((v) =>
+					v.id === voucherId ? { ...v, isUsed: true, usedAt: Date.now() } : v
 				)
 			);
 
@@ -411,28 +408,52 @@ export function EasterEggProvider({ children }: { children: React.ReactNode }) {
 		return () => clearInterval(interval);
 	}, [lastInteractionTime, isEggVisible, spawnEgg]);
 
-	const value: EasterEggContextType = {
-		isEggVisible,
-		eggPosition,
-		currentContent,
-		showContentModal,
-		redeemVoucherState,
-		unlockedVouchers,
-		usedVoucherIds,
-		lastInteractionTime,
-		answeredQuizIds,
-		isOnCooldown,
-		spawnEgg,
-		hideEgg,
-		clickEgg,
-		closeContentModal,
-		openRedeemModal,
-		closeRedeemModal,
-		answerQuiz,
-		redeemVoucher,
-		unlockVoucher,
-		resetInteraction,
-	};
+	const value = useMemo<EasterEggContextType>(
+		() => ({
+			isEggVisible,
+			eggPosition,
+			currentContent,
+			showContentModal,
+			redeemVoucherState,
+			unlockedVouchers,
+			usedVoucherIds,
+			lastInteractionTime,
+			answeredQuizIds,
+			isOnCooldown,
+			spawnEgg,
+			hideEgg,
+			clickEgg,
+			closeContentModal,
+			openRedeemModal,
+			closeRedeemModal,
+			answerQuiz,
+			redeemVoucher,
+			unlockVoucher,
+			resetInteraction,
+		}),
+		[
+			isEggVisible,
+			eggPosition,
+			currentContent,
+			showContentModal,
+			redeemVoucherState,
+			unlockedVouchers,
+			usedVoucherIds,
+			lastInteractionTime,
+			answeredQuizIds,
+			isOnCooldown,
+			spawnEgg,
+			hideEgg,
+			clickEgg,
+			closeContentModal,
+			openRedeemModal,
+			closeRedeemModal,
+			answerQuiz,
+			redeemVoucher,
+			unlockVoucher,
+			resetInteraction,
+		]
+	);
 
 	return (
 		<EasterEggContext.Provider value={value}>

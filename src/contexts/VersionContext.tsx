@@ -31,8 +31,15 @@ export function VersionProvider({ children }: { children: React.ReactNode }) {
 		if (process.env.NODE_ENV === 'development') return;
 		if (isUpdating) return;
 
+		// Performance: Abort fetch after 5 seconds to prevent hanging on flaky networks
+		const controller = new AbortController();
+		const timeoutId = setTimeout(() => controller.abort(), 5000);
+
 		try {
-			const response = await fetch(`/version.json?t=${Date.now()}`);
+			const response = await fetch(`/version.json?t=${Date.now()}`, {
+				signal: controller.signal,
+			});
+			clearTimeout(timeoutId);
 			if (!response.ok) return;
 
 			const remoteConfig = await response.json();
@@ -94,6 +101,7 @@ export function VersionProvider({ children }: { children: React.ReactNode }) {
 				window.location.reload();
 			}
 		} catch (error) {
+			clearTimeout(timeoutId);
 			console.error('[Version Manager] Error checking version:', error);
 		}
 	};

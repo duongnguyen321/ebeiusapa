@@ -26,7 +26,14 @@ export function ScratchCard({ onComplete }: ScratchCardProps) {
 		useSurprise();
 	const isDrawing = useRef(false);
 
+	// Calculate today's rewards - only on initial mount
+	// Using a ref to track if we've already loaded to prevent reward from being cleared
+	const hasLoadedRef = useRef(false);
+
 	useEffect(() => {
+		// Skip if already loaded (prevents reward from being cleared after scratching)
+		if (hasLoadedRef.current) return;
+
 		const today = new Date().toISOString().split('T')[0];
 		const scratchedIds = getScratchedRewardIds();
 		const allTodayRewards = getRewardsForDate(today);
@@ -36,13 +43,27 @@ export function ScratchCard({ onComplete }: ScratchCardProps) {
 		setRemainingRewards(
 			allTodayRewards.filter((r) => !scratchedIds.includes(r.id)).length
 		);
-		setReward(nextReward);
 
-		// If no more rewards for today or this reward already scratched
-		if (!nextReward || (nextReward && isRewardScratched(nextReward.id))) {
+		hasLoadedRef.current = true;
+
+		if (nextReward) {
+			// There's an unscratched reward - show it with scratch overlay
+			setReward(nextReward);
+			if (isRewardScratched(nextReward.id)) {
+				setIsRevealed(true);
+			}
+		} else if (allTodayRewards.length > 0) {
+			// All rewards scratched - show the LAST scratched reward in revealed state
+			const lastScratched = allTodayRewards[allTodayRewards.length - 1];
+			setReward(lastScratched);
 			setIsRevealed(true);
-			return;
 		}
+	}, [getScratchedRewardIds, isRewardScratched]);
+
+	// Separate effect for canvas painting - only runs when reward is set
+	useEffect(() => {
+		// Skip if no reward or already revealed
+		if (!reward || isRevealed) return;
 
 		const canvas = canvasRef.current;
 		const container = containerRef.current;
@@ -51,9 +72,17 @@ export function ScratchCard({ onComplete }: ScratchCardProps) {
 		const ctx = canvas.getContext('2d');
 		if (!ctx) return;
 
-		// Set canvas size
-		const resize = () => {
+		let isPainted = false;
+
+		// Paint the scratch overlay
+		const paintOverlay = () => {
+			if (isPainted) return; // Don't repaint
+
 			const rect = container.getBoundingClientRect();
+			// Skip if container has no size yet (modal still animating)
+			if (rect.width < 50 || rect.height < 50) return;
+
+			isPainted = true;
 			canvas.width = rect.width;
 			canvas.height = rect.height;
 
@@ -91,10 +120,24 @@ export function ScratchCard({ onComplete }: ScratchCardProps) {
 			);
 		};
 
-		resize();
-		window.addEventListener('resize', resize);
-		return () => window.removeEventListener('resize', resize);
-	}, [getScratchedRewardIds, isRewardScratched]);
+		// Use ResizeObserver
+		const resizeObserver = new ResizeObserver(() => {
+			paintOverlay();
+		});
+		resizeObserver.observe(container);
+
+		// Also try multiple delayed paints for modal animation
+		const t1 = setTimeout(paintOverlay, 50);
+		const t2 = setTimeout(paintOverlay, 150);
+		const t3 = setTimeout(paintOverlay, 300);
+
+		return () => {
+			resizeObserver.disconnect();
+			clearTimeout(t1);
+			clearTimeout(t2);
+			clearTimeout(t3);
+		};
+	}, [reward, isRevealed]);
 
 	const scratch = useCallback(
 		(x: number, y: number) => {
@@ -104,29 +147,20 @@ export function ScratchCard({ onComplete }: ScratchCardProps) {
 			const ctx = canvas.getContext('2d');
 			if (!ctx) return;
 
+			// Draw the scratch effect (fast, no percentage calc)
 			ctx.globalCompositeOperation = 'destination-out';
 			ctx.beginPath();
-			ctx.arc(x, y, 25, 0, Math.PI * 2);
+			ctx.arc(x, y, 35, 0, Math.PI * 2); // Larger brush for easier scratching
 			ctx.fill();
-
-			// Calculate scratch percentage
-			const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-			let transparent = 0;
-			for (let i = 3; i < imageData.data.length; i += 4) {
-				if (imageData.data[i] === 0) transparent++;
-			}
-			const percent = (transparent / (imageData.data.length / 4)) * 100;
-			setScratchPercent(percent);
-
-			// Reveal when 60% scratched
-			if (percent > 60 && !isRevealed) {
-				handleReveal();
-			}
 		},
 		[isRevealed]
 	);
 
-	const handleReveal = () => {
+	// Ref for throttling
+	const lastCheckRef = useRef(0);
+
+	// Handle reveal - defined BEFORE checkScratchPercentage to avoid closure issues
+	const handleReveal = useCallback(() => {
 		if (!reward) return;
 
 		setIsRevealed(true);
@@ -141,10 +175,49 @@ export function ScratchCard({ onComplete }: ScratchCardProps) {
 		});
 
 		onComplete?.();
-	};
+	}, [reward, markRewardScratched, onComplete]);
+
+	// Throttled percentage check - separated for performance
+	const checkScratchPercentage = useCallback(() => {
+		const canvas = canvasRef.current;
+		if (!canvas || isRevealed) return;
+
+		const ctx = canvas.getContext('2d');
+		if (!ctx) return;
+
+		const width = canvas.width;
+		const height = canvas.height;
+
+		// Use stride for performance (sample every 15th pixel)
+		const stride = 15;
+		const imageData = ctx.getImageData(0, 0, width, height);
+		const data = imageData.data;
+		let clearPixels = 0;
+		let totalPixels = 0;
+
+		for (let i = 0; i < data.length; i += stride * 4) {
+			totalPixels++;
+			if (data[i + 3] === 0) {
+				clearPixels++;
+			}
+		}
+
+		const percent = (clearPixels / totalPixels) * 100;
+		setScratchPercent(percent);
+
+		// Reveal when 35% scratched (like LiquidScratchReveal)
+		if (percent > 35 && !isRevealed) {
+			handleReveal();
+		}
+	}, [isRevealed, handleReveal]);
 
 	const handlePointerDown = (e: React.PointerEvent) => {
+		e.stopPropagation(); // Prevent modal drag-to-close
+		e.preventDefault();
+		if (isRevealed) return;
 		isDrawing.current = true;
+		// Capture pointer to receive events even if pointer leaves canvas
+		(e.target as HTMLElement).setPointerCapture(e.pointerId);
 		const rect = canvasRef.current?.getBoundingClientRect();
 		if (rect) {
 			scratch(e.clientX - rect.left, e.clientY - rect.top);
@@ -152,15 +225,26 @@ export function ScratchCard({ onComplete }: ScratchCardProps) {
 	};
 
 	const handlePointerMove = (e: React.PointerEvent) => {
-		if (!isDrawing.current) return;
+		e.stopPropagation(); // Prevent modal drag-to-close
+		if (!isDrawing.current || isRevealed) return;
 		const rect = canvasRef.current?.getBoundingClientRect();
 		if (rect) {
 			scratch(e.clientX - rect.left, e.clientY - rect.top);
+
+			// Throttle percentage check to every 200ms
+			const now = Date.now();
+			if (now - lastCheckRef.current > 200) {
+				checkScratchPercentage();
+				lastCheckRef.current = now;
+			}
 		}
 	};
 
-	const handlePointerUp = () => {
+	const handlePointerUp = (e: React.PointerEvent) => {
+		e.stopPropagation(); // Prevent modal drag-to-close
 		isDrawing.current = false;
+		// Perform a final accurate check on release
+		checkScratchPercentage();
 	};
 
 	if (!reward) {
@@ -244,7 +328,7 @@ export function ScratchCard({ onComplete }: ScratchCardProps) {
 			{!isRevealed && (
 				<canvas
 					ref={canvasRef}
-					className='absolute inset-0 cursor-crosshair touch-none rounded-[20px]'
+					className='absolute inset-0 z-10 cursor-crosshair touch-none rounded-[20px]'
 					onPointerDown={handlePointerDown}
 					onPointerMove={handlePointerMove}
 					onPointerUp={handlePointerUp}

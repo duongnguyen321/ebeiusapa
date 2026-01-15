@@ -68,14 +68,15 @@
 
 	/* True Liquid Glass Panel - translucent with visible blur */
 	.glass-panel {
+		will-change: backdrop-filter;
 		background: linear-gradient(
 			135deg,
 			rgba(255, 255, 255, 0.12) 0%,
 			rgba(255, 255, 255, 0.06) 50%,
 			rgba(255, 255, 255, 0.08) 100%
 		);
-		backdrop-filter: blur(20px) saturate(180%);
-		-webkit-backdrop-filter: blur(20px) saturate(180%);
+		backdrop-filter: blur(12px) saturate(150%);
+		-webkit-backdrop-filter: blur(12px) saturate(150%);
 		border: 1px solid rgba(255, 255, 255, 0.15);
 		box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
 			inset 0 1px 0 rgba(255, 255, 255, 0.2), inset 0 -1px 0 rgba(0, 0, 0, 0.1);

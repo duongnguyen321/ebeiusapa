@@ -122,7 +122,7 @@ export function LiquidScratchReveal({
 
 		const width = canvas.width;
 		const height = canvas.height;
-		
+
 		// Use a smaller sample area / stride for performance
 		const stride = 15; // Increased stride
 		const imageData = ctx.getImageData(0, 0, width, height);
@@ -152,11 +152,25 @@ export function LiquidScratchReveal({
 		const rect = canvasRef.current?.getBoundingClientRect();
 		if (rect) {
 			scratch(e.clientX - rect.left, e.clientY - rect.top);
-			
+
 			// Throttle check to every 200ms
 			const now = Date.now();
 			if (now - lastCheckRef.current > 200) {
-				checkScratchPercentage();
+				// Use requestIdleCallback when available to prevent main thread blocking
+				if ('requestIdleCallback' in window) {
+					(
+						window as Window & {
+							requestIdleCallback: (
+								cb: () => void,
+								opts?: { timeout: number }
+							) => void;
+						}
+					).requestIdleCallback(() => checkScratchPercentage(), {
+						timeout: 100,
+					});
+				} else {
+					checkScratchPercentage();
+				}
 				lastCheckRef.current = now;
 			}
 		}
@@ -188,8 +202,6 @@ export function LiquidScratchReveal({
 			scratch(e.clientX - rect.left, e.clientY - rect.top);
 		}
 	};
-
-
 
 	const handlePointerUp = () => {
 		isDrawing.current = false;
@@ -259,9 +271,7 @@ export function LiquidScratchReveal({
 				</div>
 
 				{/* Hidden Content (Revealed after scratch) */}
-				<div
-					className='absolute inset-0 p-8 flex flex-col items-center justify-center text-center'
-				>
+				<div className='absolute inset-0 p-8 flex flex-col items-center justify-center text-center'>
 					<AnimatePresence>
 						{isRevealed && (
 							<motion.div
@@ -288,7 +298,7 @@ export function LiquidScratchReveal({
 									className='mb-6 p-6 rounded-3xl bg-white/20 backdrop-blur-xl border border-white/30 shadow-inner'
 								>
 									{/* Use string emoji directly */}
-									<span className="text-6xl filter drop-shadow-lg">
+									<span className='text-6xl filter drop-shadow-lg'>
 										{task.icon}
 									</span>
 								</motion.div>
@@ -330,7 +340,7 @@ export function LiquidScratchReveal({
 				/>
 
 				{/* Progress Bar (Bottom) */}
-				<div 
+				<div
 					className={cn(
 						'absolute bottom-0 left-0 h-1.5 bg-white transition-all duration-300 z-20',
 						isRevealed ? 'opacity-0' : 'opacity-100'

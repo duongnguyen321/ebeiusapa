@@ -15,19 +15,30 @@ import EasterEggLayer from '@/components/EasterEggLayer';
 import { NotificationManager } from '@/components/NotificationManager';
 import { RoleGuard } from '@/components/RoleGuard';
 import { useTheme } from '@/contexts/ThemeContext';
+import { useLocation } from 'react-router-dom';
 
 function LayoutContent() {
 	const { theme } = useTheme();
+	const location = useLocation();
+	const isIntro = location.pathname === '/' || location.pathname === '/intro';
 
 	return (
-		<div className={cn(
-			'min-h-screen overflow-x-hidden relative transition-colors duration-700 ease-in-out',
-			theme.bg,
-			theme.text // Apply base text color too
-		)}>
-			<div className={cn('absolute inset-0 opacity-30 pointer-events-none bg-gradient-to-b', theme.gradient)} />
-			
-			<NotificationManager />
+		<div
+			className={cn(
+				'min-h-screen overflow-x-hidden relative transition-colors duration-700 ease-in-out',
+				theme.bg,
+				theme.text // Apply base text color too
+			)}
+		>
+			<div
+				className={cn(
+					'absolute inset-0 opacity-30 pointer-events-none bg-gradient-to-b',
+					theme.gradient
+				)}
+			/>
+
+			{/* Only show notification manager after intro */}
+			{!isIntro && <NotificationManager />}
 			<NoiseBackground />
 
 			{/* Main Content Area with Animated Routes */}
@@ -38,8 +49,8 @@ function LayoutContent() {
 			{/* Easter Egg Layer - Floating eggs and modals */}
 			<EasterEggLayer />
 
-			{/* Global Overlay Components */}
-			<BirthdayCelebration />
+			{/* Global Overlay Components - Only after intro */}
+			{!isIntro && <BirthdayCelebration />}
 		</div>
 	);
 }
