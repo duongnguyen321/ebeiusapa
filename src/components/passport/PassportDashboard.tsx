@@ -14,6 +14,7 @@ import { usePassport } from '@/contexts/PassportContext';
 import { itinerary } from '@/data/itinerary';
 import { getQuestsForDay, type PassportQuest } from '@/data/passportQuests';
 import { QuestModal } from './QuestModal';
+import WeatherIcon from '@/components/WeatherIcon';
 
 interface PassportDashboardProps {
 	onBack: () => void;
@@ -155,7 +156,7 @@ export function PassportDashboard({ onBack }: PassportDashboardProps) {
 							)}
 						>
 							<div className='flex items-center gap-3'>
-								<span className='text-2xl'>{day.weather.icon}</span>
+								<WeatherIcon icon={day.weather.icon} className='w-6 h-6 text-amber-400' />
 								<div>
 									<h2 className='text-lg font-bold text-white'>
 										Ngày {day.id}: {day.dateLabel}

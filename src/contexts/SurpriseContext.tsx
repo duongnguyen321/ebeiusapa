@@ -31,17 +31,12 @@ interface SurpriseContextType extends SurpriseState {
 }
 
 import { STORAGE_KEYS } from '@/config/storage';
+import { loveLetters } from '@/data/letters';
 
-// const STORAGE_KEY = 'sapa-surprise-state'; // Removed
-
-
-// Letters unlock at 8:00 AM each day
-const LETTER_UNLOCK_TIMES = [
-	new Date('2026-01-15T08:00:00+07:00'), // Day 1
-	new Date('2026-01-16T08:00:00+07:00'), // Day 2 (Birthday!)
-	new Date('2026-01-17T08:00:00+07:00'), // Day 3
-	new Date('2026-01-18T08:00:00+07:00'), // Day 4
-];
+// Letters unlock at 8:00 AM each day based on loveLetters unlockDate
+const LETTER_UNLOCK_TIMES = loveLetters.map(
+	(letter) => new Date(`${letter.unlockDate}T08:00:00+07:00`)
+);
 
 const SurpriseContext = createContext<SurpriseContextType | null>(null);
 

@@ -2,13 +2,34 @@ import { cn } from '@/lib/utils';
 import { useRef, useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
-import { Gift, Sparkles } from 'lucide-react';
+import { Gift, Sparkles, Award, Flower2, Heart, Compass, Plane } from 'lucide-react';
 import { useSurprise } from '@/contexts/SurpriseContext';
 import {
 	getNextRewardForDate,
 	getRewardsForDate,
 	type DailyReward,
 } from '@/data/rewards';
+
+const renderRewardIcon = (iconName: string) => {
+	switch (iconName.toLowerCase()) {
+		case 'bouquet':
+			return <Flower2 className='w-16 h-16 text-pink-400 mx-auto' />;
+		case 'award':
+			return <Award className='w-16 h-16 text-amber-400 mx-auto' />;
+		case 'sparkles':
+			return <Sparkles className='w-16 h-16 text-yellow-300 mx-auto' />;
+		case 'gift':
+			return <Gift className='w-16 h-16 text-rose-400 mx-auto' />;
+		case 'heart':
+			return <Heart className='w-16 h-16 text-red-400 mx-auto' />;
+		case 'compass':
+			return <Compass className='w-16 h-16 text-cyan-400 mx-auto' />;
+		case 'plane':
+			return <Plane className='w-16 h-16 text-emerald-400 mx-auto' />;
+		default:
+			return <Gift className='w-16 h-16 text-amber-400 mx-auto' />;
+	}
+};
 
 interface ScratchCardProps {
 	onComplete?: () => void;
@@ -268,7 +289,7 @@ export function ScratchCard({ onComplete }: ScratchCardProps) {
 				<Gift className='w-12 h-12 mx-auto mb-4 text-white/50' />
 				<p className='text-white/70'>Không có thẻ cào cho hôm nay</p>
 				<p className='text-sm text-white/50 mt-2'>
-					Thẻ cào chỉ khả dụng trong chuyến đi (15-17/01)
+					Thẻ cào chỉ khả dụng trong chuyến đi (28/12 - 02/01)
 				</p>
 			</div>
 		);
@@ -305,11 +326,11 @@ export function ScratchCard({ onComplete }: ScratchCardProps) {
 									repeat: Infinity,
 									repeatDelay: 2,
 								}}
-								className='text-6xl mb-4'
+								className='mb-4'
 							>
-								{reward.icon}
+								{renderRewardIcon(reward.icon)}
 							</motion.div>
-							<div className='whitespace-pre-line text-white text-center leading-relaxed'>
+							<div className='whitespace-pre-line text-white text-center leading-relaxed text-sm md:text-base'>
 								{reward.message}
 							</div>
 						</motion.div>

@@ -58,14 +58,13 @@ export interface MemoryCapsuleData {
 // ==================== DATA ====================
 
 // --- MEMORY CAPSULES ---
-// Chứa các kỷ niệm theo dòng thời gian (Chương 1 -> Chương 4)
 export const memoryCapsules: MemoryCapsuleData[] = [
 	{
 		id: 'cap-chapter1-begin',
 		title: 'Chương 1: Khởi Đầu',
 		dateLabel: '01/04/2025',
 		description:
-			'Ngày Cá tháng Tư định mệnh. Từ tin nhắn đầu tiên đến lần gặp gỡ đầu tiên. Ai ngờ đâu mình "dính" nhau đến tận bây giờ nhỉ?',
+			'Ngày Cá tháng Tư định mệnh. Từ tin nhắn đầu tiên đến lần gặp gỡ đầu tiên. Ai ngờ đâu mình gắn bó bên nhau đến tận bây giờ nhỉ?',
 		images: [
 			'/images/easter-eggs/first-time-flirting-you-on-messenger.jpg',
 			'/images/easter-eggs/first-time-see-you.jpg',
@@ -106,7 +105,7 @@ export const memoryCapsules: MemoryCapsuleData[] = [
 		title: 'Chương 2: Art District',
 		dateLabel: 'Gần nhà',
 		description:
-			'Quán Pub có nhạc chill chill gần nhà. Nơi đánh dấu những nụ hôn công khai đầu tiên của chúng mình.',
+			'Quán Pub có nhạc chill gần nhà. Nơi đánh dấu những nụ hôn công khai đầu tiên của chúng mình.',
 		images: [
 			'/images/easter-eggs/first-time-go-pub-at-ART-DISTRICT.jpg',
 			'/images/easter-eggs/seccond-time-go-to-pub-ART-DISTRICT-again-and-we-take-a-long-kiss.jpg',
@@ -133,7 +132,6 @@ export const memoryCapsules: MemoryCapsuleData[] = [
 			'Chuyến đi xa đầu tiên cùng công ty. Dù đi đông người nhưng trong mắt anh chỉ có em.',
 		images: [
 			'/images/easter-eggs/first-long-trip-with-you-at-Cat-Ba-with-out-company.jpg',
-			// Added generic beach/trip vibe or filler to ensure multiple images
 			'/images/easter-eggs/first-time-see-you.jpg',
 		],
 	},
@@ -142,10 +140,9 @@ export const memoryCapsules: MemoryCapsuleData[] = [
 		title: 'Chương 3: Bé Bi Corgi',
 		dateLabel: '10/11/2025',
 		description:
-			'Anh sinh nhật 22/11, nhưng mình đón Bi về từ 10/11. Món quà sinh nhật ý nghĩa nhất từ "quỹ chung" của hai ta.',
+			'Anh sinh nhật 22/11, nhưng mình đón Bi về từ 10/11. Món quà sinh nhật ý nghĩa nhất từ quỹ chung của hai ta.',
 		images: [
 			'/images/easter-eggs/first-thing-we-bouth-together-is-a-corgi-dog-name-Bi-and-it-is-best-ever-gift-in-my-birthday.jpg',
-			// Reusing another cute photo to meet requirement
 			'/images/easter-eggs/you-are-take-your-photo-and-sent-to-me-your-cute-photo.jpg',
 		],
 	},
@@ -167,7 +164,7 @@ export const memoryCapsules: MemoryCapsuleData[] = [
 		title: 'Chương 3: Bộ Sưu Tập Tóc',
 		dateLabel: 'Sắc Màu',
 		description:
-			'Từ tóc vàng (tẩy 3 lần!), sang đỏ rực rỡ (rồi phai ra hồng), và gần đây là màu xanh dương khi đi ăn cưới. Em cân mọi màu tóc!',
+			'Từ tóc vàng tẩy 3 lần, sang đỏ rực rỡ rồi phai ra hồng, và màu xanh dương khi đi ăn cưới. Em tự tin tỏa sáng với mọi màu tóc!',
 		images: [
 			'/images/easter-eggs/a-cute-photo-when-first-time-i-gave-you-money-to-hair-colored.jpg',
 			'/images/easter-eggs/embarrassing-photo-first-time-you-are-hair-colored-2.jpg',
@@ -180,7 +177,7 @@ export const memoryCapsules: MemoryCapsuleData[] = [
 		title: 'Chương 4: Food Tour',
 		dateLabel: 'Gần đây',
 		description:
-			'Sushi, Gà rán, hay những bữa cơm anh nấu. Tình yêu đi qua dạ dày là tình yêu bền vững nhất!',
+			'Sushi, gà rán, hay những bữa cơm anh nấu. Tình yêu đi qua dạ dày là tình yêu bền vững nhất!',
 		images: [
 			'/images/easter-eggs/a-cute-photo-when-you-and-me-go-to-eat-sushi.jpg',
 			'/images/easter-eggs/another-cute-photo-when-we-are-eat-sushi.jpg',
@@ -194,7 +191,7 @@ export const memoryCapsules: MemoryCapsuleData[] = [
 		title: 'Chương 4: Celebrate Love',
 		dateLabel: 'Riêng Tư',
 		description:
-			'Những khoảnh khắc chỉ có đôi ta ở Homestay. Nấu ăn, chill trên giường... bí mật của hai đứa mình.',
+			'Những khoảnh khắc chỉ có đôi ta ở không gian nghỉ dưỡng. Nấu ăn, chuyện trò bên giường ngủ, bí mật của hai đứa mình.',
 		images: [
 			'/images/easter-eggs/im-cook-beef-steak-when-we-have-a-celebrate-love.jpg',
 			'/images/easter-eggs/you-are-sexy-in-homestay-bed-when-we-have-a-celebrate-love.jpg',
@@ -206,7 +203,7 @@ export const memoryCapsules: MemoryCapsuleData[] = [
 		title: 'Chương 4: Tín Hiệu Vũ Trụ',
 		dateLabel: 'Đám cưới bạn Ánh',
 		description:
-			'Em xinh đẹp làm phù dâu. Bạn Ánh ném hoa, anh bắt được và trao ngay cho em. Vũ trụ đã gửi tín hiệu rồi đó nha! 💍',
+			'Em xinh đẹp làm phù dâu. Bạn Ánh ném hoa cưới, anh bắt được và trao ngay cho em. Vũ trụ đã gửi tín hiệu rồi đó nha!',
 		images: [
 			'/images/easter-eggs/you-are-bridesmaids-in-my-best-friend-wedding-day.jpg',
 			'/images/easter-eggs/im-catched-the-wedding-flowers-then-gave-it-to-you.jpg',
@@ -229,10 +226,10 @@ export const memoryCapsules: MemoryCapsuleData[] = [
 import { VOUCHER_IDS } from './vouchers';
 
 export const quizData: QuizData[] = [
-	// --- DAY 1: 15/01/2026 (Travel & Beginnings) ---
+	// --- DAY 1: 28/12/2026 (Travel & Beginnings) ---
 	{
 		id: 'quiz-day1',
-		date: '2026-01-15',
+		date: '2026-12-28',
 		question: 'Ngày Cá tháng Tư (01/04/2025) có ý nghĩa gì với tụi mình?',
 		images: [
 			'/images/easter-eggs/first-time-see-you.jpg',
@@ -253,7 +250,7 @@ export const quizData: QuizData[] = [
 	},
 	{
 		id: 'quiz-day1-2',
-		date: '2026-01-15',
+		date: '2026-12-28',
 		question: 'Lần đầu tiên mình đi chơi xa cùng nhau là đi đâu nhỉ?',
 		images: [
 			'/images/easter-eggs/first-long-trip-with-you-at-Cat-Ba-with-out-company.jpg',
@@ -274,7 +271,7 @@ export const quizData: QuizData[] = [
 	},
 	{
 		id: 'quiz-day1-3',
-		date: '2026-01-15',
+		date: '2026-12-28',
 		question: 'Món đồ đôi đầu tiên mình mua cùng nhau là gì?',
 		images: [
 			'/images/easter-eggs/we-bouth-a-new-helmet-look-like-twice-cutes-ducks.jpg',
@@ -290,14 +287,14 @@ export const quizData: QuizData[] = [
 			},
 			{ id: 'c', label: 'Giày đôi', isCorrect: false },
 		],
-			rewardAnh: VOUCHER_IDS.ORAL_SLOW,
+		rewardAnh: VOUCHER_IDS.ORAL_SLOW,
 		rewardEm: VOUCHER_IDS.FINGER_PLAY,
 	},
 
-	// --- DAY 2: 16/01/2026 (Nature & Adventure) ---
+	// --- DAY 2: 29/12/2026 (Nature & Fansipan) ---
 	{
 		id: 'quiz-day2',
-		date: '2026-01-16',
+		date: '2026-12-29',
 		question: 'Chú chó Bi Corgi là quà sinh nhật của ai tặng ai?',
 		images: [
 			'/images/easter-eggs/first-thing-we-bouth-together-is-a-corgi-dog-name-Bi-and-it-is-best-ever-gift-in-my-birthday.jpg',
@@ -318,7 +315,7 @@ export const quizData: QuizData[] = [
 	},
 	{
 		id: 'quiz-day2-2',
-		date: '2026-01-16',
+		date: '2026-12-29',
 		question: 'Em thích màu tóc nào nhất trong bộ sưu tập của mình?',
 		images: [
 			'/images/easter-eggs/new-hair-color-is-red-very-beautyful.jpg',
@@ -334,12 +331,12 @@ export const quizData: QuizData[] = [
 			{ id: 'b', label: 'Màu vàng nổi loạn', isCorrect: false },
 			{ id: 'c', label: 'Màu xanh dương', isCorrect: false },
 		],
-			rewardAnh: VOUCHER_IDS.HAIR_DRY,
+		rewardAnh: VOUCHER_IDS.HAIR_DRY,
 		rewardEm: VOUCHER_IDS.HAIR_WASH,
 	},
 	{
 		id: 'quiz-day2-3',
-		date: '2026-01-16',
+		date: '2026-12-29',
 		question: 'Khi đi Cafe Rouge, em đã mặc bộ đồ màu gì?',
 		images: [
 			'/images/easter-eggs/you-are-so-sexy-sweet-in-Rouge-cafe-and-bistro-with-my-dress-im-bouth-to-you.jpg',
@@ -351,19 +348,19 @@ export const quizData: QuizData[] = [
 				id: 'b',
 				label: 'Váy xanh ngọc sexy',
 				isCorrect: true,
-				responseMessage: 'Xinh xỉu luôn á!',
+				responseMessage: 'Xinh tuyệt đối luôn!',
 			},
 			{ id: 'c', label: 'Quần Jeans', isCorrect: false },
 		],
-			rewardAnh: VOUCHER_IDS.MORNING_WOOD,
+		rewardAnh: VOUCHER_IDS.MORNING_WOOD,
 		rewardEm: VOUCHER_IDS.TEA_SERVICE,
 	},
 
-	// --- DAY 3: 17/01/2026 (Romance & Memories) ---
+	// --- DAY 3: 30/12/2026 (Romance & Memories) ---
 	{
 		id: 'quiz-day3',
-		date: '2026-01-17',
-		question: 'Lần đầu mình hun nhau là ở đâu?',
+		date: '2026-12-30',
+		question: 'Lần đầu mình hôn nhau là ở đâu?',
 		images: [
 			'/images/easter-eggs/first-time-at-West-Lake-Flower-Valley.jpg',
 			'/images/easter-eggs/we-sleep-all-night-at-West-Lake-Flower-Valley-with-your-first-flowers-i-bouth.jpg',
@@ -373,22 +370,22 @@ export const quizData: QuizData[] = [
 				id: 'a',
 				label: 'Art District (Pub)',
 				isCorrect: false,
-				responseMessage: 'Đó là lần hun kiểu Pub thôi!',
+				responseMessage: 'Đó là lần hôn kiểu Pub thôi!',
 			},
 			{ id: 'b', label: 'PUKU Cafe', isCorrect: false },
 			{
 				id: 'c',
 				label: 'Thung lũng hoa Hồ Tây',
 				isCorrect: true,
-				responseMessage: 'Em còn không thè lưỡi ra cơ mà (lêu lêu)!',
+				responseMessage: 'Nụ hôn đầu ngọt ngào và đáng nhớ nhất!',
 			},
 		],
-			rewardAnh: VOUCHER_IDS.BLINDFOLD_LEAD,
+		rewardAnh: VOUCHER_IDS.BLINDFOLD_LEAD,
 		rewardEm: VOUCHER_IDS.SENSUAL_MASSAGE,
 	},
 	{
 		id: 'quiz-day3-2',
-		date: '2026-01-17',
+		date: '2026-12-30',
 		question: 'Quán Pub ruột mà mình hay ngồi thâu đêm suốt sáng tên là gì?',
 		images: [
 			'/images/easter-eggs/fourth-time-go-to-PUKU-cafe-and-eat-pizza-and-im-working-on-my-macbook.jpg',
@@ -404,12 +401,12 @@ export const quizData: QuizData[] = [
 			},
 			{ id: 'c', label: 'Aries Rooftop', isCorrect: false },
 		],
-			rewardAnh: VOUCHER_IDS.ORAL_SLOW,
+		rewardAnh: VOUCHER_IDS.ORAL_SLOW,
 		rewardEm: VOUCHER_IDS.LAP_PILLOW,
 	},
 	{
 		id: 'quiz-day3-3',
-		date: '2026-01-17',
+		date: '2026-12-30',
 		question: 'Ai là người bắt được hoa cưới của bạn Ánh?',
 		images: [
 			'/images/easter-eggs/im-catched-the-wedding-flowers-then-gave-it-to-you.jpg',
@@ -425,14 +422,14 @@ export const quizData: QuizData[] = [
 			},
 			{ id: 'c', label: 'Không ai bắt được', isCorrect: false },
 		],
-			rewardAnh: VOUCHER_IDS.BODY_LICK,
+		rewardAnh: VOUCHER_IDS.BODY_LICK,
 		rewardEm: VOUCHER_IDS.HICKEY_MARK,
 	},
 
-	// --- DAY 4: 18/01/2026 (Future & Love) ---
+	// --- DAY 4: 31/12/2026 (Love & Care) ---
 	{
 		id: 'quiz-day4',
-		date: '2026-01-18',
+		date: '2026-12-31',
 		question: 'Món ăn nào anh nấu mà em khen ngon nhất?',
 		images: [
 			'/images/easter-eggs/im-cook-beef-steak-when-we-have-a-celebrate-love.jpg',
@@ -448,12 +445,12 @@ export const quizData: QuizData[] = [
 			},
 			{ id: 'c', label: 'Mì tôm', isCorrect: false },
 		],
-			rewardAnh: VOUCHER_IDS.COOK_REQUEST,
+		rewardAnh: VOUCHER_IDS.COOK_REQUEST,
 		rewardEm: VOUCHER_IDS.COOK_REQUEST,
 	},
 	{
 		id: 'quiz-day4-2',
-		date: '2026-01-18',
+		date: '2026-12-31',
 		question: 'Tật xấu nào của em mà anh thấy đáng yêu nhất?',
 		images: [
 			'/images/easter-eggs/embarrassing-photo-wakeup.jpg',
@@ -464,17 +461,17 @@ export const quizData: QuizData[] = [
 				id: 'a',
 				label: 'Ngủ nướng',
 				isCorrect: true,
-				responseMessage: 'Nhìn lúc ngủ như thiên thần í!',
+				responseMessage: 'Nhìn lúc ngủ như thiên thần!',
 			},
 			{ id: 'b', label: 'Hay dỗi', isCorrect: false },
 			{ id: 'c', label: 'Ăn chậm', isCorrect: false },
 		],
-			rewardAnh: VOUCHER_IDS.SLEEP_EXTRA,
+		rewardAnh: VOUCHER_IDS.SLEEP_EXTRA,
 		rewardEm: VOUCHER_IDS.SLEEP_EXTRA,
 	},
 	{
 		id: 'quiz-day4-3',
-		date: '2026-01-18',
+		date: '2026-12-31',
 		question: 'Sau chuyến đi Sapa này, mình sẽ đi đâu tiếp nhỉ?',
 		images: [
 			'/images/easter-eggs/you-are-showing-to-me-your-beautyful-image-5.jpg',
@@ -487,11 +484,66 @@ export const quizData: QuizData[] = [
 				id: 'c',
 				label: 'Bất cứ đâu có anh',
 				isCorrect: true,
-				responseMessage: 'Chỉ cần có nhau, đâu cũng là nhà ❤️',
+				responseMessage: 'Chỉ cần có nhau, đâu cũng là nhà!',
 			},
 		],
 		rewardAnh: VOUCHER_IDS.NEXT_TRIP,
 		rewardEm: VOUCHER_IDS.NEXT_TRIP,
+	},
+
+	// --- DAY 5: 01/01/2027 (Khám Phá Hà Khẩu) ---
+	{
+		id: 'quiz-day5',
+		date: '2027-01-01',
+		question: 'Thủ tục cần thiết nhất để hai đứa mình bước qua cửa khẩu sang Hà Khẩu là gì?',
+		options: [
+			{ id: 'a', label: 'Visa du lịch Mỹ', isCorrect: false },
+			{
+				id: 'b',
+				label: 'Sổ thông hành & CCCD',
+				isCorrect: true,
+				responseMessage: 'Chuẩn luôn! Tấm vé thông hành tình yêu!',
+			},
+			{ id: 'c', label: 'Chỉ cần nụ cười', isCorrect: false },
+		],
+		rewardAnh: VOUCHER_IDS.TOTAL_CONTROL,
+		rewardEm: VOUCHER_IDS.QUEEN_MODE,
+	},
+	{
+		id: 'quiz-day5-2',
+		date: '2027-01-01',
+		question: 'Món ăn nào nhất định phải thử khi đến Hà Khẩu ban đêm?',
+		options: [
+			{
+				id: 'a',
+				label: 'Lẩu Trung Hoa cay tê & Đồ nướng',
+				isCorrect: true,
+				responseMessage: 'Ăn một miếng là ấm người ngay giữa trời đông!',
+			},
+			{ id: 'b', label: 'Phở bò Hà Nội', isCorrect: false },
+			{ id: 'c', label: 'Bánh mì pate', isCorrect: false },
+		],
+		rewardAnh: VOUCHER_IDS.ORAL_SLOW,
+		rewardEm: VOUCHER_IDS.FEED_ME,
+	},
+
+	// --- DAY 6: 02/01/2027 (Trở Về & Tương Lai) ---
+	{
+		id: 'quiz-day6',
+		date: '2027-01-02',
+		question: 'Điều tuyệt vời nhất sau chuyến đi 6 ngày 5 đêm này là gì?',
+		options: [
+			{ id: 'a', label: 'Mua được nhiều đồ ăn vặt', isCorrect: false },
+			{ id: 'b', label: 'Được chụp nhiều ảnh đẹp', isCorrect: false },
+			{
+				id: 'c',
+				label: 'Tình yêu hai đứa thêm gắn kết bền chặt',
+				isCorrect: true,
+				responseMessage: 'Đúng vậy! Có nhau là có tất cả!',
+			},
+		],
+		rewardAnh: VOUCHER_IDS.FINISH_CHEST,
+		rewardEm: VOUCHER_IDS.QUEEN_MODE,
 	},
 ];
 
@@ -503,7 +555,7 @@ export const moodData: MoodCheckinData[] = [
 		options: [
 			{
 				id: 'cold',
-				icon: '🥶',
+				icon: 'cold',
 				label: 'Lạnh quá à',
 				response: {
 					images: [
@@ -512,12 +564,12 @@ export const moodData: MoodCheckinData[] = [
 						'/images/easter-eggs/you-are-so-wet-in-homestay-bed-when-we-have-a-celebrate-love.jpg',
 					],
 					message:
-						'Lạnh thì lại đây anh ôm! Như mọi hôm mình ôm nhau ngủ đó ❤️',
+						'Lạnh thì lại đây anh ôm! Như mọi hôm mình ôm nhau ngủ đó.',
 				},
 			},
 			{
 				id: 'horny',
-				icon: '😈',
+				icon: 'flame',
 				label: 'Hư đốn',
 				response: {
 					images: [
@@ -525,12 +577,12 @@ export const moodData: MoodCheckinData[] = [
 						'/images/easter-eggs/you-are-so-wet-in-homestay-bed-when-we-have-a-celebrate-love.jpg',
 					],
 					message:
-						'Á à, nay em bé hư quá ta! Tối nay biết tay anh 😈',
+						'Á à, nay em bé hư quá ta! Tối nay biết tay anh.',
 				},
 			},
 			{
 				id: 'hungry',
-				icon: '🤤',
+				icon: 'hungry',
 				label: 'Đói bụng rồi',
 				response: {
 					images: [
@@ -538,12 +590,12 @@ export const moodData: MoodCheckinData[] = [
 						'/images/easter-eggs/you-love-eat-chicken-so-we-are-going-to-eat-fride-chicken.jpg',
 						'/images/easter-eggs/another-cute-photo-when-we-are-eat-sushi.jpg',
 					],
-					message: 'Đi ăn thôi! Anh sẽ vỗ gầy em như những ngày qua hehe.',
+					message: 'Đi ăn thôi! Anh sẽ vỗ béo em như những ngày qua.',
 				},
 			},
 			{
 				id: 'waiting',
-				icon: '⏳',
+				icon: 'waiting',
 				label: 'Đang chờ',
 				response: {
 					images: [
@@ -554,7 +606,7 @@ export const moodData: MoodCheckinData[] = [
 			},
 			{
 				id: 'happy',
-				icon: '🥰',
+				icon: 'happy',
 				label: 'Hạnh phúc',
 				response: {
 					images: [
@@ -572,7 +624,7 @@ export const moodData: MoodCheckinData[] = [
 			},
 			{
 				id: 'missing',
-				icon: '🥺',
+				icon: 'missing',
 				label: 'Nhớ anh',
 				response: {
 					images: [
@@ -580,12 +632,12 @@ export const moodData: MoodCheckinData[] = [
 						'/images/easter-eggs/you-are-take-your-photo-and-sent-to-me-your-cute-photo.jpg',
 						'/images/easter-eggs/you-are-take-your-photo-and-sent-to-me-your-cute-photo-2.jpg',
 					],
-					message: 'Anh ở ngay đây mà. Kiếm anh đi, anh cho hun cái nè!',
+					message: 'Anh ở ngay đây mà. Lại gần đây anh ôm một cái nào!',
 				},
 			},
 			{
 				id: 'grumpy',
-				icon: '😤',
+				icon: 'grumpy',
 				label: 'Đang dỗi',
 				response: {
 					images: [
@@ -593,12 +645,12 @@ export const moodData: MoodCheckinData[] = [
 						'/images/easter-eggs/embarrassing-photo-toothache.jpg',
 						'/images/easter-eggs/take-a-photo-you-have-bad-face-at-our-company.jpg',
 					],
-					message: 'Thôi đừng dỗi nữa, dỗi là xấu như vầy nè :v Cười lên đi!',
+					message: 'Thôi đừng dỗi nữa, dỗi là xấu như vầy nè! Cười lên đi nào!',
 				},
 			},
 			{
 				id: 'chill',
-				icon: '☕',
+				icon: 'chill',
 				label: 'Thư giãn',
 				response: {
 					images: [
@@ -618,29 +670,29 @@ export const funnyMoments: FunnyMomentData[] = [
 	{
 		id: 'funny-wakeup',
 		image: '/images/easter-eggs/embarrassing-photo-wakeup.jpg',
-		comment: 'Chào buổi sáng! Đầu tóc bù xù thấy ghét chưa ^^',
+		comment: 'Chào buổi sáng! Đầu tóc bù xù thấy thương chưa!',
 	},
 	{
 		id: 'funny-wakeup-2',
 		image: '/images/easter-eggs/embarrassing-photo-wakeup-2.jpg',
-		comment: 'Lại là em lúc mới ngủ dậy đây haha.',
+		comment: 'Lại là em lúc mới ngủ dậy đây!',
 	},
 	{
 		id: 'funny-drunk',
 		image:
 			'/images/easter-eggs/you-are-take-your-photo-and-sent-to-me-your-cute-photo-when-you-are-drunk.jpg',
-		comment: 'Ai đây ta? Xỉn mà vẫn cute phết.',
+		comment: 'Ai đây ta? Xỉn mà vẫn đáng yêu phết.',
 	},
 	{
 		id: 'funny-badface',
 		image: '/images/easter-eggs/embarrassing-photo-bad-face.jpg',
-		comment: 'Mặt xấu chưa kìa :v',
+		comment: 'Mặt xấu chưa kìa!',
 	},
 	{
 		id: 'funny-hair-fail',
 		image:
 			'/images/easter-eggs/embarrassing-photo-first-time-you-are-hair-colored.jpg',
-		comment: 'Kỷ niệm lần đầu nhuộm tóc... hơi fail nhưng vẫn yêu!',
+		comment: 'Kỷ niệm lần đầu nhuộm tóc... hơi lạ nhưng vẫn yêu!',
 	},
 	{
 		id: 'funny-company',
@@ -675,7 +727,6 @@ export function getRandomFunnyMoment(): FunnyMomentData {
 }
 
 export function getRandomMemoryCapsule(): MemoryCapsuleData {
-	// Ưu tiên random, có thể mở rộng logic unlock theo ngày sau này
 	return memoryCapsules[Math.floor(Math.random() * memoryCapsules.length)];
 }
 

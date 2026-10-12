@@ -1,9 +1,9 @@
 import { toast } from 'sonner';
+import { itinerary } from '@/data/itinerary';
 
-// Date to unlock features: Jan 15, 2026 00:00:00
-// Note: Month is 0-indexed in JS Date constructor if passing numbers, but date string is parsed standardly.
-// '2026-01-15T00:00:00' works clearly.
-export const UNLOCK_DATE = new Date('2026-01-14T00:00:00+07:00'); // Assuming +07:00 timezone based on user context or local time
+// Date to unlock features: 1 day before trip starts
+export const UNLOCK_DATE = new Date(`${itinerary[0].date}T00:00:00+07:00`);
+UNLOCK_DATE.setDate(UNLOCK_DATE.getDate() - 1);
 
 export const isRestricted = (): boolean => {
 	if (process.env.NODE_ENV === 'development') return false;
@@ -15,7 +15,7 @@ export const handleRestrictedAction = (actionName: string): boolean => {
 	if (isRestricted()) {
 		const unlockDate = UNLOCK_DATE.toLocaleDateString('vi-VN');
 		toast.error(`Tính năng "${actionName}" sẽ được mở vào ngày ${unlockDate}!`, {
-			description: 'Hãy quay lại sau nhé ❤️',
+			description: 'Hãy quay lại sau nhé!',
 			duration: 3000,
 		});
 		return true; // Action was restricted

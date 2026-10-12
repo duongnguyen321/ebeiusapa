@@ -87,9 +87,9 @@ export default defineConfig(({ mode }) => ({
 			registerType: 'autoUpdate',
 			includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
 			manifest: {
-				name: 'Sapa Yêu Thương - Hành Trình Của Đôi Mình',
-				short_name: 'Sapa ❤️',
-				description: 'Lịch trình du lịch Sapa lãng mạn cho hai đứa mình',
+				name: 'The Misty Date - Sapa, Lào Cai & Hà Khẩu',
+				short_name: 'The Misty Date',
+				description: 'Lịch trình du lịch lãng mạn 6 ngày 5 đêm: Sapa - Lào Cai - Hà Khẩu',
 				theme_color: '#1a1a2e',
 				background_color: '#0f0f23',
 				display: 'standalone',

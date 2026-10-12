@@ -54,7 +54,7 @@ export default function TimelinePage() {
 							THE MISTY DATE
 						</h1>
 						<p className='text-sm md:text-base text-white/60'>
-							Hành trình 4 ngày 3 đêm tại Sapa • 15-18/01/2026
+							Hành trình 6 ngày 5 đêm • Sapa - Lào Cai - Hà Khẩu • 28/12/2026 - 02/01/2027
 						</p>
 
 						{/* Status Badge */}

@@ -5,35 +5,56 @@ export interface DailyReward {
 	id: string; // Unique ID for each reward
 }
 
-// Scratch card rewards - multiple rewards can exist for the same date
+// Scratch card rewards mapped across the 6-day journey
 export const dailyRewards: DailyReward[] = [
 	{
-		id: 'day1-bouquet',
-		date: '2026-01-15',
+		id: 'day1-welcome',
+		date: '2026-12-28',
 		message:
-			'Chào Sapa ngày đầu tiên! 🌹\n\n🎁 Em bốc được: BÓ HOA CƯỚI!\n\nEm là cô dâu xinh đẹp nhất của anh. Bó hoa này là minh chứng cho tình yêu tụi mình, rực rỡ và ngọt ngào như nụ cười của em vậy! Cầm lấy đi nào! 💐',
-		icon: '💐',
+			'Chào mừng Sapa ngày đầu tiên!\n\nPhần thưởng bốc được: BÓ HOA TÌNH YÊU PHỐ NÚI!\n\nEm là cô gái xinh đẹp nhất của anh. Chuyến xe đưa hai đứa đến Sapa mờ sương chính là khởi đầu cho những ngày ấm áp nhất!',
+		icon: 'bouquet',
 	},
 	{
-		id: 'day2-ring',
-		date: '2026-01-16',
+		id: 'day2-summit',
+		date: '2026-12-29',
 		message:
-			'Happy Birthday Bà Xã! 🎂\n\n🎁 Giải thưởng lớn: HỘP NHẪN XINH ĐẸP!\n\nBên trong là lời hứa trọn đời và sự "ràng buộc" ngọt ngào. Anh muốn đánh dấu chủ quyền vĩnh viễn lên trái tim em! Đeo vào và "say yes" nhé! 💍',
-		icon: '💍',
+			'Chinh phục nóc nhà Đông Dương!\n\nPhần thưởng lớn: HUY HIỆU ĐỈNH FANSIPAN!\n\nCùng nhau vượt qua 3.143m giữa biển mây bồng bềnh. Chúc cho tình yêu của đôi mình luôn cao vút và kiên định như đỉnh núi này!',
+		icon: 'award',
 	},
 	{
-		id: 'day2-special',
-		date: '2026-01-16',
+		id: 'day3-fireworks',
+		date: '2026-12-30',
 		message:
-			'Còn nữa nè! 🎉\n\n🎁 GIẢI ĐẶC BIỆT: "ANH" - PHIÊN BẢN GIỚI HẠN!\n\nTrọn vẹn tâm thân này thuộc về em. Bảo hành trọn đời, không đổi trả, phục vụ 24/7 mọi yêu cầu của "nữ hoàng". Em nhận không? ❤️',
-		icon: '🎁',
+			'Khoảnh khắc giao thừa ấm áp!\n\nPhần thưởng đặc biệt: HỘP PHÁO HOA ƯỚC NGUYỆN!\n\nBên cạnh nồi lẩu cá tầm và bồn lá thuốc Dao Đỏ, que pháo hoa đêm nay sẽ thắp sáng mọi ước nguyện ngọt ngào nhất của hai đứa!',
+		icon: 'sparkles',
 	},
 	{
-		id: 'day3-nhu',
-		date: '2026-01-17',
+		id: 'day3-special',
+		date: '2026-12-30',
 		message:
-			'Ngày damdang lên ngôi! ✨\n\n🎁 Phần thưởng bí ẩn: 1 CHIẾC "NHỤ"!\n\nChỉ hai ta mới hiểu nó tuyệt vời thế nào... Một món quà ấm áp, mềm mại và khiến tim rung rinh. Chuẩn bị tinh thần đón nhận nhé! 💋',
-		icon: '💋',
+			'Món quà vô giá!\n\nGIẢI ĐẶC BIỆT: "ANH" - PHIÊN BẢN DUY NHẤT!\n\nTrọn vẹn tấm thân và trái tim này thuộc về em. Bảo hành trọn đời, phục vụ 24/7 mọi mong muốn của nàng thơ!',
+		icon: 'gift',
+	},
+	{
+		id: 'day4-pamper',
+		date: '2026-12-31',
+		message:
+			'Hương vị than hồng & Thư giãn!\n\nPhần thưởng: BUỔI KỲ LƯNG & MASSAGE TẠI GIA!\n\nSau ngày dài vượt Cầu kính và leo Núi Hàm Rồng, hãy thả lỏng cơ thể để anh chăm sóc em từ đầu đến chân nhé!',
+		icon: 'heart',
+	},
+	{
+		id: 'day5-border',
+		date: '2027-01-01',
+		message:
+			'Chào năm mới tại vùng đất mới!\n\nPhần thưởng: HỘ CHIẾU DU NGOẠN HÀ KHẨU!\n\nCùng nhau bước qua cửa khẩu quốc tế, thưởng thức lẩu đêm và dạo Chợ Tết nước bạn. Nơi đâu có em, nơi đó là niềm vui!',
+		icon: 'compass',
+	},
+	{
+		id: 'day6-eternity',
+		date: '2027-01-02',
+		message:
+			'Trở về tổ ấm đong đầy yêu thương!\n\nPhần thưởng trọn đời: VÉ THÔNG HÀNH CHUYẾN ĐI KẾ TIẾP!\n\nHành trình 6 ngày 5 đêm khép lại, nhưng hành trình tình yêu của chúng mình sẽ kéo dài mãi mãi!',
+		icon: 'plane',
 	},
 ];
 

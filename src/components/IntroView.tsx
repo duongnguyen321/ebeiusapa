@@ -50,11 +50,11 @@ const IntroView = ({ targetDate, onUnlock }: IntroViewProps) => {
 					</h1>
 
 					<p className='text-lg md:text-xl lg:text-2xl text-white/70 mb-1 md:mb-2 tracking-wide'>
-						Sapa, Tháng Một 2026
+						Sapa - Lào Cai - Hà Khẩu
 					</p>
 
 					<p className='text-sm md:text-base text-amber-400/80 mb-8 md:mb-12 italic'>
-						Bốn ngày giữa sương & thời gian
+						Sáu ngày năm đêm giữa sương & thời gian
 					</p>
 				</motion.div>
 

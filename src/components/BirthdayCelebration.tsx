@@ -1,24 +1,24 @@
-import { cn } from '@/lib/utils';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
-import { Heart, X, Cake, Sparkles } from 'lucide-react';
+import { Heart, X, Sparkles } from 'lucide-react';
 import { useSurprise } from '@/contexts/SurpriseContext';
-
-const BIRTHDAY_DATE = '2026-01-16';
-const BIRTHDAY_CHECK_KEY = 'birthday-celebration-shown';
+import { itinerary } from '@/data/itinerary';
 
 export function BirthdayCelebration() {
 	const [isOpen, setIsOpen] = useState(false);
 	const { birthdayCelebrationShown, markBirthdayCelebrationShown } =
 		useSurprise();
 
+	const specialDay = itinerary.find((d) => d.isBirthday);
+	const celebrationDate = specialDay?.date || '2026-12-30';
+
 	useEffect(() => {
-		// Check if it's birthday and not yet shown
+		// Check if it's the special celebration date and not yet shown
 		const now = new Date();
 		const today = now.toISOString().split('T')[0];
 
-		if (today === BIRTHDAY_DATE && !birthdayCelebrationShown) {
+		if (today === celebrationDate && !birthdayCelebrationShown) {
 			// Small delay for dramatic effect
 			const timer = setTimeout(() => {
 				setIsOpen(true);
@@ -27,7 +27,7 @@ export function BirthdayCelebration() {
 
 			return () => clearTimeout(timer);
 		}
-	}, [birthdayCelebrationShown]);
+	}, [birthdayCelebrationShown, celebrationDate]);
 
 	const triggerCelebration = () => {
 		// Multiple confetti bursts
@@ -56,16 +56,6 @@ export function BirthdayCelebration() {
 		};
 
 		frame();
-
-		// Big burst in the middle
-		setTimeout(() => {
-			confetti({
-				particleCount: 100,
-				spread: 100,
-				origin: { y: 0.5 },
-				colors: ['#ff6b9d', '#a855f7', '#fbbf24', '#22d3ee', '#ffffff'],
-			});
-		}, 500);
 	};
 
 	const handleClose = () => {
@@ -90,9 +80,9 @@ export function BirthdayCelebration() {
 						onClick={handleClose}
 					/>
 
-					{/* Floating hearts background */}
+					{/* Floating icons background */}
 					<div className='absolute inset-0 overflow-hidden pointer-events-none'>
-						{Array.from({ length: 20 }).map((_, i) => (
+						{Array.from({ length: 15 }).map((_, i) => (
 							<motion.div
 								key={i}
 								initial={{
@@ -110,9 +100,13 @@ export function BirthdayCelebration() {
 									delay: Math.random() * 3,
 									ease: 'linear',
 								}}
-								className='absolute text-2xl opacity-50'
+								className='absolute text-pink-400/40'
 							>
-								{['💕', '💖', '✨', '🌟', '💝'][Math.floor(Math.random() * 5)]}
+								{i % 2 === 0 ? (
+									<Heart className='w-6 h-6 fill-pink-400/30' />
+								) : (
+									<Sparkles className='w-6 h-6 text-amber-300/40' />
+								)}
 							</motion.div>
 						))}
 					</div>
@@ -153,7 +147,7 @@ export function BirthdayCelebration() {
 									}}
 									className='flex items-center gap-2'
 								>
-									<Cake className='w-12 h-12 text-pink-400' />
+									<Sparkles className='w-12 h-12 text-amber-300' />
 								</motion.div>
 							</div>
 						</div>
@@ -166,10 +160,10 @@ export function BirthdayCelebration() {
 								transition={{ delay: 0.3 }}
 							>
 								<h2 className='font-display text-3xl font-bold text-white mb-2'>
-									Happy Birthday! 🎂
+									Khoảnh Khắc Giao Thừa
 								</h2>
 								<p className='text-pink-400 font-display text-lg mb-6'>
-									Nàng thơ của anh
+									Đêm pháo hoa ấm áp bên nàng thơ
 								</p>
 							</motion.div>
 
@@ -180,16 +174,13 @@ export function BirthdayCelebration() {
 								className='space-y-4 text-white/80'
 							>
 								<p className='leading-relaxed'>
-									Hôm nay là ngày đặc biệt nhất. Không phải vì trời đẹp hay Sapa
-									thơ mộng...
+									Đêm nay là thời khắc đặc biệt và ý nghĩa nhất trong chuyến đi Sapa của hai đứa mình...
 								</p>
 								<p className='leading-relaxed'>
-									Mà vì đây là ngày mà thế giới có được{' '}
-									<span className='text-pink-400 font-medium'>em</span>.
+									Giữa sương lạnh phố núi, được cùng <span className='text-pink-400 font-medium'>em</span> ngắm que pháo hoa sáng rực rỡ và đếm ngược đón giao thừa là điều tuyệt vời nhất với anh.
 								</p>
 								<p className='leading-relaxed italic text-white/60'>
-									Cảm ơn em đã được sinh ra. Cảm ơn em đã là em. Và cảm ơn em đã
-									đến bên anh.
+									Chúc cho tình yêu của chúng mình luôn ấm áp, bền chặt và cùng nhau đi qua thật nhiều mùa đông tươi đẹp nữa!
 								</p>
 							</motion.div>
 
@@ -218,7 +209,7 @@ export function BirthdayCelebration() {
 							>
 								<span className='flex items-center gap-2'>
 									<Sparkles className='w-4 h-4' />
-									Bắt đầu ngày đặc biệt
+									Đón khoảnh khắc diệu kỳ
 								</span>
 							</motion.button>
 						</div>

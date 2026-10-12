@@ -1,14 +1,15 @@
 import { useEffect, useCallback } from 'react';
 import { toast } from 'sonner';
 import { useBudget } from '@/contexts/BudgetContext';
+import { itinerary } from '@/data/itinerary';
 
 const REMINDER_INTERVAL_MS = 2 * 60 * 60 * 1000; // 2 hours
 const ACTIVE_START_HOUR = 8; // 08:00
 const ACTIVE_END_HOUR = 22; // 22:00
 
-// Trip dates: 15/01/2026 - 18/01/2026
-const TRIP_START = new Date('2026-01-15T00:00:00');
-const TRIP_END = new Date('2026-01-18T23:59:59');
+// Dynamic trip dates based on itinerary
+const TRIP_START = new Date(`${itinerary[0].date}T00:00:00`);
+const TRIP_END = new Date(`${itinerary[itinerary.length - 1].date}T23:59:59`);
 
 export function useBudgetReminder() {
 	const { lastRemindedAt, updateLastReminded, role, totalSpent, maxBudget } = useBudget();

@@ -84,19 +84,22 @@ export function useNotifications() {
 			});
 		});
 
-		// Also schedule birthday notification at midnight
-		const birthdayMidnight = new Date('2026-01-16T00:00:00+07:00');
-		const msTillBirthday = birthdayMidnight.getTime() - now.getTime();
-		if (msTillBirthday > 0) {
-			const timerId = window.setTimeout(() => {
-				showNotification('🎂 Happy Birthday! 🎂', {
-					body: 'Chúc mừng sinh nhật nàng thơ của anh! ❤️',
-					icon: '/icons/icon-192.png',
-					badge: '/icons/icon-192.png',
-					tag: 'birthday',
-				});
-			}, msTillBirthday);
-			timerIds.push(timerId);
+		// Also schedule celebration notification at midnight on special celebration day
+		const specialDay = itinerary.find((d) => d.isBirthday);
+		if (specialDay) {
+			const celebrationMidnight = new Date(`${specialDay.date}T00:00:00+07:00`);
+			const msTillCelebration = celebrationMidnight.getTime() - now.getTime();
+			if (msTillCelebration > 0) {
+				const timerId = window.setTimeout(() => {
+					showNotification('Khoảnh Khắc Giao Thừa & Ngày Đặc Biệt', {
+						body: 'Chúc mừng khoảnh khắc giao thừa ấm áp bên nàng thơ!',
+						icon: '/icons/icon-192.png',
+						badge: '/icons/icon-192.png',
+						tag: 'celebration',
+					});
+				}, msTillCelebration);
+				timerIds.push(timerId);
+			}
 		}
 
 		// Save timer IDs

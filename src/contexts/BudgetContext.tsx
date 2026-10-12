@@ -61,12 +61,9 @@ interface BudgetContextType {
 }
 
 import { STORAGE_KEYS } from "@/config/storage";
-const MAX_BUDGET = 6_377_500; // 6.377.500 VNĐ
+import { anhDefaultItems, MASTER_TRIP_BUDGET } from "@/data/budget";
+const MAX_BUDGET = MASTER_TRIP_BUDGET; // 22.800.000 VNĐ
 
-// const STORAGE_KEY = "sapa_budget_v1"; // Removed
-
-// Pre-defined items for "Anh" role - Imported from data
-import { anhDefaultItems } from "@/data/budget";
 
 const defaultState: BudgetState = {
   maxBudget: MAX_BUDGET,

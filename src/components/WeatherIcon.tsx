@@ -6,16 +6,19 @@ interface WeatherIconProps {
 }
 
 const WeatherIcon = ({ icon, className = "" }: WeatherIconProps) => {
-  // Map emoji icons to Lucide components
-  switch (icon) {
+  // Map icon identifiers to Lucide components
+  switch (icon.toLowerCase()) {
+    case "rain":
     case "🌧️":
       return <CloudRain className={className} />;
+    case "cloud-sun":
     case "⛅":
-      return <CloudSun className={className} />;
-    case "☀️":
-      return <Sun className={className} />;
     case "🌤️":
       return <CloudSun className={className} />;
+    case "sun":
+    case "☀️":
+      return <Sun className={className} />;
+    case "cloud":
     default:
       return <Cloud className={className} />;
   }

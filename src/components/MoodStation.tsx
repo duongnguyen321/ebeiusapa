@@ -1,12 +1,45 @@
 import { cn } from '@/lib/utils';
 import { motion, AnimatePresence, PanInfo } from 'framer-motion';
-import { X, ChevronLeft, ChevronRight, Loader2 } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight, Loader2, Snowflake, Flame, Utensils, Clock, Smile, Heart, Frown, Coffee } from 'lucide-react';
 import { useState, useCallback, forwardRef } from 'react';
 import { createPortal } from 'react-dom';
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 import { moodData, type MoodOption } from '@/data/easterEggs';
 import { useMood } from '@/contexts/MoodContext';
 import type { MoodType } from '@/types/quest';
+
+const renderMoodIcon = (icon: string, className = 'w-7 h-7 text-amber-400') => {
+	switch (icon.toLowerCase()) {
+		case 'cold':
+		case '❄️':
+		case '🥶':
+			return <Snowflake className={className} />;
+		case 'flame':
+		case 'horny':
+		case '😈':
+			return <Flame className={className} />;
+		case 'hungry':
+		case '🤤':
+			return <Utensils className={className} />;
+		case 'waiting':
+		case '⏳':
+			return <Clock className={className} />;
+		case 'happy':
+		case '🥰':
+			return <Smile className={className} />;
+		case 'missing':
+		case '🥺':
+			return <Heart className={className} />;
+		case 'grumpy':
+		case '😤':
+			return <Frown className={className} />;
+		case 'chill':
+		case 'coffee':
+		case '☕':
+		default:
+			return <Coffee className={className} />;
+	}
+};
 
 interface MoodStationProps {
 	onClose?: () => void;
@@ -170,7 +203,9 @@ export default function MoodStation({ onClose }: MoodStationProps) {
 							onClick={() => handleMoodSelect(mood)}
 							className='bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl p-4 flex flex-col items-center gap-2 transition-colors'
 						>
-							<span className='text-3xl'>{mood.icon}</span>
+							<div className='w-10 h-10 rounded-full bg-white/5 flex items-center justify-center mb-1'>
+								{renderMoodIcon(mood.icon, 'w-6 h-6 text-amber-400')}
+							</div>
 							<span className='text-white/80 text-sm'>{mood.label}</span>
 						</motion.button>
 					))}
@@ -251,7 +286,9 @@ export default function MoodStation({ onClose }: MoodStationProps) {
 									{/* Header - Always visible */}
 									<div className='p-4 md:p-6 pr-16 flex-shrink-0'>
 										<div className='flex items-center gap-3'>
-											<span className='text-4xl'>{selectedMood.icon}</span>
+											<div className='w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center'>
+												{renderMoodIcon(selectedMood.icon, 'w-7 h-7 text-amber-400')}
+											</div>
 											<div>
 												<h2 className='text-2xl md:text-3xl font-playfair text-white'>
 													{selectedMood.label}
