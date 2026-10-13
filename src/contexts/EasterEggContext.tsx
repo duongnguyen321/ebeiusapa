@@ -232,31 +232,24 @@ export function EasterEggProvider({ children }: { children: React.ReactNode }) {
 		setIsEggVisible(false);
 	}, []);
 
-	// Get today's quiz or random unanswered quiz (past or generic only)
+	// Get today's quiz or random unanswered quiz (all quizzes are available)
 	const getAvailableQuiz = useCallback((): QuizData | null => {
 		const today = new Date().toISOString().split('T')[0];
 
-		// 1. Filter out FUTURE quizzes (strict date check)
-		// We only want quizzes where date is undefined (generic) OR date <= today
-		const validQuizzes = quizData.filter((q) => {
-			if (!q.date) return true; // Generic quiz -> OK
-			return q.date <= today; // Past or Today -> OK
-		});
-
-		// 2. Filter out already answered ones
-		const unansweredValidQuizzes = validQuizzes.filter(
+		// 1. Filter out already answered ones
+		const unansweredQuizzes = quizData.filter(
 			(q) => !answeredQuizIds.includes(q.id)
 		);
 
-		if (unansweredValidQuizzes.length === 0) return null;
+		if (unansweredQuizzes.length === 0) return null;
 
-		// 3. Priority: Today's Quiz
-		const todayQuiz = unansweredValidQuizzes.find((q) => q.date === today);
+		// 2. Priority: Today's Quiz if matches current date
+		const todayQuiz = unansweredQuizzes.find((q) => q.date === today);
 		if (todayQuiz) return todayQuiz;
 
-		// 4. Fallback: Any other valid (past/generic) quiz
-		return unansweredValidQuizzes[
-			Math.floor(Math.random() * unansweredValidQuizzes.length)
+		// 3. Fallback: Any other unanswered quiz
+		return unansweredQuizzes[
+			Math.floor(Math.random() * unansweredQuizzes.length)
 		];
 	}, [answeredQuizIds]);
 
