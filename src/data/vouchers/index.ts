@@ -67,6 +67,7 @@ export const VOUCHER_IDS = {
 	COOK_REQUEST: 'v_special_cook',
 
 	// === LIQUID LUCK ADDITIONS (Service/Cute) ===
+	HEAD_PAT: 'v_ll_head_pat',
 	LL_HUG: 'v_ll_hug',
 	LL_KISS_CHEEK: 'v_ll_kiss_cheek',
 	LL_HEAD_PAT: 'v_ll_head_pat',
