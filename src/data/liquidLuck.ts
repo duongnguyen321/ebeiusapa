@@ -63,7 +63,7 @@ export const liquidTasksAnh: VoucherId[] = [
   VOUCHER_IDS.BLIND_TOUCH,
   VOUCHER_IDS.LAP_SIT,
 
-  // === LEVEL 3: SPICY & 18+ ===
+  // === LEVEL 3: SPICY & PASSIONATE ===
   VOUCHER_IDS.HAND_JOB,
   VOUCHER_IDS.ORAL_SLOW, // Mapped 'bj' to ORAL_SLOW
   VOUCHER_IDS.TIT_JOB,

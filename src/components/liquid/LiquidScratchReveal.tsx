@@ -228,9 +228,9 @@ export function LiquidScratchReveal({
 	const getBadgeText = () => {
 		switch (task.category) {
 			case 'spicy':
-				return '🌶️ SPICY 18+';
+				return '🔥 NỒNG NHIỆT';
 			case 'sensual':
-				return '🔥 SENSUAL';
+				return '✨ QUYẾN RŨ';
 			case 'service':
 				return '🎁 SERVICE';
 			case 'fun':
