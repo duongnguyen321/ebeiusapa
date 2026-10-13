@@ -394,7 +394,7 @@ export function EasterEggProvider({ children }: { children: React.ReactNode }) {
     checkAndSpawn();
 
     // Check every minute
-    const interval = setInterval(checkAndSpawn, 60 * 1000);
+    const interval = setInterval(checkAndSpawn, SPAWN_COOLDOWN_MS);
 
     return () => clearInterval(interval);
   }, [lastInteractionTime, isEggVisible, spawnEgg]);
